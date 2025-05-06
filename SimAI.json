@@ -437,8 +437,12 @@
       "obe_settings": null,
       "obe_comment": null,
       "obe_help": null,
-      "obe_class": "com.simplicite.webapp.services.RESTServiceExternalObject",
-      "obe_script_id": null,
+      "obe_class": null,
+      "obe_script_id": {
+       "path": "src/com/simplicite/extobjects/SimAI/SaiCreateModuleApi.java",
+       "mime": "text/plain",
+       "name": "SaiCreateModuleApi.java"
+      },
       "obe_icon": null,
       "obe_permalink": null,
       "obe_widget": null,
