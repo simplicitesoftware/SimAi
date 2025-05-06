@@ -1,0 +1,9 @@
+{
+    "date": "2025-05-06 16:36:20",
+    "name": "SimAI",
+    "format": "json",
+    "files": ["SimAI.json"],
+    "repository": {},
+    "version": "0.1",
+    "platform": "6.2.8"
+}
