@@ -58,6 +58,12 @@
 
 
 
+`SaiNewModuleFront` external object definition
+----------------------------------------------
+
+
+
+
 `SaiProcessResource` external object definition
 -----------------------------------------------
 

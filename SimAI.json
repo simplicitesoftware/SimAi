@@ -470,6 +470,25 @@
     },
     {
      "object": "ObjectExternal",
+     "userkey": "SaiNewModuleFront",
+     "item": {
+      "obe_name": "SaiNewModuleFront",
+      "obe_type": "E",
+      "obe_nature": "com_simplicite_webapp_web_JQueryWebPageExternalObject",
+      "obe_url": null,
+      "obe_settings": null,
+      "obe_comment": null,
+      "obe_help": null,
+      "obe_class": "com.simplicite.webapp.web.JQueryWebPageExternalObject",
+      "obe_script_id": null,
+      "obe_icon": null,
+      "obe_permalink": null,
+      "obe_widget": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ObjectExternal",
      "userkey": "SaiProcessResource",
      "item": {
       "obe_name": "SaiProcessResource",
@@ -1147,23 +1166,6 @@
    "list": [
     {
      "object": "Map",
-     "userkey": "AIDomain SaiProcessResource 1",
-     "item": {
-      "map_domain_id__obd_name": "AIDomain",
-      "map_object": {
-       "item": {"obe_name": "SaiProcessResource"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiProcessResource",
-       "object": "ObjectExternal"
-      },
-      "map_order": 1,
-      "map_ext": false,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "Map",
      "userkey": "SaiDomain SaiTestapi 100",
      "item": {
       "map_domain_id__obd_name": "SaiDomain",
@@ -1375,6 +1377,78 @@
        "path": "resources/ObjectExternal/SaiNewModuleExternal/CLASS.js",
        "mime": "text/javascript",
        "name": "SaiNewModuleExternal.js"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "SaiNewModuleFront * STYLES",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiNewModuleFront"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiNewModuleFront",
+       "object": "ObjectExternal"
+      },
+      "res_type": "CSS",
+      "res_lang": "ANY",
+      "res_code": "STYLES",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiNewModuleFront/STYLES.less",
+       "mime": "text/x-less",
+       "name": "SaiNewModuleFront.less"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "SaiNewModuleFront * HTML",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiNewModuleFront"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiNewModuleFront",
+       "object": "ObjectExternal"
+      },
+      "res_type": "HTML",
+      "res_lang": "ANY",
+      "res_code": "HTML",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiNewModuleFront/HTML.html",
+       "mime": "text/html",
+       "name": "SaiNewModuleFront.html"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "SaiNewModuleFront * CLASS",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiNewModuleFront"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiNewModuleFront",
+       "object": "ObjectExternal"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "CLASS",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiNewModuleFront/CLASS.js",
+       "mime": "text/javascript",
+       "name": "SaiNewModuleFront.js"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1845,6 +1919,42 @@
       "tsl_help": null,
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "SaiNewModuleFront English",
+     "item": {
+      "tsl_object": {
+       "item": {"obe_name": "SaiNewModuleFront"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiNewModuleFront",
+       "object": "ObjectExternal"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "New module front",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "SaiNewModuleFront French",
+     "item": {
+      "tsl_object": {
+       "item": {"obe_name": "SaiNewModuleFront"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiNewModuleFront",
+       "object": "ObjectExternal"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "New module front",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
   },
@@ -2193,8 +2303,51 @@
       "prm_value": null,
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_ADMIN SaiCreateModuleApi",
+     "item": {
+      "prm_group_id__grp_name": "SAI_ADMIN",
+      "prm_object": {
+       "item": {"obe_name": "SaiCreateModuleApi"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiCreateModuleApi",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
+  },
+  {
+   "object": "PermGroup",
+   "label": "Group permissions",
+   "icon": "img/system/state_transition_permission",
+   "field": "row_module_id",
+   "list": [{
+    "object": "PermGroup",
+    "userkey": "DESIGNER SAI_ADMIN SaiCreateModuleApi",
+    "item": {
+     "pmg_group_id__grp_name": "DESIGNER",
+     "pmg_perm_id__prm_group_id__grp_name": "SAI_ADMIN",
+     "pmg_perm_id__prm_object": {
+      "item": {"obe_name": "SaiCreateModuleApi"},
+      "icon": "img/system/external_object",
+      "label": "External object",
+      "userkeylabel": "SaiCreateModuleApi",
+      "object": "ObjectExternal"
+     },
+     "pmg_perm_id__prm_prop": null,
+     "row_module_id__mdl_name": "SimAI"
+    }
+   }]
   }
  ]
 }
