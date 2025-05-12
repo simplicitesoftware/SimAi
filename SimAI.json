@@ -474,12 +474,12 @@
      "item": {
       "obe_name": "SaiNewModuleFront",
       "obe_type": "E",
-      "obe_nature": "com_simplicite_webapp_web_JQueryWebPageExternalObject",
+      "obe_nature": "com_simplicite_webapp_web_ResponsiveExternalObject",
       "obe_url": null,
       "obe_settings": null,
       "obe_comment": null,
       "obe_help": null,
-      "obe_class": "com.simplicite.webapp.web.JQueryWebPageExternalObject",
+      "obe_class": "com.simplicite.webapp.web.ResponsiveExternalObject",
       "obe_script_id": null,
       "obe_icon": null,
       "obe_permalink": null,
@@ -1164,6 +1164,23 @@
    "icon": "img/system/main_menu",
    "field": "row_module_id",
    "list": [
+    {
+     "object": "Map",
+     "userkey": "SaiDomain SaiNewModuleFront 1",
+     "item": {
+      "map_domain_id__obd_name": "SaiDomain",
+      "map_object": {
+       "item": {"obe_name": "SaiNewModuleFront"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiNewModuleFront",
+       "object": "ObjectExternal"
+      },
+      "map_order": 1,
+      "map_ext": false,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
     {
      "object": "Map",
      "userkey": "SaiDomain SaiTestapi 100",
@@ -2338,6 +2355,26 @@
        "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiCreateModuleApi",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_ADMIN SaiNewModuleFront",
+     "item": {
+      "prm_group_id__grp_name": "SAI_ADMIN",
+      "prm_object": {
+       "item": {"obe_name": "SaiNewModuleFront"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
       },
       "prm_perm": true,
