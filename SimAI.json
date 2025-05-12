@@ -1240,6 +1240,30 @@
    "list": [
     {
      "object": "Resource",
+     "userkey": "default * SaiTools",
+     "item": {
+      "res_object": {
+       "item": {"dis_code": "default"},
+       "icon": "img/system/disposition",
+       "label": "Disposition",
+       "userkeylabel": "default",
+       "object": "Disposition"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "SaiTools",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/Disposition/default/SaiTools.js",
+       "mime": "text/javascript",
+       "name": "saitools.js"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
      "userkey": "SaiProcessResource * CHAT_BOT_CSS",
      "item": {
       "res_object": {
