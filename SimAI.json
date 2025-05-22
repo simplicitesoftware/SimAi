@@ -4,10 +4,10 @@
  "item": {
   "mdl_name": "SimAI",
   "mdl_prefix": "sai",
-  "mdl_version": "0.2",
+  "mdl_version": "0.3",
   "mdl_type": null,
   "mdl_icon": null,
-  "mdl_url": null,
+  "mdl_url": "{\n    \"origin\": {\"uri\": \"https://github.com/CBimont/SimAi.git\"},\n    \"type\": \"git\"\n}",
   "mdl_comment": null
  },
  "links": [
