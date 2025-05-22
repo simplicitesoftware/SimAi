@@ -2,8 +2,12 @@ var SaiTools = SaiTools || (function(param) {
 	const apiUrl = '/api/';
 	const endpointUrl = 'ext/SaiCreateModuleApi';
 	const user = 'AIUserAPI';
-	const password = 'Ec0Kj8Yb';
+	const password = '8yhzGBNYn@@U';
 	let token = '';
+	
+	async function setToken(t){
+		token=t;
+	}
 	
 	async function loginApi(){
 		const response = await fetch(apiUrl + "login", {
@@ -14,9 +18,13 @@ var SaiTools = SaiTools || (function(param) {
 			}
 		});
 		const data = await response.json();
+		console.log('loginApi response ',data);
 		this.token = data.authtoken;
+		console.log('token',this.token);
 	}
+	
 	async function callApi(data = {}){
+		console.log('token',this.token);
 		const response = await fetch(apiUrl + endpointUrl, {
 			method: 'POST',
 			headers: {
@@ -30,7 +38,7 @@ var SaiTools = SaiTools || (function(param) {
 		return res;
 	}
 	async function getModuleInfo(data = {}){
-		const response = await fetch(this.apiUrl + this.endpointUrl + '?action=moduleInfo', {
+		const response = await fetch(apiUrl + endpointUrl + '?action=moduleInfo', {
 			method: 'GET',
 			headers: {
 				'accept': 'application/json',
@@ -41,7 +49,7 @@ var SaiTools = SaiTools || (function(param) {
 		return res;
 	}
 	async function getRedirectScope(data = {}){
-		const response = await fetch(this.apiUrl + this.endpointUrl + '?action=getRedirectScope', {
+		const response = await fetch(apiUrl + endpointUrl + '?action=getRedirectScope', {
 			method: 'GET',
 			headers: {
 				'accept': 'application/json',
@@ -51,8 +59,42 @@ var SaiTools = SaiTools || (function(param) {
 		const res = await response.json();
 		return res;
 	}
+	async function isPostClearCache(){
+		const response = await fetch(apiUrl + endpointUrl + '?action=isPostClearCache', {
+			method: 'GET',
+			headers: {
+				'accept': 'application/json',
+				'Authorization': `Bearer ${this.token}`
+			}
+		});
+		const res = await response.json();
+		return res.isPostClearCache;
+	}
+	async function getHistoric(ctn){
+		let historic = [];
+		$(ctn).find(".user-messages").each(function() {
+			let text ={};
+			text.role = "user";
+			let contents =[];
+			let content = {"type":"text","text":$(this).find(".msg").text()};
+			contents.push(content);
+			let img = $(this).find(".ai-chat-img");
+			if(img.length >0){
+				content = {"type":"image_url","image_url":{"url":img.attr("src")}};
+				contents.push(content);
+			}
+			text.content = contents;
+			historic.push(JSON.stringify(text));
+			text={};
+			text.role = "assistant";
+			text.content = $(this).next(".bot-messages").find(".msg").text();
+			historic.push(JSON.stringify(text));
+			
+		});
+		return historic;
+	}
 	async function logoutApi() {
-		const response = await fetch(this.apiUrl + "logout", {
+		const response = await fetch(apiUrl + "logout", {
 			method: 'GET',
 			headers: {
 				'accept': 'application/json',
@@ -67,6 +109,9 @@ var SaiTools = SaiTools || (function(param) {
 		callApi,
 		getModuleInfo,
 		getRedirectScope,
-		logoutApi
-	}
+		logoutApi,
+		getHistoric,
+		isPostClearCache,
+		setToken
+	};
 })();
