@@ -110,6 +110,21 @@
    ]
   },
   {
+   "object": "Profile",
+   "label": "Profiles",
+   "icon": "img/system/profile",
+   "field": "row_module_id",
+   "list": [{
+    "object": "Profile",
+    "userkey": "SAI_CREATE_MODULE~SAI_CLEAR_CACHE",
+    "item": {
+     "prf_profile_id__grp_name": "SAI_CREATE_MODULE",
+     "prf_group_id__grp_name": "SAI_CLEAR_CACHE",
+     "row_module_id__mdl_name": "SimAI"
+    }
+   }]
+  },
+  {
    "object": "FieldList",
    "label": "List of values",
    "icon": "img/system/list_of_values",
@@ -1690,6 +1705,26 @@
      }
     }
    ]
+  },
+  {
+   "object": "Script",
+   "label": "Shared code",
+   "icon": "img/system/shared_code",
+   "field": "row_module_id",
+   "list": [{
+    "object": "Script",
+    "userkey": "createAiUser",
+    "item": {
+     "scr_code": "createAiUser",
+     "scr_file": {
+      "path": "test/src/com/simplicite/tests/SimAI/createAiUser.java",
+      "mime": "text/plain",
+      "name": "createAiUser.java"
+     },
+     "scr_type": "TST",
+     "row_module_id__mdl_name": "SimAI"
+    }
+   }]
   },
   {
    "object": "TranslateField",
