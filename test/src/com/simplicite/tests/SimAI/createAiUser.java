@@ -23,6 +23,7 @@ public class createAiUser {
 			String usrName = System.getenv("usrName");
 			String usrPassword = System.getenv("password");
 			Grant g = Grant.getSystemAdmin();
+			boolean[] old = g.changeAccess("SimpleUser",true,true,true,false);
 			ObjectDB o = g.getTmpObject("SimpleUser");
 			BusinessObjectTool t = o.getTool();
 			t.getForCreate();
@@ -30,7 +31,8 @@ public class createAiUser {
 			o.setFieldValue("usr_active",GrantCore.USER_ACTIVE);
 			t.validateAndCreate();
 			Grant.addResponsibility(Grant.getUserId(usrName),"SAI_CREATE_MODULE");
-			
+			g.changePassword(usrName,usrPassword,false,false);
+			g.changeAccess("SimpleUser",old);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

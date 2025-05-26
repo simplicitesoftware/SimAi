@@ -875,6 +875,222 @@
     },
     {
      "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~deleteLogs~AppLogger~SYS_CLEAR_LOGS",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "deleteLogs",
+      "grt_function_id__fct_object_id__obo_name": "AppLogger",
+      "grt_function_id__fct_action_id__act_name": "SYS_CLEAR_LOGS",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~AppLoggerMem-CleanExportDir~AppLoggerMemory~SYS_CLEAR_EXPORTDIR",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "AppLoggerMem-CleanExportDir",
+      "grt_function_id__fct_object_id__obo_name": "AppLoggerMemory",
+      "grt_function_id__fct_action_id__act_name": "SYS_CLEAR_EXPORTDIR",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~AppLoggerMem-CleanRecBin~AppLoggerMemory~SYS_CLEAR_RECBIN",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "AppLoggerMem-CleanRecBin",
+      "grt_function_id__fct_object_id__obo_name": "AppLoggerMemory",
+      "grt_function_id__fct_action_id__act_name": "SYS_CLEAR_RECBIN",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~AppLoggerMem-CleanTempDir~AppLoggerMemory~SYS_CLEAR_TEMPDIR",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "AppLoggerMem-CleanTempDir",
+      "grt_function_id__fct_object_id__obo_name": "AppLoggerMemory",
+      "grt_function_id__fct_action_id__act_name": "SYS_CLEAR_TEMPDIR",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~AppLoggerMem-ClearCache~AppLoggerMemory~SYS_RESET_CACHE",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "AppLoggerMem-ClearCache",
+      "grt_function_id__fct_object_id__obo_name": "AppLoggerMemory",
+      "grt_function_id__fct_action_id__act_name": "SYS_RESET_CACHE",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~AppLoggerMemory-GC~AppLoggerMemory~SYS_FORCE_GC",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "AppLoggerMemory-GC",
+      "grt_function_id__fct_object_id__obo_name": "AppLoggerMemory",
+      "grt_function_id__fct_action_id__act_name": "SYS_FORCE_GC",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~LogCacheMemory~AppLoggerMemory~LogCacheMemory",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "LogCacheMemory",
+      "grt_function_id__fct_object_id__obo_name": "AppLoggerMemory",
+      "grt_function_id__fct_action_id__act_name": "LogCacheMemory",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~CacheInfo-calculate~CacheInfo~CacheInfo-calculate",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "CacheInfo-calculate",
+      "grt_function_id__fct_object_id__obo_name": "CacheInfo",
+      "grt_function_id__fct_action_id__act_name": "CacheInfo-calculate",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~CacheInfo-R~CacheInfo~",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "CacheInfo-R",
+      "grt_function_id__fct_object_id__obo_name": "CacheInfo",
+      "grt_function_id__fct_action_id__act_name": null,
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~CronTable-CheckCC~CronTable~CheckClearCache",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "CronTable-CheckCC",
+      "grt_function_id__fct_object_id__obo_name": "CronTable",
+      "grt_function_id__fct_action_id__act_name": "CheckClearCache",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~Session-Prune~Session~Session-Prune",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "Session-Prune",
+      "grt_function_id__fct_object_id__obo_name": "Session",
+      "grt_function_id__fct_action_id__act_name": "Session-Prune",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~Session-RD~Session~",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "Session-RD",
+      "grt_function_id__fct_object_id__obo_name": "Session",
+      "grt_function_id__fct_action_id__act_name": null,
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~SYS_CACHE~SystemParam~SYS_CACHE",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "SYS_CACHE",
+      "grt_function_id__fct_object_id__obo_name": "SystemParam",
+      "grt_function_id__fct_action_id__act_name": "SYS_CACHE",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~ClearSessions~UserSession~ClearSessions",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "ClearSessions",
+      "grt_function_id__fct_object_id__obo_name": "UserSession",
+      "grt_function_id__fct_action_id__act_name": "ClearSessions",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~InvalidateExpiredSessions~UserSession~InvalidateExpiredSessions",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "InvalidateExpiredSessions",
+      "grt_function_id__fct_object_id__obo_name": "UserSession",
+      "grt_function_id__fct_action_id__act_name": "InvalidateExpiredSessions",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~InvalidateSession~UserSession~InvalidateSession",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "InvalidateSession",
+      "grt_function_id__fct_object_id__obo_name": "UserSession",
+      "grt_function_id__fct_action_id__act_name": "InvalidateSession",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~InvalidateSessions~UserSession~InvalidateSessions",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "InvalidateSessions",
+      "grt_function_id__fct_object_id__obo_name": "UserSession",
+      "grt_function_id__fct_action_id__act_name": "InvalidateSessions",
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CLEAR_CACHE~UserSession-R~UserSession~",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "grt_function_id__fct_name": "UserSession-R",
+      "grt_function_id__fct_object_id__obo_name": "UserSession",
+      "grt_function_id__fct_action_id__act_name": null,
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
      "userkey": "SAI_CREATE_MODULE~AI_PRV_R~AIProvider~",
      "item": {
       "grt_group_id__grp_name": "SAI_CREATE_MODULE",
@@ -2592,6 +2808,86 @@
        "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_CLEAR_CACHE~ObjectExternal(Monitoring)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "prm_object": {
+       "item": {"obe_name": "Monitoring"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "Monitoring",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_CLEAR_CACHE~ObjectExternal(SystemInfo)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "prm_object": {
+       "item": {"obe_name": "SystemInfo"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SystemInfo",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_CLEAR_CACHE~ObjectExternal(SystemCache)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "prm_object": {
+       "item": {"obe_name": "SystemCache"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SystemCache",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_CLEAR_CACHE~ObjectExternal(SystemAddField)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_CLEAR_CACHE",
+      "prm_object": {
+       "item": {"obe_name": "SystemAddField"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SystemAddField",
        "object": "ObjectExternal"
       },
       "prm_perm": true,
