@@ -1,7 +1,7 @@
 var SaiTools = SaiTools || (function(param) {
 	const apiUrl = '/api/';
 	const endpointUrl = 'ext/SaiCreateModuleApi';
-	const user = 'AIUserAPI';
+	const user = $grant.login;
 	const password = '8yhzGBNYn@@U';
 	let token = '';
 	
@@ -34,8 +34,10 @@ var SaiTools = SaiTools || (function(param) {
 			},
 			body: JSON.stringify(data)
 		});
-		const res = await response.json();
-		return res;
+		const res = await response;
+		if(res.status == 200)
+			return res.json();
+		return;
 	}
 	async function getModuleInfo(data = {}){
 		const response = await fetch(apiUrl + endpointUrl + '?action=moduleInfo', {
