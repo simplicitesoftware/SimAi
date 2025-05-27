@@ -244,181 +244,185 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 
 		let res;
 		if(testWithoutAiCall){
+			let info = await SaiTools.getModuleInfo();
+			let prefix = info.mPrefix?.toLowerCase();
+			let upperPrefix = String(prefix).charAt(0).toUpperCase() + String(prefix).slice(1);
+			console.log(prefix,upperPrefix);
 			res ={
-				"Tes1Product": [
+				[upperPrefix+'Product']: [
 				{
-				"tes1ProPrice": 19.99,
-				"tes1ProId": 1,
-				"tes1ProName": "Product 1",
-				"tes1ProStock_count": 100,
+				[prefix+'ProPrice']: 19.99,
+				[prefix+'ProId']: 1,
+				[prefix+'ProName']: "Product 1",
+				[prefix+'ProStock_count']: 100,
 				"id": "",
-				"tes1ProDescription": "This is product 1"
+				[prefix+'ProDescription']: "This is product 1"
 				},
 				{
-				"tes1ProPrice": 29.99,
-				"tes1ProId": 2,
-				"tes1ProName": "Product 2",
-				"tes1ProStock_count": 200,
+				[prefix+'ProPrice']: 29.99,
+				[prefix+'ProId']: 2,
+				[prefix+'ProName']: "Product 2",
+				[prefix+'ProStock_count']: 200,
 				"id": "",
-				"tes1ProDescription": "This is product 2"
+				[prefix+'ProDescription']: "This is product 2"
 				},
 				{
-				"tes1ProPrice": 39.99,
-				"tes1ProId": 3,
-				"tes1ProName": "Product 3",
-				"tes1ProStock_count": 300,
+				[prefix+'ProPrice']: 39.99,
+				[prefix+'ProId']: 3,
+				[prefix+'ProName']: "Product 3",
+				[prefix+'ProStock_count']: 300,
 				"id": "",
-				"tes1ProDescription": "This is product 3"
+				[prefix+'ProDescription']: "This is product 3"
 				},
 				{
-				"tes1ProPrice": 49.99,
-				"tes1ProId": 4,
-				"tes1ProName": "Product 4",
-				"tes1ProStock_count": 400,
+				[prefix+'ProPrice']: 49.99,
+				[prefix+'ProId']: 4,
+				[prefix+'ProName']: "Product 4",
+				[prefix+'ProStock_count']: 400,
 				"id": "",
-				"tes1ProDescription": "This is product 4"
+				[prefix+'ProDescription']: "This is product 4"
 				},
 				{
-				"tes1ProPrice": 59.99,
-				"tes1ProId": 5,
-				"tes1ProName": "Product 5",
-				"tes1ProStock_count": 500,
+				[prefix+'ProPrice']: 59.99,
+				[prefix+'ProId']: 5,
+				[prefix+'ProName']: "Product 5",
+				[prefix+'ProStock_count']: 500,
 				"id": "",
-				"tes1ProDescription": "This is product 5"
+				[prefix+'ProDescription']: "This is product 5"
 				}
 				],
-				"Tes1User": [
+				[upperPrefix+'User']: [
 				{
-				"tes1UsrPassword": "password1",
-				"tes1UsrAddress": "Address 1",
-				"tes1UsrId": 1,
-				"tes1UsrUsername": "user1",
+				[prefix+'UsrPassword']: "password1",
+				[prefix+'UsrAddress']: "Address 1",
+				[prefix+'UsrId']: 1,
+				[prefix+'UsrUsername']: "user1",
 				"id": "",
-				"tes1UsrEmail": "user1@example.com"
+				[prefix+'UsrEmail']: "user1@example.com"
 				},
 				{
-				"tes1UsrPassword": "password2",
-				"tes1UsrAddress": "Address 2",
-				"tes1UsrId": 2,
-				"tes1UsrUsername": "user2",
+				[prefix+'UsrPassword']: "password2",
+				[prefix+'UsrAddress']: "Address 2",
+				[prefix+'UsrId']: 2,
+				[prefix+'UsrUsername']: "user2",
 				"id": "",
-				"tes1UsrEmail": "user2@example.com"
+				[prefix+'UsrEmail']: "user2@example.com"
 				},
 				{
-				"tes1UsrPassword": "password3",
-				"tes1UsrAddress": "Address 3",
-				"tes1UsrId": 3,
-				"tes1UsrUsername": "user3",
+				[prefix+'UsrPassword']: "password3",
+				[prefix+'UsrAddress']: "Address 3",
+				[prefix+'UsrId']: 3,
+				[prefix+'UsrUsername']: "user3",
 				"id": "",
-				"tes1UsrEmail": "user3@example.com"
+				[prefix+'UsrEmail']: "user3@example.com"
 				},
 				{
-				"tes1UsrPassword": "password4",
-				"tes1UsrAddress": "Address 4",
-				"tes1UsrId": 4,
-				"tes1UsrUsername": "user4",
+				[prefix+'UsrPassword']: "password4",
+				[prefix+'UsrAddress']: "Address 4",
+				[prefix+'UsrId']: 4,
+				[prefix+'UsrUsername']: "user4",
 				"id": "",
-				"tes1UsrEmail": "user4@example.com"
+				[prefix+'UsrEmail']: "user4@example.com"
 				},
 				{
-				"tes1UsrPassword": "password5",
-				"tes1UsrAddress": "Address 5",
-				"tes1UsrId": 5,
-				"tes1UsrUsername": "user5",
+				[prefix+'UsrPassword']: "password5",
+				[prefix+'UsrAddress']: "Address 5",
+				[prefix+'UsrId']: 5,
+				[prefix+'UsrUsername']: "user5",
 				"id": "",
-				"tes1UsrEmail": "user5@example.com"
+				[prefix+'UsrEmail']: "user5@example.com"
 				}
 				],
-				"Tes1Order": [
+				[upperPrefix+'Order']: [
 				{
-				"tes1OrdTotal_amount": 99.99,
-				"tes1OrdStatus": "P",
-				"tes1OrdEr_date": "2022-01-01 12:00:00",
+				[prefix+'OrdTotal_amount']: 99.99,
+				[prefix+'OrdStatus']: "P",
+				[prefix+'OrdEr_date']: "2022-01-01 12:00:00",
 				"link": {
-				"Tes1User": "1"
+				[upperPrefix+'User']: "1"
 				},
 				"id": "",
-				"tes1OrdId": 1,
-				"tes1OrdUser_id": 1
+				[prefix+'OrdId']: 1,
+				[prefix+'OrdUser_id']: 1
 				},
 				{
-				"tes1OrdTotal_amount": 199.99,
-				"tes1OrdStatus": "S",
-				"tes1OrdEr_date": "2022-02-01 12:00:00",
+				[prefix+'OrdTotal_amount']: 199.99,
+				[prefix+'OrdStatus']: "S",
+				[prefix+'OrdEr_date']: "2022-02-01 12:00:00",
 				"link": {
-				"Tes1User": "2"
+				[upperPrefix+'User']: "2"
 				},
 				"id": "",
-				"tes1OrdId": 2,
-				"tes1OrdUser_id": 2
+				[prefix+'OrdId']: 2,
+				[prefix+'OrdUser_id']: 2
 				},
 				{
-				"tes1OrdTotal_amount": 299.99,
-				"tes1OrdStatus": "C",
-				"tes1OrdEr_date": "2022-03-01 12:00:00",
+				[prefix+'OrdTotal_amount']: 299.99,
+				[prefix+'OrdStatus']: "C",
+				[prefix+'OrdEr_date']: "2022-03-01 12:00:00",
 				"link": {
-				"Tes1User": "3"
+				[upperPrefix+'User']: "3"
 				},
 				"id": "",
-				"tes1OrdId": 3,
-				"tes1OrdUser_id": 3
+				[prefix+'OrdId']: 3,
+				[prefix+'OrdUser_id']: 3
 				},
 				{
-				"tes1OrdTotal_amount": 399.99,
-				"tes1OrdStatus": "P",
-				"tes1OrdEr_date": "2022-04-01 12:00:00",
+				[prefix+'OrdTotal_amount']: 399.99,
+				[prefix+'OrdStatus']: "P",
+				[prefix+'OrdEr_date']: "2022-04-01 12:00:00",
 				"link": {
-				"Tes1User": "4"
+				[upperPrefix+'User']: "4"
 				},
 				"id": "",
-				"tes1OrdId": 4,
-				"tes1OrdUser_id": 4
+				[prefix+'OrdId']: 4,
+				[prefix+'OrdUser_id']: 4
 				},
 				{
-				"tes1OrdTotal_amount": 499.99,
-				"tes1OrdStatus": "S",
-				"tes1OrdEr_date": "2022-05-01 12:00:00",
+				[prefix+'OrdTotal_amount']: 499.99,
+				[prefix+'OrdStatus']: "S",
+				[prefix+'OrdEr_date']: "2022-05-01 12:00:00",
 				"link": {
-				"Tes1User": "5"
+				[upperPrefix+'User']: "5"
 				},
 				"id": "",
-				"tes1OrdId": 5,
-				"tes1OrdUser_id": 5
+				[prefix+'OrdId']: 5,
+				[prefix+'OrdUser_id']: 5
 				}
 				],
-				"Tes1OrdPro": [
+				[upperPrefix+'OrdPro']: [
 				{
 				"link": {
-				"Tes1Product": "1",
-				"Tes1Order": "1"
+				[upperPrefix+'Product']: "1",
+				[upperPrefix+'Order']: "1"
 				},
 				"id": ""
 				},
 				{
 				"link": {
-				"Tes1Product": "2",
-				"Tes1Order": "2"
+				[upperPrefix+'Product']: "2",
+				[upperPrefix+'Order']: "2"
 				},
 				"id": ""
 				},
 				{
 				"link": {
-				"Tes1Product": "3",
-				"Tes1Order": "3"
+				[upperPrefix+'Product']: "3",
+				[upperPrefix+'Order']: "3"
 				},
 				"id": ""
 				},
 				{
 				"link": {
-				"Tes1Product": "4",
-				"Tes1Order": "4"
+				[upperPrefix+'Product']: "4",
+				[upperPrefix+'Order']: "4"
 				},
 				"id": ""
 				},
 				{
 				"link": {
-				"Tes1Product": "5",
-				"Tes1Order": "5"
+				[upperPrefix+'Product']: "5",
+				[upperPrefix+'Order']: "5"
 				},
 				"id": ""
 				}
