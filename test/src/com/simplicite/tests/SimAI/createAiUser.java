@@ -19,7 +19,6 @@ import static org.junit.Assert.fail;
 public class createAiUser {
 	@Test
 	public void test() {
-		AppLog.info("_________________________________________________createAiUser_____________________________________________________________________");
 		try {
 			String usrName = System.getenv("usrName");
 			String usrPassword = System.getenv("password");

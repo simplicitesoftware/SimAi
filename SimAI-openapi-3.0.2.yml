@@ -74,6 +74,30 @@ components:
           type: integer
           enum:
           - 400
+    SaiInstance:
+      description: Instance
+      type: object
+      properties:
+        saiInstanceStatus:
+          description: Status
+          type: string
+          maxLength: 100
+          enum:
+          - UP
+          - DOWN
+          - DELETE
+        saiInstanceName:
+          description: name
+          type: string
+          maxLength: 100
+        row_id:
+          description: Unique technical row ID
+          type: string
+          maxLength: 11
+        saiInstanceUrl:
+          description: url
+          type: string
+          maxLength: 100
     Error401:
       description: Unauthorized
       type: object
@@ -110,6 +134,11 @@ components:
         name:
           description: Name
           type: string
+    ArrayOfSaiInstance:
+      description: List of Instances
+      type: array
+      items:
+        $ref: '#/components/schemas/SaiInstance'
     Error403:
       description: Forbidden
       type: object
@@ -184,6 +213,270 @@ paths:
                 $ref: '#/components/schemas/Error401'
       tags:
       - session
+  /rest/SaiInstance:
+    get:
+      summary: Search SaiInstance business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      operationId: obj-saiinstance-search
+      responses:
+        '200':
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfSaiInstance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: boolean
+        in: query
+        name: _metadata
+        description: Metadata?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _count
+        description: Count?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _doc
+        description: Documentation?
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: saiInstanceName
+        description: Search filter for name
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: saiInstanceUrl
+        description: Search filter for url
+        required: false
+      - schema:
+          type: string
+          enum:
+          - UP
+          - DOWN
+          - DELETE
+        in: query
+        name: saiInstanceStatus
+        description: Search filter for Status
+        required: false
+      tags:
+      - SaiInstance
+  /rest/SaiInstance/{row_id}:
+    post:
+      summary: Create a new SaiInstance business object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaiInstance'
+      operationId: obj-saiinstance-create
+      responses:
+        '200':
+          description: Success in creating a new business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaiInstance'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - SaiInstance
+    get:
+      summary: Get a SaiInstance business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-saiinstance-get
+      responses:
+        '200':
+          description: Success in getting a single business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaiInstance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_documents
+        description: Inline documents?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: _inline_objects
+        description: Inline objects?
+        required: false
+      tags:
+      - SaiInstance
+    delete:
+      summary: Delete a SaiInstance business object record
+      security:
+      - bearerAuth: []
+      operationId: obj-saiinstance-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+          content:
+            application/json: {}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - SaiInstance
+    put:
+      summary: Update a SaiInstance business object record
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaiInstance'
+      operationId: obj-saiinstance-update
+      responses:
+        '200':
+          description: Success in updating a business object record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaiInstance'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - SaiInstance
   /:
     get:
       summary: Get user session information
@@ -221,3 +514,6 @@ info:
   description: API for module SimAI
   title: SimAI
   version: '0.3'
+tags:
+- name: SaiInstance
+  description: Instance

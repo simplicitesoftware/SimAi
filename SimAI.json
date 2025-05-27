@@ -65,7 +65,7 @@
      "mod_doc": {
       "path": "files/Model/Model-SaiCreateInstance.svg",
       "mime": "image/svg+xml",
-      "name": "model.svg"
+      "name": "Model-SaiCreateInstance.svg"
      },
      "mod_image": {
       "path": "files/Model/Model-SaiCreateInstance.png",
@@ -1667,7 +1667,7 @@
       "res_file": {
        "path": "resources/Disposition/default/SaiTools.js",
        "mime": "text/javascript",
-       "name": "saitools.js"
+       "name": "SaiTools.js"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1691,7 +1691,7 @@
       "res_file": {
        "path": "resources/ObjectExternal/SaiNewModuleExternal/STYLES.less",
        "mime": "text/x-less",
-       "name": "SaiNewModuleExternal.less"
+       "name": "STYLES.less"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1715,7 +1715,7 @@
       "res_file": {
        "path": "resources/ObjectExternal/SaiNewModuleExternal/HTML.html",
        "mime": "text/html",
-       "name": "SaiNewModuleExternal.html"
+       "name": "HTML.html"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1739,7 +1739,7 @@
       "res_file": {
        "path": "resources/ObjectExternal/SaiNewModuleExternal/CLASS.js",
        "mime": "text/javascript",
-       "name": "SaiNewModuleExternal.js"
+       "name": "CLASS.js"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1763,7 +1763,7 @@
       "res_file": {
        "path": "resources/ObjectExternal/SaiNewModuleFront/STYLES.less",
        "mime": "text/x-less",
-       "name": "SaiNewModuleFront.less"
+       "name": "STYLES.less"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1787,7 +1787,7 @@
       "res_file": {
        "path": "resources/ObjectExternal/SaiNewModuleFront/HTML.html",
        "mime": "text/html",
-       "name": "SaiNewModuleFront.html"
+       "name": "HTML.html"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1811,7 +1811,7 @@
       "res_file": {
        "path": "resources/ObjectExternal/SaiNewModuleFront/CLASS.js",
        "mime": "text/javascript",
-       "name": "SaiNewModuleFront.js"
+       "name": "CLASS.js"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1907,7 +1907,7 @@
       "res_file": {
        "path": "resources/ObjectInternal/SaiInstance/STYLES.less",
        "mime": "text/x-less",
-       "name": "styles.less"
+       "name": "STYLES.less"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1931,7 +1931,7 @@
       "res_file": {
        "path": "resources/ObjectInternal/SaiInstance/CLASS.js",
        "mime": "text/javascript",
-       "name": "class.js"
+       "name": "CLASS.js"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -2499,6 +2499,44 @@
    "list": [
     {
      "object": "TranslateActivity",
+     "userkey": "BPMActivity(SaiCreateInstance sic-END)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {
+        "acy_process_id__pcs_name": "SaiCreateInstance",
+        "acy_step": "sic-END"
+       },
+       "icon": "img/system/activity",
+       "label": "Activity",
+       "userkeylabel": "SaiCreateInstance sic-END",
+       "object": "BPMActivity"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "End",
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateActivity",
+     "userkey": "BPMActivity(SaiCreateInstance sic-END)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {
+        "acy_process_id__pcs_name": "SaiCreateInstance",
+        "acy_step": "sic-END"
+       },
+       "icon": "img/system/activity",
+       "label": "Activity",
+       "userkeylabel": "SaiCreateInstance sic-END",
+       "object": "BPMActivity"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "End",
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateActivity",
      "userkey": "BPMActivity(SaiCreateInstance SCI_0050)~ENU",
      "item": {
       "tsl_object": {
@@ -2646,44 +2684,6 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Begin",
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateActivity",
-     "userkey": "BPMActivity(SaiCreateInstance sic-END)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {
-        "acy_process_id__pcs_name": "SaiCreateInstance",
-        "acy_step": "sic-END"
-       },
-       "icon": "img/system/activity",
-       "label": "Activity",
-       "userkeylabel": "SaiCreateInstance sic-END",
-       "object": "BPMActivity"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "End",
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateActivity",
-     "userkey": "BPMActivity(SaiCreateInstance sic-END)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {
-        "acy_process_id__pcs_name": "SaiCreateInstance",
-        "acy_step": "sic-END"
-       },
-       "icon": "img/system/activity",
-       "label": "Activity",
-       "userkeylabel": "SaiCreateInstance sic-END",
-       "object": "BPMActivity"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "End",
       "row_module_id__mdl_name": "SimAI"
      }
     }
