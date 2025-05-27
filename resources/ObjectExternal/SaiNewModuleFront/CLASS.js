@@ -31,7 +31,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 	}
 	getPage(app){
 		$grant.getParameter((parameter)=>{
-			if(!parameter || parameter == 'empty' || parameter?.value == "" || app.isJsonAndEmpty(parameter)){
+			if(!parameter || parameter == 'false' || parameter?.value == "" || app.isJsonAndEmpty(parameter)){
 				app.setModuleNameForm();
 			}
 			else{
