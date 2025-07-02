@@ -52,12 +52,6 @@
 
 
 
-`SaiNewModuleExternal` external object definition
--------------------------------------------------
-
-
-
-
 `SaiNewModuleFront` external object definition
 ----------------------------------------------
 

@@ -511,25 +511,6 @@
     },
     {
      "object": "ObjectExternal",
-     "userkey": "SaiNewModuleExternal",
-     "item": {
-      "obe_name": "SaiNewModuleExternal",
-      "obe_type": "E",
-      "obe_nature": "com_simplicite_webapp_web_JQueryWebPageExternalObject",
-      "obe_url": null,
-      "obe_settings": null,
-      "obe_comment": null,
-      "obe_help": null,
-      "obe_class": "com.simplicite.webapp.web.JQueryWebPageExternalObject",
-      "obe_script_id": null,
-      "obe_icon": null,
-      "obe_permalink": null,
-      "obe_widget": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "ObjectExternal",
      "userkey": "SaiNewModuleFront",
      "item": {
       "obe_name": "SaiNewModuleFront",
@@ -1675,78 +1656,6 @@
     },
     {
      "object": "Resource",
-     "userkey": "ObjectExternal(SaiNewModuleExternal)~ANY~STYLES",
-     "item": {
-      "res_object": {
-       "item": {"obe_name": "SaiNewModuleExternal"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiNewModuleExternal",
-       "object": "ObjectExternal"
-      },
-      "res_type": "CSS",
-      "res_lang": "ANY",
-      "res_code": "STYLES",
-      "res_cached": false,
-      "res_file": {
-       "path": "resources/ObjectExternal/SaiNewModuleExternal/STYLES.less",
-       "mime": "text/x-less",
-       "name": "STYLES.less"
-      },
-      "res_image": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "Resource",
-     "userkey": "ObjectExternal(SaiNewModuleExternal)~ANY~HTML",
-     "item": {
-      "res_object": {
-       "item": {"obe_name": "SaiNewModuleExternal"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiNewModuleExternal",
-       "object": "ObjectExternal"
-      },
-      "res_type": "HTML",
-      "res_lang": "ANY",
-      "res_code": "HTML",
-      "res_cached": false,
-      "res_file": {
-       "path": "resources/ObjectExternal/SaiNewModuleExternal/HTML.html",
-       "mime": "text/html",
-       "name": "HTML.html"
-      },
-      "res_image": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "Resource",
-     "userkey": "ObjectExternal(SaiNewModuleExternal)~ANY~CLASS",
-     "item": {
-      "res_object": {
-       "item": {"obe_name": "SaiNewModuleExternal"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiNewModuleExternal",
-       "object": "ObjectExternal"
-      },
-      "res_type": "JS",
-      "res_lang": "ANY",
-      "res_code": "CLASS",
-      "res_cached": false,
-      "res_file": {
-       "path": "resources/ObjectExternal/SaiNewModuleExternal/CLASS.js",
-       "mime": "text/javascript",
-       "name": "CLASS.js"
-      },
-      "res_image": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "Resource",
      "userkey": "ObjectExternal(SaiNewModuleFront)~ANY~STYLES",
      "item": {
       "res_object": {
@@ -2262,42 +2171,6 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Create module api",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateExternal",
-     "userkey": "ObjectExternal(SaiNewModuleExternal)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"obe_name": "SaiNewModuleExternal"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiNewModuleExternal",
-       "object": "ObjectExternal"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "New module external",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateExternal",
-     "userkey": "ObjectExternal(SaiNewModuleExternal)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"obe_name": "SaiNewModuleExternal"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiNewModuleExternal",
-       "object": "ObjectExternal"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "New module external",
       "tsl_plural_value": null,
       "tsl_help": null,
       "row_module_id__mdl_name": "SimAI"

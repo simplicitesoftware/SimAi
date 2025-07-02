@@ -10,21 +10,17 @@ import com.simplicite.util.tools.*;
 import com.simplicite.commons.AIBySimplicite.AIModel;
 import com.simplicite.commons.AIBySimplicite.AIData;
 import com.simplicite.commons.AIBySimplicite.AITools;
+import com.simplicite.util.annotations.RESTService;
+import com.simplicite.util.annotations.RESTServiceParam;
+import com.simplicite.util.annotations.RESTServiceOperation;
 /**
  * REST service external object SaiCreateModuleApi
  */
+@RESTService(title = "Custom REST API create module by AI", desc = "Custom REST API for create module by AI")
 public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServiceExternalObject {
 	private static final boolean testWithoutAiCall = false;
 	private static final long serialVersionUID = 1L;
-	private static final String REQUEST = "request";
-	private static final String RESPONSE = "response";
-	private static final String ERROR = "error";
 	private static final Grant sysAdmin = Grant.getSystemAdmin();
-	/*@Override
-	public void init(Parameters params) {
-		// if needed...
-	}*/
-
 	/**
 	 * GET method handler (returns bad request by default)
 	 * @param params Request parameters
@@ -33,12 +29,16 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	 */
 	@Override
 	public Object get(Parameters params) throws HTTPException {
-		AppLog.info("get debug "+getGrant().getLogin());
+		List<String> uriParts = params.getURIParts(getName());
+		// if get openApi shema
+		if (uriParts.get(0).startsWith("openapi"))
+			return getOpenAPISchema(uriParts.get(0));
+		
 		try {
-			String action = params.getParameter("action","");
+			String action = uriParts.isEmpty()?params.getParameter("action",""):uriParts.get(0);
 			switch(action){
 				case "getRedirectScope":
-					return getRedirectScope();
+					return getRedirectScope(uriParts.size()>1?uriParts.get(1):null);
 				case "moduleInfo":
 					return getModuleInfo();
 				case "isPostClearCache":
@@ -51,6 +51,13 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			return error(e);
 		}
 	}
+	private Object getOpenAPISchema(String name) {
+		if (name.endsWith(".yml") || name.endsWith(".yaml")) {
+			setYAMLMIMEType();
+			return JSONTool.getYAMLASCIILogo(null) + JSONTool.toYAML(openapi());
+		}
+		return openapi();
+	}
 
 	/**
 	 * POST method handler (returns bad request by default)
@@ -60,12 +67,18 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	 */
 	@Override
 	public Object post(Parameters params) throws HTTPException {
-		AppLog.info("post debug "+getGrant().getLogin());
+		AppLog.info("post debug "+getSettings().toString(1));
 		try {
 			JSONObject req = params.getJSONObject();
 			AppLog.info("post debug "+req.toString(1));
 			if (req!=null) {
 				String action = req.optString("action");
+				if(Tool.isEmpty(action)){
+					List<String> uriParts = params.getURIParts(getName());
+					if(!uriParts.isEmpty()){
+						action = uriParts.get(0);
+					}
+				}
 				AppLog.info("post debug "+action);
 				if(!Tool.isEmpty(action))sysAdmin.setUserSystemParam​("AI_DEDICATE_FRONT_STEP",action, false);
 				switch(action) { 
@@ -80,13 +93,13 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 					case "genObj":
 						return genObj(req);
 					case "genlinks":
-						return genLinks(req);
+						return genLinks();
 					case "initClearCache":
 						return initClearCache(req);
 					case "postClearCache":
-						return postClearCache(req);
+						return postClearCache();
 					case "genJsonData":
-						return genJsonData(req);
+						return genJsonData();
 					case "genDatas":
 						AppLog.info("genDatas debug "+req.toString(1));
 						return genDatas(req);
@@ -101,41 +114,62 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			return error(e);
 		}
 	}
-	private Object isPostClearCache() {
+	@RESTServiceOperation(method = "get", path = "/isPostClearCache", desc = "Check it's a reconnection after clear cache in creation process")
+	public Object isPostClearCache() {
 		Grant g = getGrant();
-		return new JSONObject().put("isPostClearCache", g.hasParameter("AI_AWAIT_CLEAR_CACHE"));
+		return new JSONObject().put("isPostClearCache", g.hasParameter("AI_AWAIT_CLEAR_CACHE")).put("isPostClearCache", g.hasParameter("AI_AWAIT_CLEAR_CACHE"));
 	}
-	private Object getRedirectScope() {
+	private String getCurrentModuleId() {
 		Grant g = getGrant();
-		ObjectDB obj = sysAdmin.getTmpObject("ViewHome");
 		String moduleParam = g.getUserSystemParam("AI_CURRENT_MODULE_GEN");
-		String mldid = new JSONObject(moduleParam).optString("moduleId");
-		synchronized(obj.getLock()){
-		obj.resetFilters();
-		obj.setFieldFilter("row_module_id", mldid);
-		List<String[]> search = obj.search();
-		if(search.isEmpty()){
-			return new JSONObject()
-				.put(ERROR, "No scope found");
-			}
-			String scope = search.get(0)[obj.getFieldIndex("viw_name")];
-			
-			return new JSONObject()
-				.put("redirect", "scope="+scope);
-			}
+		if(Tool.isEmpty(moduleParam)) return null;
+		return new JSONObject(moduleParam).optString("moduleId");
 	}
-	private Object genDatas(JSONObject req) {
-		AppLog.info("genDatas debug "+req.toString(1));
+
+	@RESTServiceOperation(method = "get", path = "/getRedirectScope/{module}", desc = "Get redirect scope for a module")
+	public Object getRedirectScope(@RESTServiceParam(name = "module",in="path", type = "string", desc = "Module name. Default is current creation module", required = false) String module) {
+		String mldid;
+		if(Tool.isEmpty(module)){
+			mldid = getCurrentModuleId();
+			if(Tool.isEmpty(mldid)) return error(404, "No current module creation");
+		}else{
+			mldid = ModuleDB.getModuleId(module);
+		}
+		if(Tool.isEmpty(mldid)) return error(404,"Module not found");
+		String scope = getScopeByModuleId(mldid);
+		if(Tool.isEmpty(scope)) return error(404,"No scope found");
+		return new JSONObject()
+			.put("redirect", "scope="+scope);
+		
+	}
+	private String getScopeByModuleId(String moduleId){
+		ObjectDB obj = sysAdmin.getTmpObject("ViewHome");
+		synchronized(obj.getLock()){
+			obj.resetFilters();
+			obj.setFieldFilter("row_module_id", moduleId);
+			List<String[]> search = obj.search();
+			if(search.isEmpty()){
+				return null;
+			}
+
+			return search.get(0)[obj.getFieldIndex("viw_name")];
+		}
+	}
+	@RESTServiceOperation(method = "post", path = "/genDatas", desc = "generate datas for a module")
+	public Object genDatas(@RESTServiceParam(name = "datas", type = "string", desc = "Datas: JSON string", required = true, in="body") String datas) {
 		Grant g = getGrant();
 		String moduleParam = g.getUserSystemParam("AI_CURRENT_MODULE_GEN");
 		AIModel.ModuleInfo mInfo = new AIModel.ModuleInfo(new JSONObject(moduleParam));
 		String moduleName =ModuleDB.getModuleName(mInfo.getModuleId());
-		String test = req.optString("datas");
-		JSONObject datas = new JSONObject(test);
-		if(Tool.isEmpty(datas)) return badRequest("No datas");
-		return new JSONObject().put("success", AIData.createDataFromJSON(moduleName,datas,g));
+		JSONObject JsonDatas = new JSONObject(datas);
+		if(Tool.isEmpty(JsonDatas)) return badRequest("No datas");
+		return new JSONObject().put("success", AIData.createDataFromJSON(moduleName,JsonDatas,g));
 	}
-	private Object genJsonData(JSONObject req) {
+	private Object genDatas(JSONObject req) {
+		return genDatas(req.optString("datas"));
+	}
+	@RESTServiceOperation(method = "post", path = "/genJsonData", desc = "generate json data for a module")
+	public Object genJsonData() {
 		Grant g = getGrant();
 		String moduleParam = g.getUserSystemParam("AI_CURRENT_MODULE_GEN");
 		AIModel.ModuleInfo mInfo = new AIModel.ModuleInfo(new JSONObject(moduleParam));
@@ -144,30 +178,39 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		JSONObject response = AIData.genDataForModule(moduleName,sysAdmin);
 		return  response.toString(1);
 	}
-	private Object postClearCache(JSONObject req) {
+
+	@RESTServiceOperation(method = "post", path = "/postClearCache", desc = "remove the clear cache flag")
+	public Object postClearCache() {
 		Grant g = getGrant();
 		String mermaidDesc = g.getUserSystemParam("AI_AWAIT_CLEAR_CACHE");
 		g.removeUserSystemParam​("AI_AWAIT_CLEAR_CACHE",true);
 		JSONObject res = getModuleInfo().put("mermaid", mermaidDesc);
 		return res;
 	}
-	private JSONObject getModuleInfo() {
+	@RESTServiceOperation(method = "get", path = "/moduleInfo", desc = "Get info of current creation module")
+	public JSONObject getModuleInfo() {
 		Grant g = getGrant();
 		String moduleParam= g.getUserSystemParam("AI_CURRENT_MODULE_GEN");
 		JSONObject moduleInfo = new JSONObject(moduleParam);
 		return moduleInfo;
 	}
-	private Object initClearCache(JSONObject req) {
+	@RESTServiceOperation(method = "post", path = "/initClearCache", desc = "setup the clear cache flag")
+	public Object initClearCache(@RESTServiceParam(name = "mermaidText", type = "string", desc = "Mermaid uml", required = true, in="body") String mermaidText) {
 		Grant g = getGrant();
 		g.removeUserSystemParam​("AI_JSON_TOGEN",false);
 		g.removeUserSystemParam​("AI_DATA_MAP_OBJECT",false);
-		String mermaidText= req.optString("mermaidText");
-		if(Tool.isEmpty(mermaidText)) return new JSONObject().put("error", "Invalid mermaidText");
-		g.setUserSystemParam​("AI_AWAIT_CLEAR_CACHE", mermaidText, true);
 		
+		if(Tool.isEmpty(mermaidText)) return error(400,"Invalid mermaidText");
+		g.setUserSystemParam​("AI_AWAIT_CLEAR_CACHE", mermaidText, true);
 		return new JSONObject().put("success", true);
 	}
-	private Object genLinks(JSONObject req) throws GetException, ValidateException, UpdateException{
+	
+	private Object initClearCache(JSONObject req) {
+		String mermaidText= req.optString("mermaidText");
+		return initClearCache(mermaidText);
+	}
+	@RESTServiceOperation(method = "post", path = "/genLinks", desc = "generate links for a module")
+	public Object genLinks() throws GetException, ValidateException, UpdateException{
 		Grant g = getGrant();
 		String datamapParam =g.getUserSystemParam("AI_DATA_MAP_OBJECT");
 		AIModel.DataMapObject dataMaps;
@@ -183,7 +226,8 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		JSONObject json = AITools.getValidJson(jsonString);
 		return new JSONObject().put("links",AIModel.createLinks(json.getJSONArray(AIModel.JSON_LINK_KEY),mInfo, dataMaps,true, sysAdmin));
 	}
-	private Object genObj(JSONObject req) throws GetException, ValidateException, SaveException{
+	@RESTServiceOperation(method = "post", path = "/genObj", desc = "generate an object for a module")
+	public Object genObj(@RESTServiceParam(name = "objName", type = "string", desc = "Object name", required = true, in="body") String objName) throws GetException, ValidateException, SaveException{
 		int fieldOrder = 100;
 		Grant g = getGrant();
 
@@ -198,7 +242,6 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		String jsonString = g.getUserSystemParam("AI_JSON_TOGEN");
 		JSONObject json = AITools.getValidJson(jsonString);
 		JSONObject classes = json.getJSONObject("classes");
-		String objName = req.getString("objName");
 		JSONObject jsonObj = classes.getJSONObject(objName);
 		int domainOrder = jsonObj.getInt("domainOrder");
 		String objPrefix=AIModel.getOboPrefix(jsonObj, objName);
@@ -214,10 +257,17 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		g.setUserSystemParam("AI_DATA_MAP_OBJECT", dataMaps.toJson().toString(1), true);
 		return new JSONObject().put("name", objName).put("fields",fields);
 	}
-	private Object prepareJson(JSONObject req) {
+	private Object genObj(JSONObject req) throws GetException, ValidateException, SaveException{
+		
+		String objName = req.getString("objName");
+		return genObj(objName);
+	}
+	@RESTServiceOperation(method = "post", path = "/prepareJson", desc = "prepare json for create object")
+	public Object prepareJson(
+		@RESTServiceParam(name = "json", type = "string", desc = "JSON string", required = true, in="body") String json,
+		@RESTServiceParam(name = "moduleInfo", type = "object", desc = "Module info: JSON Object", required = false, in="body") JSONObject info
+		) {
 		int domainOrder = 100;
-		String json = req.optString("json");
-		JSONObject info = req.optJSONObject("moduleInfo");
 		if(Tool.isEmpty(info)) info = getModuleInfo();
 		JSONObject jsonObjects = new JSONObject(json);
 		if(Tool.isEmpty(jsonObjects)) return new JSONObject().put("error", "Invalid json");
@@ -241,15 +291,24 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		getGrant().setUserSystemParam​("AI_JSON_TOGEN", jsonToGen.toString(1), true);
 		getGrant().setUserSystemParam​("AI_CURRENT_MODULE_GEN", info.toString(1), true);
 		return new JSONObject().put("objects", objects);
+	}
+	private Object prepareJson(JSONObject req) {
+		String json = req.optString("json");
+		JSONObject info = req.optJSONObject("moduleInfo");
+		return prepareJson(json, info);
 
 	}
 	private Object create(JSONObject req) {
 		String moduleName = req.getString("moduleName");
-		String login = req.has("login")?req.getString("login"):getGrant().getLogin();
+		return create(moduleName);
+	}
+	@RESTServiceOperation(method = "post", path = "/create", desc = "create a new module")
+	public Object create(
+		@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name", required = true, in="body") String moduleName
+		){
+		String login = getGrant().getLogin();
 		if (!Tool.isEmpty(ModuleDB.getModuleId(moduleName))) {
-			return new JSONObject()
-				.put(REQUEST, req)
-				.put(ERROR, "Module " + moduleName + " already exists!");
+			return error(400, "Module " + moduleName + " already exists!");
 		}
 		String prefix = moduleName.length() >= 3 ? moduleName.substring(0, 3) : moduleName;
 		ObjectDB obj = sysAdmin.getTmpObject("Module");
@@ -271,6 +330,21 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		getGrant().setUserSystemParam​("AI_CURRENT_MODULE_GEN", moduleInfo.toString(1), true);
 		return moduleInfo;
 	}
+	@RESTServiceOperation(method = "post", path = "/chat", desc = "chat with the AI")
+	public Object chat(
+		@RESTServiceParam(name = "prompt", type = "object", desc = "Prompt: string or JSON Object", required = true, in="body") String prompt,
+		@RESTServiceParam(name = "specialisation", type = "string", desc = "Specialisation default specialization for uml definition", required = false, in="body") String specialisation,
+		@RESTServiceParam(name = "historic", type = "array", desc = "Historic: JSON Array", required = false, in="body") JSONArray historic,
+		@RESTServiceParam(name = "providerParams", type = "object", desc = "Provider parameters: JSON Object", required = false, in="body") JSONObject providerParams
+		){
+			boolean isJsonPrompt = true;
+			
+			JSONArray jsonPrompt = optJSONArray(prompt);
+			if(Tool.isEmpty(jsonPrompt)){
+				isJsonPrompt = false;
+			}
+			return AITools.aiCaller(getGrant(), specialisation, historic, providerParams, isJsonPrompt ? jsonPrompt : prompt);
+	}
 	/**
 	 * Chat with the AI
 	 * @param req Request parameters
@@ -283,20 +357,13 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	private Object chat(JSONObject req) {
 		boolean isJsonPrompt = true;
 		String prompt = req.getString("prompt");
-		JSONArray jsonPrompt = optJSONArray(prompt);
-		if(Tool.isEmpty(jsonPrompt)){
-			isJsonPrompt = false;
-		}
 		int histDepth = AITools.getHistDepth();
-		JSONObject res;
 		String specialisation = req.optString("specialisation");
 		String historicString = req.optString("historic");
 		String providerParamsString = req.optString("providerParams");
-		AppLog.info(providerParamsString);
 		JSONArray historic = optHistoric(historicString, histDepth);
 		JSONObject providerParams = optJSONObject(providerParamsString);
-		res = AITools.aiCaller(getGrant(), specialisation, historic, providerParams, isJsonPrompt ? jsonPrompt : prompt);
-		return res;
+		return chat(prompt, specialisation, historic, providerParams);
 
 	}
 	private JSONArray optHistoric(String historicString, int histDepth){
@@ -327,10 +394,12 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			return new JSONObject();
 		}
 	}
-	private Object genJson(JSONObject req) {
-		String historicString = req.optString("historic");
+	@RESTServiceOperation(method = "post", path = "/genJson", desc = "generate a json module from a chat of design")
+	public Object genJson(
+		@RESTServiceParam(name = "historic", type = "array", desc = "Historic: JSON Array", required = true, in="body") String historicString
+		){
 		int histDepth = AITools.getHistDepth();
-		JSONArray historic = optHistoric(historicString, histDepth);
+		JSONArray historic = optHistoric(historicString, histDepth);	
 		byte[] template =getGrant().getExternalObject("AIProcessResource").getResourceContent(Resource.TYPE_OTHER,"CONTEXT_INTERACTION_PROMPT");
 		String result;
 		if(testWithoutAiCall){
@@ -559,11 +628,11 @@ Here is the given JSON template with the UML class diagram for the order applica
 This JSON template represents the UML class diagram for the order application, with the classes, their attributes, relationships, and enumerations defined. The relationships between classes indicate that a user has many orders (OneToMany), and each order contains many products (ManyToMany). The enumeration for the order status has values "Pending" (P), "Shipped" (S), and "Cancelled" (C) with corresponding colors orange, green, and red.
 				""";
 		}else{
-			JSONObject jsonResponse = AITools.aiCaller(getGrant(), "you help to create UML in json for application, your answers are automatically processed in java", template!=null?new String(template):"", historic,false,true);
+			JSONObject jsonResponse = AITools.aiCaller(getGrant(), AITools.SPECIALISATION_NEED_JSON, template!=null?new String(template):"", historic,false,true);
 			result = AITools.parseJsonResponse(jsonResponse);
 		}
 		List<String> listResult = new ArrayList<>();
-	
+		
 		JSONObject jsonres = AITools.getValidJson(result);
 		if(Tool.isEmpty(jsonres)){	
 			listResult = AITools.getJSONBlock(result,getGrant());
@@ -594,6 +663,10 @@ This JSON template represents the UML class diagram for the order application, w
 		jsonRes.put(listResult.get(1));
 		jsonRes.put(listResult.get(2));
 		return jsonRes;
+	}
+	private Object genJson(JSONObject req) {
+		String historicString = req.optString("historic");
+		return genJson(historicString);
 	}	
 
 }
