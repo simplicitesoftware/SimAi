@@ -31,12 +31,14 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	public Object get(Parameters params) throws HTTPException {
 		List<String> uriParts = params.getURIParts(getName());
 		// if get openApi shema
-		if (uriParts.get(0).startsWith("openapi"))
+		if (!Tool.isEmpty(uriParts) && uriParts.get(0).startsWith("openapi"))
 			return getOpenAPISchema(uriParts.get(0));
 		
 		try {
 			String action = uriParts.isEmpty()?params.getParameter("action",""):uriParts.get(0);
 			switch(action){
+				case "isModuleNameAvailable":
+					return isModuleNameAvailable(uriParts.size()>1?uriParts.get(1):null);
 				case "getRedirectScope":
 					return getRedirectScope(uriParts.size()>1?uriParts.get(1):null);
 				case "moduleInfo":
@@ -50,6 +52,11 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			AppLog.error(e,getGrant());
 			return error(e);
 		}
+	}
+	@RESTServiceOperation(method = "get", path = "/isModuleNameAvailable/{module}", desc = "Check if a module name is available")
+	public Object isModuleNameAvailable(@RESTServiceParam(name = "module",in="path", type = "string", desc = "Module name", required = false) String moduleName) {
+		if(Tool.isEmpty(moduleName)) return badRequest("Invalid module name");
+		return new JSONObject().put("available", Tool.isEmpty(ModuleDB.getModuleId(moduleName,false)));
 	}
 	private Object getOpenAPISchema(String name) {
 		if (name.endsWith(".yml") || name.endsWith(".yaml")) {
@@ -67,10 +74,8 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	 */
 	@Override
 	public Object post(Parameters params) throws HTTPException {
-		AppLog.info("post debug "+getSettings().toString(1));
 		try {
 			JSONObject req = params.getJSONObject();
-			AppLog.info("post debug "+req.toString(1));
 			if (req!=null) {
 				String action = req.optString("action");
 				if(Tool.isEmpty(action)){
@@ -79,7 +84,6 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 						action = uriParts.get(0);
 					}
 				}
-				AppLog.info("post debug "+action);
 				if(!Tool.isEmpty(action))sysAdmin.setUserSystemParam​("AI_DEDICATE_FRONT_STEP",action, false);
 				switch(action) { 
 					case "create":
@@ -101,7 +105,6 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 					case "genJsonData":
 						return genJsonData();
 					case "genDatas":
-						AppLog.info("genDatas debug "+req.toString(1));
 						return genDatas(req);
 					default:
 						return badRequest("Invalid action");
@@ -248,7 +251,6 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		AIModel.ModuleInfo mInfo = new AIModel.ModuleInfo(new JSONObject(g.getUserSystemParam("AI_CURRENT_MODULE_GEN")));
 		String oboId = AIModel.createObject(jsonObj, objName, objPrefix, domainOrder,mInfo, dataMaps, sysAdmin);
 		List<String> fields = new ArrayList<>();
-		AppLog.info("TEST has atribute "+jsonObj.toString(1));
 		if(jsonObj.has("attributes")){	
 			
 			fields.addAll(AIModel.parsefield(jsonObj, json, oboId, fieldOrder, mInfo, dataMaps, false, sysAdmin));
@@ -264,11 +266,9 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	}
 	@RESTServiceOperation(method = "post", path = "/prepareJson", desc = "prepare json for create object")
 	public Object prepareJson(
-		@RESTServiceParam(name = "json", type = "string", desc = "JSON string", required = true, in="body") String json,
-		@RESTServiceParam(name = "moduleInfo", type = "object", desc = "Module info: JSON Object", required = false, in="body") JSONObject info
+		@RESTServiceParam(name = "json", type = "string", desc = "JSON string", required = true, in="body") String json
 		) {
 		int domainOrder = 100;
-		if(Tool.isEmpty(info)) info = getModuleInfo();
 		JSONObject jsonObjects = new JSONObject(json);
 		if(Tool.isEmpty(jsonObjects)) return new JSONObject().put("error", "Invalid json");
 		List<String> objects = new ArrayList<>();
@@ -289,18 +289,17 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		}
 		jsonToGen.put("classes", classes);
 		getGrant().setUserSystemParam​("AI_JSON_TOGEN", jsonToGen.toString(1), true);
-		getGrant().setUserSystemParam​("AI_CURRENT_MODULE_GEN", info.toString(1), true);
 		return new JSONObject().put("objects", objects);
 	}
 	private Object prepareJson(JSONObject req) {
 		String json = req.optString("json");
-		JSONObject info = req.optJSONObject("moduleInfo");
-		return prepareJson(json, info);
+		return prepareJson(json);
 
 	}
 	private Object create(JSONObject req) {
 		String moduleName = req.getString("moduleName");
-		return create(moduleName);
+		JSONObject res = (JSONObject) create(moduleName);
+		return res;
 	}
 	@RESTServiceOperation(method = "post", path = "/create", desc = "create a new module")
 	public Object create(
@@ -324,9 +323,8 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			if(i>0)prefix = prefix + String.valueOf(i);
 		}
 		
-		AppLog.info("createModule debug "+login);
+		
 		JSONObject moduleInfo = AIModel.createModule(moduleName,prefix,login,sysAdmin);
-		AppLog.info("createModule debug "+moduleInfo.toString(1));
 		getGrant().setUserSystemParam​("AI_CURRENT_MODULE_GEN", moduleInfo.toString(1), true);
 		return moduleInfo;
 	}

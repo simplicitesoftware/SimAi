@@ -3,13 +3,10 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 
 	async render(params, data = {}) {
 		$('#menu').hide();
-		console.log('render');
 		$ui.loadAceEditor(() => {console.log('ace editor loaded');});
 		const app = this;
 		await $ui.loadScript({url: $ui.getApp().dispositionResourceURL("AiJsTools", "JS"),onload: function(){console.log('AiJsTools loaded');}});
 		$ui.loadScript({url: $ui.getApp().dispositionResourceURL("SaiTools", "JS"),onload: function(){ 
-			console.log('SaiTools loaded');
-
 			window.addEventListener('beforeunload', function() {
 				SaiTools.logoutApi();
 			});
@@ -32,12 +29,11 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 	getPage(app){
 		$grant.getParameter((parameter)=>{
 			if(!parameter || parameter == 'false' || parameter?.value == "" || app.isJsonAndEmpty(parameter)){
-				app.setModuleNameForm();
+				app.setChatInteraction();
 			}
 			else{
 				app.genData();
 			}
-			console.log('parameter',parameter);
 		},'AI_AWAIT_CLEAR_CACHE');
 	}
 	isJsonAndEmpty(parameter){
@@ -49,15 +45,32 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 			return false;
 		}
 	}
-	async setModuleNameForm(){
-		let ctn = $('#sainewmodulefront');
-		console.log(this);
-		$(ctn).append('<input type="text" id="moduleName" placeholder="Entrez le nom du module" />');
-		const createButton = $('<button id="createModule">Créer le module</button>');
-		createButton.on('click', () => this.createModule(this));
-		$(ctn).append(createButton);
+	// async setModuleNameForm(ctn = $('#sainewmodulefront')){
+	// 	let labelCtn = $('<label for="moduleName">Nom du module</label>');
+	// 	let inputCtn = $('<input type="text" id="moduleName" placeholder="Entrez le nom du module" />');
+	// 	inputCtn.on('change', async () => {
+	// 		let moduleName = $('#moduleName').val();
+	// 		let isAvailable = await SaiTools.isModuleNameAvailable(moduleName);
+	// 		if(!isAvailable){
+	// 			labelCtn.style.color = 'red';
+	// 			inputCtn.addClass('error');
+	// 			inputCtn.append('<span class="error-message">Le nom de module n\'est pas disponible</span>');
+	// 		}else{
+	// 			if(inputCtn.hasClass('error')){
+	// 				inputCtn.removeClass('error');
+	// 				labelCtn.style.color = 'black';
+	// 				inputCtn.find('.error-message').remove();
+	// 			}
+	// 		}
+	// 	});
+	// 	$(ctn).append(labelCtn);
+	// 	$(ctn).append(inputCtn);
+
+	// 	const createButton = $('<button id="createModule">Créer le module</button>');
+	// 	createButton.on('click', () => this.createModule(this,ctn));
+	// 	$(ctn).append(createButton);
 		
-	}
+	// }
 	async setChatInteraction(){
 		let ctn = $('#sainewmodulefront');
 		ctn.html('');
@@ -77,8 +90,9 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 		
 	}
 	async  setJsonValidation(onValidate,listResult){
-		console.log('setJsonValidation',listResult);
+	
 		let ctn = $('#sainewmodulefront');
+		
 		ctn.html('');
 		ctn.append('<div id="explainJson">'+listResult[0]+'</div>');
 		ctn.append('<div class="aceeditor" id="jsonEditor">'+listResult[1]+'</div>');
@@ -92,51 +106,41 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 		let buttonValidate = $('<button id="validateJson">Valider</button>');
 		buttonValidate.on('click', onValidate);
 		ctn.append(buttonValidate);
+		
 	
 	}
 	async sendMessage(){
 		let ctn = $('#sainewmodulefront');
 		if(testWithoutAiCall){
-			console.log('sendMessage inib test');
 			ctn.find('#chatContainer').append(AiJsTools.getDisplayUserMessage(ctn));
 			ctn.find('#chatContainer').append(AiJsTools.getDisplayBotMessage('Ai call inib for test purpose'));
 			ctn.find('#message').val('');
 			return ;
 		}
-		
-		console.log('sendMessage');
 		const message = $('#message').val();
-		
-		console.log(message);
 		let params = AiJsTools.getPostParams(ctn,AiJsTools.chatUmlSpecialisation);
-		console.log(params);
-		params.action = 'chat';
-		console.log('params',params);
 		ctn.find('#chatContainer').append(AiJsTools.getDisplayUserMessage(ctn));
 		ctn.find('#chatContainer').append(AiJsTools.getDisplayBotMessage());
 		ctn.find('#message').val('');
-		let res = await SaiTools.callApi(params);
+		let res = await SaiTools.callApi(params,'chat');
 		let response = $view.markdownToHTML(res?.choices[0]?.message?.content).html();
 		$(".bot-messages:last-child span").html(response);
-		console.log('responce ai ', res);
 		
 	}
 
-	async createModule(app){
+	async createModule(app,moduleName){
 		
-		const moduleName = $('#moduleName').val();
 		if(moduleName){
-			const moduleInfo = await SaiTools.callApi({action: 'create', login: $grant.getLogin(), moduleName: moduleName});
-			console.log(moduleInfo);
-			if(moduleInfo.error){
-				$ui.alert({title: 'Error', content: moduleInfo.error, type: 'error'});
+			let moduleInfo = await SaiTools.callApi({ login: $grant.getLogin(), moduleName: moduleName},'create');
+			if(!moduleInfo || moduleInfo?.error){
+				//$ui.alert({title: 'Error', content: moduleInfo?.error || 'Erreur lors de la création du module', type: 'error'});
+				return moduleInfo?.error || 'Erreur lors de la création du module';
 			}
-			else{
-				app.setChatInteraction();
-			}
+			return "";
 		}
 		else{
-			alert('Veuillez entrer un nom de module');
+			//alert('Veuillez entrer un nom de module');
+			return 'Veuillez entrer un nom de module';
 		}
 	}
 	async generateModule(app){
@@ -144,7 +148,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 		let params={};
 		if(testWithoutAiCall){
 			 params = {
-				"action": "genJson",
 				"historic": [
 					"{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"app de commande\"}]}",
 					"{\"role\":\"assistant\",\"content\":\"Designing a UML (Unified Modeling Language) class diagram for an \\\"app de commande\\\" (order application) involves creating a visual representation of the classes, their attributes, methods, and relationships in an object-oriented application.\\nHere's a sample UML class diagram for an order application without function (method) descriptions, focusing on the relationships between classes.\\nClass: User\\n\\nattributes:\\nid (integer)\\nusername (string)\\nemail (string)\\npassword (string)\\naddress (string)\\n\\n\\n\\nClass: Product\\n\\nattributes:\\nid (integer)\\nname (string)\\ndescription (string)\\nprice (float)\\nstock_count (integer)\\n\\n\\n\\nClass: Order\\n\\nattributes:\\nid (integer)\\nuser_id (integer)\\norder_date (date)\\ntotal_amount (float)\\nstatus (string)\\n\\n\\n\\nRelationships:\\n\\nUser -> Order (1:N, Composition, A User has many Orders)\\nOrder -> Product (N:M, Association, An Order contains many Products and a Product can be in many Orders)\\n\\n\\nattributes:\\nquantity (integer)\\ndiscount (float)\\n\\n\\n\\nNotes:\\n\\nThe \\\"User\\\" class represents the application's users, having attributes like id, username, email, and address.\\nThe \\\"Product\\\" class represents the products available in the application, with attributes like id, name, description, price, and stock_count.\\nThe \\\"Order\\\" class represents the orders placed by users, involving user_id, order_date, total_amount, and status.\\nThe relationships between classes depict that a user has many orders (1:N), and each order contains many products (N:M).\\nIn the N:M association between Order and Product, an attribute called \\\"quantity\\\" signifies the number of a specific product in an order, and \\\"discount\\\", if any, offered on the product for the specific order.\\n\\nThis UML design does not include function descriptions, focusing solely on the classes, their attributes, and relationships.\"}"
@@ -153,25 +156,65 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 		}else {
 			let ctn = $('#sainewmodulefront');
 			let historic = await SaiTools.getHistoric(ctn);
-			params = {action: 'genJson', historic: historic};
+			params = { historic: historic};
 		}
 		$view.showLoading();
-		let res = await SaiTools.callApi(params);
+		let res = await SaiTools.callApi(params,'genJson');
 		$view.hideLoading();
 		app.setJsonValidation(()=> app.prepareJson(app),res);
 		
 	}
 	async prepareJson(app){
-		let ctn = $('#sainewmodulefront');
 		const editor = window.ace.edit("jsonEditor");
 		
 		const jsonValue = editor.getValue();
 		try {
 			JSON.parse(jsonValue); // Tente de parser le JSON
 			//ctn.html('');
-			let res = await SaiTools.callApi({action: 'prepareJson', json: jsonValue});
-			console.log(res);
-			app.createObjs(app,res.objects);
+			let res = await SaiTools.callApi({json: jsonValue},'prepareJson');
+			let module = $('<input type="text" id="moduleName" />');
+			let label = $('<label for="moduleName">Nom du module</label>');
+			let formCtn = $('<div />');
+			formCtn.append(label);
+			formCtn.append(module);
+			formCtn.append('<img id="available-icon"/>');
+			module.on('change', async () => {
+				let moduleName = $('#moduleName').val();
+				let isAvailable = await SaiTools.isModuleNameAvailable(moduleName);
+				if(!isAvailable){
+					label.css('color', 'red');
+					module.addClass('error');
+					formCtn.find('#available-icon').attr('src',$app.getIconURL("icon/color/cancel"));
+				}else {
+					formCtn.find('#available-icon').attr('src',$app.getIconURL("icon/color/check"));
+					if(module.hasClass('error')){
+						module.removeClass('error');
+						label.css('color', '');
+						
+					}
+				}
+			});
+			
+			
+
+			$ui.confirm({
+				title: 'Generate module',
+				content: formCtn,
+				onOk: async () => {
+					let moduleName = $('#moduleName').val();
+					if(moduleName){
+						let error = await app.createModule(app,moduleName);
+						if(error){
+							$ui.alert({title: 'Error', content: error, type: 'error'});
+						}else{
+							app.createObjs(app,res.objects);
+						}
+					}
+				},
+				moveable: true
+				
+			});
+			
 		} catch (e) {
 			console.log("error",e);
 			alert('Le JSON n\'est pas valide'); // Alerte si le JSON est invalide
@@ -188,14 +231,13 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 		});
 		ctn.append($('<img/>').attr('src', '').attr('style', 'max-height: 80vh;'));
 		for(let obj of objects){
-			let mermaidObj = await SaiTools.callApi({action: 'genObj', objName: obj});
+			let mermaidObj = await SaiTools.callApi({ objName: obj},'genObj');
 			mermaidText += 'class '+mermaidObj.name+' {\n';
-			for(let field of mermaidObj.fields){
+			for(let field of mermaidObj?.fields || []){
 				mermaidText += '    '+field+'\n';
 			}
 
 			mermaidText += '}\n';
-			console.log(mermaidText);
 			
 			mermaid.render("mermaidImg",mermaidText).then(res => {
 				const svg = `data:image/svg+xml;base64,${$app.base64Encode(res.svg)}`;
@@ -203,12 +245,11 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 			});
 
 		}
-		let links = await SaiTools.callApi({action: 'genlinks'});
-		console.log(links);
+		let links = await SaiTools.callApi({},'genlinks');
+
 		for(let link of links.links){
 			mermaidText += '    '+link+'\n';
 		}
-		console.log(mermaidText);
 		mermaid.render("mermaidImg",mermaidText).then(res => {
 			const svg = `data:image/svg+xml;base64,${$app.base64Encode(res.svg)}`;
 			$('#sainewmodulefront').find('img').attr('src', svg);
@@ -224,8 +265,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 	async clearCache(mermaidText){
 		let ctn = $('#sainewmodulefront');
 		ctn.html('');
-		let res = await SaiTools.callApi({action: 'initClearCache', mermaidText: mermaidText});
-		console.log(res);
+		let res = await SaiTools.callApi({ mermaidText: mermaidText},'initClearCache');
 		ctn.text('The generation is done, your module is create we will now generate data,we need to disconect you to continue the process, please reconnect');
 		ctn.append('<button id="reconnectButton">I understand</button>');
 		$('#reconnectButton').on('click', () => {
@@ -240,14 +280,13 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 		ctn.html('');
 		ctn.append('<div id="genData">Generating data...</div>');
 		$view.showLoading();
-		await SaiTools.callApi({action: 'postClearCache'});
+		await SaiTools.callApi({},'postClearCache');
 
 		let res;
 		if(testWithoutAiCall){
 			let info = await SaiTools.getModuleInfo();
 			let prefix = info.mPrefix?.toLowerCase();
 			let upperPrefix = String(prefix).charAt(0).toUpperCase() + String(prefix).slice(1);
-			console.log(prefix,upperPrefix);
 			res ={
 				[upperPrefix+'Product']: [
 				{
@@ -429,12 +468,11 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 				]
 			};
 		}else{
-			 res = await SaiTools.callApi({action: 'genJsonData'});
+			 res = await SaiTools.callApi({},'genJsonData');
 		}
 		$view.hideLoading();
 		let listResult = ["datas:",JSON.stringify(res,null,1),""];
 		this.setJsonValidation(()=> this.createData(this),listResult);
-		console.log(res);
 		
 	}
 	async createData(app){
@@ -442,8 +480,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 		const editor = window.ace.edit("jsonEditor");
 		
 		const jsonValue = editor.getValue();
-		let res = await SaiTools.callApi({action: 'genDatas','datas':jsonValue});
-		console.log(res);
+		let res = await SaiTools.callApi({datas:jsonValue},'genDatas');
 		ctn.html('');
 		ctn.append('<div id="genData">Data generated</div>');
 		ctn.append('<button id="nextButton">Next</button>');
@@ -455,11 +492,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends Simplicite.UI.Ex
 		let ctn = $('#sainewmodulefront');
 		ctn.html('');
 		let res = await SaiTools.getRedirectScope();
-		console.log(res);
 		SaiTools.logoutApi().then(() => {
 			let redirect = res.redirect;
-			console.log('redirect to module',redirect);
-			
 			window.location.href = "/ui?"+redirect;
 		});
 	}

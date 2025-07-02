@@ -18,14 +18,12 @@ var SaiTools = SaiTools || (function(param) {
 			}
 		});
 		const data = await response.json();
-		console.log('loginApi response ',data);
 		this.token = data.authtoken;
-		console.log('token',this.token);
 	}
 	
-	async function callApi(data = {}){
-		console.log('token',this.token);
-		const response = await fetch(apiUrl + endpointUrl, {
+	async function callApi(data = {},action = ""){
+		
+		const response = await fetch(apiUrl + endpointUrl+ (action ? '/' + action : ''), {
 			method: 'POST',
 			headers: {
 				'accept': 'application/json',
@@ -35,12 +33,11 @@ var SaiTools = SaiTools || (function(param) {
 			body: JSON.stringify(data)
 		});
 		const res = await response;
-		if(res.status == 200)
-			return res.json();
-		return;
+
+		return res.json();
 	}
-	async function getModuleInfo(data = {}){
-		const response = await fetch(apiUrl + endpointUrl + '?action=moduleInfo', {
+	async function getModuleInfo(){
+		const response = await fetch(apiUrl + endpointUrl + '/moduleInfo', {
 			method: 'GET',
 			headers: {
 				'accept': 'application/json',
@@ -50,8 +47,8 @@ var SaiTools = SaiTools || (function(param) {
 		const res = await response.json();
 		return res;
 	}
-	async function getRedirectScope(data = {}){
-		const response = await fetch(apiUrl + endpointUrl + '?action=getRedirectScope', {
+	async function getRedirectScope(module = ""){
+		const response = await fetch(apiUrl + endpointUrl + '/getRedirectScope' + (module ? '/' + module : ''), {
 			method: 'GET',
 			headers: {
 				'accept': 'application/json',
@@ -62,7 +59,7 @@ var SaiTools = SaiTools || (function(param) {
 		return res;
 	}
 	async function isPostClearCache(){
-		const response = await fetch(apiUrl + endpointUrl + '?action=isPostClearCache', {
+		const response = await fetch(apiUrl + endpointUrl + '/isPostClearCache', {
 			method: 'GET',
 			headers: {
 				'accept': 'application/json',
@@ -71,6 +68,17 @@ var SaiTools = SaiTools || (function(param) {
 		});
 		const res = await response.json();
 		return res.isPostClearCache;
+	}
+	async function isModuleNameAvailable(moduleName){
+		const response = await fetch(apiUrl + endpointUrl + '/isModuleNameAvailable/' + moduleName, {
+			method: 'GET',
+			headers: {
+				'accept': 'application/json',
+				'Authorization': `Bearer ${this.token}`
+			}
+		});
+		const res = await response.json();
+		return res.available;
 	}
 	async function getHistoric(ctn){
 		let historic = [];
@@ -114,6 +122,7 @@ var SaiTools = SaiTools || (function(param) {
 		logoutApi,
 		getHistoric,
 		isPostClearCache,
-		setToken
+		setToken,
+		isModuleNameAvailable
 	};
 })();
