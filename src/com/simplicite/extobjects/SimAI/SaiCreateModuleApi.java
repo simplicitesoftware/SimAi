@@ -18,7 +18,7 @@ import com.simplicite.util.annotations.RESTServiceOperation;
  */
 @RESTService(title = "Custom REST API create module by AI", desc = "Custom REST API for create module by AI")
 public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServiceExternalObject {
-	private static final boolean testWithoutAiCall = true;
+	private static final boolean testWithoutAiCall = false;
 	private static final long serialVersionUID = 1L;
 	private static final Grant sysAdmin = Grant.getSystemAdmin();
 	/**

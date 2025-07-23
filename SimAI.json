@@ -206,7 +206,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_DATA_GENERATING",
       "lov_lang": "ENU",
-      "lov_value": "Your data is currentling being created, please wait until its done.",
+      "lov_value": "Your data is currently being created, please wait until its done.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -214,25 +214,12 @@
     },
     {
      "object": "ListOfValue",
-     "userkey": "TEXT~SAI_FIELD_COUNT~ENU",
+     "userkey": "TEXT~SAI_EMPTY_MESSAGE~ENU",
      "item": {
       "lov_name": "TEXT",
-      "lov_code": "SAI_FIELD_COUNT",
+      "lov_code": "SAI_EMPTY_MESSAGE",
       "lov_lang": "ENU",
-      "lov_value": "fields to create",
-      "lov_order_by": 1,
-      "lov_event_id__lev_code": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "ListOfValue",
-     "userkey": "TEXT~SAI_FOR_MODULE~ENU",
-     "item": {
-      "lov_name": "TEXT",
-      "lov_code": "SAI_FOR_MODULE",
-      "lov_lang": "ENU",
-      "lov_value": "For the application",
+      "lov_value": "You cannot send empty messages.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -357,32 +344,6 @@
     },
     {
      "object": "ListOfValue",
-     "userkey": "TEXT~SAI_OBJECT_COUNT~ENU",
-     "item": {
-      "lov_name": "TEXT",
-      "lov_code": "SAI_OBJECT_COUNT",
-      "lov_lang": "ENU",
-      "lov_value": "business objects to create.",
-      "lov_order_by": 1,
-      "lov_event_id__lev_code": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "ListOfValue",
-     "userkey": "TEXT~SAI_OBJECT_LIST~ENU",
-     "item": {
-      "lov_name": "TEXT",
-      "lov_code": "SAI_OBJECT_LIST",
-      "lov_lang": "ENU",
-      "lov_value": "Your module has the following business objects :",
-      "lov_order_by": 1,
-      "lov_event_id__lev_code": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "ListOfValue",
      "userkey": "TEXT~SAI_RECONNECT~ENU",
      "item": {
       "lov_name": "TEXT",
@@ -409,12 +370,12 @@
     },
     {
      "object": "ListOfValue",
-     "userkey": "TEXT~SAI_TEST_TEXT~ENU",
+     "userkey": "TEXT~SAI_VALIDATE~ENU",
      "item": {
       "lov_name": "TEXT",
-      "lov_code": "SAI_TEST_TEXT",
+      "lov_code": "SAI_VALIDATE",
       "lov_lang": "ENU",
-      "lov_value": "MUST PUT A SUMMARY HERE",
+      "lov_value": "Validate",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -422,12 +383,246 @@
     },
     {
      "object": "ListOfValue",
-     "userkey": "TEXT~SAI_VALIDATE~ENU",
+     "userkey": "TEXT~SAI_BOT_MESSAGE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_BOT_MESSAGE",
+      "lov_lang": "FRA",
+      "lov_value": "Bonjour ! Comment puis-je vous aider ?",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_CREATE_MODULE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_CREATE_MODULE",
+      "lov_lang": "FRA",
+      "lov_value": "Créer le module",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DATA_GEN~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DATA_GEN",
+      "lov_lang": "FRA",
+      "lov_value": "Votre module a été créé, vous allez maintenant devoir vous déconnecter/reconnecter en cliquant sur \"Me reconnecter\" afin de générer vos données et accéder à votre application !",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DATA_GENERATED~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DATA_GENERATED",
+      "lov_lang": "FRA",
+      "lov_value": "Vos données ont été générées, vous allez maintenant pouvoir accéder à votre application après avoir cliqué sur \"Suivant\".",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DATA_GENERATING~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DATA_GENERATING",
+      "lov_lang": "FRA",
+      "lov_value": "Vos données est en train d'être créée, veuillez attendre jusqu'à ce la génération soit complète.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_EMPTY_MESSAGE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_EMPTY_MESSAGE",
+      "lov_lang": "FRA",
+      "lov_value": "Vous ne pouvez pas envoyer de messages vides.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_GEN_MODULE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_GEN_MODULE",
+      "lov_lang": "FRA",
+      "lov_value": "Générer le module",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_MODULE_NAME~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_MODULE_NAME",
+      "lov_lang": "FRA",
+      "lov_value": "Choisissez un nom pour votre application !",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_MODULE_NAMEEXIST~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_MODULE_NAMEEXIST",
+      "lov_lang": "FRA",
+      "lov_value": "Ce nom est déjà prit, veuillez en choisir un autre.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_MODULE_NONAME~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_MODULE_NONAME",
+      "lov_lang": "FRA",
+      "lov_value": "Vous devez entrer un nom.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_MODULE_RECONNECT~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_MODULE_RECONNECT",
+      "lov_lang": "FRA",
+      "lov_value": "En cliquant sur le bouton \"Me reconnecter\" vous allez d'abord être déconnecté, puis vous devrez vous reconnecter avec le même compte afin d'accéder à votre application.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_MODULE_SPEC~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_MODULE_SPEC",
+      "lov_lang": "FRA",
+      "lov_value": "Vous pouvez améliorer votre applicatio nen précisant votre besoin en utilisant le chatbot ci-dessous.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_MODULE_SUMMARY~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_MODULE_SUMMARY",
+      "lov_lang": "FRA",
+      "lov_value": "L'application créée va être composée de :",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_MODULE_UML~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_MODULE_UML",
+      "lov_lang": "FRA",
+      "lov_value": "Voici la représentation UML de votre application.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_NEXT~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_NEXT",
+      "lov_lang": "FRA",
+      "lov_value": "Suivant",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_OBJECT_COUNT~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_OBJECT_COUNT",
+      "lov_lang": "FRA",
+      "lov_value": "objets métiers à créer.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_OBJECT_LIST~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_OBJECT_LIST",
+      "lov_lang": "FRA",
+      "lov_value": "Votre application a les objets métiers :",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_RECONNECT~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_RECONNECT",
+      "lov_lang": "FRA",
+      "lov_value": "Me reconnecter",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_VALIDATE~FRA",
      "item": {
       "lov_name": "TEXT",
       "lov_code": "SAI_VALIDATE",
-      "lov_lang": "ENU",
-      "lov_value": "Validate",
+      "lov_lang": "FRA",
+      "lov_value": "Valider",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"

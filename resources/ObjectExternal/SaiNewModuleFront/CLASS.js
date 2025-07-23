@@ -1,4 +1,4 @@
-const testWithoutAiCall = true;
+const testWithoutAiCall = false;
 Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
   Simplicite.UI.ExternalObject
 ) {
@@ -120,21 +120,20 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
     sendButton.on("click", this.sendMessage);
     inputCtn.append(sendButton);
     subCtn.append(inputCtn);
+    
     let genButton = $(
-      `<button id="generateModule" class="actionButton-blue">${$T(
+      `<button id="generateModule" class="actionButton-blue simai-disabledButton">${$T(
         "SAI_GEN_MODULE"
       )}</button>`
     );
     genButton.on("click", () => this.createModule(this));
     subCtn.append(genButton);
 
-    // HERE
-    const chatContainer = $("#chatContainer");
-    chatContainer.append(
+    ctn.append(subCtn);
+    
+    ctn.find("#chatContainer").append(
       AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE")}`)
     );
-
-    ctn.append(subCtn);
   }
 
   async validateModuleName(app) {
@@ -205,6 +204,12 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
 
   async sendMessage() {
     let ctn = $("#sainewmodulefront");
+    
+    if (ctn.find("#message").val().trim()==="") {
+    	$ui.toast({type:"warning", content:`${$T("SAI_EMPTY_MESSAGE")}`, position:"top", align:"center", undo:false, moveable:false});
+    	return;
+    }
+    	
     if (testWithoutAiCall) {
       ctn.find("#chatContainer").append(AiJsTools.getDisplayUserMessage(ctn));
       ctn
@@ -213,14 +218,33 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
           AiJsTools.getDisplayBotMessage("Ai call inib for test purpose")
         );
       ctn.find("#message").val("");
+      
+      $("#sendMessage").addClass("simai-disabledButton");
+      $("#generateModule").addClass("simai-disabledButton");
+    
+      setTimeout(() => {
+      	$("#sendMessage").removeClass("simai-disabledButton");
+    	$("#generateModule").removeClass("simai-disabledButton");
+      }, 2000);
       return;
     }
+    
     const message = $("#message").val();
     let params = AiJsTools.getPostParams(ctn, AiJsTools.chatUmlSpecialisation);
+    
     ctn.find("#chatContainer").append(AiJsTools.getDisplayUserMessage(ctn));
     ctn.find("#chatContainer").append(AiJsTools.getDisplayBotMessage());
     ctn.find("#message").val("");
+    
+    $("#sendMessage").addClass("simai-disabledButton");
+    $("#generateModule").addClass("simai-disabledButton");
+    
     let res = await SaiTools.callApi(params, "chat");
+    
+    // await shall block until having a valid response ...
+    $("#sendMessage").removeClass("simai-disabledButton");
+    $("#generateModule").removeClass("simai-disabledButton");
+    
     let response = $view
       .markdownToHTML(res?.choices[0]?.message?.content)
       .html();
