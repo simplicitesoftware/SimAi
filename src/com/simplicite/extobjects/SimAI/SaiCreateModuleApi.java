@@ -18,7 +18,7 @@ import com.simplicite.util.annotations.RESTServiceOperation;
  */
 @RESTService(title = "Custom REST API create module by AI", desc = "Custom REST API for create module by AI")
 public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServiceExternalObject {
-	private static final boolean testWithoutAiCall = false;
+	private static final boolean testWithoutAiCall = true;
 	private static final long serialVersionUID = 1L;
 	private static final Grant sysAdmin = Grant.getSystemAdmin();
 	/**
@@ -38,6 +38,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			String action = uriParts.isEmpty()?params.getParameter("action",""):uriParts.get(0);
 			switch(action){
 				case "isModuleNameAvailable":
+					AppLog.info("uriParts: "+String.join(",",uriParts));
 					return isModuleNameAvailable(uriParts.size()>1?uriParts.get(1):null);
 				case "getRedirectScope":
 					return getRedirectScope(uriParts.size()>1?uriParts.get(1):null);

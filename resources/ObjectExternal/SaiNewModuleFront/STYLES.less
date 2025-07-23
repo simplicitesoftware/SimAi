@@ -1,13 +1,181 @@
+// V2 Palette (based on DARKER)
+@simAI-DialogBackground1: #333333;
+@simAI-DialogBackground2: #454545;
+@simAI-TextColor: white;
+@simAI-TextColorLowFade: rgba(255,255,255, 0.8);
+@simAI-BorderColor: #8b8b8b;
+@simAI-AccentColorBlue: #5451FF;
+@simAI-AccentColorBlue2: #2D2E97;
+@simAI-AccentColorGreen: #2D8856;
+@simAI-AccentColorGreen2: #1E5A39;
+@simAI-AccentColorYellow: #FFB23E;
+@simAI-AccentColorYellow2: #996B25;
+
+// V2 (abel)
 #sainewmodulefront {
-	/* Custom styles */
-	.bot-messages {
-		color: white;
-		font-weight: bold;
-		text-align: left;
+	width: 100%; // not sure if needed
+	height: 100%; // not sure if needed
+	display: flex;
+	gap: 32px;
+	padding-top: 32px;
+	justify-content: center;
+	alig-items: center;
+	
+	* {
+		color: @simAI-TextColor;
 	}
+}
+
+#sainewmodulefront_dialog {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 12px;
+	min-width: 300px;
+	min-height: 300px;
+	max-width: 600px;
+	border: solid 1px @simAI-BorderColor;
+	background-color: @simAI-DialogBackground1;
+	font-size: 14px;
+	
+	.simai-contextualHelp {
+		width: 100%;
+		display: flex;
+		jsutify-content: start;
+		font-style: italic;
+		margin-bottom: 16px;
+		color: @simAI-TextColorLowFade;
+		padding-bottom: 6px;
+		font-size: 16px;
+		border-bottom: solid 1px @simAI-BorderColor;
+	}
+	.simai-interactiveBox {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		jsutify-content: center;
+		align-items: end;
+		gap: 8px;
+	}
+	
+	.simai-reconnectWarning {
+		color: @simAI-AccentColorYellow;
+		font-size: 18px;
+		line-height: 1.25;
+	}
+}
+
+#moduleName, #message {
+	width: 100%;
+	padding: 4px;
+	border: solid 1px @simAI-BorderColor;
+	background-color: @simAI-DialogBackground2;
+}
+
+#chatContainer {
+	width: 100%;
+	height: 50vh;
+	overflow-y: scroll;
+	
 	.user-messages {
-		color: white;
-		font-weight: bold;
-		text-align: right;
+		padding: 0px 4px;
+		margin-bottom: 6px;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: start;
+		border-left: solid 2px @simAI-AccentColorGreen;
+		
+		& > strong { color: @simAI-AccentColorGreen; }
+		& > .msg {
+			max-width: 450px;
+			word-wrap: break-word;
+		}
+	}
+}
+
+.bot-messages {
+	padding: 0px 4px;
+	margin-bottom: 6px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: start;
+	border-left: solid 2px @simAI-AccentColorYellow;
+	
+	& > strong { color: @simAI-AccentColorYellow !important; }
+	& > .msg {
+		word-wrap: break-word;
+	}
+}
+
+#sainewmodulefront_chatFooter {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: end;
+	gap: 8px;
+	
+	.ai-chat-input-area {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: start;
+		gap: 4px;
+	}
+}
+
+#mermaidImage {
+	min-width: 500px;
+}
+
+#simai-moduleSummary {
+	width: 100%;
+	display: flex;
+	
+	.simai-moduleSummarySection {
+		width: 50%;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: start;
+		margin: 6px;
+		padding: 0px 6px;
+	}
+}
+
+// V2 generic styles
+button {
+	position: relative;
+	border: none;
+	padding: 8px 12px;
+	transition: transform 0.33s ease-in, background-color 0.33s ease-in;
+	
+	&:active {
+		transform: scale(0.9);
+	}
+}
+
+.actionButton-blue {
+	background-color: @simAI-AccentColorBlue;
+	&:hover {
+		background-color: @simAI-AccentColorBlue2;
+	}
+}
+.actionButton-green {
+	padding: 4px 8px;
+	background-color: @simAI-AccentColorGreen;
+	&:hover {
+		background-color: @simAI-AccentColorGreen2;
+	}
+}
+.actionButton-yellow {
+	background-color: @simAI-AccentColorYellow;
+	&:hover {
+		background-color: @simAI-AccentColorYellow2;
 	}
 }
