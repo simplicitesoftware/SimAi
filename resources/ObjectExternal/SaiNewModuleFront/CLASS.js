@@ -1,4 +1,4 @@
-const testWithoutAiCall = false;
+const testWithoutAiCall = true;
 Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
   Simplicite.UI.ExternalObject
 ) {
@@ -329,7 +329,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
     dialog.append(
       $("<img/>")
         .attr("src", "")
-        .attr("style", "max-height:80vh; max-width:50vw; min-width: 500px;")
         .attr("id","mermaidImage")
     );
     for (let obj of objects) {
