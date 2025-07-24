@@ -6,6 +6,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
     super();
     this.validatedModuleName = null;
     this.moduleObjects = [];
+    this.showJson = $grant.sysparams.SAI_SHOW_JSON == 'true';
   }
 
   async render(params, data = {}) {
@@ -282,14 +283,19 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
     $view.showLoading();
     let res = await SaiTools.callApi(params, "genJson");
     $view.hideLoading();
-    app.setJsonValidation(() => app.prepareJson(app), res);
+    if(this.showJson){
+    	app.setJsonValidation(() => app.prepareJson(app), res);
+    }else{
+    	app.prepareJson(app,res[1]);
+    }
   }
   
-  async prepareJson(app) {
+  async prepareJson(app,jsonValue ={}) {
     let ctn = $("#sainewmodulefront");
-    const editor = window.ace.edit("jsonEditor");
-
-    const jsonValue = editor.getValue();
+    if(this.showJson){
+	    const editor = window.ace.edit("jsonEditor");
+	    jsonValue = editor.getValue();
+    }
     try {
       JSON.parse(jsonValue); // Tente de parser le JSON
       //ctn.html('');
@@ -622,16 +628,20 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
     }
     $view.hideLoading();
     let listResult = ["datas:", JSON.stringify(res, null, 1), ""];
-    this.setJsonValidation(() => this.createData(this), listResult);
+    if(this.showJson){
+    	this.setJsonValidation(() => this.createData(this), listResult);
+    }else{
+    	this.createData(this,listResult[1]);
+    }
   }
 
-  async createData(app) {
+  async createData(app,jsonValue = {}) {
     let ctn = $("#sainewmodulefront");
     let dialog = $("#sainewmodulefront_dialog");
-    
-    const editor = window.ace.edit("jsonEditor");
-
-    const jsonValue = editor.getValue();
+    if(this.showJson){
+	    const editor = window.ace.edit("jsonEditor");
+	    const jsonValue = editor.getValue();
+    }
     let res = await SaiTools.callApi({ action: "genDatas", datas: jsonValue });
     console.log(res);
     dialog.html("");
