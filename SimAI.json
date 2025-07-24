@@ -14,24 +14,37 @@
   {
    "object": "SystemParam",
    "label": "System parameters",
-   "icon": "fas/cog",
+   "icon": "img/system/system_param",
    "field": "row_module_id",
-   "list": [{
-    "object": "SystemParam",
-    "userkey": "AI_AWAIT_CLEAR_CACHE",
-    "item": {
-     "sys_code": "AI_AWAIT_CLEAR_CACHE",
-     "sys_value": "false",
-     "sys_type": null,
-     "sys_desc": null,
-     "row_module_id__mdl_name": "SimAI"
+   "list": [
+    {
+     "object": "SystemParam",
+     "userkey": "AI_AWAIT_CLEAR_CACHE",
+     "item": {
+      "sys_code": "AI_AWAIT_CLEAR_CACHE",
+      "sys_value": "false",
+      "sys_type": null,
+      "sys_desc": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "SystemParam",
+     "userkey": "SAI_TEST_INIB_AI_CALL",
+     "item": {
+      "sys_code": "SAI_TEST_INIB_AI_CALL",
+      "sys_value": "false",
+      "sys_type": null,
+      "sys_desc": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
-   }]
+   ]
   },
   {
    "object": "View",
    "label": "Views",
-   "icon": "far/window-maximize",
+   "icon": "img/system/view",
    "field": "row_module_id",
    "list": [{
     "object": "View",
@@ -53,7 +66,7 @@
   {
    "object": "Model",
    "label": "Data model",
-   "icon": "fas/boxes",
+   "icon": "img/system/model",
    "field": "row_module_id",
    "list": [{
     "object": "Model",
@@ -79,7 +92,7 @@
   {
    "object": "Group",
    "label": "Groups",
-   "icon": "fas/users",
+   "icon": "img/system/group",
    "field": "row_module_id",
    "list": [
     {
@@ -129,7 +142,7 @@
   {
    "object": "Profile",
    "label": "Profiles",
-   "icon": "fas/user-circle",
+   "icon": "img/system/profile",
    "field": "row_module_id",
    "list": [{
     "object": "Profile",
@@ -144,7 +157,7 @@
   {
    "object": "ListOfValue",
    "label": "Static text",
-   "icon": "fas/list-ul",
+   "icon": "img/system/static_text",
    "field": "row_module_id",
    "list": [
     {
@@ -578,38 +591,25 @@
     },
     {
      "object": "ListOfValue",
-     "userkey": "TEXT~SAI_OBJECT_COUNT~FRA",
-     "item": {
-      "lov_name": "TEXT",
-      "lov_code": "SAI_OBJECT_COUNT",
-      "lov_lang": "FRA",
-      "lov_value": "objets métiers à créer.",
-      "lov_order_by": 1,
-      "lov_event_id__lev_code": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "ListOfValue",
-     "userkey": "TEXT~SAI_OBJECT_LIST~FRA",
-     "item": {
-      "lov_name": "TEXT",
-      "lov_code": "SAI_OBJECT_LIST",
-      "lov_lang": "FRA",
-      "lov_value": "Votre application a les objets métiers :",
-      "lov_order_by": 1,
-      "lov_event_id__lev_code": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "ListOfValue",
      "userkey": "TEXT~SAI_RECONNECT~FRA",
      "item": {
       "lov_name": "TEXT",
       "lov_code": "SAI_RECONNECT",
       "lov_lang": "FRA",
       "lov_value": "Me reconnecter",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_SEND~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_SEND",
+      "lov_lang": "FRA",
+      "lov_value": "Envoyer",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -633,7 +633,7 @@
   {
    "object": "FieldList",
    "label": "List of values",
-   "icon": "fas/list",
+   "icon": "img/system/list_of_values",
    "field": "row_module_id",
    "list": [{
     "object": "FieldList",
@@ -650,7 +650,7 @@
   {
    "object": "FieldListCode",
    "label": "List code",
-   "icon": "fas/list",
+   "icon": "img/system/list_of_values",
    "field": "row_module_id",
    "list": [
     {
@@ -703,7 +703,7 @@
   {
    "object": "FieldListValue",
    "label": "Translated list value",
-   "icon": "bi/translate",
+   "icon": "img/system/translation",
    "field": "row_module_id",
    "list": [
     {
@@ -777,7 +777,7 @@
   {
    "object": "Field",
    "label": "Fields",
-   "icon": "fas/bars",
+   "icon": "img/system/field",
    "field": "row_module_id",
    "list": [
     {
@@ -914,7 +914,7 @@
   {
    "object": "Template",
    "label": "Templates",
-   "icon": "bi/box-fill",
+   "icon": "img/system/template",
    "field": "row_module_id",
    "list": [{
     "object": "Template",
@@ -933,7 +933,7 @@
   {
    "object": "ObjectFieldArea",
    "label": "Fields areas",
-   "icon": "bi/input-cursor",
+   "icon": "img/system/field_area",
    "field": "row_module_id",
    "list": [{
     "object": "ObjectFieldArea",
@@ -951,7 +951,7 @@
   {
    "object": "Domain",
    "label": "Domains",
-   "icon": "fas/passport",
+   "icon": "img/system/domain",
    "field": "row_module_id",
    "list": [{
     "object": "Domain",
@@ -972,7 +972,7 @@
   {
    "object": "ObjectExternal",
    "label": "External objects",
-   "icon": "fas/external-link-alt",
+   "icon": "img/system/external_object",
    "field": "row_module_id",
    "list": [
     {
@@ -1026,7 +1026,7 @@
   {
    "object": "Function",
    "label": "Functions",
-   "icon": "fas/toolbox",
+   "icon": "img/system/function",
    "field": "row_module_id",
    "list": [{
     "object": "Function",
@@ -1044,7 +1044,7 @@
   {
    "object": "Grant",
    "label": "Grant",
-   "icon": "fas/key",
+   "icon": "img/system/grant",
    "field": "row_module_id",
    "list": [
     {
@@ -1304,7 +1304,7 @@
   {
    "object": "Map",
    "label": "Main menu",
-   "icon": "fas/bars",
+   "icon": "img/system/main_menu",
    "field": "row_module_id",
    "list": [{
     "object": "Map",
@@ -1313,7 +1313,7 @@
      "map_domain_id__obd_name": "SaiDomain",
      "map_object": {
       "item": {"obe_name": "SaiNewModuleFront"},
-      "icon": "fas/external-link-alt",
+      "icon": "img/system/external_object",
       "label": "External object",
       "userkeylabel": "SaiNewModuleFront",
       "object": "ObjectExternal"
@@ -1383,7 +1383,7 @@
   {
    "object": "Resource",
    "label": "Resources",
-   "icon": "fas/file-image",
+   "icon": "img/system/resource",
    "field": "row_module_id",
    "list": [
     {
@@ -1392,7 +1392,7 @@
      "item": {
       "res_object": {
        "item": {"dis_code": "default"},
-       "icon": "fas/window-restore",
+       "icon": "img/system/disposition",
        "label": "Disposition",
        "userkeylabel": "default",
        "object": "Disposition"
@@ -1416,7 +1416,7 @@
      "item": {
       "res_object": {
        "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
@@ -1440,7 +1440,7 @@
      "item": {
       "res_object": {
        "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
@@ -1464,7 +1464,7 @@
      "item": {
       "res_object": {
        "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
@@ -1487,7 +1487,7 @@
   {
    "object": "Script",
    "label": "Shared code",
-   "icon": "fas/share-alt",
+   "icon": "img/system/shared_code",
    "field": "row_module_id",
    "list": [{
     "object": "Script",
@@ -1507,7 +1507,7 @@
   {
    "object": "TranslateField",
    "label": "Field translation",
-   "icon": "bi/translate",
+   "icon": "img/system/translation",
    "field": "row_module_id",
    "list": [
     {
@@ -1516,7 +1516,7 @@
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiInstanceName"},
-       "icon": "fas/bars",
+       "icon": "img/system/field",
        "label": "Field",
        "userkeylabel": "saiInstanceName",
        "object": "Field"
@@ -1538,7 +1538,7 @@
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiInstanceName"},
-       "icon": "fas/bars",
+       "icon": "img/system/field",
        "label": "Field",
        "userkeylabel": "saiInstanceName",
        "object": "Field"
@@ -1556,55 +1556,11 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "Field(saiInstanceUrl)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiInstanceUrl"},
-       "icon": "fas/bars",
-       "label": "Field",
-       "userkeylabel": "saiInstanceUrl",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "url",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiInstanceUrl)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiInstanceUrl"},
-       "icon": "fas/bars",
-       "label": "Field",
-       "userkeylabel": "saiInstanceUrl",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Instance url",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
      "userkey": "Field(saiInstanceStatus)~ENU",
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiInstanceStatus"},
-       "icon": "fas/bars",
+       "icon": "img/system/field",
        "label": "Field",
        "userkeylabel": "saiInstanceStatus",
        "object": "Field"
@@ -1626,7 +1582,7 @@
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiInstanceStatus"},
-       "icon": "fas/bars",
+       "icon": "img/system/field",
        "label": "Field",
        "userkeylabel": "saiInstanceStatus",
        "object": "Field"
@@ -1641,13 +1597,57 @@
       "tsl_tooltip": null,
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiInstanceUrl)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiInstanceUrl"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiInstanceUrl",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "url",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiInstanceUrl)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiInstanceUrl"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiInstanceUrl",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Instance url",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
   },
   {
    "object": "TranslateFieldArea",
    "label": "Field area translation",
-   "icon": "bi/translate",
+   "icon": "img/system/translation",
    "field": "row_module_id",
    "list": [
     {
@@ -1656,7 +1656,7 @@
      "item": {
       "tsl_object": {
        "item": {"ofa_name": "SaiInstance-1"},
-       "icon": "bi/input-cursor",
+       "icon": "img/system/field_area",
        "label": "Fields area",
        "userkeylabel": "SaiInstance-1",
        "object": "ObjectFieldArea"
@@ -1672,7 +1672,7 @@
      "item": {
       "tsl_object": {
        "item": {"ofa_name": "SaiInstance-1"},
-       "icon": "bi/input-cursor",
+       "icon": "img/system/field_area",
        "label": "Fields area",
        "userkeylabel": "SaiInstance-1",
        "object": "ObjectFieldArea"
@@ -1687,7 +1687,7 @@
   {
    "object": "TranslateDomain",
    "label": "Domain translation",
-   "icon": "bi/translate",
+   "icon": "img/system/translation",
    "field": "row_module_id",
    "list": [
     {
@@ -1696,7 +1696,7 @@
      "item": {
       "tsl_object": {
        "item": {"obd_name": "SaiDomain"},
-       "icon": "fas/passport",
+       "icon": "img/system/domain",
        "label": "Domain",
        "userkeylabel": "SaiDomain",
        "object": "Domain"
@@ -1713,7 +1713,7 @@
      "item": {
       "tsl_object": {
        "item": {"obd_name": "SaiDomain"},
-       "icon": "fas/passport",
+       "icon": "img/system/domain",
        "label": "Domain",
        "userkeylabel": "SaiDomain",
        "object": "Domain"
@@ -1729,7 +1729,7 @@
   {
    "object": "TranslateExternal",
    "label": "External object translate",
-   "icon": "bi/translate",
+   "icon": "img/system/translation",
    "field": "row_module_id",
    "list": [
     {
@@ -1738,7 +1738,7 @@
      "item": {
       "tsl_object": {
        "item": {"obe_name": "SaiCreateModuleApi"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiCreateModuleApi",
        "object": "ObjectExternal"
@@ -1756,7 +1756,7 @@
      "item": {
       "tsl_object": {
        "item": {"obe_name": "SaiCreateModuleApi"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiCreateModuleApi",
        "object": "ObjectExternal"
@@ -1774,7 +1774,7 @@
      "item": {
       "tsl_object": {
        "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
@@ -1792,7 +1792,7 @@
      "item": {
       "tsl_object": {
        "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
@@ -1809,7 +1809,7 @@
   {
    "object": "TranslateView",
    "label": "View translation",
-   "icon": "bi/translate",
+   "icon": "img/system/translation",
    "field": "row_module_id",
    "list": [
     {
@@ -1818,7 +1818,7 @@
      "item": {
       "tsl_object": {
        "item": {"viw_name": "SimAIScope"},
-       "icon": "far/window-maximize",
+       "icon": "img/system/view",
        "label": "View",
        "userkeylabel": "SimAIScope",
        "object": "View"
@@ -1835,7 +1835,7 @@
      "item": {
       "tsl_object": {
        "item": {"viw_name": "SimAIScope"},
-       "icon": "far/window-maximize",
+       "icon": "img/system/view",
        "label": "View",
        "userkeylabel": "SimAIScope",
        "object": "View"
@@ -1851,7 +1851,7 @@
   {
    "object": "Permission",
    "label": "Permissions",
-   "icon": "fas/lock-open",
+   "icon": "img/system/state_transition_permission",
    "field": "row_module_id",
    "list": [
     {
@@ -1861,7 +1861,7 @@
       "prm_group_id__grp_name": "SAI_ADMIN",
       "prm_object": {
        "item": {"obd_name": "SaiDomain"},
-       "icon": "fas/passport",
+       "icon": "img/system/domain",
        "label": "Domain",
        "userkeylabel": "SaiDomain",
        "object": "Domain"
@@ -1881,7 +1881,7 @@
       "prm_group_id__grp_name": "SAI_ADMIN",
       "prm_object": {
        "item": {"obe_name": "SaiCreateModuleApi"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiCreateModuleApi",
        "object": "ObjectExternal"
@@ -1901,7 +1901,7 @@
       "prm_group_id__grp_name": "SAI_ADMIN",
       "prm_object": {
        "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
@@ -1921,7 +1921,7 @@
       "prm_group_id__grp_name": "SAI_CLEAR_CACHE",
       "prm_object": {
        "item": {"obe_name": "Monitoring"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "Monitoring",
        "object": "ObjectExternal"
@@ -1941,7 +1941,7 @@
       "prm_group_id__grp_name": "SAI_CLEAR_CACHE",
       "prm_object": {
        "item": {"obe_name": "SystemInfo"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SystemInfo",
        "object": "ObjectExternal"
@@ -1961,7 +1961,7 @@
       "prm_group_id__grp_name": "SAI_CLEAR_CACHE",
       "prm_object": {
        "item": {"obe_name": "SystemCache"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SystemCache",
        "object": "ObjectExternal"
@@ -1981,7 +1981,7 @@
       "prm_group_id__grp_name": "SAI_CLEAR_CACHE",
       "prm_object": {
        "item": {"obe_name": "SystemAddField"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SystemAddField",
        "object": "ObjectExternal"
@@ -2001,7 +2001,7 @@
       "prm_group_id__grp_name": "SAI_CREATE_MODULE",
       "prm_object": {
        "item": {"obe_name": "SaiCreateModuleApi"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiCreateModuleApi",
        "object": "ObjectExternal"
@@ -2021,7 +2021,7 @@
       "prm_group_id__grp_name": "SAI_CREATE_MODULE",
       "prm_object": {
        "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "fas/external-link-alt",
+       "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
@@ -2049,7 +2049,7 @@
      "pmg_perm_id__prm_group_id__grp_name": "SAI_ADMIN",
      "pmg_perm_id__prm_object": {
       "item": {"obe_name": "SaiCreateModuleApi"},
-      "icon": "fas/external-link-alt",
+      "icon": "img/system/external_object",
       "label": "External object",
       "userkeylabel": "SaiCreateModuleApi",
       "object": "ObjectExternal"

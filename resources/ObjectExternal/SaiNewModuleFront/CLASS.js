@@ -1,4 +1,4 @@
-const testWithoutAiCall = true;
+const testWithoutAiCall = $grant.sysparams.SAI_TEST_INIB_AI_CALL == 'true';
 Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
   Simplicite.UI.ExternalObject
 ) {

@@ -1,9 +1,9 @@
 {
-    "date": "2025-07-23 19:01:22",
+    "date": "2025-07-24 07:15:11",
     "name": "SimAI",
     "format": "json",
     "files": ["SimAI.json"],
     "repository": {"origin": {"uri": "https://github.com/CBimont/SimAi.git"}},
     "version": "0.3",
-    "platform": "6.2.14-preview"
+    "platform": "6.2.13"
 }
