@@ -22,10 +22,10 @@
 
 | Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `SaiContactName`                                             | char(100)                                |          | yes       |          | -                                                                                |
-| `SaiContactEmail`                                            | email(100)                               |          | yes       |          | -                                                                                |
-| `SaiContactPhone`                                            | phone(100)                               |          | yes       |          | -                                                                                |
-| `SaiContactComment`                                          | text(1000)                               |          | yes       |          | -                                                                                |
+| `saiContactName`                                             | char(100)                                |          | yes       |          | -                                                                                |
+| `saiContactEmail`                                            | email(100)                               |          | yes       |          | -                                                                                |
+| `saiContactPhone`                                            | phone(100)                               |          | yes       |          | -                                                                                |
+| `saiContactComment`                                          | text(1000)                               |          | yes       |          | -                                                                                |
 | `saiCntModuleId` link to **`Module`**                        | id                                       | yes*     | yes       |          | -                                                                                |
 | _Ref. `saiCntModuleId.mdl_name`_                             | _regexp(100)_                            |          |           |          | _Module name_                                                                    |
 | `saiCntXml`                                                  | document                                 |          | yes       |          | -                                                                                |

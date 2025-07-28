@@ -111,23 +111,15 @@ components:
           description: Module
           type: string
           maxLength: 11
-        SaiContactName:
-          description: Name
-          type: string
-          maxLength: 100
-        SaiContactPhone:
-          description: Phone
-          type: string
-          maxLength: 100
         saiCntModuleId__mdl_name:
           description: Module name
           type: string
           maxLength: 100
-        SaiContactComment:
-          description: Comment
+        saiContactName:
+          description: Name
           type: string
-          maxLength: 1000
-        SaiContactEmail:
+          maxLength: 100
+        saiContactEmail:
           description: Email
           type: string
           maxLength: 100
@@ -135,9 +127,17 @@ components:
           description: Unique technical row ID
           type: string
           maxLength: 11
+        saiContactPhone:
+          description: Phone
+          type: string
+          maxLength: 100
         saiCntXml:
           description: XML
           type: object
+        saiContactComment:
+          description: Comment
+          type: string
+          maxLength: 1000
     PlaceMapData:
       description: Places map data
       type: object
@@ -493,25 +493,25 @@ paths:
       - schema:
           type: string
         in: query
-        name: SaiContactName
+        name: saiContactName
         description: Search filter for Name
         required: false
       - schema:
           type: string
         in: query
-        name: SaiContactEmail
+        name: saiContactEmail
         description: Search filter for Email
         required: false
       - schema:
           type: string
         in: query
-        name: SaiContactPhone
+        name: saiContactPhone
         description: Search filter for Phone
         required: false
       - schema:
           type: string
         in: query
-        name: SaiContactComment
+        name: saiContactComment
         description: Search filter for Comment
         required: false
       - schema:

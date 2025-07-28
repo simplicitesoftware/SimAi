@@ -332,17 +332,103 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			if(i>0)prefix = prefix + String.valueOf(i);
 		}
 		boolean[] oldThemeAccess = sysAdmin.changeAccess("Theme", true,true,true,true);
-
-
 		
 		JSONObject moduleInfo = AIModel.createModule(validModuleName,moduleName,"ThemeMondrian-Light",prefix,login,sysAdmin);
+		String scopeId ="0";
+		obj = sysAdmin.getTmpObject("ViewHome");
+		synchronized(obj.getLock()){
+			obj.resetFilters();
+			obj.setFieldFilter("row_module_id",moduleInfo.getString("moduleId"));
+			List<String[]> search = obj.search();
+			if(!Tool.isEmpty(search)){
+				scopeId = search.get(0)[obj.getRowIdFieldIndex()];
+			}
+			
+		}
 		if(moduleInfo.has("error")){
 			return error(500, moduleInfo.getString("error"));
 		}
-		
+		addHomeContact(scopeId,validModuleName,moduleInfo,sysAdmin);
 		getGrant().setUserSystemParam​("AI_CURRENT_MODULE_GEN", moduleInfo.toString(1), true);
 		sysAdmin.changeAccess("Theme",oldThemeAccess);
 		return moduleInfo;
+	}
+	private void addHomeContact(String scopeId,String mldName, JSONObject moduleInfo,Grant g){
+		/*{
+		"groupId": "67",
+		"moduleId": "43",
+		"domainId": "2066",
+		"mPrefix": "tes"
+		}
+  	*/
+	  String moduleId = moduleInfo.getString("moduleId");
+		// Create external object
+		AppLog.info("Create External Object");
+		String extName = moduleInfo.getString("mPrefix")+"HomeContact";
+		JSONObject homeContact = new JSONObject();
+		homeContact.put("obe_name", extName);
+		homeContact.put("obe_widget", true);
+		homeContact.put("row_module_id", moduleId);
+		homeContact.put("obe_settings", new JSONObject().put("module",mldName).toString());
+		homeContact.put("obe_class", "com.simplicite.commons.SimAI.SaiContactWidget");
+		String extId = AITools.createOrUpdateWithJson("ObjectExternal",homeContact,true,g);
+		// add permisions
+		AppLog.info("Add permisions");
+		JSONObject permissionFlds = new JSONObject();
+		permissionFlds.put("prm_group_id",moduleInfo.getString("groupId"));
+		permissionFlds.put("prm_object","ObjectExternal:"+extId);
+		permissionFlds.put("row_module_id",moduleId);
+		AITools.createOrUpdateWithJson("Permission",permissionFlds,g);
+		// Create DomainePage
+		AppLog.info("Create DomainePage");
+		JSONObject domainPage = new JSONObject();
+		domainPage.put("viw_name",moduleInfo.getString("mPrefix")+"Home");
+		domainPage.put("viw_type","D");
+		domainPage.put("viw_ui","<div class=\"area\" data-area=\"1\"></div>");
+		domainPage.put("row_module_id",moduleId);
+		domainPage.put("viw_order",1);
+		String pageId =AITools.createOrUpdateWithJson("ViewDomain",domainPage,true,g);
+		// add to domain
+		AppLog.info("Add to domain");
+		ObjectDB obj = g.getTmpObject("Domain");
+		synchronized(obj.getLock()){
+			obj.select(pageId);
+			obj.setFieldValue("obd_view_id",pageId);
+			obj.validate();
+			obj.save();
+		}
+		// add html to scope
+		AppLog.info("Add html to scope");
+		obj = g.getTmpObject("ViewHome");
+		synchronized(obj.getLock()){
+			obj.select(scopeId);
+			obj.setFieldValue("viw_ui","<div class=\"area\" data-area=\"1\"></div>");
+			obj.validate();
+			obj.save();
+		}
+
+		// add area to scope and domaine page ViewItem
+		AppLog.info("Add area to scope and domaine page ViewItem");
+		JSONObject area = new JSONObject();
+		area.put("vwi_view_id",pageId);
+		area.put("vwi_type","E");
+		area.put("vwi_position",1);
+		area.put("vwi_title",false);
+		area.put("vwi_url",new JSONObject().put("extobject",extName).toString());
+		area.put("row_module_id",moduleId);
+		AITools.createOrUpdateWithJson("ViewItem",area,true,g);
+		AppLog.info("Add area to scope ViewItem");
+		area.put("vwi_view_id",scopeId);
+		AITools.createOrUpdateWithJson("ViewItem",area,true,g);
+		
+		// add contact profile to groupe
+		AppLog.info("Add contact profile to group");
+		JSONObject contactProfile = new JSONObject();
+		contactProfile.put("prf_profile_id",moduleInfo.getString("groupId"));
+		contactProfile.put("prf_group_id",GroupDB.getGroupId("SAI_CNT_GROUP"));
+		contactProfile.put("row_module_id",moduleId);
+		AITools.createOrUpdateWithJson("Profile",contactProfile,g);
+		
 	}
 	private String checkModuleName(String moduleName){
 		if(Tool.isEmpty(moduleName)) return null;
@@ -388,7 +474,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		){
 			boolean isJsonPrompt = true;
 			String ping = AITools.pingAI();
-			if(AITools.PING_SUCCESS.equals(ping)){
+			if(!AITools.PING_SUCCESS.equals(ping)){
 				AppLog.error(ping,null,getGrant());
 				return error(503,"Provider api is not available");
 			}
