@@ -241,7 +241,11 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
     $("#generateModule").addClass("simai-disabledButton");
     
     let res = await SaiTools.callApi(params, "chat");
-    
+    //TODO: Proper error handling
+    if(res?.error){
+      ctn.find('#chatContainer').append("an error occured: " + AiJsTools.getDisplayBotMessage(res?.error));
+      return;
+    }
     // await shall block until having a valid response ...
     $("#sendMessage").removeClass("simai-disabledButton");
     $("#generateModule").removeClass("simai-disabledButton");
@@ -282,6 +286,11 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
     }
     $view.showLoading();
     let res = await SaiTools.callApi(params, "genJson");
+	//TODO: Proper error handling
+	if(res?.error){
+		$ui.toast({type:"error", content:`Error generating module: ${res?.error}`, position:"top", align:"center", undo:false, moveable:false});
+		return;
+	}
     $view.hideLoading();
     if(this.showJson){
     	app.setJsonValidation(() => app.prepareJson(app), res);
@@ -625,6 +634,11 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends (
       };
     } else {
       res = await SaiTools.callApi({}, "genJsonData");
+	  //TODO: Proper error handling
+	  if(res?.error){
+		$ui.toast({type:"error", content:`Error generating data: ${res?.error}`, position:"top", align:"center", undo:false, moveable:false});
+		return;
+	  }
     }
     $view.hideLoading();
     let listResult = ["datas:", JSON.stringify(res, null, 1), ""];

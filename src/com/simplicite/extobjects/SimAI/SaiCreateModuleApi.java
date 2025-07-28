@@ -10,6 +10,8 @@ import com.simplicite.util.tools.*;
 import com.simplicite.commons.AIBySimplicite.AIModel;
 import com.simplicite.commons.AIBySimplicite.AIData;
 import com.simplicite.commons.AIBySimplicite.AITools;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import com.simplicite.util.annotations.RESTService;
 import com.simplicite.util.annotations.RESTServiceParam;
 import com.simplicite.util.annotations.RESTServiceOperation;
@@ -38,7 +40,6 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			String action = uriParts.isEmpty()?params.getParameter("action",""):uriParts.get(0);
 			switch(action){
 				case "isModuleNameAvailable":
-					AppLog.info("uriParts: "+String.join(",",uriParts));
 					return isModuleNameAvailable(uriParts.size()>1?uriParts.get(1):null);
 				case "getRedirectScope":
 					return getRedirectScope(uriParts.size()>1?uriParts.get(1):null);
@@ -56,8 +57,9 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	}
 	@RESTServiceOperation(method = "get", path = "/isModuleNameAvailable/{module}", desc = "Check if a module name is available")
 	public Object isModuleNameAvailable(@RESTServiceParam(name = "module",in="path", type = "string", desc = "Module name", required = false) String moduleName) {
-		if(Tool.isEmpty(moduleName)) return badRequest("Invalid module name");
-		return new JSONObject().put("available", Tool.isEmpty(ModuleDB.getModuleId(moduleName,false)));
+		if(Tool.isEmpty(moduleName)) return badRequest("Empty module name");
+		moduleName = checkModuleName(moduleName);
+		return new JSONObject().put("available", !ModuleDB.exists(moduleName));
 	}
 	private Object getOpenAPISchema(String name) {
 		if (name.endsWith(".yml") || name.endsWith(".yaml")) {
@@ -180,6 +182,9 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		String moduleName =ModuleDB.getModuleName(mInfo.getModuleId());
 		if(Tool.isEmpty(moduleName)) return badRequest("Module not found");
 		JSONObject response = AIData.genDataForModule(moduleName,sysAdmin);
+		if(response.has("error")){
+			return error(503,response.getString("error"));
+		}
 		return  response.toString(1);
 	}
 
@@ -307,10 +312,13 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name", required = true, in="body") String moduleName
 		){
 		String login = getGrant().getLogin();
-		if (!Tool.isEmpty(ModuleDB.getModuleId(moduleName))) {
+		
+		if(Tool.isEmpty(moduleName)) return error(400, "Empty module name");
+		String validModuleName = checkModuleName(moduleName); 
+		if (ModuleDB.exists(validModuleName)) {
 			return error(400, "Module " + moduleName + " already exists!");
 		}
-		String prefix = moduleName.length() >= 3 ? moduleName.substring(0, 3) : moduleName;
+		String prefix = validModuleName.length() >= 3 ? validModuleName.substring(0, 3) : validModuleName;
 		ObjectDB obj = sysAdmin.getTmpObject("Module");
 		synchronized(obj.getLock()){
 			obj.resetFilters();
@@ -323,11 +331,53 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			}
 			if(i>0)prefix = prefix + String.valueOf(i);
 		}
+		boolean[] oldThemeAccess = sysAdmin.changeAccess("Theme", true,true,true,true);
+
+
 		
+		JSONObject moduleInfo = AIModel.createModule(validModuleName,moduleName,"ThemeMondrian-Light",prefix,login,sysAdmin);
+		if(moduleInfo.has("error")){
+			return error(500, moduleInfo.getString("error"));
+		}
 		
-		JSONObject moduleInfo = AIModel.createModule(moduleName,prefix,login,sysAdmin);
 		getGrant().setUserSystemParam​("AI_CURRENT_MODULE_GEN", moduleInfo.toString(1), true);
+		sysAdmin.changeAccess("Theme",oldThemeAccess);
 		return moduleInfo;
+	}
+	private String checkModuleName(String moduleName){
+		if(Tool.isEmpty(moduleName)) return null;
+		
+		// Decode URL-encoded characters
+		try {
+			moduleName = java.net.URLDecoder.decode(moduleName, "UTF-8");
+			AppLog.info("moduleName after URL decoding: " + moduleName);
+		} catch (Exception e) {
+			AppLog.error("Error decoding module name: " + moduleName, e, getGrant());
+		}
+		Pattern pattern = Pattern.compile("^[a-zA-Z]{1}[a-zA-Z0-9_]*$");
+		Matcher matcher = pattern.matcher(moduleName);
+		if(!matcher.matches()){
+			//remove spaces
+			moduleName = moduleName.replaceAll(" ", "_");
+			AppLog.info("moduleName: " + moduleName);
+			//remove accents
+			moduleName = removeAccents(moduleName);
+			AppLog.info("moduleName: " + moduleName);
+			//remove special characters
+			moduleName = moduleName.replaceAll("[^a-zA-Z0-9_]", "");
+			AppLog.info("moduleName: " + moduleName);
+
+		}
+		return moduleName;
+	}
+	private String removeAccents(String text){
+		return text.replaceAll("(?u)[éèêë]", "e")
+			.replaceAll("(?u)[àâä]", "a")
+			.replaceAll("(?u)[îï]", "i")
+			.replaceAll("(?u)[ôö]", "o")
+			.replaceAll("(?u)[ùûü]", "u")
+			.replaceAll("(?u)ç", "c")
+			.replaceAll("(?u)ÿ", "y");
 	}
 	@RESTServiceOperation(method = "post", path = "/chat", desc = "chat with the AI")
 	public Object chat(
@@ -337,12 +387,20 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		@RESTServiceParam(name = "providerParams", type = "object", desc = "Provider parameters: JSON Object", required = false, in="body") JSONObject providerParams
 		){
 			boolean isJsonPrompt = true;
-			
+			String ping = AITools.pingAI();
+			if(AITools.PING_SUCCESS.equals(ping)){
+				AppLog.error(ping,null,getGrant());
+				return error(503,"Provider api is not available");
+			}
 			JSONArray jsonPrompt = optJSONArray(prompt);
 			if(Tool.isEmpty(jsonPrompt)){
 				isJsonPrompt = false;
 			}
-			return AITools.aiCaller(getGrant(), specialisation, historic, providerParams, isJsonPrompt ? jsonPrompt : prompt);
+			JSONObject resJson = AITools.aiCaller(getGrant(), specialisation, historic, providerParams, isJsonPrompt ? jsonPrompt : prompt);
+			if(resJson.has("error")){
+				return error(503,resJson.getString("error"));
+			}
+			return resJson;
 	}
 	/**
 	 * Chat with the AI
@@ -628,6 +686,9 @@ This JSON template represents the UML class diagram for the order application, w
 				""";
 		}else{
 			JSONObject jsonResponse = AITools.aiCaller(getGrant(), AITools.SPECIALISATION_NEED_JSON, template!=null?new String(template):"", historic,false,true);
+			if(jsonResponse.has("error")){
+				return error(503,jsonResponse.getString("error"));
+			}
 			result = AITools.parseJsonResponse(jsonResponse);
 		}
 		List<String> listResult = new ArrayList<>();

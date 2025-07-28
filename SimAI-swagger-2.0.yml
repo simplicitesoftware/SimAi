@@ -50,6 +50,168 @@ paths:
           description: Unauthorized
       tags:
       - session
+  /rest/SaiContact/{row_id}:
+    post:
+      summary: Create a new SaiContact business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-saicontact-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/SaiContact'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/SaiContact'
+        in: body
+        name: body
+      tags:
+      - SaiContact
+      consumes:
+      - application/json
+    get:
+      summary: Get a SaiContact business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-saicontact-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/SaiContact'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - SaiContact
+    delete:
+      summary: Delete a SaiContact business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-saicontact-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - SaiContact
+    put:
+      summary: Update a SaiContact business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-saicontact-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/SaiContact'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/SaiContact'
+        in: body
+        name: body
+      tags:
+      - SaiContact
+      consumes:
+      - application/json
   /:
     get:
       summary: Get user session information
@@ -73,6 +235,81 @@ paths:
         required: false
       tags:
       - session
+  /rest/SaiContact:
+    get:
+      summary: Search SaiContact business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-saicontact-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfSaiContact'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: SaiContactName
+        description: Search filter for Name
+        type: string
+        required: false
+      - in: query
+        name: SaiContactEmail
+        description: Search filter for Email
+        type: string
+        required: false
+      - in: query
+        name: SaiContactPhone
+        description: Search filter for Phone
+        type: string
+        required: false
+      - in: query
+        name: SaiContactComment
+        description: Search filter for Comment
+        type: string
+        required: false
+      - in: query
+        name: saiCntModuleId
+        description: Search filter for Module
+        type: string
+        required: false
+      - in: query
+        name: saiCntModuleId__mdl_name
+        description: Search filter for Module name
+        type: string
+        required: false
+      - in: query
+        name: saiCntXml
+        description: Search filter for XML
+        type: string
+        required: false
+      tags:
+      - SaiContact
 securityDefinitions:
   basicAuth:
     type: basic
@@ -106,6 +343,11 @@ definitions:
       item:
         description: Object item with lists of linked objects' items
         type: object
+  ArrayOfSaiContact:
+    description: List of Contact
+    type: array
+    items:
+      $ref: '#/definitions/SaiContact'
   PublicationResult:
     description: Publication result
     type: object
@@ -174,6 +416,41 @@ definitions:
         type: integer
         enum:
         - 500
+  SaiContact:
+    description: Contact
+    type: object
+    properties:
+      saiCntModuleId:
+        description: Module
+        type: string
+        maxLength: 11
+      SaiContactName:
+        description: Name
+        type: string
+        maxLength: 100
+      SaiContactPhone:
+        description: Phone
+        type: string
+        maxLength: 100
+      saiCntModuleId__mdl_name:
+        description: Module name
+        type: string
+        maxLength: 100
+      SaiContactComment:
+        description: Comment
+        type: string
+        maxLength: 1000
+      SaiContactEmail:
+        description: Email
+        type: string
+        maxLength: 100
+      row_id:
+        description: Unique technical row ID
+        type: string
+        maxLength: 11
+      saiCntXml:
+        description: XML
+        type: object
   PlaceMapData:
     description: Places map data
     type: object
@@ -210,3 +487,6 @@ info:
   description: API for module SimAI
   title: SimAI
   version: '0.3'
+tags:
+- name: SaiContact
+  description: Contact
