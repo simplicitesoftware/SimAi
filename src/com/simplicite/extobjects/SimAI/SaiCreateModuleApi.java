@@ -233,7 +233,15 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		}
 		String jsonString = g.getUserSystemParam("AI_JSON_TOGEN");
 		JSONObject json = AITools.getValidJson(jsonString);
-		return new JSONObject().put("links",AIModel.createLinks(json.getJSONArray(AIModel.JSON_LINK_KEY),mInfo, dataMaps,true, sysAdmin));
+		JSONObject res =new JSONObject().put("links",AIModel.createLinks(json.getJSONArray(AIModel.JSON_LINK_KEY),mInfo, dataMaps,true, sysAdmin));
+		processExportOrder(res,mInfo,dataMaps,sysAdmin);
+		return res;
+	}
+	private void processExportOrder(JSONObject json,AIModel.ModuleInfo mInfo,AIModel.DataMapObject dataMaps,Grant g){
+		AppLog.info("processExportOrder");
+		AppLog.info(json.optString("links"));
+		AppLog.info(mInfo.getModuleId());
+		AppLog.info(dataMaps.toJson().toString(1));
 	}
 	@RESTServiceOperation(method = "post", path = "/genObj", desc = "generate an object for a module")
 	public Object genObj(@RESTServiceParam(name = "objName", type = "string", desc = "Object name", required = true, in="body") String objName) throws GetException, ValidateException, SaveException{

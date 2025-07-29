@@ -944,11 +944,7 @@
      "object": "Field",
      "userkey": "saiContactComment",
      "item": {
-      "fld_name": {
-       "value": "saiContactComment",
-       "oldvalue": "saiContactComment",
-       "oldvalue1": "SaiContactComment"
-      },
+      "fld_name": "saiContactComment",
       "fld_dbname": "sai_contact_comment",
       "fld_visible": "3",
       "fld_updatable": [
@@ -994,11 +990,7 @@
      "object": "Field",
      "userkey": "saiContactEmail",
      "item": {
-      "fld_name": {
-       "value": "saiContactEmail",
-       "oldvalue": "saiContactEmail",
-       "oldvalue1": "SaiContactEmail"
-      },
+      "fld_name": "saiContactEmail",
       "fld_dbname": "sai_contact_email",
       "fld_visible": "3",
       "fld_updatable": [
@@ -1044,11 +1036,7 @@
      "object": "Field",
      "userkey": "saiContactName",
      "item": {
-      "fld_name": {
-       "value": "saiContactName",
-       "oldvalue": "SaiContactName",
-       "oldvalue1": "SaiContactName"
-      },
+      "fld_name": "saiContactName",
       "fld_dbname": "sai_contact_name",
       "fld_visible": "3",
       "fld_updatable": [
@@ -1094,11 +1082,7 @@
      "object": "Field",
      "userkey": "saiContactPhone",
      "item": {
-      "fld_name": {
-       "value": "saiContactPhone",
-       "oldvalue": "saiContactPhone",
-       "oldvalue1": "SaiContactPhone"
-      },
+      "fld_name": "saiContactPhone",
       "fld_dbname": "sai_contact_phone",
       "fld_visible": "3",
       "fld_updatable": [
@@ -2095,6 +2079,75 @@
       "grt_function_id__fct_object_id__obo_name": "SaiContact",
       "grt_function_id__fct_action_id__act_name": null,
       "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    }
+   ]
+  },
+  {
+   "object": "ConstraintObject",
+   "label": "Constraints",
+   "icon": "img/system/constraint",
+   "field": "row_module_id",
+   "list": [{
+    "object": "ConstraintObject",
+    "userkey": "NOT_EMPTY_MANDATORY",
+    "item": {
+     "cst_name": "NOT_EMPTY_MANDATORY",
+     "cst_object_id__obo_name": "SaiContact",
+     "cst_order": 1,
+     "cst_desc": null,
+     "cst_type": "E",
+     "cst_effects": [
+      "F",
+      "B"
+     ],
+     "cst_field_id__fld_name": null,
+     "cst_expr": "![ISNEW]",
+     "cst_method": null,
+     "row_module_id__mdl_name": "SimAI"
+    }
+   }]
+  },
+  {
+   "object": "ConstraintImpact",
+   "label": "Impacts",
+   "icon": "img/system/impact",
+   "field": "row_module_id",
+   "list": [
+    {
+     "object": "ConstraintImpact",
+     "userkey": "NOT_EMPTY_MANDATORY~SaiContact~1",
+     "item": {
+      "csi_const_id__cst_name": "NOT_EMPTY_MANDATORY",
+      "csi_const_id__cst_object_id__obo_name": "SaiContact",
+      "csi_order": 1,
+      "csi_object_prop": null,
+      "csi_field_prop": "M",
+      "csi_apply": "F",
+      "csi_expr": "[VALUE:saiContactName] != \"\" || [VALUE:saiContactEmail] != \"\" || [VALUE:saiContactPhone] != \"\"  ||  [VALUE:saiContactComment] != \"\"",
+      "csi_target": null,
+      "csi_objfield_id__obf_object_id__obo_name": "SaiContact",
+      "csi_objfield_id__obf_field_id__fld_name": "saiContactEmail",
+      "csi_objfield_id__obf_order": 20,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ConstraintImpact",
+     "userkey": "NOT_EMPTY_MANDATORY~SaiContact~2",
+     "item": {
+      "csi_const_id__cst_name": "NOT_EMPTY_MANDATORY",
+      "csi_const_id__cst_object_id__obo_name": "SaiContact",
+      "csi_order": 2,
+      "csi_object_prop": null,
+      "csi_field_prop": "M",
+      "csi_apply": "F",
+      "csi_expr": "[VALUE:saiContactName] != \"\" || [VALUE:saiContactEmail] != \"\" ||  [VALUE:saiContactPhone] != \"\"  ||  [VALUE:saiContactComment] != \"\"",
+      "csi_target": null,
+      "csi_objfield_id__obf_object_id__obo_name": "SaiContact",
+      "csi_objfield_id__obf_field_id__fld_name": "saiContactName",
+      "csi_objfield_id__obf_order": 10,
       "row_module_id__mdl_name": "SimAI"
      }
     }
