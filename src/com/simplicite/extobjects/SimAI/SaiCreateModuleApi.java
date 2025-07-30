@@ -8,6 +8,7 @@ import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 import com.simplicite.commons.AIBySimplicite.AIModel;
+import com.docusign.esign.client.JSON;
 import com.simplicite.commons.AIBySimplicite.AIData;
 import com.simplicite.commons.AIBySimplicite.AITools;
 import java.util.regex.Pattern;
@@ -233,16 +234,117 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		}
 		String jsonString = g.getUserSystemParam("AI_JSON_TOGEN");
 		JSONObject json = AITools.getValidJson(jsonString);
-		JSONObject res =new JSONObject().put("links",AIModel.createLinks(json.getJSONArray(AIModel.JSON_LINK_KEY),mInfo, dataMaps,true, sysAdmin));
-		processExportOrder(res,mInfo,dataMaps,sysAdmin);
-		return res;
+		JSONObject res =AIModel.createLinks(json.getJSONArray(AIModel.JSON_LINK_KEY),mInfo, dataMaps,true, sysAdmin);
+		
+		List<String> order = order(res.getJSONArray("links"),dataMaps.getObjCreateIds(),sysAdmin);
+		addOrderExport(order,sysAdmin);
+		return new JSONObject().put("links",res.getJSONArray("mermaid")).put("order",order);
 	}
-	private void processExportOrder(JSONObject json,AIModel.ModuleInfo mInfo,AIModel.DataMapObject dataMaps,Grant g){
-		AppLog.info("processExportOrder");
-		AppLog.info(json.optString("links"));
-		AppLog.info(mInfo.getModuleId());
-		AppLog.info(dataMaps.toJson().toString(1));
+	private void addOrderExport(List<String> order,Grant g){
+		ObjectDB obj = g.getTmpObject("ObjectInternal");
+		synchronized(obj.getLock()){
+			obj.resetFilters();
+			int i = 1;
+			for(String id : order){
+				obj.select(id);
+				obj.setFieldValue("obo_exportorder",i);
+				obj.save();
+				i+=10;
+			}
+			
+		}
 	}
+	private List<String> order(JSONArray links,List<String> objs,Grant g){
+		ArrayList<String> ordered = new ArrayList<>();
+		JSONObject sources = new JSONObject();
+		JSONObject targets = new JSONObject();
+		ArrayList<String> both = new ArrayList<>();
+		ArrayList<String> end = new ArrayList<>();
+		for(int i = 0; i < links.length(); i++){
+			JSONObject link = links.getJSONObject(i);
+			String source = link.getString("source");
+			String target = link.getString("target");
+			if(sources.has(source)){
+				sources.getJSONArray(source).put(target);
+			}else{
+				sources.put(source,new JSONArray().put(target));
+			}
+			if(targets.has(target)){
+				targets.getJSONArray(target).put(source);
+			}else{
+				targets.put(target,new JSONArray().put(source));
+			}
+		}
+		for (String obj : objs) {
+			if(sources.has(obj) && targets.has(obj)){
+				both.add(obj);
+			}else if(sources.has(obj)){
+				//source at end
+				end.add(obj);
+			}else {
+				//target or nothing at begin
+				ordered.add(obj);
+			}
+		}
+		ordered.addAll(orderBoth(both,sources,targets,g));
+		ordered.addAll(end);
+
+		return ordered;
+	}
+	private List<String> orderBoth(List<String> both,JSONObject sources,JSONObject targets,Grant g){
+		List<String> safe = new ArrayList<>();
+		List<String> ordered = new ArrayList<>();
+		for(String target : both){
+			// Si les sources ne sont pas dans both, alors safe (ajout a la fin)
+			JSONArray sourcesArray = targets.getJSONArray(target);
+			if(!sourcesInBoth(sourcesArray,both)){
+				safe.add(target);
+			}else{
+				// Si une sources est dans both, alors si orddered vide ajout
+				if(Tool.isEmpty(ordered)){
+					ordered.add(target);
+				}else{
+					List<String> newOrder = new ArrayList<>();
+					boolean isInserted = false;
+					// Sinon ordoannacement (parcour de ordered si id dans ordered est source de target ajout avant sinon pas au suivant)
+					for(String id : ordered){
+						if(!isInserted && isSourceOfTarget(target,sources.getJSONArray(id))){
+							newOrder.add(target);
+							newOrder.add(id);
+							isInserted = true;
+						}else{
+							newOrder.add(id);
+						}
+					}
+					ordered = newOrder;
+				}
+				
+			}
+			
+			
+
+		}
+		ordered.addAll(safe);
+		//TODO pas de gestion des boucles.
+		return ordered;
+	}
+	private boolean isSourceOfTarget(String target,JSONArray targets){
+		for(int i = 0; i < targets.length(); i++){
+			if(targets.optString(i,"").equals(target)){
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean sourcesInBoth(JSONArray sources,List<String> both){
+		for(Object source : sources){
+			if(both.contains((String) source)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@RESTServiceOperation(method = "post", path = "/genObj", desc = "generate an object for a module")
 	public Object genObj(@RESTServiceParam(name = "objName", type = "string", desc = "Object name", required = true, in="body") String objName) throws GetException, ValidateException, SaveException{
 		int fieldOrder = 100;
@@ -371,7 +473,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
   	*/
 	  String moduleId = moduleInfo.getString("moduleId");
 		// Create external object
-		AppLog.info("Create External Object");
+
 		String extName = moduleInfo.getString("mPrefix")+"HomeContact";
 		JSONObject homeContact = new JSONObject();
 		homeContact.put("obe_name", extName);
@@ -381,14 +483,13 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		homeContact.put("obe_class", "com.simplicite.commons.SimAI.SaiContactWidget");
 		String extId = AITools.createOrUpdateWithJson("ObjectExternal",homeContact,true,g);
 		// add permisions
-		AppLog.info("Add permisions");
+
 		JSONObject permissionFlds = new JSONObject();
 		permissionFlds.put("prm_group_id",moduleInfo.getString("groupId"));
 		permissionFlds.put("prm_object","ObjectExternal:"+extId);
 		permissionFlds.put("row_module_id",moduleId);
 		AITools.createOrUpdateWithJson("Permission",permissionFlds,g);
 		// Create DomainePage
-		AppLog.info("Create DomainePage");
 		JSONObject domainPage = new JSONObject();
 		domainPage.put("viw_name",moduleInfo.getString("mPrefix")+"Home");
 		domainPage.put("viw_type","D");
@@ -397,7 +498,6 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		domainPage.put("viw_order",1);
 		String pageId =AITools.createOrUpdateWithJson("ViewDomain",domainPage,true,g);
 		// add to domain
-		AppLog.info("Add to domain");
 		ObjectDB obj = g.getTmpObject("Domain");
 		synchronized(obj.getLock()){
 			obj.select(pageId);
@@ -406,7 +506,6 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			obj.save();
 		}
 		// add html to scope
-		AppLog.info("Add html to scope");
 		obj = g.getTmpObject("ViewHome");
 		synchronized(obj.getLock()){
 			obj.select(scopeId);
@@ -416,7 +515,6 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		}
 
 		// add area to scope and domaine page ViewItem
-		AppLog.info("Add area to scope and domaine page ViewItem");
 		JSONObject area = new JSONObject();
 		area.put("vwi_view_id",pageId);
 		area.put("vwi_type","E");
@@ -425,12 +523,10 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		area.put("vwi_url",new JSONObject().put("extobject",extName).toString());
 		area.put("row_module_id",moduleId);
 		AITools.createOrUpdateWithJson("ViewItem",area,true,g);
-		AppLog.info("Add area to scope ViewItem");
 		area.put("vwi_view_id",scopeId);
 		AITools.createOrUpdateWithJson("ViewItem",area,true,g);
 		
 		// add contact profile to groupe
-		AppLog.info("Add contact profile to group");
 		JSONObject contactProfile = new JSONObject();
 		contactProfile.put("prf_profile_id",moduleInfo.getString("groupId"));
 		contactProfile.put("prf_group_id",GroupDB.getGroupId("SAI_CNT_GROUP"));
@@ -444,7 +540,6 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		// Decode URL-encoded characters
 		try {
 			moduleName = java.net.URLDecoder.decode(moduleName, "UTF-8");
-			AppLog.info("moduleName after URL decoding: " + moduleName);
 		} catch (Exception e) {
 			AppLog.error("Error decoding module name: " + moduleName, e, getGrant());
 		}
@@ -453,13 +548,10 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		if(!matcher.matches()){
 			//remove spaces
 			moduleName = moduleName.replaceAll(" ", "_");
-			AppLog.info("moduleName: " + moduleName);
 			//remove accents
 			moduleName = removeAccents(moduleName);
-			AppLog.info("moduleName: " + moduleName);
 			//remove special characters
 			moduleName = moduleName.replaceAll("[^a-zA-Z0-9_]", "");
-			AppLog.info("moduleName: " + moduleName);
 
 		}
 		return moduleName;

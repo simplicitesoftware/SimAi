@@ -854,10 +854,10 @@
      "item": {
       "fld_name": "saiCntModuleId",
       "fld_dbname": "sai_cnt_module_id",
-      "fld_visible": "3",
+      "fld_visible": "0",
       "fld_updatable": [
-       "2",
-       "3"
+       "3",
+       "2"
       ],
       "fld_required": true,
       "fld_fonctid": true,
@@ -896,18 +896,15 @@
     },
     {
      "object": "Field",
-     "userkey": "saiCntXml",
+     "userkey": "saiCntSended",
      "item": {
-      "fld_name": "saiCntXml",
-      "fld_dbname": "sai_cnt_xml",
+      "fld_name": "saiCntSended",
+      "fld_dbname": "sai_cnt_sended",
       "fld_visible": "0",
-      "fld_updatable": [
-       "3",
-       "2"
-      ],
-      "fld_required": false,
+      "fld_updatable": ["0"],
+      "fld_required": true,
       "fld_fonctid": false,
-      "fld_research": null,
+      "fld_research": "1",
       "fld_researchreq": "0",
       "fld_sort": "C",
       "fld_more": false,
@@ -915,15 +912,15 @@
       "fld_listsum": null,
       "fld_exportable": true,
       "fld_tray": null,
-      "fld_type": "17",
+      "fld_type": "8",
       "fld_type_id__flt_code": null,
       "fld_list_id__lov_name": null,
       "fld_copy": true,
-      "fld_size": 11,
+      "fld_size": 1,
       "fld_minsize": null,
       "fld_precision": null,
       "fld_fromdate_id__fld_name": null,
-      "fld_dfault": null,
+      "fld_dfault": "0",
       "fld_indexable": false,
       "fld_autocomp": "0",
       "fld_groupby": false,
@@ -1173,7 +1170,7 @@
       "ofa_name": "SaiContact-1",
       "ofa_position": 1,
       "ofa_title": false,
-      "ofa_ui": "<div>\n  <div class=\"text\" data-text=\"SAI_ASK_FOR_MODULE\"><\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactName\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactEmail\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactPhone\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-8\">\n      <div class=\"field\" data-field=\"saiContactComment\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiCntModuleId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntXml\"><\/div>\n    <\/div>\n  <\/div>\n<\/div>",
+      "ofa_ui": "<div>\n  <div class=\"text\" data-text=\"SAI_ASK_FOR_MODULE\"><\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactName\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactEmail\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactPhone\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-8\">\n      <div class=\"field\" data-field=\"saiContactComment\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiCntModuleId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntSended\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_xml\"><\/div>\n    <\/div>\n  <\/div>\n<\/div>",
       "ofa_icon": "star",
       "row_module_id__mdl_name": "SimAI"
      }
@@ -1374,7 +1371,11 @@
      "obo_dbtable": "sai_contact",
      "obo_role": "OBJ",
      "obo_class": null,
-     "obo_script_id": null,
+     "obo_script_id": {
+      "path": "src/com/simplicite/objects/SimAI/SaiContact.java",
+      "mime": "text/plain",
+      "name": "SaiContact.java"
+     },
      "obo_usets": "1",
      "obo_nosearch": "1",
      "obo_comment": null,
@@ -1648,7 +1649,7 @@
       "obf_ref_export": true,
       "obf_copy": null,
       "obf_ref_order": null,
-      "obf_fld_visible": "0",
+      "obf_fld_visible": null,
       "obf_fld_required": null,
       "obf_fld_updatable": null,
       "obf_fld_research": null,
@@ -1667,11 +1668,46 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "SaiContact~saiCntXml~120",
+     "userkey": "SaiContact~mdl_xml~120",
      "item": {
       "obf_object_id__obo_name": "SaiContact",
-      "obf_field_id__fld_name": "saiCntXml",
+      "obf_field_id__fld_name": "mdl_xml",
       "obf_order": 120,
+      "obf_group_by": null,
+      "obf_dfault_order": null,
+      "obf_input": null,
+      "obf_ref_field_id__fld_name": "saiCntModuleId",
+      "obf_ref_object_id__obo_name": "Module",
+      "obf_cascad": null,
+      "obf_card": null,
+      "obf_visible": null,
+      "obf_ref_export": true,
+      "obf_copy": null,
+      "obf_ref_order": null,
+      "obf_fld_visible": null,
+      "obf_fld_required": null,
+      "obf_fld_updatable": null,
+      "obf_fld_research": null,
+      "obf_fld_more": null,
+      "obf_fld_listmore": null,
+      "obf_fld_researchreq": null,
+      "obf_fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_fld_uk": null,
+      "obf_area_id__ofa_name": "SaiContact-1",
+      "row_module_id__mdl_name": "SimAI",
+      "obf_joined_id__obf_object_id__obo_name": "SaiContact",
+      "obf_joined_id__obf_field_id__fld_name": "saiCntModuleId",
+      "obf_joined_id__obf_order": 100
+     }
+    },
+    {
+     "object": "ObjectFieldSystem",
+     "userkey": "SaiContact~saiCntSended~130",
+     "item": {
+      "obf_object_id__obo_name": "SaiContact",
+      "obf_field_id__fld_name": "saiCntSended",
+      "obf_order": 130,
       "obf_group_by": null,
       "obf_dfault_order": null,
       "obf_input": null,
@@ -2089,25 +2125,46 @@
    "label": "Constraints",
    "icon": "img/system/constraint",
    "field": "row_module_id",
-   "list": [{
-    "object": "ConstraintObject",
-    "userkey": "NOT_EMPTY_MANDATORY",
-    "item": {
-     "cst_name": "NOT_EMPTY_MANDATORY",
-     "cst_object_id__obo_name": "SaiContact",
-     "cst_order": 1,
-     "cst_desc": null,
-     "cst_type": "E",
-     "cst_effects": [
-      "F",
-      "B"
-     ],
-     "cst_field_id__fld_name": null,
-     "cst_expr": "![ISNEW]",
-     "cst_method": null,
-     "row_module_id__mdl_name": "SimAI"
+   "list": [
+    {
+     "object": "ConstraintObject",
+     "userkey": "NOT_EMPTY_MANDATORY",
+     "item": {
+      "cst_name": "NOT_EMPTY_MANDATORY",
+      "cst_object_id__obo_name": "SaiContact",
+      "cst_order": 1,
+      "cst_desc": null,
+      "cst_type": "E",
+      "cst_effects": [
+       "F",
+       "B"
+      ],
+      "cst_field_id__fld_name": null,
+      "cst_expr": "![ISNEW]",
+      "cst_method": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ConstraintObject",
+     "userkey": "UPDATABLE",
+     "item": {
+      "cst_name": "UPDATABLE",
+      "cst_object_id__obo_name": "SaiContact",
+      "cst_order": 2,
+      "cst_desc": null,
+      "cst_type": "E",
+      "cst_effects": [
+       "F",
+       "B"
+      ],
+      "cst_field_id__fld_name": null,
+      "cst_expr": "![ISNEW]",
+      "cst_method": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
-   }]
+   ]
   },
   {
    "object": "ConstraintImpact",
@@ -2150,27 +2207,26 @@
       "csi_objfield_id__obf_order": 10,
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "ConstraintImpact",
+     "userkey": "UPDATABLE~SaiContact~1",
+     "item": {
+      "csi_const_id__cst_name": "UPDATABLE",
+      "csi_const_id__cst_object_id__obo_name": "SaiContact",
+      "csi_order": 1,
+      "csi_object_prop": "U",
+      "csi_field_prop": null,
+      "csi_apply": "O",
+      "csi_expr": "!([VALUE:saiCntSended] == \"1\")",
+      "csi_target": null,
+      "csi_objfield_id__obf_object_id__obo_name": null,
+      "csi_objfield_id__obf_field_id__fld_name": null,
+      "csi_objfield_id__obf_order": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
-  },
-  {
-   "object": "DocIndex",
-   "label": "Bookshelf",
-   "icon": "img/system/bookshelf",
-   "field": "row_module_id",
-   "list": [{
-    "object": "DocIndex",
-    "userkey": "B-saiCntXml",
-    "item": {
-     "din_name": "B-saiCntXml",
-     "din_field_id__fld_name": "saiCntXml",
-     "din_path": null,
-     "din_min": null,
-     "din_max": null,
-     "din_grant": false,
-     "row_module_id__mdl_name": "SimAI"
-    }
-   }]
   },
   {
    "object": "Map",
@@ -2560,50 +2616,6 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "Field(saiCntXml)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiCntXml"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiCntXml",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "XML",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiCntXml)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiCntXml"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiCntXml",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "XML",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
      "userkey": "Field(saiContactComment)~ENU",
      "item": {
       "tsl_object": {
@@ -2769,6 +2781,50 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Téléphone",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiCntSended)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiCntSended"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiCntSended",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "sended",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiCntSended)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiCntSended"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiCntSended",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Cnt sended",
       "tsl_simplehelp": null,
       "tsl_plural_value": null,
       "tsl_short_value": null,
@@ -3225,46 +3281,6 @@
    ]
   },
   {
-   "object": "TranslateDocIndex",
-   "label": "Document index translation",
-   "icon": "img/system/translation",
-   "field": "row_module_id",
-   "list": [
-    {
-     "object": "TranslateDocIndex",
-     "userkey": "DocIndex(B-saiCntXml)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"din_name": "B-saiCntXml"},
-       "icon": "img/system/bookshelf",
-       "label": "Bookshelf",
-       "userkeylabel": "B-saiCntXml",
-       "object": "DocIndex"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "B-sai cnt xml",
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateDocIndex",
-     "userkey": "DocIndex(B-saiCntXml)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"din_name": "B-saiCntXml"},
-       "icon": "img/system/bookshelf",
-       "label": "Bookshelf",
-       "userkeylabel": "B-saiCntXml",
-       "object": "DocIndex"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "B-sai cnt xml",
-      "row_module_id__mdl_name": "SimAI"
-     }
-    }
-   ]
-  },
-  {
    "object": "Permission",
    "label": "Permissions",
    "icon": "img/system/state_transition_permission",
@@ -3292,14 +3308,14 @@
     },
     {
      "object": "Permission",
-     "userkey": "SAI_ADMIN~Field(XML)~Field(Visible)",
+     "userkey": "SAI_ADMIN~Field(Module)~Field(Visible)",
      "item": {
       "prm_group_id__grp_name": "SAI_ADMIN",
       "prm_object": {
-       "item": {"fld_name": "saiCntXml"},
+       "item": {"fld_name": "saiCntModuleId"},
        "icon": "img/system/field",
        "label": "Field",
-       "userkeylabel": "XML",
+       "userkeylabel": "Module",
        "object": "Field"
       },
       "prm_perm": null,

@@ -111,10 +111,16 @@ components:
           description: Module
           type: string
           maxLength: 11
+        saiCntModuleId__mdl_xml:
+          description: Module file
+          type: object
         saiCntModuleId__mdl_name:
           description: Module name
           type: string
           maxLength: 100
+        saiCntSended:
+          description: sended
+          type: boolean
         saiContactName:
           description: Name
           type: string
@@ -131,9 +137,6 @@ components:
           description: Phone
           type: string
           maxLength: 100
-        saiCntXml:
-          description: XML
-          type: object
         saiContactComment:
           description: Comment
           type: string
@@ -529,8 +532,14 @@ paths:
       - schema:
           type: string
         in: query
-        name: saiCntXml
-        description: Search filter for XML
+        name: saiCntModuleId__mdl_xml
+        description: Search filter for Module file
+        required: false
+      - schema:
+          type: boolean
+        in: query
+        name: saiCntSended
+        description: Search filter for sended
         required: false
       tags:
       - SaiContact

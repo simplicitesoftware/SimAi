@@ -28,7 +28,8 @@
 | `saiContactComment`                                          | text(1000)                               |          | yes       |          | -                                                                                |
 | `saiCntModuleId` link to **`Module`**                        | id                                       | yes*     | yes       |          | -                                                                                |
 | _Ref. `saiCntModuleId.mdl_name`_                             | _regexp(100)_                            |          |           |          | _Module name_                                                                    |
-| `saiCntXml`                                                  | document                                 |          | yes       |          | -                                                                                |
+| _Ref. `saiCntModuleId.mdl_xml`_                              | _document_                               |          |           |          | _Module file_                                                                    |
+| `saiCntSended`                                               | boolean                                  | yes      |           |          | -                                                                                |
 
 `SaiCreateModuleApi` external object definition
 -----------------------------------------------
