@@ -104,6 +104,8 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 						return genLinks();
 					case "initClearCache":
 						return initClearCache(req);
+					case "clearCache":
+						return clearGlobalCache();
 					case "postClearCache":
 						return postClearCache();
 					case "genJsonData":
@@ -913,6 +915,11 @@ This JSON template represents the UML class diagram for the order application, w
 	private Object genJson(JSONObject req) {
 		String historicString = req.optString("historic");
 		return genJson(historicString);
-	}	
+	}
+	@RESTServiceOperation(method = "post", path = "/clearCache", desc = "clear all cache")
+	public Object clearGlobalCache(){
+		SystemTool.resetCache(Grant.getSystemAdmin(),true,true,true,true,0);
+		return new JSONObject().put("success", true);
+	}
 
 }

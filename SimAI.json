@@ -2616,6 +2616,50 @@
     },
     {
      "object": "TranslateField",
+     "userkey": "Field(saiCntSended)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiCntSended"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiCntSended",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "sended",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiCntSended)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiCntSended"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiCntSended",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Cnt sended",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
      "userkey": "Field(saiContactComment)~ENU",
      "item": {
       "tsl_object": {
@@ -2781,50 +2825,6 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Téléphone",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiCntSended)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiCntSended"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiCntSended",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "sended",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiCntSended)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiCntSended"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiCntSended",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Cnt sended",
       "tsl_simplehelp": null,
       "tsl_plural_value": null,
       "tsl_short_value": null,
