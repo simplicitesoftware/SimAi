@@ -218,6 +218,24 @@
    }]
   },
   {
+   "object": "Responsability",
+   "label": "Responsibilities",
+   "icon": "img/system/responsability",
+   "field": "row_module_id",
+   "list": [{
+    "object": "Responsability",
+    "userkey": "designer~SAI_ADMIN~2025-08-05",
+    "item": {
+     "rsp_login_id__usr_login": "designer",
+     "rsp_group_id__grp_name": "SAI_ADMIN",
+     "rsp_start_dt": "2025-08-05",
+     "rsp_end_dt": null,
+     "rsp_activ": true,
+     "row_module_id__mdl_name": "SimAI"
+    }
+   }]
+  },
+  {
    "object": "ListOfValue",
    "label": "Static text",
    "icon": "img/system/static_text",
