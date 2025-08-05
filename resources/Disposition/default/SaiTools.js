@@ -12,7 +12,8 @@ class  SaiTools {
 		this.app = simplicite.session({
 		 	endpoint: 'ui',
 		 	authtoken: data._authtoken, // set in Java
-		 	ajaxkey: data._ajaxkey // set in Java
+		 	ajaxkey: data._ajaxkey, // set in Java
+		 	timeout: 120 //second
 		});
 		this.app.info(`Lib version: ${simplicite.constants.MODULE_VERSION}`);
 		

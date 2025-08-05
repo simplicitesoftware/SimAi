@@ -108,7 +108,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         "SAI_SEND"
       )}</button>`
         );
-        sendButton.on("click", this.sendMessage);
+        sendButton.on("click", () => this.sendMessage(this));
         inputCtn.append(sendButton);
         subCtn.append(inputCtn);
 
