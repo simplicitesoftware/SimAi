@@ -1436,23 +1436,23 @@
      "obo_rowid_id__fld_name": null,
      "obo_extend_id__obj_name": null,
      "row_module_id__mdl_name": "SimAI",
-     "obo_btn_reload": "P",
-     "obo_btn_prefs": "P",
-     "obo_btn_bookmark": "1",
+     "obo_btn_reload": "0",
+     "obo_btn_prefs": "0",
+     "obo_btn_bookmark": "0",
      "obo_btn_del": "P",
-     "obo_btn_copy": "P",
-     "obo_btn_export": "P",
-     "obo_btn_listadd": "1",
-     "obo_btn_listedit": "1",
-     "obo_btn_listupsert": "1",
-     "obo_btn_updall": "P",
-     "obo_btn_delall": "P",
-     "obo_btn_merge": "P",
+     "obo_btn_copy": "0",
+     "obo_btn_export": "0",
+     "obo_btn_listadd": "0",
+     "obo_btn_listedit": "0",
+     "obo_btn_listupsert": "0",
+     "obo_btn_updall": "0",
+     "obo_btn_delall": "0",
+     "obo_btn_merge": "0",
      "obo_btn_save": true,
-     "obo_btn_saveclose": true,
-     "obo_btn_savenew": true,
-     "obo_btn_savecopy": true,
-     "obo_btn_close": true,
+     "obo_btn_saveclose": false,
+     "obo_btn_savenew": false,
+     "obo_btn_savecopy": false,
+     "obo_btn_close": false,
      "obo_tray": true,
      "obo_dashboard": [
       "1",
@@ -1797,6 +1797,18 @@
    "list": [
     {
      "object": "Function",
+     "userkey": "SAI_CNT_CRU",
+     "item": {
+      "fct_name": "SAI_CNT_CRU",
+      "fct_object_id__obo_name": "SaiContact",
+      "fct_function": "CM",
+      "fct_action_id__act_name": null,
+      "fct_view_id__viw_name": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Function",
      "userkey": "SAI_CNT_CRUD",
      "item": {
       "fct_name": "SAI_CNT_CRUD",
@@ -2093,10 +2105,10 @@
     },
     {
      "object": "Grant",
-     "userkey": "SAI_CNT_GROUP~SAI_CNT_CRUD~SaiContact~",
+     "userkey": "SAI_CNT_GROUP~SAI_CNT_CRU~SaiContact~",
      "item": {
       "grt_group_id__grp_name": "SAI_CNT_GROUP",
-      "grt_function_id__fct_name": "SAI_CNT_CRUD",
+      "grt_function_id__fct_name": "SAI_CNT_CRU",
       "grt_function_id__fct_object_id__obo_name": "SaiContact",
       "grt_function_id__fct_action_id__act_name": null,
       "grt_activ": true,
@@ -2129,10 +2141,10 @@
     },
     {
      "object": "Grant",
-     "userkey": "SAI_CREATE_MODULE~SAI_CNT_CRUD~SaiContact~",
+     "userkey": "SAI_CREATE_MODULE~SAI_CNT_CRU~SaiContact~",
      "item": {
       "grt_group_id__grp_name": "SAI_CREATE_MODULE",
-      "grt_function_id__fct_name": "SAI_CNT_CRUD",
+      "grt_function_id__fct_name": "SAI_CNT_CRU",
       "grt_function_id__fct_object_id__obo_name": "SaiContact",
       "grt_function_id__fct_action_id__act_name": null,
       "grt_activ": true,
@@ -2397,7 +2409,7 @@
       "res_file": {
        "path": "resources/Disposition/responsive5/SCRIPT_INIT.js",
        "mime": "text/javascript",
-       "name": "SCRIPT.js"
+       "name": "SCRIPT_INIT.js"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
