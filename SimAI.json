@@ -53,6 +53,27 @@
    ]
   },
   {
+   "object": "Disposition",
+   "label": "Dispositions",
+   "icon": "img/system/disposition",
+   "field": "row_module_id",
+   "list": [{
+    "object": "Disposition",
+    "userkey": "SaiDisp",
+    "item": {
+     "dis_code": "SaiDisp",
+     "dis_image": null,
+     "dis_class": null,
+     "dis_script_id": {
+      "path": "src/com/simplicite/dispositions/SimAI/SaiDisp.java",
+      "mime": "text/plain",
+      "name": "SaiDisp.java"
+     },
+     "row_module_id__mdl_name": "SimAI"
+    }
+   }]
+  },
+  {
    "object": "View",
    "label": "Views",
    "icon": "img/system/view",
@@ -83,7 +104,7 @@
       "viw_ui": "<div class=\"area\" data-area=\"1\"><\/div>",
       "viw_order": 1,
       "viw_icon": null,
-      "viw_disp_id__dis_code": null,
+      "viw_disp_id__dis_code": "SaiDisp",
       "viw_scope": null,
       "row_module_id__mdl_name": "SimAI",
       "viw_theme_id__thm_name": "ThemeMondrian-Darker",
@@ -1276,7 +1297,7 @@
        "name": "SaiNewModuleFront.java"
       },
       "obe_icon": null,
-      "obe_permalink": null,
+      "obe_permalink": "/gen-my-module",
       "obe_widget": null,
       "row_module_id__mdl_name": "SimAI"
      }
@@ -2358,6 +2379,30 @@
    "icon": "img/system/resource",
    "field": "row_module_id",
    "list": [
+    {
+     "object": "Resource",
+     "userkey": "Disposition(responsive5)~ANY~SCRIPT_INIT",
+     "item": {
+      "res_object": {
+       "item": {"dis_code": "responsive5"},
+       "icon": "img/system/disposition",
+       "label": "Disposition",
+       "userkeylabel": "responsive5",
+       "object": "Disposition"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "SCRIPT_INIT",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/Disposition/responsive5/SCRIPT_INIT.js",
+       "mime": "text/javascript",
+       "name": "SCRIPT.js"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
     {
      "object": "Resource",
      "userkey": "Disposition(default)~ANY~SaiTools",
@@ -3482,6 +3527,26 @@
        "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "SaiWdgExemple",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_CREATE_MODULE~ObjectExternal(AIRestAPI)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_CREATE_MODULE",
+      "prm_object": {
+       "item": {"obe_name": "AIRestAPI"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "AIRestAPI",
        "object": "ObjectExternal"
       },
       "prm_perm": true,

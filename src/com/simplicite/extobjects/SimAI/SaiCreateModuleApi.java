@@ -56,6 +56,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			return error(e);
 		}
 	}
+
 	@RESTServiceOperation(method = "get", path = "/isModuleNameAvailable/{module}", desc = "Check if a module name is available")
 	public Object isModuleNameAvailable(@RESTServiceParam(name = "module",in="path", type = "string", desc = "Module name", required = false) String moduleName) {
 		if(Tool.isEmpty(moduleName)) return badRequest("Empty module name");

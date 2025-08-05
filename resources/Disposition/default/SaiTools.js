@@ -1,86 +1,61 @@
-var SaiTools = SaiTools || (function(param) {
-	const apiUrl = '/api/';
-	const endpointUrl = 'ext/SaiCreateModuleApi';
-	const user = $grant.login;
-	const password = '8yhzGBNYn@@U';
-	let token = '';
-	
-	async function setToken(t){
-		token=t;
-	}
-	
-	async function loginApi(){
-		const response = await fetch(apiUrl + "login", {
-			method: 'GET',
-			headers: {
-				'accept': 'application/json',
-				'Authorization': $app._callAuth(user,password)
-			}
+class  SaiTools {
+	// const apiUrl = '/api/';
+	// const endpointUrl = 'ext/SaiCreateModuleApi';
+	// const user = $grant.login;
+	// const password = '8yhzGBNYn@@U';
+	// let token = '';
+	constructor(data) {
+		console.log(data);
+		this.externalObject = 'SaiCreateModuleApi';
+		this.app = null;
+		this.user = $grant.login;
+		this.app = simplicite.session({
+		 	endpoint: 'ui',
+		 	authtoken: data._authtoken, // set in Java
+		 	ajaxkey: data._ajaxkey // set in Java
 		});
-		const data = await response.json();
-		this.token = data.authtoken;
-	}
-	
-	async function callApi(data = {},action = ""){
+		this.app.info(`Lib version: ${simplicite.constants.MODULE_VERSION}`);
 		
-		const response = await fetch(apiUrl + endpointUrl+ (action ? '/' + action : ''), {
-			method: 'POST',
-			headers: {
-				'accept': 'application/json',
-				'Authorization': `Bearer ${this.token}`,
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		});
-		const res = await response;
+	}
 
-		return res.json();
-	}
-	async function getModuleInfo(){
-		const response = await fetch(apiUrl + endpointUrl + '/moduleInfo', {
-			method: 'GET',
-			headers: {
-				'accept': 'application/json',
-				'Authorization': `Bearer ${this.token}`
-			}
-		});
-		const res = await response.json();
+	
+	// loginApi(data){
+	// 	console.lo
+	// 	this.app = simplicite.session({
+	// 	 	endpoint: 'ui',
+	// 	 	authtoken: params._authtoken, // set in Java
+	// 	 	ajaxkey: params._ajaxkey // set in Java
+	// 	});
+	// 	this.app.info(`Lib version: ${simplicite.constants.MODULE_VERSION}`);
+	// }
+	
+	async callApi(data = {},action = ""){
+			console.log(data);
+			const response =this.app.getExternalObject(this.externalObject).invoke(null,JSON.stringify(data),{'method':'POST','path':action,'accept':'application/json','contentType':'application/json'});
+			const res = await response;
+			return res;
+		}
+	async getModuleInfo(){
+		const response =this.app.getExternalObject(this.externalObject).invoke(null,null,{'method':'GET','path':'moduleInfo','accept':'application/json'});
+		const res = await response;
 		return res;
 	}
-	async function getRedirectScope(module = ""){
-		const response = await fetch(apiUrl + endpointUrl + '/getRedirectScope' + (module ? '/' + module : ''), {
-			method: 'GET',
-			headers: {
-				'accept': 'application/json',
-				'Authorization': `Bearer ${this.token}`
-			}
-		});
-		const res = await response.json();
+	async getRedirectScope(module = ""){
+		const response =this.app.getExternalObject(this.externalObject).invoke(null,null,{'method':'GET','path':'getRedirectScope' + (module ? '/' + module : ''),'accept':'application/json'});
+		const res = await response;
 		return res;
 	}
-	async function isPostClearCache(){
-		const response = await fetch(apiUrl + endpointUrl + '/isPostClearCache', {
-			method: 'GET',
-			headers: {
-				'accept': 'application/json',
-				'Authorization': `Bearer ${this.token}`
-			}
-		});
-		const res = await response.json();
+	async  isPostClearCache(){
+		const response =this.app.getExternalObject(this.externalObject).invoke(null,null,{'method':'GET','path':'isPostClearCache','accept':'application/json'});
+		const res = await response;
 		return res.isPostClearCache;
 	}
-	async function isModuleNameAvailable(moduleName){
-		const response = await fetch(apiUrl + endpointUrl + '/isModuleNameAvailable/' + moduleName, {
-			method: 'GET',
-			headers: {
-				'accept': 'application/json',
-				'Authorization': `Bearer ${this.token}`
-			}
-		});
-		const res = await response.json();
+	async  isModuleNameAvailable(moduleName){
+		const response =this.app.getExternalObject(this.externalObject).invoke(null,null,{'method':'GET','path':'isModuleNameAvailable/' + moduleName,'accept':'application/json'});
+		const res = await response;
 		return res.available;
 	}
-	async function getHistoric(ctn){
+	async  getHistoric(ctn){
 		let historic = [];
 		$(ctn).find(".user-messages").each(function() {
 			let text ={};
@@ -103,26 +78,26 @@ var SaiTools = SaiTools || (function(param) {
 		});
 		return historic;
 	}
-	async function logoutApi() {
-		const response = await fetch(apiUrl + "logout", {
-			method: 'GET',
-			headers: {
-				'accept': 'application/json',
-				'Authorization': `Bearer ${this.token}`
-			}
-		});
-		const data = await response.json();
-		return data.status == '200';
-	}
-	return {
-		loginApi,
-		callApi,
-		getModuleInfo,
-		getRedirectScope,
-		logoutApi,
-		getHistoric,
-		isPostClearCache,
-		setToken,
-		isModuleNameAvailable
-	};
-})();
+	// async logoutApi() {
+	// 	const response = await fetch(apiUrl + "logout", {
+	// 		method: 'GET',
+	// 		headers: {
+	// 			'accept': 'application/json',
+	// 			'Authorization': `Bearer ${this.token}`
+	// 		}
+	// 	});
+	// 	const data = await response.json();
+	// 	return data.status == '200';
+	// }
+	// return {
+	// 	loginApi,
+	// 	callApi,
+	// 	getModuleInfo,
+	// 	getRedirectScope,
+	// 	logoutApi,
+	// 	getHistoric,
+	// 	isPostClearCache,
+	// 	setToken,
+	// 	isModuleNameAvailable
+	// };
+}

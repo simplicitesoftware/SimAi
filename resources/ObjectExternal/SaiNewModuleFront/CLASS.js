@@ -7,37 +7,27 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         this.validatedModuleName = null;
         this.moduleObjects = [];
         this.showJson = $grant.sysparams.SAI_SHOW_JSON == 'true';
+
     }
 
     async render(params, data = {}) {
+
         $("#menu").hide();
         $ui.loadAceEditor(() => {
             console.log("ace editor loaded");
         });
-        const app = this;
-        await $ui.loadScript({
-            url: $ui.getApp().dispositionResourceURL("AiJsTools", "JS"),
-            onload: function() {
-                console.log("AiJsTools loaded");
-            },
-        });
-        $ui.loadScript({
-            url: $ui.getApp().dispositionResourceURL("SaiTools", "JS"),
-            onload: function() {
-                window.addEventListener("beforeunload", function() {
-                    SaiTools.logoutApi();
-                });
-                if (!data.api_token) {
-                    SaiTools.loginApi().then(() => {
-                        app.getPage(app);
-                    });
-                } else {
-                    SaiTools.setToken(data.api_token);
-                    data = {};
-                    app.getPage(app);
-                }
-            },
-        });
+       const app =  this;
+	    await $ui.loadScript({
+	      url: $ui.getApp().dispositionResourceURL("AiJsTools", "JS"),
+	      onload: function () {
+	        console.log("AiJsTools loaded");
+	      },
+	    });
+	    
+	   app.SaiTools = new SaiTools(data);
+	   app.getPage(app);
+	   
+        
     }
 
     getPage(app) {
@@ -141,7 +131,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         const moduleName = $("#moduleName").val();
         if (moduleName) {
 
-            let available = await SaiTools.isModuleNameAvailable(moduleName);
+            let available = await this.SaiTools.isModuleNameAvailable(moduleName);
 
             if (available) {
                 this.validatedModuleName = moduleName;
@@ -261,7 +251,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         $("#sendMessage").addClass("simai-disabledButton");
         $("#generateModule").addClass("simai-disabledButton");
 
-        let res = await SaiTools.callApi(params, "chat");
+        let res = await this.SaiTools.callApi(params, "chat");
         //TODO: Proper error handling
         if (res?.error) {
             ctn.find('#chatContainer').append("an error occured: " + AiJsTools.getDisplayBotMessage(res?.error));
@@ -278,7 +268,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async createModule(app) {
-        const moduleInfo = await SaiTools.callApi({
+        const moduleInfo = await this.SaiTools.callApi({
             action: "create",
             login: $grant.getLogin(),
             moduleName: this.validatedModuleName,
@@ -309,13 +299,13 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             };
         } else {
             let ctn = $("#sainewmodulefront");
-            let historic = await SaiTools.getHistoric(ctn);
+            let historic = await this.SaiTools.getHistoric(ctn);
             params = {
                 historic: historic
             };
         }
         $view.showLoading();
-        let res = await SaiTools.callApi(params, "genJson");
+        let res = await this.SaiTools.callApi(params, "genJson");
         //TODO: Proper error handling
         if (res?.error) {
             $ui.toast({
@@ -345,7 +335,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         try {
             JSON.parse(jsonValue); // Tente de parser le JSON
             //ctn.html('');
-            let res = await SaiTools.callApi({
+            let res = await this.SaiTools.callApi({
                 action: "prepareJson",
                 json: jsonValue,
             });
@@ -391,7 +381,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             .attr("id", "mermaidImage")
         );
         for (let obj of objects) {
-            let mermaidObj = await SaiTools.callApi({
+            let mermaidObj = await this.SaiTools.callApi({
                 action: "genObj",
                 objName: obj,
             });
@@ -419,7 +409,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             });
         }
 
-        let links = await SaiTools.callApi({
+        let links = await this.SaiTools.callApi({
             action: "genlinks"
         });
         console.log(links);
@@ -453,7 +443,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 
         dialog.html("");
 
-        let res = await SaiTools.callApi({
+        let res = await this.SaiTools.callApi({
             action: "initClearCache",
             mermaidText: mermaidText,
         });
@@ -471,7 +461,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 
         let reconnectButton = $("<button/>").attr("id", "reconnectButton").addClass("actionButton-yellow").text(`${$T("SAI_RECONNECT")}`).on("click", () => {
             $view.showLoading();
-            SaiTools.callApi({
+            this.SaiTools.callApi({
                 action: "clearCache"
             }).then(() => {
                 
@@ -497,11 +487,11 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         ctn.append(dialog);
 
         $view.showLoading();
-        await SaiTools.callApi({}, "postClearCache");
+        await this.SaiTools.callApi({}, "postClearCache");
 
         let res;
         if (testWithoutAiCall) {
-            let info = await SaiTools.getModuleInfo();
+            let info = await this.SaiTools.getModuleInfo();
             let prefix = info.mPrefix?.toLowerCase();
             let upperPrefix =
                 String(prefix).charAt(0).toUpperCase() + String(prefix).slice(1);
@@ -682,7 +672,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
                 ],
             };
         } else {
-            res = await SaiTools.callApi({}, "genJsonData");
+            res = await this.SaiTools.callApi({}, "genJsonData");
             //TODO: Proper error handling
             if (res?.error) {
                 $ui.toast({
@@ -712,7 +702,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             const editor = window.ace.edit("jsonEditor");
             const jsonValue = editor.getValue();
         }
-        let res = await SaiTools.callApi({
+        let res = await this.SaiTools.callApi({
             action: "genDatas",
             datas: jsonValue
         });
@@ -734,11 +724,9 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     async redirectToModule() {
         let ctn = $("#sainewmodulefront");
         ctn.html("");
-        let res = await SaiTools.getRedirectScope();
-        SaiTools.logoutApi().then(() => {
-            let redirect = res.redirect;
-            window.location.href = "/ui?" + redirect;
-        });
+        let res = await this.SaiTools.getRedirectScope();
+        let redirect = res.redirect;
+        window.location.href = "/ui?" + redirect;
     }
 
     getModuleSummary() { // Is this really useful ???

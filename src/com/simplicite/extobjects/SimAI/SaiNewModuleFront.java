@@ -18,7 +18,19 @@ public class SaiNewModuleFront extends com.simplicite.webapp.web.ResponsiveExter
 
 	@Override
 	public void init(Parameters params) {
+		addSimpliciteClient();
 		addMermaid();
+		appendJSInclude(HTMLTool.getResourceJSURL(getGrant(), "SaiTools"));
+		
+	}
+	@Override
+	public JSONObject data(Parameters params) {
+		JSONObject datas = super.data(params);
+		if(Tool.isEmpty(datas)) datas = new JSONObject();
+		datas.put("_authtoken", getGrant().getAuthToken());
+		datas.put("_ajaxkey", getGrant().getAjaxKey());
+		if("Public".equals(getGrant().getLogin())) datas.put("user", System.getenv("usrName"));
+		return datas;
 	}
 
 
