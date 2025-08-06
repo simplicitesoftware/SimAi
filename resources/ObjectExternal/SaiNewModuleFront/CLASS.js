@@ -11,8 +11,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async render(params, data = {}) {
-
-        $("#menu").hide();
+    	
         $ui.loadAceEditor(() => {
             console.log("ace editor loaded");
         });

@@ -9,6 +9,8 @@
 		$("#header .header .actions div:not(.logged-user) .btn-group").hide();
 		$("#header .header .actions .logged-scope").hide();
 		$("#header .header .actions .shortcuts-bar").hide();
+		
+		
 
 		// customize UI here before home page	
 	});
