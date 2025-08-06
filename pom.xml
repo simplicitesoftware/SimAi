@@ -7,13 +7,13 @@ ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.simplicite.modules</groupId>
-  <version>0.3-SNAPSHOT</version>
+  <version>0.4-SNAPSHOT</version>
   <artifactId>SimAI</artifactId>
   <name>SimAI</name>
   <description>Simplicite module: SimAI</description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <simplicite.url>https://saidemo.cbi.simplicite.io</simplicite.url>
+    <simplicite.url>https://saidev.cbi.simplicite.io</simplicite.url>
     <simplicite.version>6.2-SNAPSHOT</simplicite.version>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
@@ -21,7 +21,7 @@ ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
     <skipTests>true</skipTests>
     <sonar.projectKey>simplicite-modules-SimAI</sonar.projectKey>
     <sonar.projectName>SimAI</sonar.projectName>
-    <sonar.projectVersion>0.3</sonar.projectVersion>
+    <sonar.projectVersion>0.4</sonar.projectVersion>
     <sonar.sources>src,resources</sonar.sources>
     <sonar.exclusions>SimAI.xml,SimAI.json,SimAI-*.yml,configuration/**,**.min.js,**.min.css</sonar.exclusions>
     <sonar.coverage.exclusions>resources/**.js,src/**.java</sonar.coverage.exclusions>

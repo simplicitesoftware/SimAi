@@ -56,6 +56,34 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			return error(e);
 		}
 	}
+	/**
+	 * DELETE method handler (returns bad request by default)
+	 * @param params Request parameters
+	 * @return Typically JSON object or array
+	 * @throws HTTPException
+	 */
+	@Override
+	public Object del(Parameters params) throws HTTPException {
+		Grant g = getGrant();
+		List<String> uriParts = params.getURIParts(getName());
+		String action = uriParts.isEmpty()?params.getParameter("action",""):uriParts.get(0);
+		switch(action){
+			case "deleteModule":
+				return deleteModule(uriParts.size()>1?uriParts.get(1):params.getParameter("module",""));
+			default:
+				return badRequest("Invalid action");
+		}
+	}
+	@RESTServiceOperation(method = "delete", path = "/deleteModule/{module}", desc = "Delete a module")
+	public Object deleteModule(String module){
+		Grant g = getGrant();
+		if(Tool.isEmpty(module) || !ModuleDB.exists(module)) return error(404,"Module not found");
+		String err = ModuleDB.delete(Grant.getSystemAdmin(),module,false,null,null,null);
+		if(Tool.isEmpty(err)){
+			return success("Module "+module+" deleted");
+		}
+		return error(500,"Module not deleted: "+err);
+	}
 
 	@RESTServiceOperation(method = "get", path = "/isModuleNameAvailable/{module}", desc = "Check if a module name is available")
 	public Object isModuleNameAvailable(@RESTServiceParam(name = "module",in="path", type = "string", desc = "Module name", required = false) String moduleName) {

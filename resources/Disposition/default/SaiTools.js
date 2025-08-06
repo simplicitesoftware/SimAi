@@ -1,9 +1,4 @@
 class  SaiTools {
-	// const apiUrl = '/api/';
-	// const endpointUrl = 'ext/SaiCreateModuleApi';
-	// const user = $grant.login;
-	// const password = '8yhzGBNYn@@U';
-	// let token = '';
 	constructor(data) {
 		console.log(data);
 		this.externalObject = 'SaiCreateModuleApi';
@@ -20,15 +15,7 @@ class  SaiTools {
 	}
 
 	
-	// loginApi(data){
-	// 	console.lo
-	// 	this.app = simplicite.session({
-	// 	 	endpoint: 'ui',
-	// 	 	authtoken: params._authtoken, // set in Java
-	// 	 	ajaxkey: params._ajaxkey // set in Java
-	// 	});
-	// 	this.app.info(`Lib version: ${simplicite.constants.MODULE_VERSION}`);
-	// }
+
 	
 	async callApi(data = {},action = ""){
 			console.log(data);
@@ -36,6 +23,11 @@ class  SaiTools {
 			const res = await response;
 			return res;
 		}
+	async deleteModule(module = ""){
+		const response =this.app.getExternalObject(this.externalObject).invoke(null,null,{'method':'DELETE','path':'deleteModule/' + module,'accept':'application/json'});
+		const res = await response;
+		return res.status == '200';
+	}
 	async getModuleInfo(){
 		const response =this.app.getExternalObject(this.externalObject).invoke(null,null,{'method':'GET','path':'moduleInfo','accept':'application/json'});
 		const res = await response;
