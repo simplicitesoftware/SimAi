@@ -200,7 +200,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		AIModel.ModuleInfo mInfo = new AIModel.ModuleInfo(new JSONObject(moduleParam));
 		String moduleName =ModuleDB.getModuleName(mInfo.getModuleId());
 		JSONObject JsonDatas = new JSONObject(datas);
-		if(Tool.isEmpty(JsonDatas)) return badRequest("No datas");
+		if(Tool.isEmpty(JsonDatas)) return error(404,"No datas");
 		return new JSONObject().put("success", AIData.createDataFromJSON(moduleName,JsonDatas,g));
 	}
 	private Object genDatas(JSONObject req) {
@@ -215,7 +215,13 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		if(Tool.isEmpty(moduleName)) return badRequest("Module not found");
 		JSONObject response = AIData.genDataForModule(moduleName,sysAdmin);
 		if(response.has("error")){
-			return error(503,response.getString("error"));
+			if(response.has("error_status")){
+				return error(response.getInt("error_status"),response.getString("error"));
+			}
+			if(response.getString("error").equals("token_limit_reached")){
+				return error(413,"Token limit reached");
+			}
+			return error(500,response.getString("error"));
 		}
 		return  response.toString(1);
 	}
@@ -417,7 +423,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		) {
 		int domainOrder = 100;
 		JSONObject jsonObjects = new JSONObject(json);
-		if(Tool.isEmpty(jsonObjects)) return new JSONObject().put("error", "Invalid json");
+		if(Tool.isEmpty(jsonObjects)) return error(404,"Invalid json");
 		List<String> objects = new ArrayList<>();
 		JSONObject jsonToGen = new JSONObject();
 		jsonToGen.put(AIModel.JSON_LINK_KEY, jsonObjects.optJSONArray(AIModel.JSON_LINK_KEY,new JSONArray()));
@@ -457,7 +463,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		if(Tool.isEmpty(moduleName)) return error(400, "Empty module name");
 		String validModuleName = checkModuleName(moduleName); 
 		if (ModuleDB.exists(validModuleName)) {
-			return error(400, "Module " + moduleName + " already exists!");
+			return error(409, "Module " + moduleName + " already exists!");
 		}
 		String prefix = validModuleName.length() >= 3 ? validModuleName.substring(0, 3) : validModuleName;
 		ObjectDB obj = sysAdmin.getTmpObject("Module");
@@ -608,6 +614,9 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			if(!AITools.PING_SUCCESS.equals(ping)){
 				AppLog.error(ping,null,getGrant());
 				return error(503,"Provider api is not available");
+			}
+			if(Tool.isEmpty(prompt)){
+				return error(400,"Empty prompt");
 			}
 			JSONArray jsonPrompt = optJSONArray(prompt);
 			if(Tool.isEmpty(jsonPrompt)){
@@ -917,8 +926,7 @@ This JSON template represents the UML class diagram for the order application, w
 			if(Tool.isEmpty(listResult)){
 				jsonres = AITools.getValidJson(listResult.get(1));
 				if(Tool.isEmpty(jsonres)){
-					listResult = new ArrayList<>();
-					listResult.add("Sorry AI do not return interpretable json: \n");
+					return error(500,"Sorry AI do not return interpretable json:"+result);
 				}else{
 					listResult.set(1,jsonres.toString());
 				}
