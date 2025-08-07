@@ -2428,6 +2428,30 @@
    "list": [
     {
      "object": "Resource",
+     "userkey": "Disposition(default)~ANY~LOGON_ADDON",
+     "item": {
+      "res_object": {
+       "item": {"dis_code": "default"},
+       "icon": "img/system/disposition",
+       "label": "Disposition",
+       "userkeylabel": "default",
+       "object": "Disposition"
+      },
+      "res_type": "HTML",
+      "res_lang": "ANY",
+      "res_code": "LOGON_ADDON",
+      "res_cached": true,
+      "res_file": {
+       "path": "resources/Disposition/default/LOGON_ADDON.html",
+       "mime": "text/html",
+       "name": "logon_addon.html"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
      "userkey": "Disposition(default)~ANY~SaiTools",
      "item": {
       "res_object": {
