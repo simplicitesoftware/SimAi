@@ -57,21 +57,38 @@
    "label": "Dispositions",
    "icon": "img/system/disposition",
    "field": "row_module_id",
-   "list": [{
-    "object": "Disposition",
-    "userkey": "SaiDisp",
-    "item": {
-     "dis_code": "SaiDisp",
-     "dis_image": null,
-     "dis_class": null,
-     "dis_script_id": {
-      "path": "src/com/simplicite/dispositions/SimAI/SaiDisp.java",
-      "mime": "text/plain",
-      "name": "SaiDisp.java"
-     },
-     "row_module_id__mdl_name": "SimAI"
+   "list": [
+    {
+     "object": "Disposition",
+     "userkey": "SaiDisp",
+     "item": {
+      "dis_code": "SaiDisp",
+      "dis_image": null,
+      "dis_class": null,
+      "dis_script_id": {
+       "path": "src/com/simplicite/dispositions/SimAI/SaiDisp.java",
+       "mime": "text/plain",
+       "name": "SaiDisp.java"
+      },
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Disposition",
+     "userkey": "SaiModulesDisp",
+     "item": {
+      "dis_code": "SaiModulesDisp",
+      "dis_image": null,
+      "dis_class": null,
+      "dis_script_id": {
+       "path": "src/com/simplicite/dispositions/SimAI/SaiModulesDisp.java",
+       "mime": "text/plain",
+       "name": "SaiModulesDisp.java"
+      },
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
-   }]
+   ]
   },
   {
    "object": "View",
@@ -1423,7 +1440,7 @@
      "obo_exportorder": null,
      "obo_distinct": false,
      "obo_indexable": false,
-     "obo_groupby": false,
+     "obo_groupby": null,
      "obo_dfltref": null,
      "obo_template_id__tpl_name": "SaiContact",
      "obo_tpl_list_id__tpl_name": null,
@@ -1443,13 +1460,13 @@
      "obo_useform": true,
      "obo_title": null,
      "obo_icon": null,
-     "obo_refcount": false,
-     "obo_tree": false,
+     "obo_refcount": null,
+     "obo_tree": null,
      "obo_viewmode": "T",
      "obo_historic": null,
      "obo_printable": true,
      "obo_followlink": true,
-     "obo_mergeable": false,
+     "obo_mergeable": null,
      "obo_social": ["1"],
      "obo_rowid_id__fld_name": null,
      "obo_extend_id__obj_name": null,
@@ -1467,10 +1484,10 @@
      "obo_btn_delall": "0",
      "obo_btn_merge": "0",
      "obo_btn_save": true,
-     "obo_btn_saveclose": false,
-     "obo_btn_savenew": false,
-     "obo_btn_savecopy": false,
-     "obo_btn_close": false,
+     "obo_btn_saveclose": null,
+     "obo_btn_savenew": null,
+     "obo_btn_savecopy": null,
+     "obo_btn_close": null,
      "obo_tray": true,
      "obo_dashboard": [
       "1",
@@ -1483,7 +1500,7 @@
      "obo_sortable": true,
      "obo_list_areas": null,
      "obo_minifiable": "M",
-     "obo_minified": false,
+     "obo_minified": null,
      "obo_permalink": null,
      "obo_btn_searchform": true
     }
@@ -2411,30 +2428,6 @@
    "list": [
     {
      "object": "Resource",
-     "userkey": "Disposition(responsive5)~ANY~SCRIPT_INIT",
-     "item": {
-      "res_object": {
-       "item": {"dis_code": "responsive5"},
-       "icon": "img/system/disposition",
-       "label": "Disposition",
-       "userkeylabel": "responsive5",
-       "object": "Disposition"
-      },
-      "res_type": "JS",
-      "res_lang": "ANY",
-      "res_code": "SCRIPT_INIT",
-      "res_cached": false,
-      "res_file": {
-       "path": "resources/Disposition/responsive5/SCRIPT_INIT.js",
-       "mime": "text/javascript",
-       "name": "SCRIPT_INIT.js"
-      },
-      "res_image": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "Resource",
      "userkey": "Disposition(default)~ANY~SaiTools",
      "item": {
       "res_object": {
@@ -2452,6 +2445,54 @@
        "path": "resources/Disposition/default/SaiTools.js",
        "mime": "text/javascript",
        "name": "SaiTools.js"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "Disposition(default)~ANY~SCRIPT_INIT",
+     "item": {
+      "res_object": {
+       "item": {"dis_code": "default"},
+       "icon": "img/system/disposition",
+       "label": "Disposition",
+       "userkeylabel": "default",
+       "object": "Disposition"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "SCRIPT_INIT",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/Disposition/default/SCRIPT_INIT.js",
+       "mime": "text/javascript",
+       "name": "SCRIPT_INIT.js"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "Disposition(default)~ANY~SCRIPT_MLD_INIT",
+     "item": {
+      "res_object": {
+       "item": {"dis_code": "default"},
+       "icon": "img/system/disposition",
+       "label": "Disposition",
+       "userkeylabel": "default",
+       "object": "Disposition"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "SCRIPT_MLD_INIT",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/Disposition/default/SCRIPT_MLD_INIT.js",
+       "mime": "text/javascript",
+       "name": "script_mld_init.js"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"

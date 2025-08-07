@@ -9,13 +9,12 @@ import com.simplicite.util.tools.*;
 import com.simplicite.webapp.HTMLPage;
 import com.simplicite.webapp.ResponsivePage;
 /**
- * Disposition SaiDisp
+ * Disposition SaiModulesDisp
  */
-public class SaiDisp extends Disposition {
+public class SaiModulesDisp extends Disposition {
 	private static final long serialVersionUID = 1L;
 
-	
-			/**
+	/**
 	 * Display method
 	 * @param params Request parameters
 	 */
@@ -41,8 +40,7 @@ public class SaiDisp extends Disposition {
 			}
 
 			ResponsivePage wp = new ResponsivePage(params.getRoot(), g.getWindowTitle(), g, dl);
-			AppLog.info("js url "+HTMLPage.getResourceJSURL(getGrant(), "SCRIPT_INIT"));
-			wp.appendJSInclude(HTMLPage.getResourceJSURL(getGrant(), "SCRIPT_INIT"));
+			wp.appendJSInclude(HTMLPage.getResourceJSURL(getGrant(), "SCRIPT_MLD_INIT"));
 			return wp.toString();
 		}
 		catch (Exception e) // Catch any exception
