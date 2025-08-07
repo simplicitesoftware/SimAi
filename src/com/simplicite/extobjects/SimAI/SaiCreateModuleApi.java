@@ -141,6 +141,8 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 						return genJsonData();
 					case "genDatas":
 						return genDatas(req);
+					case "help":
+						return help(req);
 					default:
 						return badRequest("Invalid action");
 					
@@ -152,6 +154,17 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			return error(e);
 		}
 	}
+	
+	private Object help(JSONObject req) {
+		String question = req.optString("question");
+		return help(question);
+	}
+	@RESTServiceOperation(method = "get", path = "/help", desc = "Get help for a module")
+	public Object help(@RESTServiceParam(name = "question", type = "string", desc = "Question", required = true, in="body") String question) {
+		Grant g = getGrant();
+		return success(question);
+	}
+
 	@RESTServiceOperation(method = "get", path = "/isPostClearCache", desc = "Check it's a reconnection after clear cache in creation process")
 	public Object isPostClearCache() {
 		Grant g = getGrant();
