@@ -463,7 +463,8 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		if(Tool.isEmpty(moduleName)) return error(400, "Empty module name");
 		String validModuleName = checkModuleName(moduleName); 
 		if (ModuleDB.exists(validModuleName)) {
-			return error(409, "Module " + moduleName + " already exists!");
+			if(!validModuleName.endsWith("_"+login) && ModuleDB.exists(validModuleName+"_"+login)) return error(409, "Module " + moduleName + " already exists!");
+			validModuleName = validModuleName+"_"+login;
 		}
 		String prefix = validModuleName.length() >= 3 ? validModuleName.substring(0, 3) : validModuleName;
 		ObjectDB obj = sysAdmin.getTmpObject("Module");
@@ -498,7 +499,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		addHomeContact(scopeId,validModuleName,moduleInfo,sysAdmin);
 		getGrant().setUserSystemParam​("AI_CURRENT_MODULE_GEN", moduleInfo.toString(1), true);
 		sysAdmin.changeAccess("Theme",oldThemeAccess);
-		return moduleInfo;
+		return moduleInfo.put("name",validModuleName);
 	}
 	private void addHomeContact(String scopeId,String mldName, JSONObject moduleInfo,Grant g){
 		/*{
