@@ -16,6 +16,7 @@ import java.util.regex.Matcher;
 import com.simplicite.util.annotations.RESTService;
 import com.simplicite.util.annotations.RESTServiceParam;
 import com.simplicite.util.annotations.RESTServiceOperation;
+import com.simplicite.commons.SimAI.SaiMailTool;
 /**
  * REST service external object SaiCreateModuleApi
  */
@@ -632,6 +633,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			String ping = AITools.pingAI();
 			if(!AITools.PING_SUCCESS.equals(ping)){
 				AppLog.error(ping,null,getGrant());
+				SaiMailTool.sendAiAlert(ping);
 				return error(503,"Provider api is not available");
 			}
 			if(Tool.isEmpty(prompt)){
@@ -643,6 +645,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			}
 			JSONObject resJson = AITools.aiCaller(getGrant(), specialisation, historic, providerParams, isJsonPrompt ? jsonPrompt : prompt);
 			if(resJson.has("error")){
+				SaiMailTool.sendAiAlert(resJson.getString("error"));
 				return error(503,resJson.getString("error"));
 			}
 			return resJson;
@@ -932,6 +935,7 @@ This JSON template represents the UML class diagram for the order application, w
 		}else{
 			JSONObject jsonResponse = AITools.aiCaller(getGrant(), AITools.SPECIALISATION_NEED_JSON, template!=null?new String(template):"", historic,false,true);
 			if(jsonResponse.has("error")){
+				SaiMailTool.sendAiAlert(jsonResponse.getString("error"));
 				return error(503,jsonResponse.getString("error"));
 			}
 			result = AITools.parseJsonResponse(jsonResponse);

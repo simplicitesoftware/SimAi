@@ -1,7 +1,7 @@
 package com.simplicite.objects.SimAI;
 
 import java.util.*;
-
+import com.simplicite.commons.SimAI.SaiMailTool;
 import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
@@ -15,9 +15,23 @@ import org.json.*;
  */
 public class SaiContact extends ObjectDB {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Override
 	public List<String> preValidate() {
+		ObjectField field = getField("saiCntViewhomeId");
+		if(field.isEmpty()){
+			String mld = getFieldValue("saiCntModuleId");
+			ObjectDB obj = Grant.getSystemAdmin().getTmpObject("ViewHome");
+			synchronized(obj.getLock()){
+				obj.resetFilters();
+				obj.setFieldFilter("row_module_id",mld);
+				List<String[]> rows = obj.search();
+				if(!Tool.isEmpty(rows)){
+					String id = rows.get(0)[obj.getRowIdFieldIndex()];
+					field.setValue(id);
+				}
+			}
+		}
 		List<String> msgs = new ArrayList<>();
 		if(!getField("saiContactName").isEmpty()){
 			String mldName = getFieldValue("mdl_name");
@@ -147,4 +161,9 @@ public class SaiContact extends ObjectDB {
 		
 		return msgs;
 	}
+	public void sendBusinessMail(){
+		SaiMailTool.sendContactEmail(this);
+
+	}
+	
 }

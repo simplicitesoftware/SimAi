@@ -121,6 +121,15 @@ components:
         saiCntSended:
           description: sended
           type: boolean
+        saiCntViewhomeId__viw_name:
+          description: Home page Name
+          type: string
+          maxLength: 100
+        saiCntDeletion:
+          description: Deletion
+          type: string
+          maxLength: 19
+          example: yyyy-MM-dd HH:mm:ss
         saiContactName:
           description: Name
           type: string
@@ -137,6 +146,10 @@ components:
           description: Phone
           type: string
           maxLength: 100
+        saiCntViewhomeId:
+          description: Home page
+          type: string
+          maxLength: 11
         saiContactComment:
           description: Comment
           type: string
@@ -540,6 +553,24 @@ paths:
         in: query
         name: saiCntSended
         description: Search filter for sended
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: saiCntDeletion
+        description: Search filter for Deletion
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: saiCntViewhomeId
+        description: Search filter for Home page
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: saiCntViewhomeId__viw_name
+        description: Search filter for Home page Name
         required: false
       tags:
       - SaiContact

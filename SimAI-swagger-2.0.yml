@@ -313,6 +313,21 @@ paths:
         description: Search filter for sended
         type: boolean
         required: false
+      - in: query
+        name: saiCntDeletion
+        description: Search filter for Deletion
+        type: string
+        required: false
+      - in: query
+        name: saiCntViewhomeId
+        description: Search filter for Home page
+        type: string
+        required: false
+      - in: query
+        name: saiCntViewhomeId__viw_name
+        description: Search filter for Home page Name
+        type: string
+        required: false
       tags:
       - SaiContact
 securityDefinitions:
@@ -439,6 +454,15 @@ definitions:
       saiCntSended:
         description: sended
         type: boolean
+      saiCntViewhomeId__viw_name:
+        description: Home page Name
+        type: string
+        maxLength: 100
+      saiCntDeletion:
+        description: Deletion
+        type: string
+        maxLength: 19
+        example: yyyy-MM-dd HH:mm:ss
       saiContactName:
         description: Name
         type: string
@@ -455,6 +479,10 @@ definitions:
         description: Phone
         type: string
         maxLength: 100
+      saiCntViewhomeId:
+        description: Home page
+        type: string
+        maxLength: 11
       saiContactComment:
         description: Comment
         type: string

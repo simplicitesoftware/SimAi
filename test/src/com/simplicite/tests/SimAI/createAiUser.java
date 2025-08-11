@@ -31,7 +31,7 @@ public class createAiUser {
 			o.setFieldValue("usr_active",GrantCore.USER_ACTIVE);
 			t.validateAndCreate();
 			Grant.addResponsibility(Grant.getUserId(usrName),"SAI_CREATE_MODULE");
-			g.changePassword(usrName,usrPassword,false,false);
+			g.changePassword(usrName,usrPassword,false,true);
 			g.changeAccess("SimpleUser",old);
 		} catch (Exception e) {
 			fail(e.getMessage());
