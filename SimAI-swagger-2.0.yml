@@ -5,6 +5,62 @@
 #             |_| Module: SimAI 0.4
 basePath: /api
 paths:
+  /rest/SaiApplicationExample:
+    get:
+      summary: Search SaiApplicationExample business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-saiapplicationexample-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfSaiApplicationExample'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: saiSaeTitle
+        description: Search filter for Sae title
+        type: string
+        required: false
+      - in: query
+        name: saiSaeSummary
+        description: Search filter for Sae summary
+        type: string
+        required: false
+      - in: query
+        name: saiSaePrompt
+        description: Search filter for Sae prompt
+        type: string
+        required: false
+      tags:
+      - SaiApplicationExample
   /login:
     get:
       summary: Login (obtain bearer token)
@@ -33,6 +89,168 @@ paths:
         - token
       tags:
       - session
+  /rest/SaiApplicationExample/{row_id}:
+    post:
+      summary: Create a new SaiApplicationExample business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-saiapplicationexample-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/SaiApplicationExample'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/SaiApplicationExample'
+        in: body
+        name: body
+      tags:
+      - SaiApplicationExample
+      consumes:
+      - application/json
+    get:
+      summary: Get a SaiApplicationExample business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-saiapplicationexample-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/SaiApplicationExample'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - SaiApplicationExample
+    delete:
+      summary: Delete a SaiApplicationExample business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-saiapplicationexample-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - SaiApplicationExample
+    put:
+      summary: Update a SaiApplicationExample business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-saiapplicationexample-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/SaiApplicationExample'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/SaiApplicationExample'
+        in: body
+        name: body
+      tags:
+      - SaiApplicationExample
+      consumes:
+      - application/json
   /logout:
     get:
       summary: Logout (revoke bearer token)
@@ -350,19 +568,6 @@ definitions:
         type: integer
         enum:
         - 404
-  ActionResult:
-    description: Action result
-    type: object
-    properties:
-      result:
-        description: Action result
-        type: string
-  TreeviewData:
-    type: object
-    properties:
-      item:
-        description: Object item with lists of linked objects' items
-        type: object
   ArrayOfSaiContact:
     description: List of Contact
     type: array
@@ -400,42 +605,6 @@ definitions:
       label3:
         description: 'Label #3'
         type: string
-  Error400:
-    description: Bad request
-    type: object
-    properties:
-      error:
-        description: Error message
-        type: string
-      status:
-        description: Error status
-        type: integer
-        enum:
-        - 400
-  Error401:
-    description: Unauthorized
-    type: object
-    properties:
-      error:
-        description: Error message
-        type: string
-      status:
-        description: Error status
-        type: integer
-        enum:
-        - 401
-  Error500:
-    description: Internal server error
-    type: object
-    properties:
-      error:
-        description: Error message
-        type: string
-      status:
-        description: Error status
-        type: integer
-        enum:
-        - 500
   SaiContact:
     description: Contact
     type: object
@@ -499,6 +668,80 @@ definitions:
       name:
         description: Name
         type: string
+  SaiApplicationExample:
+    description: Application example
+    type: object
+    properties:
+      saiSaeTitle:
+        description: Sae title
+        type: string
+        maxLength: 50
+      saiSaeSummary:
+        description: Sae summary
+        type: string
+        maxLength: 350
+      saiSaePrompt:
+        description: Sae prompt
+        type: string
+        maxLength: 1500
+      row_id:
+        description: Unique technical row ID
+        type: string
+        maxLength: 11
+  ActionResult:
+    description: Action result
+    type: object
+    properties:
+      result:
+        description: Action result
+        type: string
+  TreeviewData:
+    type: object
+    properties:
+      item:
+        description: Object item with lists of linked objects' items
+        type: object
+  Error400:
+    description: Bad request
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 400
+  Error401:
+    description: Unauthorized
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 401
+  Error500:
+    description: Internal server error
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 500
+  ArrayOfSaiApplicationExample:
+    description: List of Application example
+    type: array
+    items:
+      $ref: '#/definitions/SaiApplicationExample'
   Error403:
     description: Forbidden
     type: object
@@ -524,5 +767,7 @@ info:
   title: SimAI
   version: '0.4'
 tags:
+- name: SaiApplicationExample
+  description: Application example
 - name: SaiContact
   description: Contact

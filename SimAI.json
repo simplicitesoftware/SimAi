@@ -30,6 +30,17 @@
     },
     {
      "object": "SystemParam",
+     "userkey": "CREATION_DATE",
+     "item": {
+      "sys_code": "CREATION_DATE",
+      "sys_value": "empty",
+      "sys_type": "APP",
+      "sys_desc": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "SystemParam",
      "userkey": "SAI_MAIL_TO",
      "item": {
       "sys_code": "SAI_MAIL_TO",
@@ -302,7 +313,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_CREATE_MODULE",
       "lov_lang": "ENU",
-      "lov_value": "Create solution",
+      "lov_value": "Create my app !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -518,6 +529,19 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_USE_EXAMPLE~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_USE_EXAMPLE",
+      "lov_lang": "ENU",
+      "lov_value": "Use this example",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_VALIDATE~ENU",
      "item": {
       "lov_name": "TEXT",
@@ -562,7 +586,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_CREATE_MODULE",
       "lov_lang": "FRA",
-      "lov_value": "Créer le module",
+      "lov_value": "Créer mon app !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -778,6 +802,19 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_USE_EXAMPLE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_USE_EXAMPLE",
+      "lov_lang": "FRA",
+      "lov_value": "Utiliser cet example",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_VALIDATE~FRA",
      "item": {
       "lov_name": "TEXT",
@@ -947,7 +984,7 @@
      "item": {
       "fld_name": "saiCntDeletion",
       "fld_dbname": "sai_cnt_deletion",
-      "fld_visible": "0",
+      "fld_visible": "2",
       "fld_updatable": ["0"],
       "fld_required": false,
       "fld_fonctid": false,
@@ -1299,6 +1336,144 @@
       "row_module_id__mdl_name": "SimAI",
       "fld_incrementsyntax": null
      }
+    },
+    {
+     "object": "Field",
+     "userkey": "saiSaePrompt",
+     "item": {
+      "fld_name": "saiSaePrompt",
+      "fld_dbname": "sai_sae_prompt",
+      "fld_visible": "3",
+      "fld_updatable": [
+       "3",
+       "2"
+      ],
+      "fld_required": false,
+      "fld_fonctid": false,
+      "fld_research": "1",
+      "fld_researchreq": "0",
+      "fld_sort": "C",
+      "fld_more": false,
+      "fld_listmore": false,
+      "fld_listsum": null,
+      "fld_exportable": true,
+      "fld_tray": null,
+      "fld_type": "13",
+      "fld_type_id__flt_code": null,
+      "fld_list_id__lov_name": null,
+      "fld_copy": true,
+      "fld_size": 1500,
+      "fld_minsize": null,
+      "fld_precision": null,
+      "fld_fromdate_id__fld_name": null,
+      "fld_dfault": null,
+      "fld_indexable": false,
+      "fld_autocomp": "0",
+      "fld_groupby": false,
+      "fld_updall": true,
+      "fld_case": null,
+      "fld_righttoleft": false,
+      "fld_rendering": null,
+      "fld_speech": null,
+      "fld_calc": null,
+      "fld_objlist": null,
+      "fld_comment": null,
+      "fld_classification": null,
+      "row_module_id__mdl_name": "SimAI",
+      "fld_incrementsyntax": null
+     }
+    },
+    {
+     "object": "Field",
+     "userkey": "saiSaeSummary",
+     "item": {
+      "fld_name": "saiSaeSummary",
+      "fld_dbname": "sai_sae_summary",
+      "fld_visible": "3",
+      "fld_updatable": [
+       "3",
+       "2"
+      ],
+      "fld_required": false,
+      "fld_fonctid": false,
+      "fld_research": "1",
+      "fld_researchreq": "0",
+      "fld_sort": "C",
+      "fld_more": false,
+      "fld_listmore": false,
+      "fld_listsum": null,
+      "fld_exportable": true,
+      "fld_tray": null,
+      "fld_type": "13",
+      "fld_type_id__flt_code": null,
+      "fld_list_id__lov_name": null,
+      "fld_copy": true,
+      "fld_size": 350,
+      "fld_minsize": null,
+      "fld_precision": null,
+      "fld_fromdate_id__fld_name": null,
+      "fld_dfault": null,
+      "fld_indexable": false,
+      "fld_autocomp": "0",
+      "fld_groupby": false,
+      "fld_updall": true,
+      "fld_case": null,
+      "fld_righttoleft": false,
+      "fld_rendering": null,
+      "fld_speech": null,
+      "fld_calc": null,
+      "fld_objlist": null,
+      "fld_comment": null,
+      "fld_classification": null,
+      "row_module_id__mdl_name": "SimAI",
+      "fld_incrementsyntax": null
+     }
+    },
+    {
+     "object": "Field",
+     "userkey": "saiSaeTitle",
+     "item": {
+      "fld_name": "saiSaeTitle",
+      "fld_dbname": "sai_sae_title",
+      "fld_visible": "3",
+      "fld_updatable": [
+       "3",
+       "2"
+      ],
+      "fld_required": true,
+      "fld_fonctid": true,
+      "fld_research": "1",
+      "fld_researchreq": "0",
+      "fld_sort": "C",
+      "fld_more": false,
+      "fld_listmore": false,
+      "fld_listsum": null,
+      "fld_exportable": true,
+      "fld_tray": null,
+      "fld_type": "3",
+      "fld_type_id__flt_code": null,
+      "fld_list_id__lov_name": null,
+      "fld_copy": true,
+      "fld_size": 50,
+      "fld_minsize": null,
+      "fld_precision": null,
+      "fld_fromdate_id__fld_name": null,
+      "fld_dfault": null,
+      "fld_indexable": false,
+      "fld_autocomp": "0",
+      "fld_groupby": false,
+      "fld_updall": true,
+      "fld_case": null,
+      "fld_righttoleft": false,
+      "fld_rendering": null,
+      "fld_speech": null,
+      "fld_calc": null,
+      "fld_objlist": null,
+      "fld_comment": null,
+      "fld_classification": null,
+      "row_module_id__mdl_name": "SimAI",
+      "fld_incrementsyntax": null
+     }
     }
    ]
   },
@@ -1313,6 +1488,19 @@
      "userkey": "Instance",
      "item": {
       "tpl_name": "Instance",
+      "tpl_ui": "<div class=\"area\" data-area=\"1\"><\/div>",
+      "tpl_min": null,
+      "tpl_image": null,
+      "tpl_grid": null,
+      "tpl_context": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Template",
+     "userkey": "SaiApplicationExample",
+     "item": {
+      "tpl_name": "SaiApplicationExample",
       "tpl_ui": "<div class=\"area\" data-area=\"1\"><\/div>",
       "tpl_min": null,
       "tpl_image": null,
@@ -1342,6 +1530,18 @@
    "icon": "img/system/field_area",
    "field": "row_module_id",
    "list": [
+    {
+     "object": "ObjectFieldArea",
+     "userkey": "SaiApplicationExample-1",
+     "item": {
+      "ofa_name": "SaiApplicationExample-1",
+      "ofa_position": 1,
+      "ofa_title": true,
+      "ofa_ui": "<div class=\"row\">\n  <div class=\"col-sm-2\">\n    <div class=\"field\" data-field=\"saiSaeTitle\"><\/div>\n  <\/div>\n  <div class=\"col-sm-5\">\n    <div class=\"field\" data-field=\"saiSaeSummary\"><\/div>\n  <\/div>\n  <div class=\"col-sm-5\">\n    <div class=\"field\" data-field=\"saiSaePrompt\"><\/div>\n  <\/div>\n<\/div>",
+      "ofa_icon": "star",
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
     {
      "object": "ObjectFieldArea",
      "userkey": "SaiContact-1",
@@ -1542,92 +1742,176 @@
    "label": "Business objects",
    "icon": "img/system/business_object",
    "field": "row_module_id",
-   "list": [{
-    "object": "ObjectInternal",
-    "userkey": "SaiContact",
-    "item": {
-     "obo_name": "SaiContact",
-     "obo_dbtable": "sai_contact",
-     "obo_role": "OBJ",
-     "obo_class": null,
-     "obo_script_id": {
-      "path": "src/com/simplicite/objects/SimAI/SaiContact.java",
-      "mime": "text/plain",
-      "name": "SaiContact.java"
-     },
-     "obo_usets": "1",
-     "obo_nosearch": "1",
-     "obo_comment": null,
-     "obo_type": "O",
-     "obo_searchspec": null,
-     "obo_exportorder": null,
-     "obo_distinct": false,
-     "obo_indexable": false,
-     "obo_groupby": null,
-     "obo_dfltref": null,
-     "obo_template_id__tpl_name": "SaiContact",
-     "obo_tpl_list_id__tpl_name": null,
-     "obo_copy": true,
-     "obo_export": ["1"],
-     "obo_pagine": true,
-     "obo_srh_predef": ["1"],
-     "obo_selrow": true,
-     "obo_updall": true,
-     "obo_delall": true,
-     "obo_listsearch": true,
-     "obo_list_edit": [
-      "N",
-      "L",
-      "E"
-     ],
-     "obo_useform": true,
-     "obo_title": null,
-     "obo_icon": null,
-     "obo_refcount": null,
-     "obo_tree": null,
-     "obo_viewmode": "T",
-     "obo_historic": null,
-     "obo_printable": true,
-     "obo_followlink": true,
-     "obo_mergeable": null,
-     "obo_social": ["1"],
-     "obo_rowid_id__fld_name": null,
-     "obo_extend_id__obj_name": null,
-     "row_module_id__mdl_name": "SimAI",
-     "obo_btn_reload": "0",
-     "obo_btn_prefs": "0",
-     "obo_btn_bookmark": "0",
-     "obo_btn_del": "P",
-     "obo_btn_copy": "0",
-     "obo_btn_export": "0",
-     "obo_btn_listadd": "0",
-     "obo_btn_listedit": "0",
-     "obo_btn_listupsert": "0",
-     "obo_btn_updall": "0",
-     "obo_btn_delall": "0",
-     "obo_btn_merge": "0",
-     "obo_btn_save": true,
-     "obo_btn_saveclose": null,
-     "obo_btn_savenew": null,
-     "obo_btn_savecopy": null,
-     "obo_btn_close": null,
-     "obo_tray": true,
-     "obo_dashboard": [
-      "1",
-      "2"
-     ],
-     "obo_prefix": "cnt",
-     "obo_search_ts": null,
-     "obo_minrows": null,
-     "obo_maxrows": null,
-     "obo_sortable": true,
-     "obo_list_areas": null,
-     "obo_minifiable": "M",
-     "obo_minified": null,
-     "obo_permalink": null,
-     "obo_btn_searchform": true
+   "list": [
+    {
+     "object": "ObjectInternal",
+     "userkey": "SaiApplicationExample",
+     "item": {
+      "obo_name": "SaiApplicationExample",
+      "obo_dbtable": "sai_application_example",
+      "obo_role": "OBJ",
+      "obo_class": null,
+      "obo_script_id": null,
+      "obo_usets": "1",
+      "obo_nosearch": "1",
+      "obo_comment": null,
+      "obo_type": "O",
+      "obo_searchspec": null,
+      "obo_exportorder": null,
+      "obo_distinct": false,
+      "obo_indexable": false,
+      "obo_groupby": false,
+      "obo_dfltref": null,
+      "obo_template_id__tpl_name": "SaiApplicationExample",
+      "obo_tpl_list_id__tpl_name": null,
+      "obo_copy": true,
+      "obo_export": ["1"],
+      "obo_pagine": true,
+      "obo_srh_predef": ["1"],
+      "obo_selrow": true,
+      "obo_updall": true,
+      "obo_delall": true,
+      "obo_listsearch": true,
+      "obo_list_edit": [
+       "N",
+       "L",
+       "E"
+      ],
+      "obo_useform": true,
+      "obo_title": null,
+      "obo_icon": null,
+      "obo_refcount": false,
+      "obo_tree": false,
+      "obo_viewmode": "T",
+      "obo_historic": null,
+      "obo_printable": true,
+      "obo_followlink": true,
+      "obo_mergeable": false,
+      "obo_social": ["1"],
+      "obo_rowid_id__fld_name": null,
+      "obo_extend_id__obj_name": null,
+      "row_module_id__mdl_name": "SimAI",
+      "obo_btn_reload": "P",
+      "obo_btn_prefs": "P",
+      "obo_btn_bookmark": "1",
+      "obo_btn_del": "P",
+      "obo_btn_copy": "P",
+      "obo_btn_export": "P",
+      "obo_btn_listadd": "1",
+      "obo_btn_listedit": "1",
+      "obo_btn_listupsert": "1",
+      "obo_btn_updall": "P",
+      "obo_btn_delall": "P",
+      "obo_btn_merge": "P",
+      "obo_btn_save": true,
+      "obo_btn_saveclose": true,
+      "obo_btn_savenew": true,
+      "obo_btn_savecopy": true,
+      "obo_btn_close": true,
+      "obo_tray": true,
+      "obo_dashboard": [
+       "1",
+       "2"
+      ],
+      "obo_prefix": "sae",
+      "obo_search_ts": null,
+      "obo_minrows": null,
+      "obo_maxrows": null,
+      "obo_sortable": true,
+      "obo_list_areas": null,
+      "obo_minifiable": "M",
+      "obo_minified": false,
+      "obo_permalink": null,
+      "obo_btn_searchform": true
+     }
+    },
+    {
+     "object": "ObjectInternal",
+     "userkey": "SaiContact",
+     "item": {
+      "obo_name": "SaiContact",
+      "obo_dbtable": "sai_contact",
+      "obo_role": "OBJ",
+      "obo_class": null,
+      "obo_script_id": {
+       "path": "src/com/simplicite/objects/SimAI/SaiContact.java",
+       "mime": "text/plain",
+       "name": "SaiContact.java"
+      },
+      "obo_usets": "1",
+      "obo_nosearch": "1",
+      "obo_comment": null,
+      "obo_type": "O",
+      "obo_searchspec": null,
+      "obo_exportorder": null,
+      "obo_distinct": false,
+      "obo_indexable": false,
+      "obo_groupby": null,
+      "obo_dfltref": null,
+      "obo_template_id__tpl_name": "SaiContact",
+      "obo_tpl_list_id__tpl_name": null,
+      "obo_copy": true,
+      "obo_export": ["1"],
+      "obo_pagine": true,
+      "obo_srh_predef": ["1"],
+      "obo_selrow": true,
+      "obo_updall": true,
+      "obo_delall": true,
+      "obo_listsearch": true,
+      "obo_list_edit": [
+       "N",
+       "L",
+       "E"
+      ],
+      "obo_useform": true,
+      "obo_title": null,
+      "obo_icon": null,
+      "obo_refcount": null,
+      "obo_tree": null,
+      "obo_viewmode": "T",
+      "obo_historic": null,
+      "obo_printable": true,
+      "obo_followlink": true,
+      "obo_mergeable": null,
+      "obo_social": ["1"],
+      "obo_rowid_id__fld_name": null,
+      "obo_extend_id__obj_name": null,
+      "row_module_id__mdl_name": "SimAI",
+      "obo_btn_reload": "0",
+      "obo_btn_prefs": "0",
+      "obo_btn_bookmark": "0",
+      "obo_btn_del": "P",
+      "obo_btn_copy": "0",
+      "obo_btn_export": "0",
+      "obo_btn_listadd": "0",
+      "obo_btn_listedit": "0",
+      "obo_btn_listupsert": "0",
+      "obo_btn_updall": "0",
+      "obo_btn_delall": "0",
+      "obo_btn_merge": "0",
+      "obo_btn_save": true,
+      "obo_btn_saveclose": null,
+      "obo_btn_savenew": null,
+      "obo_btn_savecopy": null,
+      "obo_btn_close": null,
+      "obo_tray": true,
+      "obo_dashboard": [
+       "1",
+       "2"
+      ],
+      "obo_prefix": "cnt",
+      "obo_search_ts": null,
+      "obo_minrows": null,
+      "obo_maxrows": null,
+      "obo_sortable": true,
+      "obo_list_areas": null,
+      "obo_minifiable": "M",
+      "obo_minified": null,
+      "obo_permalink": null,
+      "obo_btn_searchform": true
+     }
     }
-   }]
+   ]
   },
   {
    "object": "ObjectFieldSystem",
@@ -1635,6 +1919,111 @@
    "icon": "img/system/object_field",
    "field": "row_module_id",
    "list": [
+    {
+     "object": "ObjectFieldSystem",
+     "userkey": "SaiApplicationExample~saiSaeTitle~10",
+     "item": {
+      "obf_object_id__obo_name": "SaiApplicationExample",
+      "obf_field_id__fld_name": "saiSaeTitle",
+      "obf_order": 10,
+      "obf_group_by": null,
+      "obf_dfault_order": 1,
+      "obf_input": null,
+      "obf_ref_field_id__fld_name": null,
+      "obf_ref_object_id__obo_name": null,
+      "obf_cascad": null,
+      "obf_card": null,
+      "obf_visible": null,
+      "obf_ref_export": true,
+      "obf_copy": null,
+      "obf_ref_order": null,
+      "obf_fld_visible": null,
+      "obf_fld_required": null,
+      "obf_fld_updatable": null,
+      "obf_fld_research": null,
+      "obf_fld_more": null,
+      "obf_fld_listmore": null,
+      "obf_fld_researchreq": null,
+      "obf_fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_fld_uk": null,
+      "obf_area_id__ofa_name": "SaiApplicationExample-1",
+      "row_module_id__mdl_name": "SimAI",
+      "obf_joined_id__obf_object_id__obo_name": null,
+      "obf_joined_id__obf_field_id__fld_name": null,
+      "obf_joined_id__obf_order": null
+     }
+    },
+    {
+     "object": "ObjectFieldSystem",
+     "userkey": "SaiApplicationExample~saiSaeSummary~20",
+     "item": {
+      "obf_object_id__obo_name": "SaiApplicationExample",
+      "obf_field_id__fld_name": "saiSaeSummary",
+      "obf_order": 20,
+      "obf_group_by": null,
+      "obf_dfault_order": null,
+      "obf_input": null,
+      "obf_ref_field_id__fld_name": null,
+      "obf_ref_object_id__obo_name": null,
+      "obf_cascad": null,
+      "obf_card": null,
+      "obf_visible": null,
+      "obf_ref_export": true,
+      "obf_copy": null,
+      "obf_ref_order": null,
+      "obf_fld_visible": null,
+      "obf_fld_required": null,
+      "obf_fld_updatable": null,
+      "obf_fld_research": null,
+      "obf_fld_more": null,
+      "obf_fld_listmore": null,
+      "obf_fld_researchreq": null,
+      "obf_fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_fld_uk": null,
+      "obf_area_id__ofa_name": "SaiApplicationExample-1",
+      "row_module_id__mdl_name": "SimAI",
+      "obf_joined_id__obf_object_id__obo_name": null,
+      "obf_joined_id__obf_field_id__fld_name": null,
+      "obf_joined_id__obf_order": null
+     }
+    },
+    {
+     "object": "ObjectFieldSystem",
+     "userkey": "SaiApplicationExample~saiSaePrompt~30",
+     "item": {
+      "obf_object_id__obo_name": "SaiApplicationExample",
+      "obf_field_id__fld_name": "saiSaePrompt",
+      "obf_order": 30,
+      "obf_group_by": null,
+      "obf_dfault_order": null,
+      "obf_input": null,
+      "obf_ref_field_id__fld_name": null,
+      "obf_ref_object_id__obo_name": null,
+      "obf_cascad": null,
+      "obf_card": null,
+      "obf_visible": null,
+      "obf_ref_export": true,
+      "obf_copy": null,
+      "obf_ref_order": null,
+      "obf_fld_visible": null,
+      "obf_fld_required": null,
+      "obf_fld_updatable": null,
+      "obf_fld_research": null,
+      "obf_fld_more": null,
+      "obf_fld_listmore": null,
+      "obf_fld_researchreq": null,
+      "obf_fld_dfault": null,
+      "obf_fld_exportable": null,
+      "obf_fld_uk": null,
+      "obf_area_id__ofa_name": "SaiApplicationExample-1",
+      "row_module_id__mdl_name": "SimAI",
+      "obf_joined_id__obf_object_id__obo_name": null,
+      "obf_joined_id__obf_field_id__fld_name": null,
+      "obf_joined_id__obf_order": null
+     }
+    },
     {
      "object": "ObjectFieldSystem",
      "userkey": "SaiContact~saiContactName~10",
@@ -2086,6 +2475,30 @@
    "list": [
     {
      "object": "Function",
+     "userkey": "SAI_APPLICATION_EXAMPLE_CRUD",
+     "item": {
+      "fct_name": "SAI_APPLICATION_EXAMPLE_CRUD",
+      "fct_object_id__obo_name": "SaiApplicationExample",
+      "fct_function": "CMS",
+      "fct_action_id__act_name": null,
+      "fct_view_id__viw_name": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Function",
+     "userkey": "SAI_APPLICATION_EXAMPLE_R",
+     "item": {
+      "fct_name": "SAI_APPLICATION_EXAMPLE_R",
+      "fct_object_id__obo_name": "SaiApplicationExample",
+      "fct_function": "L",
+      "fct_action_id__act_name": null,
+      "fct_view_id__viw_name": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Function",
      "userkey": "SAI_CNT_CRU",
      "item": {
       "fct_name": "SAI_CNT_CRU",
@@ -2159,6 +2572,18 @@
       "grt_group_id__grp_name": "SAI_ADMIN",
       "grt_function_id__fct_name": "SAI_OBJECT_INTERNAL_R",
       "grt_function_id__fct_object_id__obo_name": "ObjectInternal",
+      "grt_function_id__fct_action_id__act_name": null,
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_ADMIN~SAI_APPLICATION_EXAMPLE_CRUD~SaiApplicationExample~",
+     "item": {
+      "grt_group_id__grp_name": "SAI_ADMIN",
+      "grt_function_id__fct_name": "SAI_APPLICATION_EXAMPLE_CRUD",
+      "grt_function_id__fct_object_id__obo_name": "SaiApplicationExample",
       "grt_function_id__fct_action_id__act_name": null,
       "grt_activ": true,
       "row_module_id__mdl_name": "SimAI"
@@ -2430,6 +2855,18 @@
     },
     {
      "object": "Grant",
+     "userkey": "SAI_CREATE_MODULE~SAI_APPLICATION_EXAMPLE_R~SaiApplicationExample~",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CREATE_MODULE",
+      "grt_function_id__fct_name": "SAI_APPLICATION_EXAMPLE_R",
+      "grt_function_id__fct_object_id__obo_name": "SaiApplicationExample",
+      "grt_function_id__fct_action_id__act_name": null,
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
      "userkey": "SAI_CREATE_MODULE~SAI_CNT_CRU~SaiContact~",
      "item": {
       "grt_group_id__grp_name": "SAI_CREATE_MODULE",
@@ -2587,6 +3024,23 @@
       },
       "map_order": 300,
       "map_ext": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Map",
+     "userkey": "SaiDomain~ObjectInternal(SaiApplicationExample)~310",
+     "item": {
+      "map_domain_id__obd_name": "SaiDomain",
+      "map_object": {
+       "item": {"obo_name": "SaiApplicationExample"},
+       "icon": "img/system/business_object",
+       "label": "Business object",
+       "userkeylabel": "SaiApplicationExample",
+       "object": "ObjectInternal"
+      },
+      "map_order": 310,
+      "map_ext": false,
       "row_module_id__mdl_name": "SimAI"
      }
     }
@@ -3329,6 +3783,138 @@
       "tsl_tooltip": null,
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaePrompt)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaePrompt"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiSaePrompt",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Sae prompt",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaePrompt)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaePrompt"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiSaePrompt",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Prompt",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaeTitle)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaeTitle"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiSaeTitle",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Sae title",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaeTitle)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaeTitle"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiSaeTitle",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Title",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaeSummary)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaeSummary"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiSaeSummary",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Sae summary",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaeSummary)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaeSummary"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiSaeSummary",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Summary",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
   },
@@ -3399,6 +3985,38 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Instance",
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateFieldArea",
+     "userkey": "ObjectFieldArea(SaiApplicationExample-1)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"ofa_name": "SaiApplicationExample-1"},
+       "icon": "img/system/field_area",
+       "label": "Fields area",
+       "userkeylabel": "SaiApplicationExample-1",
+       "object": "ObjectFieldArea"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Application example -1",
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateFieldArea",
+     "userkey": "ObjectFieldArea(SaiApplicationExample-1)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"ofa_name": "SaiApplicationExample-1"},
+       "icon": "img/system/field_area",
+       "label": "Fields area",
+       "userkeylabel": "SaiApplicationExample-1",
+       "object": "ObjectFieldArea"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "SaiApplicationExample-1",
       "row_module_id__mdl_name": "SimAI"
      }
     }
@@ -3483,6 +4101,42 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Contact",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateObject",
+     "userkey": "ObjectInternal(SaiApplicationExample)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"obo_name": "SaiApplicationExample"},
+       "icon": "img/system/business_object",
+       "label": "Business object",
+       "userkeylabel": "SaiApplicationExample",
+       "object": "ObjectInternal"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Application example",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateObject",
+     "userkey": "ObjectInternal(SaiApplicationExample)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"obo_name": "SaiApplicationExample"},
+       "icon": "img/system/business_object",
+       "label": "Business object",
+       "userkeylabel": "SaiApplicationExample",
+       "object": "ObjectInternal"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Exemple d'application",
       "tsl_plural_value": null,
       "tsl_help": null,
       "row_module_id__mdl_name": "SimAI"
@@ -4039,6 +4693,26 @@
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_CREATE_MODULE~ObjectInternal(SaiApplicationExample)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_CREATE_MODULE",
+      "prm_object": {
+       "item": {"obo_name": "SaiApplicationExample"},
+       "icon": "img/system/business_object",
+       "label": "Business object",
+       "userkeylabel": "SaiApplicationExample",
+       "object": "ObjectInternal"
       },
       "prm_perm": true,
       "prm_upd": false,

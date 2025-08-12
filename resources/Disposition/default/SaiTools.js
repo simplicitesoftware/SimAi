@@ -11,6 +11,7 @@ class  SaiTools {
 		 	timeout: 120 //second
 		});
 		this.app.info(`Lib version: ${simplicite.constants.MODULE_VERSION}`);
+		this.chatUmlSpecialisation = "You help design uml for object-oriented applications. Without function and whith relation description. Respond with a text for no technical users" ;
 		
 	}
 
