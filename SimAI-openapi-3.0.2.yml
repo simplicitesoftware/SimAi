@@ -121,6 +121,10 @@ components:
       description: Application example
       type: object
       properties:
+        saiSaePromptEnglish:
+          description: Sae prompt english
+          type: string
+          maxLength: 1500
         saiSaeTitle:
           description: Sae title
           type: string
@@ -129,6 +133,10 @@ components:
           description: Sae summary
           type: string
           maxLength: 350
+        saiSaeTitleEnglish:
+          description: Sae title english
+          type: string
+          maxLength: 100
         saiSaePrompt:
           description: Sae prompt
           type: string
@@ -137,6 +145,10 @@ components:
           description: Unique technical row ID
           type: string
           maxLength: 11
+        saiSaeSummaryEnglish:
+          description: Sae summary english
+          type: string
+          maxLength: 350
     ActionResult:
       description: Action result
       type: object
@@ -270,6 +282,12 @@ paths:
       - schema:
           type: string
         in: query
+        name: saiSaeTitleEnglish
+        description: Search filter for Sae title english
+        required: false
+      - schema:
+          type: string
+        in: query
         name: saiSaeSummary
         description: Search filter for Sae summary
         required: false
@@ -278,6 +296,18 @@ paths:
         in: query
         name: saiSaePrompt
         description: Search filter for Sae prompt
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: saiSaeSummaryEnglish
+        description: Search filter for Sae summary english
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: saiSaePromptEnglish
+        description: Search filter for Sae prompt english
         required: false
       tags:
       - SaiApplicationExample

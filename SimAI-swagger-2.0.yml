@@ -50,6 +50,11 @@ paths:
         type: string
         required: false
       - in: query
+        name: saiSaeTitleEnglish
+        description: Search filter for Sae title english
+        type: string
+        required: false
+      - in: query
         name: saiSaeSummary
         description: Search filter for Sae summary
         type: string
@@ -57,6 +62,16 @@ paths:
       - in: query
         name: saiSaePrompt
         description: Search filter for Sae prompt
+        type: string
+        required: false
+      - in: query
+        name: saiSaeSummaryEnglish
+        description: Search filter for Sae summary english
+        type: string
+        required: false
+      - in: query
+        name: saiSaePromptEnglish
+        description: Search filter for Sae prompt english
         type: string
         required: false
       tags:
@@ -672,6 +687,10 @@ definitions:
     description: Application example
     type: object
     properties:
+      saiSaePromptEnglish:
+        description: Sae prompt english
+        type: string
+        maxLength: 1500
       saiSaeTitle:
         description: Sae title
         type: string
@@ -680,6 +699,10 @@ definitions:
         description: Sae summary
         type: string
         maxLength: 350
+      saiSaeTitleEnglish:
+        description: Sae title english
+        type: string
+        maxLength: 100
       saiSaePrompt:
         description: Sae prompt
         type: string
@@ -688,6 +711,10 @@ definitions:
         description: Unique technical row ID
         type: string
         maxLength: 11
+      saiSaeSummaryEnglish:
+        description: Sae summary english
+        type: string
+        maxLength: 350
   ActionResult:
     description: Action result
     type: object

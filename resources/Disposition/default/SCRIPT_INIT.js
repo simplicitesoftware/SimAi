@@ -11,13 +11,6 @@
 		$("#header .header .actions .shortcuts-bar").hide();
 
 		// customize UI here before home page
-		
-		// native beforeunload event listener
-        window.addEventListener('beforeunload', function(e) {
-            e.preventDefault();
-            e.returnValue = "You'll lose everything if you reload the page, are you sure?";
-            return "You'll lose everything if you reload the page, are you sure?";
-        });
 	});
 
 	$(document).on("ui.ready", function() {
