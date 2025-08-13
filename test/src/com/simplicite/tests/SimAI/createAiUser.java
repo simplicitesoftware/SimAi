@@ -20,8 +20,8 @@ public class createAiUser {
 	@Test
 	public void test() {
 		try {
-			String usrName = "abelo"; // System.getenv("usrName");
-			String usrPassword = "simplicite"; // System.getenv("password");
+			String usrName = System.getenv("usrName");
+			String usrPassword = System.getenv("password");
 			Grant g = Grant.getSystemAdmin();
 			boolean[] old = g.changeAccess("SimpleUser",true,true,true,false);
 			ObjectDB o = g.getTmpObject("SimpleUser");
