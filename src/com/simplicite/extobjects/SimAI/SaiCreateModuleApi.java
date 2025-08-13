@@ -529,7 +529,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	}
 	private void addHomeContact(String scopeId,String mldName, JSONObject moduleInfo,Grant g){
 		
-		String appMldId = ModuleDB.getModuleId("Application");
+		String appMldId = ModuleDB.getModuleId("SimAiTmp",true);
 		// Create external object
 		String extName = moduleInfo.getString("mPrefix")+"HomeContact";
 		JSONObject homeContact = new JSONObject();

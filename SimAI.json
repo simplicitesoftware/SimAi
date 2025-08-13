@@ -917,23 +917,23 @@
     },
     {
      "object": "FieldListValue",
-     "userkey": "SAI_INSTANCE_STATUS~UP~ENU",
-     "item": {
-      "lov_code_id__lov_list_id__lov_name": "SAI_INSTANCE_STATUS",
-      "lov_code_id__lov_code": "UP",
-      "lov_lang": "ENU",
-      "lov_value": "Started",
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "FieldListValue",
      "userkey": "SAI_INSTANCE_STATUS~DOWN~ENU",
      "item": {
       "lov_code_id__lov_list_id__lov_name": "SAI_INSTANCE_STATUS",
       "lov_code_id__lov_code": "DOWN",
       "lov_lang": "ENU",
       "lov_value": "Stoped",
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "FieldListValue",
+     "userkey": "SAI_INSTANCE_STATUS~UP~ENU",
+     "item": {
+      "lov_code_id__lov_list_id__lov_name": "SAI_INSTANCE_STATUS",
+      "lov_code_id__lov_code": "UP",
+      "lov_lang": "ENU",
+      "lov_value": "Started",
       "row_module_id__mdl_name": "SimAI"
      }
     },
@@ -1701,18 +1701,6 @@
     },
     {
      "object": "ObjectExternalField",
-     "userkey": "SaiHomePageAI~1~saiContactPhone",
-     "item": {
-      "obf_object_id__obe_name": "SaiHomePageAI",
-      "obf_order": 1,
-      "obf_field_id__fld_name": "saiContactPhone",
-      "obf_ref_field_id__fld_name": null,
-      "obf_ref_object_id__obo_name": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "ObjectExternalField",
      "userkey": "SaiHomePageAI~1~saiContactEmail",
      "item": {
       "obf_object_id__obe_name": "SaiHomePageAI",
@@ -1730,6 +1718,18 @@
       "obf_object_id__obe_name": "SaiHomePageAI",
       "obf_order": 1,
       "obf_field_id__fld_name": "saiContactComment",
+      "obf_ref_field_id__fld_name": null,
+      "obf_ref_object_id__obo_name": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ObjectExternalField",
+     "userkey": "SaiHomePageAI~1~saiContactPhone",
+     "item": {
+      "obf_object_id__obe_name": "SaiHomePageAI",
+      "obf_order": 1,
+      "obf_field_id__fld_name": "saiContactPhone",
       "obf_ref_field_id__fld_name": null,
       "obf_ref_object_id__obo_name": null,
       "row_module_id__mdl_name": "SimAI"
@@ -2458,7 +2458,7 @@
       "obf_ref_export": false,
       "obf_copy": false,
       "obf_associate": null,
-      "obf_inline": null,
+      "obf_inline": false,
       "obf_rendering": null,
       "obf_treedepth": null,
       "obf_area_id__ofa_name": "SaiContact-1",
@@ -3152,7 +3152,7 @@
       "res_file": {
        "path": "resources/Disposition/default/LOGON_ADDON.html",
        "mime": "text/html",
-       "name": "logon_addon.html"
+       "name": "LOGON_ADDON.html"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -3224,7 +3224,7 @@
       "res_file": {
        "path": "resources/Disposition/default/SCRIPT_MLD_INIT.js",
        "mime": "text/javascript",
-       "name": "script_mld_init.js"
+       "name": "SCRIPT_MLD_INIT.js"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -3434,17 +3434,17 @@
    "list": [
     {
      "object": "TranslateField",
-     "userkey": "Field(saiCntModuleId)~ENU",
+     "userkey": "Field(saiCntDeletion)~ENU",
      "item": {
       "tsl_object": {
-       "item": {"fld_name": "saiCntModuleId"},
+       "item": {"fld_name": "saiCntDeletion"},
        "icon": "img/system/field",
        "label": "Field",
-       "userkeylabel": "saiCntModuleId",
+       "userkeylabel": "saiCntDeletion",
        "object": "Field"
       },
       "tsl_lang": "ENU",
-      "tsl_value": "Module",
+      "tsl_value": "Deletion",
       "tsl_simplehelp": null,
       "tsl_plural_value": null,
       "tsl_short_value": null,
@@ -3456,61 +3456,17 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "Field(saiCntModuleId)~FRA",
+     "userkey": "Field(saiCntDeletion)~FRA",
      "item": {
       "tsl_object": {
-       "item": {"fld_name": "saiCntModuleId"},
+       "item": {"fld_name": "saiCntDeletion"},
        "icon": "img/system/field",
        "label": "Field",
-       "userkeylabel": "saiCntModuleId",
+       "userkeylabel": "saiCntDeletion",
        "object": "Field"
       },
       "tsl_lang": "FRA",
-      "tsl_value": "Module",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiCntSended)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiCntSended"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiCntSended",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "sended",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiCntSended)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiCntSended"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiCntSended",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Cnt sended",
+      "tsl_value": "Cnt deletion",
       "tsl_simplehelp": null,
       "tsl_plural_value": null,
       "tsl_short_value": null,
@@ -3566,17 +3522,17 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "Field(saiContactEmail)~ENU",
+     "userkey": "Field(saiCntSended)~ENU",
      "item": {
       "tsl_object": {
-       "item": {"fld_name": "saiContactEmail"},
+       "item": {"fld_name": "saiCntSended"},
        "icon": "img/system/field",
        "label": "Field",
-       "userkeylabel": "saiContactEmail",
+       "userkeylabel": "saiCntSended",
        "object": "Field"
       },
       "tsl_lang": "ENU",
-      "tsl_value": "Email",
+      "tsl_value": "sended",
       "tsl_simplehelp": null,
       "tsl_plural_value": null,
       "tsl_short_value": null,
@@ -3588,17 +3544,105 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "Field(saiContactEmail)~FRA",
+     "userkey": "Field(saiCntSended)~FRA",
      "item": {
       "tsl_object": {
-       "item": {"fld_name": "saiContactEmail"},
+       "item": {"fld_name": "saiCntSended"},
        "icon": "img/system/field",
        "label": "Field",
-       "userkeylabel": "saiContactEmail",
+       "userkeylabel": "saiCntSended",
        "object": "Field"
       },
       "tsl_lang": "FRA",
-      "tsl_value": "Email",
+      "tsl_value": "Cnt sended",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaeSummary)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaeSummary"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiSaeSummary",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Sae summary",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaeSummary)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaeSummary"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiSaeSummary",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Summary",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiCntModuleId)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiCntModuleId"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiCntModuleId",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Module",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiCntModuleId)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiCntModuleId"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiCntModuleId",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Module",
       "tsl_simplehelp": null,
       "tsl_plural_value": null,
       "tsl_short_value": null,
@@ -3698,17 +3742,17 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "Field(saiCntDeletion)~ENU",
+     "userkey": "Field(saiSaeTitle)~ENU",
      "item": {
       "tsl_object": {
-       "item": {"fld_name": "saiCntDeletion"},
+       "item": {"fld_name": "saiSaeTitle"},
        "icon": "img/system/field",
        "label": "Field",
-       "userkeylabel": "saiCntDeletion",
+       "userkeylabel": "saiSaeTitle",
        "object": "Field"
       },
       "tsl_lang": "ENU",
-      "tsl_value": "Deletion",
+      "tsl_value": "Sae title",
       "tsl_simplehelp": null,
       "tsl_plural_value": null,
       "tsl_short_value": null,
@@ -3720,17 +3764,61 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "Field(saiCntDeletion)~FRA",
+     "userkey": "Field(saiSaeTitle)~FRA",
      "item": {
       "tsl_object": {
-       "item": {"fld_name": "saiCntDeletion"},
+       "item": {"fld_name": "saiSaeTitle"},
        "icon": "img/system/field",
        "label": "Field",
-       "userkeylabel": "saiCntDeletion",
+       "userkeylabel": "saiSaeTitle",
        "object": "Field"
       },
       "tsl_lang": "FRA",
-      "tsl_value": "Cnt deletion",
+      "tsl_value": "Title",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiContactEmail)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiContactEmail"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiContactEmail",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Email",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiContactEmail)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiContactEmail"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "saiContactEmail",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Email",
       "tsl_simplehelp": null,
       "tsl_plural_value": null,
       "tsl_short_value": null,
@@ -3827,94 +3915,6 @@
       "tsl_tooltip": null,
       "row_module_id__mdl_name": "SimAI"
      }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiSaeTitle)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiSaeTitle"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiSaeTitle",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Sae title",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiSaeTitle)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiSaeTitle"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiSaeTitle",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Title",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiSaeSummary)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiSaeSummary"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiSaeSummary",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Sae summary",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiSaeSummary)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiSaeSummary"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiSaeSummary",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Summary",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
     }
    ]
   },
@@ -3924,6 +3924,38 @@
    "icon": "img/system/translation",
    "field": "row_module_id",
    "list": [
+    {
+     "object": "TranslateFieldArea",
+     "userkey": "ObjectFieldArea(SaiApplicationExample-1)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"ofa_name": "SaiApplicationExample-1"},
+       "icon": "img/system/field_area",
+       "label": "Fields area",
+       "userkeylabel": "SaiApplicationExample-1",
+       "object": "ObjectFieldArea"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Application example -1",
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateFieldArea",
+     "userkey": "ObjectFieldArea(SaiApplicationExample-1)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"ofa_name": "SaiApplicationExample-1"},
+       "icon": "img/system/field_area",
+       "label": "Fields area",
+       "userkeylabel": "SaiApplicationExample-1",
+       "object": "ObjectFieldArea"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "SaiApplicationExample-1",
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
     {
      "object": "TranslateFieldArea",
      "userkey": "ObjectFieldArea(SaiContact-1)~ENU",
@@ -3987,38 +4019,6 @@
       "tsl_value": "Instance",
       "row_module_id__mdl_name": "SimAI"
      }
-    },
-    {
-     "object": "TranslateFieldArea",
-     "userkey": "ObjectFieldArea(SaiApplicationExample-1)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"ofa_name": "SaiApplicationExample-1"},
-       "icon": "img/system/field_area",
-       "label": "Fields area",
-       "userkeylabel": "SaiApplicationExample-1",
-       "object": "ObjectFieldArea"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Application example -1",
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateFieldArea",
-     "userkey": "ObjectFieldArea(SaiApplicationExample-1)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"ofa_name": "SaiApplicationExample-1"},
-       "icon": "img/system/field_area",
-       "label": "Fields area",
-       "userkeylabel": "SaiApplicationExample-1",
-       "object": "ObjectFieldArea"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "SaiApplicationExample-1",
-      "row_module_id__mdl_name": "SimAI"
-     }
     }
    ]
   },
@@ -4072,42 +4072,6 @@
    "list": [
     {
      "object": "TranslateObject",
-     "userkey": "ObjectInternal(SaiContact)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"obo_name": "SaiContact"},
-       "icon": "img/system/business_object",
-       "label": "Business object",
-       "userkeylabel": "SaiContact",
-       "object": "ObjectInternal"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Contact",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateObject",
-     "userkey": "ObjectInternal(SaiContact)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"obo_name": "SaiContact"},
-       "icon": "img/system/business_object",
-       "label": "Business object",
-       "userkeylabel": "SaiContact",
-       "object": "ObjectInternal"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Contact",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateObject",
      "userkey": "ObjectInternal(SaiApplicationExample)~ENU",
      "item": {
       "tsl_object": {
@@ -4137,6 +4101,42 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Exemple d'application",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateObject",
+     "userkey": "ObjectInternal(SaiContact)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"obo_name": "SaiContact"},
+       "icon": "img/system/business_object",
+       "label": "Business object",
+       "userkeylabel": "SaiContact",
+       "object": "ObjectInternal"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Contact",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateObject",
+     "userkey": "ObjectInternal(SaiContact)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"obo_name": "SaiContact"},
+       "icon": "img/system/business_object",
+       "label": "Business object",
+       "userkeylabel": "SaiContact",
+       "object": "ObjectInternal"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Contact",
       "tsl_plural_value": null,
       "tsl_help": null,
       "row_module_id__mdl_name": "SimAI"
@@ -4362,40 +4362,6 @@
    "list": [
     {
      "object": "TranslateView",
-     "userkey": "View(SaiExemple)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"viw_name": "SaiExemple"},
-       "icon": "img/system/view",
-       "label": "View",
-       "userkeylabel": "SaiExemple",
-       "object": "View"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Exemple",
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateView",
-     "userkey": "View(SaiExemple)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"viw_name": "SaiExemple"},
-       "icon": "img/system/view",
-       "label": "View",
-       "userkeylabel": "SaiExemple",
-       "object": "View"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Exemple",
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateView",
      "userkey": "View(SimAIScope)~ENU",
      "item": {
       "tsl_object": {
@@ -4424,6 +4390,40 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Génération de module",
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateView",
+     "userkey": "View(SaiExemple)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"viw_name": "SaiExemple"},
+       "icon": "img/system/view",
+       "label": "View",
+       "userkeylabel": "SaiExemple",
+       "object": "View"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Exemple",
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateView",
+     "userkey": "View(SaiExemple)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"viw_name": "SaiExemple"},
+       "icon": "img/system/view",
+       "label": "View",
+       "userkeylabel": "SaiExemple",
+       "object": "View"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Exemple",
       "tsl_help": null,
       "row_module_id__mdl_name": "SimAI"
      }

@@ -74,7 +74,7 @@ public class SaiContact extends ObjectDB {
 	private JSONArray removeHomeDispAndTheme(String moduleId,Grant g){
 		JSONArray save = new JSONArray();
 		ObjectDB obj = g.getTmpObject("ViewHome");
-		String appMldId = ModuleDB.getModuleId("Application");
+		String appMldId = ModuleDB.getModuleId("SimAiTmp",true);
 		synchronized(obj.getLock()){
 			obj.resetFilters();
 			obj.setFieldFilter("row_module_id",moduleId);
