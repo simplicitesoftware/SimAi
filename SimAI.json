@@ -7,7 +7,7 @@
   "mdl_version": "0.4",
   "mdl_type": null,
   "mdl_icon": null,
-  "mdl_url": "{\n    \"origin\": {\"uri\": \"https://github.com/CBimont/SimAi.git\"},\n    \"type\": \"git\",\n    \"branch\": \"dev\"\n}",
+  "mdl_url": "{\n    \"origin\": {\"uri\": \"https://github.com/CBimont/SimAi.git\"},\n    \"type\": \"git\",\n    \"branch\": \"master\"\n}",
   "mdl_comment": null
  },
  "links": [
