@@ -96,6 +96,10 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         setTimeout(() => {
 	        this.showIntroModal();
 	    }, 300);
+	    
+	    // setTimeout(() => {
+	    //     this.redirectToErrorPage();
+	    // }, 2500);
     }
 
     async setChatInteraction() {
