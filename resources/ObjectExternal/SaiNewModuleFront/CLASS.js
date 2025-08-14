@@ -1131,7 +1131,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         
         // let dialog = $("#sainewmodulefront_dialog");
         let dialog = $("<div/>").attr("id","sainewmodulefront_dialog");
-        
+
         dialog.append(
         	$("<div/>")
         		.attr("id", "sai_helpPin")
@@ -1194,6 +1194,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         interactiveBox.append(nextButton);
 
         dialog.append(interactiveBox);
+        ctn.append(dialog);
     }
 
     async redirectToModule() {
@@ -1502,8 +1503,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	
 	replaceLoader(msg = "") {
 		let loaderBody = $(".waitdlg .waitbody");
-		
-		console.log("Found loader Body -> "+loaderBody);
 		
 		loaderBody.html("");
 		
