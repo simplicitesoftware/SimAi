@@ -649,7 +649,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_LOADER_DATA_GEN",
       "lov_lang": "ENU",
-      "lov_value": "Your application was created !<br>\nWe are now generating some data for you to test it. Please wait while we do so, this can take time...",
+      "lov_value": "Your application was created !\nWe are now generating some data for you to test it. Please wait while we do so, this can take time...",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -662,7 +662,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_LOADER_MODULE_GEN",
       "lov_lang": "ENU",
-      "lov_value": "Your application's data are being processed.<br>\nPlease wait while we generate your application from your prompts !",
+      "lov_value": "Your application's data are being processed.\nPlease wait while we generate your application from your prompts !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -675,7 +675,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_LOADER_RECONNECT",
       "lov_lang": "ENU",
-      "lov_value": "We are currently generating your application for you to access it at reconnection.<br>\nPlease wait while we do so, it shouldn't take too long.",
+      "lov_value": "We are currently generating your application for you to access it at reconnection.\nPlease wait while we do so, it shouldn't take too long.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -780,6 +780,32 @@
       "lov_code": "SAI_NEXT",
       "lov_lang": "ENU",
       "lov_value": "Next",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_PAGE_CONTENT~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_PAGE_CONTENT",
+      "lov_lang": "ENU",
+      "lov_value": "<p><strong>Service temporarily unavailable<\/strong><\/p>\n<p>We're sorry, but we couldn't resolve your request at the moment. Our service is experiencing technical difficulties and our team is working to restore it as quickly as possible.<\/p>\n\n<div class=\"warning-section\">\n<p><i class=\"fas fa-tools warning-icon\"><\/i><strong>What you can do:<\/strong><\/p>\n<p>\n<strong>Contact our support team<\/strong> at <a href=\"mailto:contact@simplicite.fr\">contact@simplicite.fr<\/a> for assistance<br>\n<strong>Visit our main website<\/strong> at <a href=\"https://simplicite.fr\" target=\"_blank\">simplicite.fr<\/a><br>\n<strong>Request a demo<\/strong> to discover our platform at <a href=\"https://www.simplicite.fr/contact#demo\" target=\"_blank\">simplicite.fr/contact#demo<\/a>\n<\/p>\n<\/div>\n\n<p><strong>We apologize for any inconvenience!<\/strong><\/p>\n<p>Our team is committed to providing you with the best experience possible. Thank you for your patience and understanding.<\/p>",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_PAGE_TITLE~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_PAGE_TITLE",
+      "lov_lang": "ENU",
+      "lov_value": "This service is encountering an unexpected issue ...",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1221,7 +1247,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_LOADER_DATA_GEN",
       "lov_lang": "FRA",
-      "lov_value": "Votre application a bien été créée !<br>\nNous générons maintenant des données afin que vous puissiez la tester au mieux. Veuillez patienter pendant ce processus, cela peut prendre un peu de temps...\nYour application was created !<br>\nWe are now generating some data for you to test it. Please wait while we do so, this can take time...",
+      "lov_value": "Votre application a bien été créée !\nNous générons maintenant des données afin que vous puissiez la tester au mieux. Veuillez patienter pendant ce processus, cela peut prendre un peu de temps...",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1234,7 +1260,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_LOADER_MODULE_GEN",
       "lov_lang": "FRA",
-      "lov_value": "Les données de création de votre application sont en train d'être traitée.<br>\nVeuillez patienter pendant que nous générons votre application à partir de votre discussion !",
+      "lov_value": "Les données de création de votre application sont en train d'être traitée.\nVeuillez patienter pendant que nous générons votre application à partir de votre discussion !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1247,7 +1273,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_LOADER_RECONNECT",
       "lov_lang": "FRA",
-      "lov_value": "Nous générons actuellement votre application afin que vous y accédiez à votre reconnexion.<br>\nVeuillez patienter pendant ce processus, cela ne devrait pas être trop long.",
+      "lov_value": "Nous générons actuellement votre application afin que vous y accédiez à votre reconnexion.\nVeuillez patienter pendant ce processus, cela ne devrait pas être trop long.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1352,6 +1378,32 @@
       "lov_code": "SAI_NEXT",
       "lov_lang": "FRA",
       "lov_value": "Suivant",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_PAGE_CONTENT~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_PAGE_CONTENT",
+      "lov_lang": "FRA",
+      "lov_value": "<p><strong>Le service est temporairement indisponible<\/strong><\/p>\n<p>Nous sommes désolés, nous rencontrons un problème technique, nous travaillons à sa résolution dés que possible.<\/p>\n\n<div class=\"warning-section\">\n<p><i class=\"fas fa-tools warning-icon\"><\/i><strong>Ce que vous pouvez faire :<\/strong><\/p>\n<p>\n<strong>Contacter notre équipe support<\/strong> à l'adresse <a href=\"mailto:contact@simplicite.fr\">contact@simplicite.fr<\/a> pour plus d'aide<br>\n<strong>Retourner sur notre site web<\/strong> <a href=\"https://simplicite.fr\" target=\"_blank\">simplicite.fr<\/a><br>\n<strong>Faire une demande de démo<\/strong> pour découvrir l'entièreté de notre solution, en remplissant <a href=\"https://www.simplicite.fr/contact#demo\" target=\"_blank\">ce formulaire<\/a>\n<\/p>\n<\/div>\n\n<p><strong>Nous nous excusons pour ces difficultés et le désagrément !<\/strong><\/p>\n<p>Notre équipe est dédiée à votre satisfaction, et souhaite vous fournir la meilleure expérience possible. Merci de votre patience et votre compréhension.<\/p>",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_PAGE_TITLE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_PAGE_TITLE",
+      "lov_lang": "FRA",
+      "lov_value": "Ce service rencontre actuellement un problème ...",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -2362,6 +2414,29 @@
       "obe_icon": null,
       "obe_permalink": null,
       "obe_widget": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ObjectExternal",
+     "userkey": "SaiErrorPage",
+     "item": {
+      "obe_name": "SaiErrorPage",
+      "obe_type": "E",
+      "obe_nature": "com_simplicite_webapp_web_ResponsiveExternalObject",
+      "obe_url": null,
+      "obe_settings": null,
+      "obe_comment": null,
+      "obe_help": null,
+      "obe_class": null,
+      "obe_script_id": {
+       "path": "src/com/simplicite/extobjects/SimAI/SaiErrorPage.java",
+       "mime": "text/plain",
+       "name": "SaiErrorPage.java"
+      },
+      "obe_icon": null,
+      "obe_permalink": null,
+      "obe_widget": false,
       "row_module_id__mdl_name": "SimAI"
      }
     },
@@ -4225,6 +4300,102 @@
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectExternal(SaiErrorPage)~ANY~STYLES",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiErrorPage"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiErrorPage",
+       "object": "ObjectExternal"
+      },
+      "res_type": "CSS",
+      "res_lang": "ANY",
+      "res_code": "STYLES",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiErrorPage/STYLES.less",
+       "mime": "text/x-less",
+       "name": "SaiErrorPage.less"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectExternal(SaiErrorPage)~ENU~HTML",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiErrorPage"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiErrorPage",
+       "object": "ObjectExternal"
+      },
+      "res_type": "HTML",
+      "res_lang": "ENU",
+      "res_code": "HTML",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiErrorPage/ENU/HTML.html",
+       "mime": "text/html",
+       "name": "SaiErrorPage.html"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectExternal(SaiErrorPage)~FRA~HTML",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiErrorPage"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiErrorPage",
+       "object": "ObjectExternal"
+      },
+      "res_type": "HTML",
+      "res_lang": "FRA",
+      "res_code": "HTML",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiErrorPage/FRA/HTML.html",
+       "mime": "text/html",
+       "name": "SaiErrorPage.html"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectExternal(SaiErrorPage)~ANY~CLASS",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiErrorPage"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiErrorPage",
+       "object": "ObjectExternal"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "CLASS",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiErrorPage/CLASS.js",
+       "mime": "text/javascript",
+       "name": "SaiErrorPage.js"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
   },
@@ -5277,6 +5448,42 @@
       "tsl_help": null,
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "ObjectExternal(SaiErrorPage)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"obe_name": "SaiErrorPage"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiErrorPage",
+       "object": "ObjectExternal"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Error page",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "ObjectExternal(SaiErrorPage)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"obe_name": "SaiErrorPage"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiErrorPage",
+       "object": "ObjectExternal"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Error page",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
   },
@@ -5696,6 +5903,26 @@
        "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_CREATE_MODULE~ObjectExternal(SaiErrorPage)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_CREATE_MODULE",
+      "prm_object": {
+       "item": {"obe_name": "SaiErrorPage"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiErrorPage",
        "object": "ObjectExternal"
       },
       "prm_perm": true,

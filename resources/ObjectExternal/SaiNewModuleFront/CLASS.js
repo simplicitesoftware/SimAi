@@ -856,6 +856,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 
     async genData(attempt=0) {
     	this.currentState = "dataGeneration";
+    	/* // Removing unused dialog box
         let ctn = $("#sainewmodulefront");
         ctn.html("");
 
@@ -874,6 +875,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         dialog.append(`<div id="genData">${$T("SAI_DATA_GENERATING")}</div>`);
 
         ctn.append(dialog);
+        */
 
         $view.showLoading();
         this.replaceLoader($T("SAI_LOADER_DATA_GEN"));
@@ -1451,7 +1453,11 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	}
 	
 	redirectToErrorPage() {
-		// TODO : implement a nice looking error page saying the problem cannot be overcome right now but we're working on it !
+		let ctn = $("#sainewmodulefront");
+		
+		let url = $app.getExternalObjectURL("SaiErrorPage",{},true);
+		
+		$ui.loadURL(null,url);
 	}
 	
 	shouldShowReloadWarning() {
