@@ -315,6 +315,16 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        
 	        input.click();
 	        
+	    } catch(e) {
+	    	$view.widget({
+	    		level: "info",
+                content: `${$T("SAI_PICTURE_ERROR")}`,
+                position: "top",
+                align: "right",
+                duration: 3000,
+                undo: false,
+                pinable: false
+	    	});
 	    } finally {
 	        this.setButtonLoading("#addImage", false, "fas fa-image");
 	        $("#takePicture").removeClass("simai-disabledButton");
@@ -345,6 +355,16 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	            this.scrollChatToBottom();
 	        }
 	        
+	    } catch (e) {
+	    	$view.widget({
+	    		level: "info",
+                content: `${$T("SAI_NO_CAMERA")}`,
+                position: "top",
+                align: "right",
+                duration: 3000,
+                undo: false,
+                pinable: false
+	    	});
 	    } finally {
 	        this.setButtonLoading("#takePicture", false, "fas fa-camera");
 	        $("#addImage").removeClass("simai-disabledButton");
@@ -1108,7 +1128,9 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 
     async createData(app, jsonValue = {}) {
         let ctn = $("#sainewmodulefront");
-        let dialog = $("#sainewmodulefront_dialog");
+        
+        // let dialog = $("#sainewmodulefront_dialog");
+        let dialog = $("<div/>").attr("id","sainewmodulefront_dialog");
         
         dialog.append(
         	$("<div/>")

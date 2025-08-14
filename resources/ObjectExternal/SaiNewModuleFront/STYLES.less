@@ -93,10 +93,11 @@
 #sainewmodulefront_examples {
 	z-index: 1;
 	position: absolute;
-	left: -401px; // this works only if WIDTH is stuck on 400px -> shall find a better solution...
+	left: -400px;
 	top: 0;
 	width: 100%;
 	max-width: 400px;
+	min-width: 200px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -132,6 +133,7 @@
 	    &.expanding {
 		    width: 100%;
 		    max-width: 400px;
+		    min-widht: 200px;
 		    max-height: 50px;
 		    
 		    .simai-example-header {
@@ -150,6 +152,7 @@
 		&.expanded {
 		    width: 100%;
 		    max-width: 400px;
+		    min-widht: 200px;
 		    max-height: 250px;
 		    
 		    .simai-example-header {
@@ -345,7 +348,7 @@
 // Custom Loader styles
 .waitdlg {
 	opacity: 1 !important;
-	background-color: rgba(136,136,136, 0.33) !important;
+	background-color: rgba(136,136,136, 0.5) !important;
 }
 .waitbody {
 	transform: translateX(-50%);
@@ -602,3 +605,12 @@ button {
 .copy-link{
 	display: none;
 }
+
+// Responsive shit
+@media only screen and (max-width: 1430px) {
+  #sainewmodulefront {
+  	padding-right: 64px !important;
+  	justify-content: end !important;
+  }
+}
+
