@@ -204,23 +204,25 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
                 this.validatedModuleName = moduleName;
                 app.setChatInteraction();
             } else {
-                $ui.toast({
-                    type: "error",
-                    content: `${$T("SAI_MODULE_NAMEEXIST")}`,
-                    position: "top",
-                    align: "center",
-                    undo: false,
-                    moveable: false
+                $view.widget.toast({
+                	level: "error",
+                	content: `${$T("SAI_MODULE_NAMEEXIST")}`,
+                	position: "top",
+                	align: "right",
+                	duration: 2500,
+                	undo: false,
+                	pinable: false,
                 });
             }
         } else {
-            $ui.toast({
-                type: "error",
+            $view.widget.toast({
+                level: "error",
                 content: `${$T("SAI_MODULE_NONAME")}`,
                 position: "top",
-                align: "center",
+                align: "right",
+                duration: 2500,
                 undo: false,
-                moveable: false
+                pinable: false
             });
         }
     }
@@ -336,6 +338,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	            // Update your specific DOM structure
 	            $("#input-img img").attr("src", image_base64);
 	            $("#input-img").show();
+	            $("#input-img").css("display", "block"); // force visibility
 	            
 	            // Use your own auto-resize instead of AiJsTools.resizeUp
 	            this.autoResizeTextarea(document.getElementById('message'));
@@ -356,15 +359,19 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 
     async sendMessage() {
         let ctn = $("#sainewmodulefront");
-
-        if (ctn.find("#message").val().trim() === "") {
-            $ui.toast({
-                type: "warning",
+        
+		let messageText = ctn.find("#message").val().trim();
+		let hasImage = $("#input-img img").attr("src");
+		
+		if (messageText==="" && !hasImage) {
+            $view.widget.toast({
+                level: "warning",
                 content: `${$T("SAI_EMPTY_MESSAGE")}`,
                 position: "top",
-                align: "center",
+                align: "right",
+                duration: 2500,
                 undo: false,
-                moveable: false
+                pinable: false
             });
             return;
         }
@@ -381,7 +388,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             
             this.scrollChatToBottom();
             
-            // AiJsTools.resetInput($(".ai-chat-input-area")[0]);
             // custom reset
             ctn.find("#message").val("");
 			$("#input-img").hide();
@@ -425,38 +431,70 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         this.scrollChatToBottom();
         
         ctn.find("#message").val("");
+		$("#input-img").hide();
+		$("#input-img img").removeAttr("src");
+		this.autoResizeTextarea(document.getElementById('message'));
 
 		this.setButtonLoading("#sendMessage", true, "fas fa-cog");
         $("#takePicture").addClass("simai-disabledButton");
         $("#addImage").addClass("simai-disabledButton");
         $("#generateModule").addClass("simai-disabledButton");
 
-        let res = await this.SaiTools.callApi(params, "chat");
+		let res;
+		try {
+        	res = await this.SaiTools.callApi(params, "chat");
+		} catch (e) {
+			console.error("Timeout error ?\n"+e);
+			$view.widget.toast({
+				level: "warning",
+		        content: $T("SAI_REACHED_TIMEOUT"),
+		        position: "top",
+		        align: "right",
+		        duration: 3500,
+		        undo: false,
+		        pinable: false
+			});
+			
+			ctn.find("#chatContainer").append(
+	            AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE_TIMEOUT")}`)
+	        );
+	        
+	        this.scrollChatToBottom();
+			
+			this.setButtonLoading("#sendMessage", false, "fas fa-cog");
+	        $("#takePicture").removeClass("simai-disabledButton");
+	        $("#addImage").removeClass("simai-disabledButton");
+	        $("#generateModule").removeClass("simai-disabledButton");
+	        
+	        return;
+		}
         
         if (res?.error) {
             ctn.find('#chatContainer').append("an error occured: " + AiJsTools.getDisplayBotMessage(res?.error)); // keep this in any case
             
             switch (res.error[0]) {
             	case 400:
-            		$ui.toast({ // warning toast
-		                type: "warning",
+            		$view.widget.toast({
+		                level: "warning",
 		                content: $T("SAI_ERR_400_CHAT"),
 		                position: "top",
-		                align: "center",
+		                align: "right",
+		                duration: 4000,
 		                undo: false,
-		                moveable: false
+		                pinable: false
 		            });
 		            ctn.find("#message").val(message); // putting back message
 		        	// then will face the return, so possible to retry
             		break;
             	case 513:
-            		$ui.toast({ // error toast
-		                type: "error",
+            		$view.widget.toast({ // error toast
+		                level: "error",
 		                content: $T("SAI_ERR_503_CHAT"),
 		                position: "top",
-		                align: "center",
+		                align: "right",
+		                duration: 4000,
 		                undo: false,
-		                moveable: false
+		                pinable: false
 		            });
 		            this.redirectToErrorPage(); // redirect to dead-end page (back to website at least ?)
             		break;
@@ -497,13 +535,14 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         });
         console.log(moduleInfo);
         if (moduleInfo?.error) {
-            $ui.toast({
-                type: "error",
+            $view.widget.toast({
+                level: "error",
                 content: $T("SAI_ERR_CREATE"),
                 position: "top",
-                align: "center",
+                align: "right",
+                duration: 4000,
                 undo: false,
-                moveable: false
+                pinable: false
             });
             
             this.setModuleNameForm(); // nothing else to do ...
@@ -534,25 +573,27 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         if (res?.error) {
             switch (res.error[0]) {
             	case 500:
-            		$ui.toast({
-		                type: "error",
+            		$view.widget.toast({
+		                level: "error",
 		                content: $T("SAI_ERR_500_JSON"),
 		                position: "top",
-		                align: "center",
+		                align: "right",
+		                duration: 4000,
 		                undo: false,
-		                moveable: false
+		                pinable: false
 		            });
 		            // back to chat (no historic ?)
 		            this.setChatInteraction();
             		break;
             	case 503:
-            		$ui.toast({
-		                type: "error",
+            		$view.widget.toast({
+		                level: "error",
 		                content: $T("SAI_ERR_503_JSON"),
 		                position: "top",
-		                align: "center",
+		                align: "right",
+		                duration: 4000,
 		                undo: false,
-		                moveable: false
+		                pinable: false
 		            });
 		            let resDel = await this.SaiTools.deleteModule(this.validatedModuleName); // ask for module deletion
 		            // if error (404|500) then rename module to random name ??
@@ -588,25 +629,27 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             
             if (res?.error) {
             	// only 404 is possible there
-            	$ui.toast({
-	                type: "warning",
+            	$view.widget.toast({
+	                level: "warning",
 	                content: $T("SAI_ERR_404_JSON"),
 	                position: "top",
-	                align: "center",
+	                align: "right",
+	                duration: 4000,
 	                undo: false,
-	                moveable: false
+	                pinable: false
 	            });
 	            // retry quickly
 	            let resBis = await this.SaiTools.callApi({ action: "prepareJson", json: jsonValue });
 	        	if (resBis?.error) {
 	        		// same but don't retry -> back to home ?
-	        		$ui.toast({
-		                type: "error",
+	        		$view.widget.toast({
+		                level: "error",
 		                content: $T("SAI_ERR_404_JSON_BIS"),
 		                position: "top",
-		                align: "center",
+		                align: "right",
+		                duration: 4500,
 		                undo: false,
-		                moveable: false
+		                pinable: false
 		            });
 		            this.setChatInteraction(); // back to chat without historic (so keep module name)
 		            return;
@@ -617,13 +660,14 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             app.createObjs(app, res.objects);
         } catch (e) {
             console.log("error", e);
-	        $ui.toast({
-	            type: "error",
-	            content: $T("SAI_ERR_JSON"),
+	        $view.widget.toast({
+	            level: "error",
+	            content: $T("SAI_ERR_404_JSON_BIS"),
 	            position: "top",
-	            align: "center",
+	            align: "right",
+	            duration: 4500,
 	            undo: false,
-	            moveable: false
+	            pinable: false
 	        });
 	        // exit only ?? sending back to chat (no historic) ??
 	        this.setChatInteraction();
@@ -725,7 +769,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async clearCache(mermaidText) {
-    	this.currentState = "reconnect"; // is that it ??
+    	this.currentState = "reconnect";
         let ctn = $("#sainewmodulefront");
         let dialog = $("#sainewmodulefront_dialog");
 
@@ -747,25 +791,27 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         });
         
         if (res?.error) {
-        	$ui.toast({
+        	$view.widget({
 		    	type: "warning",
 		    	content: $T("SAI_ERR_400_CACHE"),
 		    	position: "top",
-		    	align: "center",
+		    	align: "right",
+		    	duration: 4000,
 		    	undo: false,
-		    	moveable: false
+		    	pinable: false
 		    });
 		    // retry after quick timeout
 		    
 		    let resBis = await this.SaiTools.callApi({ action: "initClearCache", mermaidText: mermaidText });
 		    if (resBis?.error) {
-		    	$ui.toast({
+		    	$view.widget({
 			    	type: "error",
 			    	content: $T("SAI_ERR_400_CACHE_BIS"),
 			    	position: "top",
-			    	align: "center",
+			    	align: "right",
+			    	duration: 4500,
 			    	undo: false,
-			    	moveable: false
+			    	pinable: false
 			    });
 			    // if error again then send back to chat ?
 			    this.setChatInteraction(); // no historic ...
@@ -1015,25 +1061,27 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             res = await this.SaiTools.callApi({}, "genJsonData");
 	        if (res?.error) {
 	        	// both 500 & 413 are the same so whatev'
-	            $ui.toast({
+	            $view.widget({
 	                type: "warning", // first is only a warning
 	                content: $T("SAI_ERR_JSONDATA"),
 	                position: "top",
-	                align: "center",
+	                align: "right",
+	                duration: 4000,
 	                undo: false,
-	                moveable: false
+	                pinable: false
 	            });
 	            
 	            res = await this.SaiTools.callApi({}, "genJsonData"); // this ain't "less data", yet just retrying ...
 	            if (res?.error) {
 		        	// both 500 & 413 are the same so whatev'
-		            $ui.toast({
-		                type: "warning", // second is an error
+		            $view.widget({
+		                type: "error", // second is an error
 		                content: $T("SAI_ERR_JSONDATA_BIS"),
 		                position: "top",
-		                align: "center",
+		                align: "right",
+		                duration: 4500,
 		                undo: false,
-		                moveable: false
+		                pinable: false
 		            });
 		            
 		            res = {}; // going with absolutely no data ... (no return ?)
@@ -1075,24 +1123,26 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         
         if (res?.error) {
         	// only 404 possible
-        	$ui.toast({
+        	$view.widget({
 		    	type: "warning",
 		    	content: $T("SAI_ERR_404_DATA"),
 		    	position: "top",
-		    	align: "center",
+		    	align: "right",
+		    	duration: 4000,
 		    	undo: false,
-		    	moveable: false
+		    	pinable: false
 		    });
 		    // retry once
 		    let resBis = await this.SaiTools.callApi({ action: "genDatas", datas: jsonValue });
 		    if (resBis?.error) {
-		    	$ui.toast({
+		    	$view.widget({
 			    	type: "error",
 			    	content: $T("SAI_ERR_404_DATA_BIS"),
 			    	position: "top",
-			    	align: "center",
+			    	align: "right",
+			    	duration: 4500,
 			    	undo: false,
-			    	moveable: false
+			    	pinable: false
 			    });
 			    /*
 			    	??? what to do here ???
