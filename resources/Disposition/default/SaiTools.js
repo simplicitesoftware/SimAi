@@ -8,7 +8,7 @@ class  SaiTools {
 		 	endpoint: 'ui',
 		 	authtoken: data._authtoken, // set in Java
 		 	ajaxkey: data._ajaxkey, // set in Java
-		 	timeout: 5 //second
+		 	timeout: 180 //second
 		});
 		this.app.info(`Lib version: ${simplicite.constants.MODULE_VERSION}`);
 		this.chatUmlSpecialisation = "You help design uml for object-oriented applications. Without function and whith relation description. Respond with a text for no technical users" ;

@@ -568,6 +568,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             };
         }
         $view.showLoading();
+        this.replaceLoader($T("SAI_LOADER_MODULE_GEN"));
+        
         let res = await this.SaiTools.callApi(params, "genJson");
 
         if (res?.error) {
@@ -834,6 +836,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 
         let reconnectButton = $("<button/>").attr("id", "reconnectButton").addClass("actionButton-yellow").text(`${$T("SAI_RECONNECT")}`).on("click", () => {
             $view.showLoading();
+            this.replaceLoader($T("SAI_LOADER_RECONNECT"));
+            
             this.SaiTools.callApi({
                 action: "clearCache"
             }).then(() => {
@@ -872,6 +876,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         ctn.append(dialog);
 
         $view.showLoading();
+        this.replaceLoader($T("SAI_LOADER_DATA_GEN"));
+        
         await this.SaiTools.callApi({}, "postClearCache");
 
         let res;
@@ -1464,5 +1470,45 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        };
 	        checkImage();
 	    });
+	}
+	
+	replaceLoader(msg = "") {
+		let loaderBody = $(".waitdlg .waitbody");
+		
+		console.log("Found loader Body -> "+loaderBody);
+		
+		loaderBody.html("");
+		
+		let customLoader = $("<div/>").addClass("custom-loader");
+		customLoader
+			.append(
+				$("<div/>").addClass("custom-loader-line")
+			)
+			.append(
+				$("<div/>").addClass("custom-loader-line")
+			)
+			.append(
+				$("<div/>").addClass("custom-loader-line")
+			)
+			.append(
+				$("<div/>").addClass("custom-loader-line")
+			)
+			.append(
+				$("<div/>").addClass("custom-loader-line")
+			)
+			.append(
+				$("<div/>").addClass("custom-loader-line")
+			)
+			.append(
+				$("<div/>").addClass("custom-loader-line")
+			)
+			.append(
+				$("<div/>").addClass("custom-loader-line")
+			);
+		
+		let message = $("<div/>").addClass("custom-loader-text").text(msg);
+		
+		loaderBody.append(customLoader);
+		loaderBody.append(message);
 	}
 };
