@@ -29,6 +29,7 @@ public class createAiUser {
 			t.getForCreate();
 			o.setFieldValue("usr_login",usrName);
 			o.setFieldValue("usr_active",GrantCore.USER_ACTIVE);
+			//o.setFieldValue("usr_lang_pref","ENU");
 			t.validateAndCreate();
 			Grant.addResponsibility(Grant.getUserId(usrName),"SAI_CREATE_MODULE");
 			g.changePassword(usrName,usrPassword,false,false);
