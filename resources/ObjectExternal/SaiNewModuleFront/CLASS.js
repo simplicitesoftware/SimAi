@@ -320,7 +320,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        input.click();
 	        
 	    } catch(e) {
-	    	$view.widget({
+	    	$view.widget.toast({
 	    		level: "info",
                 content: `${$T("SAI_PICTURE_ERROR")}`,
                 position: "top",
@@ -360,7 +360,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        }
 	        
 	    } catch (e) {
-	    	$view.widget({
+	    	$view.widget.toast({
 	    		level: "info",
                 content: `${$T("SAI_NO_CAMERA")}`,
                 position: "top",
@@ -817,8 +817,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         });
         
         if (res?.error) {
-        	$view.widget({
-		    	type: "warning",
+        	$view.widget.toast({
+		    	level: "warning",
 		    	content: $T("SAI_ERR_400_CACHE"),
 		    	position: "top",
 		    	align: "right",
@@ -830,8 +830,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 		    
 		    let resBis = await this.SaiTools.callApi({ action: "initClearCache", mermaidText: mermaidText });
 		    if (resBis?.error) {
-		    	$view.widget({
-			    	type: "error",
+		    	$view.widget.toast({
+			    	level: "error",
 			    	content: $T("SAI_ERR_400_CACHE_BIS"),
 			    	position: "top",
 			    	align: "right",
@@ -1093,8 +1093,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             res = await this.SaiTools.callApi({}, "genJsonData");
 	        if (res?.error) {
 	        	// both 500 & 413 are the same so whatev'
-	            $view.widget({
-	                type: "warning", // first is only a warning
+	            $view.widget.toast({
+	                level: "warning", // first is only a warning
 	                content: $T("SAI_ERR_JSONDATA"),
 	                position: "top",
 	                align: "right",
@@ -1106,8 +1106,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	            res = await this.SaiTools.callApi({}, "genJsonData"); // this ain't "less data", yet just retrying ...
 	            if (res?.error) {
 		        	// both 500 & 413 are the same so whatev'
-		            $view.widget({
-		                type: "error", // second is an error
+		            $view.widget.toast({
+		                level: "error", // second is an error
 		                content: $T("SAI_ERR_JSONDATA_BIS"),
 		                position: "top",
 		                align: "right",
@@ -1157,8 +1157,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         
         if (res?.error) {
         	// only 404 possible
-        	$view.widget({
-		    	type: "warning",
+        	$view.widget.toast({
+		    	level: "warning",
 		    	content: $T("SAI_ERR_404_DATA"),
 		    	position: "top",
 		    	align: "right",
@@ -1169,8 +1169,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 		    // retry once
 		    let resBis = await this.SaiTools.callApi({ action: "genDatas", datas: jsonValue });
 		    if (resBis?.error) {
-		    	$view.widget({
-			    	type: "error",
+		    	$view.widget.toast({
+			    	level: "error",
 			    	content: $T("SAI_ERR_404_DATA_BIS"),
 			    	position: "top",
 			    	align: "right",
