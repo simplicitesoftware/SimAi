@@ -4,7 +4,7 @@
  "item": {
   "mdl_name": "SimAI",
   "mdl_prefix": "sai",
-  "mdl_version": "0.5",
+  "mdl_version": "0.6",
   "mdl_type": null,
   "mdl_icon": null,
   "mdl_url": "{\n    \"origin\": {\"uri\": \"https://github.com/simplicitesoftware/SimAi.git\"},\n    \"type\": \"git\",\n    \"branch\": \"dev\"\n}",

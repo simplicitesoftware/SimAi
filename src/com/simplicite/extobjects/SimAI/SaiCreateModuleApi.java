@@ -144,6 +144,8 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 						return genDatas(req);
 					case "help":
 						return help(req);
+					case "initHistory":
+						return initHistory();
 					default:
 						return badRequest("Invalid action");
 					
@@ -154,6 +156,12 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			AppLog.error(e,getGrant());
 			return error(e);
 		}
+	}
+	@RESTServiceOperation(method = "post", path = "/initHistory", desc = "Init history")
+	public Object initHistory() {
+		Grant g = getGrant();
+		g.setUserSystemParam("SAI_HISTORY_TMP", new JSONObject().put("begin", new Date().getTime()).put("tokens",new JSONArray()).toString(1), true);
+		return new JSONObject().put("success", true);
 	}
 	
 	private Object help(JSONObject req) {
@@ -648,6 +656,13 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 				SaiMailTool.sendAiAlert(resJson.getString("error"));
 				return error(503,resJson.getString("error"));
 			}
+			if(resJson.has(AITools.USAGE_KEY)){
+				JSONObject history = new JSONObject(getGrant().getUserSystemParam("SAI_HISTORY_TMP"));
+				history.put("tokens",history.optJSONArray("tokens",new JSONArray()).put(resJson.getJSONObject(AITools.USAGE_KEY)));
+				getGrant().setUserSystemParam("SAI_HISTORY_TMP",history.toString(1),true);
+			}
+
+			
 			return resJson;
 	}
 	/**
