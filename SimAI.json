@@ -7,7 +7,7 @@
   "mdl_version": "0.5",
   "mdl_type": null,
   "mdl_icon": null,
-  "mdl_url": "{\n    \"origin\": {\"uri\": \"https://github.com/simplicitesoftware/SimAi.git\"},\n    \"type\": \"git\",\n    \"branch\": \"master\"\n}",
+  "mdl_url": "{\n    \"origin\": {\"uri\": \"https://github.com/simplicitesoftware/SimAi.git\"},\n    \"type\": \"git\",\n    \"branch\": \"dev\"\n}",
   "mdl_comment": "**SimAI** is an addon of [AiBySimplicite](https://github.com/simplicitesoftware/module_ai) containing a simplified business process for automatic module generation.\n\n## Installation\n\n### Classic\n1. Make sure you have the `AiBySimplicite` module installed\n2. Add this module in your Simplicite instance\n3. Create a user and configure SAI_CREATE_MODULE rights\n\n### Portainer\nIn docker compose add the environement parameter to: \n* Import [`SimThemes`](https://github.com/simplicitesoftware/module-theming), [`AIBySimplicite`](https://github.com/simplicitesoftware/module_ai.git) and [`SimAi`](https://github.com/CBimont/SimAi.git) with dataset and unit test to import examples and create user.\n* Define the AI parameters:\n```json\n{\n     \"completion_url\": \"\",\n     \"bot_name\": \"\",\n     \"code_max_token\": \"\",\n     \"provider\": \"\",\n     \"api_key\": \"\",\n     \"default_max_token\": \"\",\n     \"showDataDisclaimer\": true,\n     \"data_number\": \"\",\n     \"hist_depth\": \"\",\n     \"model\": \"\",\n     \"stt_url\": \"\",\n     \"ping_url\": \"\"\n}\n```\n* Define user information `usrName` and `password`.\n#### Example:\n```\nenvironment:\n      MODULES_IMPORT_SPEC: |\n        title: \"AI External\"\n        modules:\n          - name: \"SimThemes\"\n            version: \"0.3\"\n            git:\n              uri: \"https://github.com/simplicitesoftware/module-theming\"\n          - name: \"AIBySimplicite\"\n            version: \"0.31\"\n            git:\n              uri: \"https://github.com/simplicitesoftware/module_ai.git\"\n              branch: \"simplifiedProcess\"\n          - name: \"SimAi\"\n            version: \"0.4\"\n            datasets: true \n            unittests: true\n            git:\n              uri: \"https://github.com/CBimont/SimAi.git\"\n\n        \n      SIMPLICITE_SYSPARAM_AI_API_PARAM: |\n        {\n         \"completion_url\": \"https://api.mistral.ai/v1/chat/completions\",\n         \"bot_name\": \"George\",\n         \"code_max_token\": \"2000\",\n         \"provider\": \"Mistral AI\",\n         \"api_key\": \"${mistral_api_key}\",\n         \"default_max_token\": \"5000\",\n         \"showDataDisclaimer\": true,\n         \"data_number\": \"3\",\n         \"hist_depth\": \"3\",\n         \"model\": \"pixtral-12b-2409\",\n         \"stt_url\": \"\",\n         \"ping_url\": \"https://api.mistral.ai/v1/models\"\n        }\n      usrName: \"${user_name}\"\n      password: \"${user_password}\"\n```\n\n`SaiContactWidget` widget definition\n------------------------------------\n\nWidget for home page (contact)\n\n`createAiUser` unit test\n-------------------------\n\nCreate a new user granted to process with `usrName` and `password` environment variable, dedicated for docker compose auto deployment."
  },
  "links": [
@@ -272,7 +272,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ASK_FOR_MODULE",
       "lov_lang": "ENU",
-      "lov_value": "Your solution has been successfully managed! It is available for a trial period of X hours.\n<p>If you have any questions or would like to keep the module permanently or customise it, please contact us using the form below.<\/p>\n<p>You can find this form at any time in the home menu.",
+      "lov_value": "Your solution has been successfully managed! It is available for a trial period of 1 hour.\n<p>If you have any questions or would like to keep the module permanently or customise it, please contact us using the form below.<\/p>\n<p>You can find this form at any time in the home menu.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -285,7 +285,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_BOT_MESSAGE",
       "lov_lang": "ENU",
-      "lov_value": "<b>🚀 Welcome to your AI Business App Builder!<\/b><br>\nReady to bring your business idea to life? I'm here to help you create a custom application using Simplicité Software \u2013 no coding required!<br>\nHere's how we can work together :<br>\n💬 Chat with me \u2013 Describe your vision, explain your business needs, or walk through your workflow. The more details you share, the better I can craft your perfect app!<br>\n🖼️ Show, don't just tell \u2013 Upload images, mockups, or screenshots to illustrate exactly what you have in mind<br>\n📸 Sketch it live \u2013 Got a napkin drawing or whiteboard sketch? Snap a photo and I'll understand your concept instantly<br>\n⚡ Jump in fast \u2013 Not sure where to start? Check out the example prompts on the left for inspiration!<br>\nWhether you're building a CRM, inventory tracker, project manager, or something completely unique \u2013 I'll handle the technical heavy lifting while you focus on your vision.<br>\nWhat's your business challenge? Let's solve it together! 👇",
+      "lov_value": "<b>🚀 Welcome to your AI Business App Builder!<\/b><br>\nReady to bring your business idea to life? I'm here to help you create a custom application using Simplicité Software \u2013 no coding required!<br>\nHere's how we can work together :<br>\n💬 Chat with me \u2013 Describe your vision, explain your business needs, or walk through your workflow. The more details you share, the better I can craft your perfect app!<br>\n🖼️ Show, don't just tell \u2013 Upload images, mockups, or screenshots to illustrate exactly what you have in mind<br>\n📸 Sketch it lives \u2013 Got a napkin drawing or whiteboard sketch? Snap a photo and I'll understand your concept instantly<br>\n⚡ Jump in fast \u2013 Not sure where to start? Check out the example prompts on the left for inspiration!<br>\nWhether you're building a CRM, inventory tracker, project manager, or something completely unique \u2013 I'll handle the technical heavy lifting while you focus on your vision.<br>\nWhat's your business challenge? Let's solve it together! 👇",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -870,7 +870,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ASK_FOR_MODULE",
       "lov_lang": "FRA",
-      "lov_value": "<p>Votre solution a été générée avec succès ! Elle est disponible pour une période d'essai de X heures.<\/p>\n<p>Pour toute question ou si vous souhaitez conserver le module de manière permanente ou le personnaliser, merci de nous contacter via le formulaire ci-dessous.<\/p>\n<p>Vous pouvez retrouver ce formulaire à tout moment dans l\u0092accueil du menu.<\/p>",
+      "lov_value": "<p>Votre solution a été générée avec succès ! Elle est disponible pour une période d'essai de 1 heure.<\/p>\n<p>Pour toute question ou si vous souhaitez conserver cette application de manière permanente ou la personnaliser, merci de nous contacter via le formulaire ci-dessous.<\/p>\n<p>Vous pouvez retrouver ce formulaire à tout moment dans l'accueil du menu.<\/p>",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -883,7 +883,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_BOT_MESSAGE",
       "lov_lang": "FRA",
-      "lov_value": "<b>🚀 Bienvenue dans votre Créateur d'Applications Métier IA !<\/b><br>\nPrêt à donner vie à votre idée business ? Je suis là pour vous aider à créer une application sur mesure avec Simplicité Software \u2013 sans aucun code à écrire !<br>\nVoici comment nous pouvons travailler ensemble :<br>\n💬 Discutons ensemble \u2013 Décrivez-moi votre vision, expliquez vos besoins métier, ou détaillez votre processus de travail. Plus vous partagez de détails, mieux je peux concevoir votre app parfaite !<br>\n🖼️ Montrez-moi plutôt que de décrire \u2013 Uploadez des images, maquettes, ou captures d'écran pour illustrer exactement ce que vous avez en tête<br>\n📸 Esquissez en direct \u2013 Vous avez un croquis sur papier ou un schéma au tableau ? Prenez une photo et je comprendrai votre concept instantanément<br>\n⚡ Démarrez rapidement \u2013 Vous ne savez pas par où commencer ? Consultez les exemples de prompts à gauche pour vous inspirer !<br>\nQue vous construisiez un CRM, un gestionnaire d'inventaire, un outil de gestion de projet, ou quelque chose de complètement unique \u2013 je m'occupe de tout l'aspect technique pendant que vous vous concentrez sur votre vision.<br>\nQuel est votre défi métier ? Résolvons-le ensemble ! 👇<br>",
+      "lov_value": "<b>🚀 Bienvenue dans votre Créateur d'Applications Métiers IA !<\/b><br>\nPrêt à donner vie à votre idée business ? Je suis là pour vous aider à créer une application sur mesure avec Simplicité Software \u2013 sans aucun code à écrire !<br>\nVoici comment nous pouvons travailler ensemble :<br>\n💬 Discutons ensemble \u2013 Décrivez-moi votre vision, expliquez vos besoins métier, ou détaillez votre processus de travail. Plus vous partagez de détails, mieux je peux concevoir votre app parfaite !<br>\n🖼️ Montrez-moi plutôt que de décrire \u2013 Uploadez des images, maquettes, ou captures d'écran pour illustrer exactement ce que vous avez en tête<br>\n📸 Esquissez en direct \u2013 Vous avez un croquis sur papier ou un schéma au tableau ? Prenez une photo et je comprendrai votre concept instantanément<br>\n⚡ Démarrez rapidement \u2013 Vous ne savez pas par où commencer ? Consultez les exemples de prompts à gauche pour vous inspirer !<br>\nQue vous construisiez un CRM, un gestionnaire d'inventaire, un outil de gestion de projet, ou quelque chose de complètement unique \u2013 je m'occupe de tout l'aspect technique pendant que vous vous concentrez sur votre vision.<br>\nQuel est votre défi métier ? Résolvons-le ensemble ! 👇<br>",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -909,7 +909,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_BOT_MESSAGE_TIMEOUT",
       "lov_lang": "FRA",
-      "lov_value": "Désolé je n'ai pas pu interpréter votre message assez rapidement...<br>\nVeuillez réessayer avec un message moins long/compliqué.",
+      "lov_value": "Désolé, je n'ai pas pu interpréter votre message assez rapidement...<br>\nVeuillez réessayer avec un message moins long/compliqué.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -935,7 +935,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_DATA_GEN",
       "lov_lang": "FRA",
-      "lov_value": "Votre  application a été créé, vous allez maintenant devoir vous déconnecter/reconnecter en cliquant sur \"Me reconnecter\" afin de crée vos données et accéder à votre application !",
+      "lov_value": "Votre  application a été créée, vous allez maintenant devoir vous déconnecter/reconnecter en cliquant sur \"Me reconnecter\" afin de finaliser la génération et accéder à votre application !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -948,7 +948,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_DATA_GENERATED",
       "lov_lang": "FRA",
-      "lov_value": "Vos données ont été générées, vous allez maintenant pouvoir accéder à votre application après avoir cliqué sur \"Suivant\".",
+      "lov_value": "Des données fictives ont été générées, vous allez maintenant pouvoir accéder à votre application après avoir cliqué sur \"Suivant\".",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -961,7 +961,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_DATA_GENERATING",
       "lov_lang": "FRA",
-      "lov_value": "Vos données sont en train d'être créées, veuillez attendre jusqu'à ce que la génération soit complète.",
+      "lov_value": "Je génère des données d'exemple, veuillez attendre jusqu'à ce que la génération soit complète.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1013,7 +1013,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ERR_400_CHAT",
       "lov_lang": "FRA",
-      "lov_value": "Il y a eu une erreur lors du traitement de votre message : Veuillez essayer de renvoyer votre message.",
+      "lov_value": "Il y a eu une erreur lors du traitement de votre message : veuillez essayer de renvoyer votre message.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1026,7 +1026,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ERR_404_DATA",
       "lov_lang": "FRA",
-      "lov_value": "Il y a eu une erreur lors de l'interprétation des données de tests de votre application.<br>\nVeuillez patienter, nous réessayons.",
+      "lov_value": "Il y a eu une erreur lors de la finalisation de votre application.<br>\nVeuillez patienter, nous réessayons.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1039,7 +1039,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ERR_404_DATA_BIS",
       "lov_lang": "FRA",
-      "lov_value": "Impossible de générer les données de tests pour votre application...<br>\nCelle-ci est quand même créée et accessible, vous serez rediriger bientôt.",
+      "lov_value": "Impossible de générer les données de tests pour votre application...<br>\nCelle-ci est quand même créée et accessible, vous serez redirigé bientôt.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1052,7 +1052,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ERR_404_JSON",
       "lov_lang": "FRA",
-      "lov_value": "Il y a eu une erreur lors de l'interprétation des données de création de votre application.<br>\nVeuillez patienter, nous réessayons.",
+      "lov_value": "Il y a eu une erreur lors de l'interprétation des informations de création de votre application.<br>\nVeuillez patienter, nous réessayons.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1091,7 +1091,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ERR_503_CHAT",
       "lov_lang": "FRA",
-      "lov_value": "Le système n'est actuellement pas disponible, nous en sommes désolé.<br>\nVeuillez réessayer plus tard...",
+      "lov_value": "Le système n'est actuellement pas disponible, nous en sommes désolés.<br>\nVeuillez réessayer plus tard...",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1208,7 +1208,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_INTRO_MODAL",
       "lov_lang": "FRA",
-      "lov_value": "<p><strong>Créez votre application personnalisée à partir de zéro avec l'IA !<\/strong><\/p>\n<p>Notre assistant IA vous aide à concevoir et construire une application Simplicité complète en :<\/p>\n<p>\n<strong>Comprenant vos besoins<\/strong> à travers une conversation naturelle<br>\n<strong>Générant des diagrammes UML<\/strong> et la structure de base de données<br>\n<strong>Créant tous les objets nécessaires<\/strong> et des données d'exemple<br>\n<strong>Livrant une application fonctionnelle<\/strong> prête à utiliser\n<\/p>\n<div class=\"warning-section\">\n<p><i class=\"fas fa-exclamation-triangle warning-icon\"><\/i><strong>Important à savoir :<\/strong><\/p>\n<p>\nComme tous les systèmes d'IA, notre assistant peut parfois fournir des suggestions incorrectes ou \"halluciner\" des informations. \nVérifiez toujours la structure et les données générées avant utilisation en production. \nVous pouvez modifier et affiner tout après la génération.\n<\/p>\n<\/div>\n<p><small><strong>Astuce :<\/strong> <em>Soyez précis dans vos exigences pour de meilleurs résultats !<\/em><\/small><\/p>",
+      "lov_value": "<p><strong>Créez votre application personnalisée à partir de zéro avec l'IA !<\/strong><\/p>\n<p>Notre assistant IA vous aide à concevoir et construire une application Simplicité complète en :<\/p>\n<p>\n<strong>Comprenant vos besoins<\/strong> à travers une conversation naturelle<br>\n<strong>Générant des diagrammes UML<\/strong> et la structure de base de données<br>\n<strong>Créant tout le paramétrage nécessaire<\/strong> et des données d'exemple<br>\n<strong>Livrant une application fonctionnelle<\/strong> prête à utiliser\n<\/p>\n<div class=\"warning-section\">\n<p><i class=\"fas fa-exclamation-triangle warning-icon\"><\/i><strong>Important à savoir :<\/strong><\/p>\n<p>\nComme tous les systèmes d'IA, notre assistant peut parfois fournir des suggestions incorrectes ou \"halluciner\" des informations. \nVérifiez toujours la structure et les données générées avant utilisation en production. \nVous pouvez modifier et affiner tout après la génération.\n<\/p>\n<\/div>\n<p><small><strong>Astuce :<\/strong> <em>Soyez précis dans vos exigences pour de meilleurs résultats !<\/em><\/small><\/p>",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1234,7 +1234,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_LOADER_MODULE_GEN",
       "lov_lang": "FRA",
-      "lov_value": "Les données de création de votre application sont en train d'être traitée.\nVeuillez patienter pendant que nous générons votre application à partir de votre discussion !",
+      "lov_value": "Les informations de création de votre application sont en train d'être traitées.\nVeuillez patienter pendant que nous générons votre application à partir de votre discussion !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1364,7 +1364,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_PAGE_CONTENT",
       "lov_lang": "FRA",
-      "lov_value": "<p><strong>Le service est temporairement indisponible<\/strong><\/p>\n<p>Nous sommes désolés, nous rencontrons un problème technique, nous travaillons à sa résolution dés que possible.<\/p>\n\n<div class=\"warning-section\">\n<p><i class=\"fas fa-tools warning-icon\"><\/i><strong>Ce que vous pouvez faire :<\/strong><\/p>\n<p>\n<strong>Contacter notre équipe support<\/strong> à l'adresse <a href=\"mailto:contact@simplicite.fr\">contact@simplicite.fr<\/a> pour plus d'aide<br>\n<strong>Retourner sur notre site web<\/strong> <a href=\"https://simplicite.fr\" target=\"_blank\">simplicite.fr<\/a><br>\n<strong>Faire une demande de démo<\/strong> pour découvrir l'entièreté de notre solution, en remplissant <a href=\"https://www.simplicite.fr/contact#demo\" target=\"_blank\">ce formulaire<\/a>\n<\/p>\n<\/div>\n\n<p><strong>Nous nous excusons pour ces difficultés et le désagrément !<\/strong><\/p>\n<p>Notre équipe est dédiée à votre satisfaction, et souhaite vous fournir la meilleure expérience possible. Merci de votre patience et votre compréhension.<\/p>",
+      "lov_value": "<p><strong>Le service est temporairement indisponible<\/strong><\/p>\n<p>Nous sommes désolés, nous rencontrons un problème technique, nous travaillons à sa résolution dés que possible.<\/p>\n\n<div class=\"warning-section\">\n<p><i class=\"fas fa-tools warning-icon\"><\/i><strong>Ce que vous pouvez faire :<\/strong><\/p>\n<p>\n<strong>Contacter notre équipe support<\/strong> à l'adresse <a href=\"mailto:contact@simplicite.fr\">contact@simplicite.fr<\/a> pour plus d'aide<br>\n<strong>Retourner sur notre site web<\/strong> <a href=\"https://simplicite.fr\" target=\"_blank\">simplicite.fr<\/a><br>\n<strong>Faire une demande de démo<\/strong> pour découvrir l'entièreté de notre solution, en remplissant <a href=\"https://www.simplicite.fr/contact#demo\" target=\"_blank\">ce formulaire<\/a>\n<\/p>\n<\/div>\n\n<p><strong>Nous nous excusons pour ces difficultés et le désagrément !<\/strong><\/p>\n<p>Notre équipe est dédiée à votre satisfaction, et souhaite vous fournir la meilleure expérience possible. Merci de votre patience et de votre compréhension.<\/p>",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1390,7 +1390,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_REACHED_TIMEOUT",
       "lov_lang": "FRA",
-      "lov_value": "La limite de temps de réflexion de l'IA a été atteinte...<br>\nVeuillez essayer de formuler une requête plus simple/courte, ou de fournir des images moins compliquée.",
+      "lov_value": "La limite de temps de réflexion de l'IA a été atteinte...<br>\nVeuillez essayer de formuler une requête plus simple/courte, ou de fournir des images moins compliquées.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1442,7 +1442,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_USE_EXAMPLE",
       "lov_lang": "FRA",
-      "lov_value": "Utiliser cet example",
+      "lov_value": "Utiliser cet exemple",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
