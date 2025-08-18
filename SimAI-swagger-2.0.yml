@@ -621,7 +621,10 @@ definitions:
         description: 'Label #3'
         type: string
   SaiContact:
-    description: Contact
+    description: |-
+      Contact:
+
+      Management of commercial contact and module registration.
     type: object
     properties:
       saiCntModuleId:
@@ -684,7 +687,10 @@ definitions:
         description: Name
         type: string
   SaiApplicationExample:
-    description: Application example
+    description: |-
+      Application example:
+
+      Chat prompt examples
     type: object
     properties:
       saiSaePromptEnglish:

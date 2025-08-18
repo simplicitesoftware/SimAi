@@ -97,9 +97,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        this.showIntroModal();
 	    }, 300);
 	    
-	    $view.showLoading();
-	    this.replaceLoader();
-	    
 	    // setTimeout(() => {
 	    //     this.redirectToErrorPage();
 	    // }, 2500);
