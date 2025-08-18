@@ -46,7 +46,6 @@ public class SaiContactWidget extends com.simplicite.webapp.web.widgets.WidgetEx
 			AppLog.error(e,g);
 			return null;
 		}
-		
 	}
 	
 }
