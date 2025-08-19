@@ -27,6 +27,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	    });
 	    
 	   app.SaiTools = new SaiTools(data);
+	   await app.SaiTools.callApi({},"initTokensHistory");
 	   app.getPage(app);
     }
 
@@ -1249,6 +1250,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     async redirectToModule() {
         let ctn = $("#sainewmodulefront");
         ctn.html("");
+		await this.SaiTools.callApi({},"endTokensHistory");
+		console.log(await this.SaiTools.getTokensHistory());
         let res = await this.SaiTools.getRedirectScope();
         let redirect = res.redirect;
         window.location.href = "/ui?" + redirect;

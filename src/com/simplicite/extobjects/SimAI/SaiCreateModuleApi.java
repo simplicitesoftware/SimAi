@@ -49,10 +49,71 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 					return getModuleInfo();
 				case "isPostClearCache":
 					return isPostClearCache();
+				case "getTokensHistory":
+					return getTokensHistory(uriParts.size()>1?uriParts.get(1):null);
 				default:
 					return badRequest("Invalid action");
 			}
 		}catch(Exception e){
+			AppLog.error(e,getGrant());
+			return error(e);
+		}
+	}
+	/**
+	 * POST method handler (returns bad request by default)
+	 * @param params Request parameters
+	 * @return Typically JSON object or array
+	 * @throws HTTPException
+	 */
+	@Override
+	public Object post(Parameters params) throws HTTPException {
+		try {
+			JSONObject req = params.getJSONObject();
+			if (req!=null) {
+				String action = req.optString("action");
+				if(Tool.isEmpty(action)){
+					List<String> uriParts = params.getURIParts(getName());
+					if(!uriParts.isEmpty()){
+						action = uriParts.get(0);
+					}
+				}
+				if(!Tool.isEmpty(action))sysAdmin.setUserSystemParam​("AI_DEDICATE_FRONT_STEP",action, false);
+				switch(action) { 
+					case "create":
+						return create(req);
+					case "chat":
+						return chat(req);
+					case "genJson":
+						return genJson(req);
+					case "prepareJson":
+						return prepareJson(req);
+					case "genObj":
+						return genObj(req);
+					case "genlinks":
+						return genLinks();
+					case "initClearCache":
+						return initClearCache(req);
+					case "clearCache":
+						return clearGlobalCache();
+					case "postClearCache":
+						return postClearCache();
+					case "genJsonData":
+						return genJsonData();
+					case "genDatas":
+						return genDatas(req);
+					case "help":
+						return help(req);
+					case "initTokensHistory":
+						return initTokensHistory(req);
+					case "endTokensHistory":
+						return endTokensHistory(req);
+					default:
+						return badRequest("Invalid action");
+					
+				}
+			}
+			return badRequest("Call me with a request please!");
+		} catch (Exception e) {
 			AppLog.error(e,getGrant());
 			return error(e);
 		}
@@ -100,62 +161,45 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		return openapi();
 	}
 
-	/**
-	 * POST method handler (returns bad request by default)
-	 * @param params Request parameters
-	 * @return Typically JSON object or array
-	 * @throws HTTPException
-	 */
-	@Override
-	public Object post(Parameters params) throws HTTPException {
-		try {
-			JSONObject req = params.getJSONObject();
-			if (req!=null) {
-				String action = req.optString("action");
-				if(Tool.isEmpty(action)){
-					List<String> uriParts = params.getURIParts(getName());
-					if(!uriParts.isEmpty()){
-						action = uriParts.get(0);
-					}
-				}
-				if(!Tool.isEmpty(action))sysAdmin.setUserSystemParam​("AI_DEDICATE_FRONT_STEP",action, false);
-				switch(action) { 
-					case "create":
-						return create(req);
-					case "chat":
-						return chat(req);
-					case "genJson":
-						return genJson(req);
-					case "prepareJson":
-						return prepareJson(req);
-					case "genObj":
-						return genObj(req);
-					case "genlinks":
-						return genLinks();
-					case "initClearCache":
-						return initClearCache(req);
-					case "clearCache":
-						return clearGlobalCache();
-					case "postClearCache":
-						return postClearCache();
-					case "genJsonData":
-						return genJsonData();
-					case "genDatas":
-						return genDatas(req);
-					case "help":
-						return help(req);
-					default:
-						return badRequest("Invalid action");
-					
-				}
-			}
-			return badRequest("Call me with a request please!");
-		} catch (Exception e) {
-			AppLog.error(e,getGrant());
-			return error(e);
-		}
-	}
 	
+	private Object initTokensHistory(JSONObject req) {
+		//Todo
+		AppLog.info("initTokensHistory: "+Tool.getCurrentDatetime());
+		return success("initTokensHistory: "+Tool.getCurrentDatetime());
+	}
+	@RESTServiceOperation(method = "get", path = "/getTokensHistory/{moduleName}", desc = "Get history for a module")
+	public Object getTokensHistory(@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name", required = true, in="path") String moduleName) {
+		//Todo
+		String tmp = """
+			{
+			  'begin': '2025-08-19 10:00:00',
+			  'end': '2025-08-19 11:00:00',
+			  'tokens': [
+				{
+				  "completion_tokens": 2535,
+				  "prompt_tokens": 33,
+				  "total_tokens": 2568
+				},
+				{
+				  "completion_tokens": 4647,
+				  "prompt_tokens": 1564,
+				  "total_tokens": 6211
+				},
+				{
+				  "completion_tokens": 5000,
+				  "prompt_tokens": 1768,
+				  "total_tokens": 6768
+				}
+			  ]
+			}
+		""";	
+		return new JSONObject(tmp);
+	}
+	private Object endTokensHistory(JSONObject req) {
+		//Todo
+		AppLog.info("endTokensHistory: "+Tool.getCurrentDatetime());
+		return success("endTokensHistory: "+Tool.getCurrentDatetime());
+	}
 	private Object help(JSONObject req) {
 		String question = req.optString("question");
 		return help(question);

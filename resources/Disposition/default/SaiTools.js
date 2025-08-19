@@ -24,6 +24,11 @@ class  SaiTools {
 			const res = await response;
 			return res;
 		}
+	async getTokensHistory(moduleName = ""){
+		const response =this.app.getExternalObject(this.externalObject).invoke(null,null,{'method':'GET','path':'getTokensHistory/' + moduleName,'accept':'application/json'});
+		const res = await response;
+		return res;
+	}
 	async deleteModule(module = ""){
 		const response =this.app.getExternalObject(this.externalObject).invoke(null,null,{'method':'DELETE','path':'deleteModule/' + module,'accept':'application/json'});
 		const res = await response;
