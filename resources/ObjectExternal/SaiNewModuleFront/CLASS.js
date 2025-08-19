@@ -19,13 +19,17 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             console.log("ace editor loaded");
         });
        const app =  this;
-	    await $ui.loadScript({
-	      url: $ui.getApp().dispositionResourceURL("AiJsTools", "JS"),
-	      onload: function () {
-	        console.log("AiJsTools loaded");
-	      },
-	    });
-	    
+    	console.log(typeof AiJsTools);
+    	if(typeof AiJsTools !== 'undefined')console.log("AiJsTools loaded");
+    	else{
+			console.log("AiJsTools not loaded, loading now...");
+			await $ui.loadScript({
+				url: $ui.getApp().dispositionResourceURL("AiJsTools", "JS"),
+				onload: function () {
+					console.log("AiJsTools charged and loaded");
+				},
+			});
+		}
 	   app.SaiTools = new SaiTools(data);
 	   app.getPage(app);
     }
