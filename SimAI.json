@@ -324,7 +324,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_BOT_REDIRECT",
       "lov_lang": "ENU",
-      "lov_value": "J'ai terminé la création de votre application. En cliquant sur le bouton ci-dessous, vous y serez redirigé ! Amusez-vous bien !",
+      "lov_value": "I finished creating your app. Now by clicking on the button below, you'll be redirect right into it ! Have fun !\nJ'ai terminé la création de votre application. En cliquant sur le bouton ci-dessous, vous y serez redirigé ! Amusez-vous bien !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1079,6 +1079,19 @@
       "lov_code": "SAI_BOT_MESSAGE_TIMEOUT",
       "lov_lang": "FRA",
       "lov_value": "Désolé, je n'ai pas pu interpréter votre message assez rapidement...<br>\nVeuillez réessayer avec un message moins long/compliqué.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_BOT_REDIRECT~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_BOT_REDIRECT",
+      "lov_lang": "FRA",
+      "lov_value": "J'ai terminé la création de votre application. En cliquant sur le bouton ci-dessous, vous y serez redirigé ! Amusez-vous bien !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"

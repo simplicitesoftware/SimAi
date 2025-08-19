@@ -443,7 +443,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             ctn.find("#chatContainer").append(userMessage);
         	
         	let thinkingMessage = $("<div/>").attr("id","bot-thinking-text").text( $T("SAI_BOT_THINKING") );
-        	console.log("APPEND BOT THINKING");
             ctn
                 .find("#chatContainer")
                 .append(
@@ -451,10 +450,9 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
                 );
             this.scrollChatToBottom();
             
-            await new Promise(r => setTimeout(r, 5000)); // wait for 3s to test thinking animation
+            await new Promise(r => setTimeout(r, 3000)); // wait for 3s to test thinking animation
             
             ctn.find("#bot-thinking-text").remove();
-            console.log("REMOVE BOT THINKING");
             ctn
                 .find("#chatContainer")
                 .append(
@@ -511,6 +509,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         ctn.find("#message").val("");
 		$("#input-img").hide();
 		$("#input-img img").removeAttr("src");
+		
 		this.autoResizeTextarea(document.getElementById('message'));
 
 		this.setButtonLoading("#sendMessage", true, "fas fa-cog");
@@ -593,11 +592,16 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         let response = $view
             .markdownToHTML(res?.choices[0]?.message?.content)
             .html();
-        $(".bot-messages:last-child span").html(response);
+        
+        ctn.find("#chatContainer").append( AiJsTools.getDisplayBotMessage(response) );
+        // $(".bot-messages:last-child span").html(response); // why that ?
+        
+        ctn.find("#bot-thinking-text").remove();
         
         this.autoResizeTextarea(document.getElementById('message'));
         
         if (this.firstMessage) {
+        	console.log("it was the first message !");
         	ctn.find("#chatContainer").append(
 	            AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE_BIS")}`)
 	        );
@@ -1227,7 +1231,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         dialog.html("");
         dialog.append(`<div id="genData" class="simai-contextualHelp">${$T("SAI_DATA_GENERATED")}</div>`);
         
-        dialog.append( $("<p/>").html( AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_REDIRECT")}`) ) ); // HERE
+        dialog.append( AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_REDIRECT")}`) ); // should have the styles of a bot message...
 
         let interactiveBox = $("<div/>").addClass("simai-interactiveBox");
 

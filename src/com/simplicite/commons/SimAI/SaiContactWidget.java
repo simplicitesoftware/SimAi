@@ -7,6 +7,7 @@ import com.simplicite.bpm.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 import org.json.JSONObject;
+
 /**
  * Shared code SaiContactWidget
  */
@@ -21,8 +22,13 @@ public class SaiContactWidget extends com.simplicite.webapp.web.widgets.WidgetEx
 		String mld = settings.optString("module");
 		String id = getContactId(mld,g);
 		if(Tool.isEmpty(id))return "error";
-		String js = "$ui.displayForm($('#contact'),'SaiContact','"+id+"',null,null);"; 
-		return "<div id='contact'/>"+HTMLTool.jsBlock(js);
+		String js = "$ui.displayForm($('#contact'),'SaiContact','"+id+"',null,null);";
+		
+		String contentDiv = "<div id='contact'/>";
+		
+		contentDiv += HTMLTool.jsBlock(js);
+		
+		return contentDiv;
 
 		
 	}
