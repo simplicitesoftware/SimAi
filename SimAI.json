@@ -324,7 +324,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_BOT_REDIRECT",
       "lov_lang": "ENU",
-      "lov_value": "I finished creating your app. Now by clicking on the button below, you'll be redirect right into it ! Have fun !\nJ'ai terminé la création de votre application. En cliquant sur le bouton ci-dessous, vous y serez redirigé ! Amusez-vous bien !",
+      "lov_value": "I finished creating your app. Now by clicking on the button below, you'll be redirect right into it ! Have fun !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -832,19 +832,6 @@
       "lov_code": "SAI_MODULE_SPEC",
       "lov_lang": "ENU",
       "lov_value": "You can enhance and refine your app by specifying your needs with the chatbot below.",
-      "lov_order_by": 1,
-      "lov_event_id__lev_code": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "ListOfValue",
-     "userkey": "TEXT~SAI_MODULE_SUMMARY~ENU",
-     "item": {
-      "lov_name": "TEXT",
-      "lov_code": "SAI_MODULE_SUMMARY",
-      "lov_lang": "ENU",
-      "lov_value": "Your created application will be composed of :",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -5898,42 +5885,6 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Tableau de bord IA - Contact",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateExternal",
-     "userkey": "ObjectExternal(AppTestDashboard)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"obe_name": "AppTestDashboard"},
-       "icon": "fas/external-link-alt",
-       "label": "External object",
-       "userkeylabel": "AppTestDashboard",
-       "object": "ObjectExternal"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Test dashboard",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateExternal",
-     "userkey": "ObjectExternal(AppTestDashboard)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"obe_name": "AppTestDashboard"},
-       "icon": "fas/external-link-alt",
-       "label": "External object",
-       "userkeylabel": "AppTestDashboard",
-       "object": "ObjectExternal"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Test dashboard",
       "tsl_plural_value": null,
       "tsl_help": null,
       "row_module_id__mdl_name": "SimAI"

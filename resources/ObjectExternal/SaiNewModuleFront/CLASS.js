@@ -377,6 +377,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        $("#sendMessage").removeClass("simai-disabledButton");
 	        $("#speechToText").removeClass("simai-disabledButton");
 	        $("#exampleHint").removeClass("simai-disabledButton");
+	        $("#generateModule").addClass("simai-disabledButton");
 	    }
     }
     
@@ -416,7 +417,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        
 	        if (e.message === 'CAMERA_TIMEOUT') {
 	            console.log("Camera dialog was likely closed by user");
-	            // TODO : something ?
 	        } else {
 	            $view.widget.toast({
 	                level: "info",
@@ -643,6 +643,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        $("#takePicture").removeClass("simai-disabledButton");
 	        $("#addImage").removeClass("simai-disabledButton");
 	        $("#generateModule").removeClass("simai-disabledButton");
+	        $("#speechToText").removeClass("simai-disabledButton");
+	        $("#exampleHint").removeClass("simai-disabledButton");
             
             return;
         }
@@ -652,6 +654,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         $("#takePicture").removeClass("simai-disabledButton");
         $("#addImage").removeClass("simai-disabledButton");
         $("#generateModule").removeClass("simai-disabledButton");
+        $("#speechToText").removeClass("simai-disabledButton");
+        $("#exampleHint").removeClass("simai-disabledButton");
 
         let response = $view
             .markdownToHTML(res?.choices[0]?.message?.content)
@@ -700,7 +704,21 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        }
         
     	} catch(e) {
-    		// TODO : handle API unusual errors (timeout ...);
+    		// supposely session's timeout
+    		$view.widget.toast({
+	            level: "error",
+	            content: $T("SAI_SESSION_TIMEOUT"),
+	            position: "top",
+	            align: "right",
+	            duration: 5000,
+	            undo: false,
+	            pinable: false
+	        });
+	        
+	        // reload page should send back to the CHAT
+	        setTimeout(() => {
+	        	this.forcedReloadPage();
+	        },5000);
     	}
     }
 
@@ -778,7 +796,21 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	            app.prepareJson(app, res[1]);
 	        }
         } catch (e) {
-        	// TODO : handle unusual API error (timeout etc)
+        	// supposely session's timeout
+    		$view.widget.toast({
+	            level: "error",
+	            content: $T("SAI_SESSION_TIMEOUT"),
+	            position: "top",
+	            align: "right",
+	            duration: 5000,
+	            undo: false,
+	            pinable: false
+	        });
+	        
+	        // reload page should send back to the CHAT
+	        setTimeout(() => {
+	        	this.forcedReloadPage();
+	        },5000);
         }
     }
 
@@ -912,7 +944,21 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	                $("#sainewmodulefront").find("img").attr("src", svg);
 	            });
         	} catch (e) {
-        		// TODO : handle unusual error (timeout etc)
+        		// supposely session's timeout
+    		$view.widget.toast({
+	            level: "error",
+	            content: $T("SAI_SESSION_TIMEOUT"),
+	            position: "top",
+	            align: "right",
+	            duration: 5000,
+	            undo: false,
+	            pinable: false
+	        });
+	        
+	        // reload page should send back to the CHAT
+	        setTimeout(() => {
+	        	this.forcedReloadPage();
+	        },5000);
         	}
         }
 
@@ -948,7 +994,21 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        dialog.append(this.createTips($T("SAI_TIP_UML")));
         
 		} catch (e) {
-			// TODO : handle unusual error (timeout etc)
+			// supposely session's timeout
+    		$view.widget.toast({
+	            level: "error",
+	            content: $T("SAI_SESSION_TIMEOUT"),
+	            position: "top",
+	            align: "right",
+	            duration: 5000,
+	            undo: false,
+	            pinable: false
+	        });
+	        
+	        // reload page should send back to the CHAT
+	        setTimeout(() => {
+	        	this.forcedReloadPage();
+	        },5000);
 		}
     }
 
@@ -1259,7 +1319,21 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 		            }
 		        }
         	} catch (e) {
-        		// TODO : handle unusual error (timeout)
+        		// supposely session's timeout
+    		$view.widget.toast({
+	            level: "error",
+	            content: $T("SAI_SESSION_TIMEOUT"),
+	            position: "top",
+	            align: "right",
+	            duration: 5000,
+	            undo: false,
+	            pinable: false
+	        });
+	        
+	        // reload page should send back to the CHAT
+	        setTimeout(() => {
+	        	this.forcedReloadPage();
+	        },5000);
         	}
         }
         
@@ -1330,7 +1404,22 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 			    res = resBis;
 	        }
         } catch (e) {
-        	// TODO : handle unusual errors (timeout)
+        	// supposely session's timeout
+    		$view.widget.toast({
+	            level: "error",
+	            content: $T("SAI_SESSION_TIMEOUT"),
+	            position: "top",
+	            align: "right",
+	            duration: 5000,
+	            undo: false,
+	            pinable: false
+	        });
+	        
+	        // reload page should send back to the CHAT
+	        setTimeout(() => {
+	        	this.forcedReloadPage();
+	        },5000);
+	        
         	return;
         }
         
@@ -1871,4 +1960,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        chatContainer.scrollTop = targetScrollTop;
 	    }
 	}
+	
+	forcedReloadPage() {
+    	window.location.reload(true);
+    }
 };
