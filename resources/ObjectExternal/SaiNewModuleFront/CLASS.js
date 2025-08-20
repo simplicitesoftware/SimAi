@@ -14,24 +14,25 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async render(params, data = {}) {
-    	
+
         $ui.loadAceEditor(() => {
             console.log("ace editor loaded");
         });
-       const app =  this;
-    	console.log(typeof AiJsTools);
-    	if(typeof AiJsTools !== 'undefined')console.log("AiJsTools loaded");
-    	else{
-			console.log("AiJsTools not loaded, loading now...");
-			await $ui.loadScript({
-				url: $ui.getApp().dispositionResourceURL("AiJsTools", "JS"),
-				onload: function () {
-					console.log("AiJsTools charged and loaded");
-				},
-			});
-		}
-	   app.SaiTools = new SaiTools(data);
-	   app.getPage(app);
+        const app = this;
+
+        if (typeof AiJsTools !== 'undefined') console.log("AiJsTools loaded");
+        else {
+            console.log("AiJsTools not loaded, loading now...");
+            await $ui.loadScript({
+                url: $ui.getApp().dispositionResourceURL("AiJsTools", "JS"),
+                onload: function() {
+                    console.log("AiJsTools charged and loaded");
+                },
+            });
+        }
+
+        app.SaiTools = new SaiTools(data);
+        app.getPage(app);
     }
 
     getPage(app) {
@@ -111,6 +112,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async setChatInteraction() {
+    	// await this.SaiTools.callApi({}, "initTokensHistory");
+    	
 	    this.currentState = "chatInteraction";
 	    let dialog = $("#sainewmodulefront_dialog");
 	    dialog.html("");
@@ -328,6 +331,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     	this.setButtonLoading("#addImage", true, "fas fa-cog");
 	    $("#takePicture").addClass("simai-disabledButton");
 	    $("#sendMessage").addClass("simai-disabledButton");
+	    $("#speechToText").addClass("simai-disabledButton");
+	    $("#exampleHint").addClass("simai-disabledButton");
 	    
 	    try {
 	        // Create custom file input instead of using AiJsTools.addImage()
@@ -370,48 +375,67 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        this.setButtonLoading("#addImage", false, "fas fa-image");
 	        $("#takePicture").removeClass("simai-disabledButton");
 	        $("#sendMessage").removeClass("simai-disabledButton");
+	        $("#speechToText").removeClass("simai-disabledButton");
+	        $("#exampleHint").removeClass("simai-disabledButton");
 	    }
     }
     
     async takePicture() {
-    	this.setButtonLoading("#takePicture", true, "fas fa-cog");
+	    this.setButtonLoading("#takePicture", true, "fas fa-cog");
 	    $("#addImage").addClass("simai-disabledButton");
 	    $("#sendMessage").addClass("simai-disabledButton");
+	    $("#speechToText").addClass("simai-disabledButton");
+	    $("#exampleHint").addClass("simai-disabledButton");
 	    
 	    try {
-	        // Use $view.widget.takePicture directly instead of AiJsTools.takeImage()
-	        let image_base64 = await $view.widget.takePicture({
-	            title: $T('TAKE_PICT'), 
-	            facingMode: "environment"
+	        const timeoutPromise = new Promise((_, reject) => {
+	            setTimeout(() => {
+	                reject(new Error('CAMERA_TIMEOUT'));
+	            }, 5000); // 5s timeout
 	        });
+	        const image_base64 = await Promise.race([
+	            $view.widget.takePicture({
+	                title: $T('TAKE_PICT'), 
+	                facingMode: "environment"
+	            }),
+	            timeoutPromise
+	        ]);
 	        
 	        if (image_base64) {
-	            // Update your specific DOM structure
+	            console.log("-> IMAGE_BASE64");
 	            $("#input-img img").attr("src", image_base64);
 	            $("#input-img").show();
-	            $("#input-img").css("display", "block"); // force visibility
+	            $("#input-img").css("display", "block");
 	            
-	            // Use your own auto-resize instead of AiJsTools.resizeUp
 	            this.autoResizeTextarea(document.getElementById('message'));
 	            this.scrollChatToBottom();
 	        }
 	        
 	    } catch (e) {
-	    	$view.widget.toast({
-	    		level: "info",
-                content: `${$T("SAI_NO_CAMERA")}`,
-                position: "top",
-                align: "right",
-                duration: 3000,
-                undo: false,
-                pinable: false
-	    	});
+	        console.log("CATCH", e.message);
+	        
+	        if (e.message === 'CAMERA_TIMEOUT') {
+	            console.log("Camera dialog was likely closed by user");
+	            // TODO : something ?
+	        } else {
+	            $view.widget.toast({
+	                level: "info",
+	                content: `${$T("SAI_NO_CAMERA")}`,
+	                position: "top",
+	                align: "right",
+	                duration: 3000,
+	                undo: false,
+	                pinable: false
+	            });
+	        }
 	    } finally {
 	        this.setButtonLoading("#takePicture", false, "fas fa-camera");
 	        $("#addImage").removeClass("simai-disabledButton");
 	        $("#sendMessage").removeClass("simai-disabledButton");
+	        $("#speechToText").removeClass("simai-disabledButton");
+	        $("#exampleHint").removeClass("simai-disabledButton");
 	    }
-    }
+	}
     
     async speechToText() {
     	// TODO : inspire from the module process for this one
@@ -419,8 +443,24 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
     
     async exampleHint() {
-    	// TODO : visual hook for example location & usage
-    	console.log("<Example Hint> feature not implemented yet");
+	    const examples = $("#sainewmodulefront_examples .simai-example");
+    
+	    if (examples.length > 0) {
+	        examples.each((index, example) => {
+	            const $example = $(example);
+	            
+	            // Start each example with a delay to create wave effect
+	            setTimeout(() => {
+	                // Trigger mouseenter to expand
+	                $example.trigger('mouseenter');
+	                
+	                // After 0.33 seconds, trigger mouseleave to collapse
+	                setTimeout(() => {
+	                    $example.trigger('mouseleave');
+	                }, 50);
+	            }, index * 50); // 120ms delay between each example
+	        });
+	    }
     }
 
     async sendMessage() {
@@ -462,7 +502,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
                 .append(
                 	AiJsTools.getDisplayBotMessage("AI call inib (on purpose) -> no actual answers from AI to provide.")
                 );
-            this.scrollChatToBottom();
+            this.scrollToLatestUserMessage();
             
             // custom reset
             ctn.find("#message").val("");
@@ -475,19 +515,21 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             $("#generateModule").addClass("simai-disabledButton");
             $("#takePicture").addClass("simai-disabledButton");
         	$("#addImage").addClass("simai-disabledButton");
+        	$("#speechToText").addClass("simai-disabledButton");
+	        $("#exampleHint").addClass("simai-disabledButton");
 
             setTimeout(() => {
             	this.setButtonLoading("#sendMessage", false, "fas fa-cog");
             	$("#takePicture").removeClass("simai-disabledButton");
         		$("#addImage").removeClass("simai-disabledButton");
                 $("#generateModule").removeClass("simai-disabledButton");
+                $("#speechToText").removeClass("simai-disabledButton");
+	        	$("#exampleHint").removeClass("simai-disabledButton");
                 
                 if (this.firstMessage) {
-		        	ctn.find("#chatContainer").append(
-			            AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE_BIS")}`)
-			        );
-			        
-			        this.scrollChatToBottom();
+		        	ctn.find("#chatContainer").append( AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE_BIS")}`) );
+		        	
+			        this.scrollToLatestUserMessage();
 			        this.firstMessage = false;
 		        }
             }, 2000);
@@ -520,12 +562,15 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         $("#takePicture").addClass("simai-disabledButton");
         $("#addImage").addClass("simai-disabledButton");
         $("#generateModule").addClass("simai-disabledButton");
+        $("#exampleHint").addClass("simai-disabledButton");
+        $("#speechToText").addClass("simai-disabledButton");
 
 		let res;
 		try {
         	res = await this.SaiTools.callApi(params, "chat");
 		} catch (e) {
 			console.error("Timeout error ?\n"+e);
+			
 			$view.widget.toast({
 				level: "warning",
 		        content: $T("SAI_REACHED_TIMEOUT"),
@@ -548,13 +593,15 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        $("#takePicture").removeClass("simai-disabledButton");
 	        $("#addImage").removeClass("simai-disabledButton");
 	        $("#generateModule").removeClass("simai-disabledButton");
+	        $("#exampleHint").removeClass("simai-disabledButton");
+	        $("#speechToText").removeClass("simai-disabledButton");
 	        
+	        $view.hideLoading();
 	        return;
 		}
         
         if (res?.error) {
-            ctn.find('#chatContainer').append("an error occured: " + AiJsTools.getDisplayBotMessage(res?.error)); // keep this in any case
-            
+            // ctn.find('#chatContainer').append("an error occured: " + AiJsTools.getDisplayBotMessage(res?.error)); // keep this in any case
             switch (res.error[0]) {
             	case 400:
             		$view.widget.toast({
@@ -569,7 +616,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 		            ctn.find("#message").val(message); // putting back message
 		        	// then will face the return, so possible to retry
             		break;
-            	case 513:
+            	case 503:
             		$view.widget.toast({ // error toast
 		                level: "error",
 		                content: $T("SAI_ERR_503_CHAT"),
@@ -579,10 +626,23 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 		                undo: false,
 		                pinable: false
 		            });
+		            
 		            this.redirectToErrorPage(); // redirect to dead-end page (back to website at least ?)
             		break;
+            	default:
+            		console.log("UNKNOWN ERROR : "+JSON.stringify(res.error));
+            		this.redirectToErrorPage();
+            		break;
+            		
             	// no default.
             }
+            
+            ctn.find("#bot-thinking-text").remove();
+            
+            this.setButtonLoading("#sendMessage", false, "fas fa-cog");
+	        $("#takePicture").removeClass("simai-disabledButton");
+	        $("#addImage").removeClass("simai-disabledButton");
+	        $("#generateModule").removeClass("simai-disabledButton");
             
             return;
         }
@@ -598,7 +658,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             .html();
         
         ctn.find("#chatContainer").append( AiJsTools.getDisplayBotMessage(response) );
-        // $(".bot-messages:last-child span").html(response); // why that ?
+        this.scrollToLatestUserMessage();
         
         ctn.find("#bot-thinking-text").remove();
         
@@ -606,37 +666,42 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         
         if (this.firstMessage) {
         	console.log("it was the first message !");
-        	ctn.find("#chatContainer").append(
-	            AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE_BIS")}`)
-	        );
+        	
+        	ctn.find("#chatContainer").append( AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE_BIS")}`) );
 	        
-	        this.scrollChatToBottom();
 	        this.firstMessage = false;
         }
     }
 
     async createModule(app) {
-        const moduleInfo = await this.SaiTools.callApi({
-            action: "create",
-            login: $grant.getLogin(),
-            moduleName: this.validatedModuleName,
-        });
-        console.log(moduleInfo);
-        if (moduleInfo?.error) {
-            $view.widget.toast({
-                level: "error",
-                content: $T("SAI_ERR_CREATE"),
-                position: "top",
-                align: "right",
-                duration: 4000,
-                undo: false,
-                pinable: false
-            });
-            
-            this.setChatInteraction(); // back to beginning ...
-        } else {
-            app.generateModule(app);
-        }
+    	try {
+	        const moduleInfo = await this.SaiTools.callApi({
+	            action: "create",
+	            login: $grant.getLogin(),
+	            moduleName: this.validatedModuleName,
+	        });
+	        
+	        console.log(moduleInfo);
+	        
+	        if (moduleInfo?.error) {
+	            $view.widget.toast({
+	                level: "error",
+	                content: $T("SAI_ERR_CREATE"),
+	                position: "top",
+	                align: "right",
+	                duration: 4000,
+	                undo: false,
+	                pinable: false
+	            });
+	            
+	            this.setChatInteraction(); // back to beginning ...
+	        } else {
+	            app.generateModule(app);
+	        }
+        
+    	} catch(e) {
+    		// TODO : handle API unusual errors (timeout ...);
+    	}
     }
 
     async generateModule(app) {
@@ -655,51 +720,65 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
                 historic: historic
             };
         }
+        
         $view.showLoading();
         this.replaceLoader($T("SAI_LOADER_MODULE_GEN"));
         
-        let res = await this.SaiTools.callApi(params, "genJson");
-
-        if (res?.error) {
-            switch (res.error[0]) {
-            	case 500:
-            		$view.widget.toast({
-		                level: "error",
-		                content: $T("SAI_ERR_500_JSON"),
-		                position: "top",
-		                align: "right",
-		                duration: 4000,
-		                undo: false,
-		                pinable: false
-		            });
-		            // back to chat (no historic ?)
-		            this.setChatInteraction();
-            		break;
-            	case 503:
-            		$view.widget.toast({
-		                level: "error",
-		                content: $T("SAI_ERR_503_JSON"),
-		                position: "top",
-		                align: "right",
-		                duration: 4000,
-		                undo: false,
-		                pinable: false
-		            });
-		            let resDel = await this.SaiTools.deleteModule(this.validatedModuleName); // ask for module deletion
-		            // if error (404|500) then rename module to random name ??
-		            this.validatedModuleName = "";
-		            
-		            this.setChatInteraction(); // back to process beginning
-            		break;
-            	// no default
-            }
-            return;
-        }
-        $view.hideLoading();
-        if (this.showJson) {
-            app.setJsonValidation(() => app.prepareJson(app), res);
-        } else {
-            app.prepareJson(app, res[1]);
+        try {
+	        let res = await this.SaiTools.callApi(params, "genJson");
+	
+	        if (res?.error) {
+	            switch (res.error[0]) {
+	            	case 500:
+	            		$view.widget.toast({
+			                level: "error",
+			                content: $T("SAI_ERR_500_JSON"),
+			                position: "top",
+			                align: "right",
+			                duration: 4000,
+			                undo: false,
+			                pinable: false
+			            });
+			            // back to chat (no historic ?)
+			            this.setChatInteraction();
+	            		break;
+	            		
+	            	case 503:
+	            		$view.widget.toast({
+			                level: "error",
+			                content: $T("SAI_ERR_503_JSON"),
+			                position: "top",
+			                align: "right",
+			                duration: 4000,
+			                undo: false,
+			                pinable: false
+			            });
+			            let resDel = await this.SaiTools.deleteModule(this.validatedModuleName); // ask for module deletion
+			            // if error (404|500) then rename module to random name ??
+			            this.validatedModuleName = "";
+			            this.setChatInteraction(); // back to process beginning
+	            		break;
+	            	default:
+	            		console.log("UNKNOWN ERROR : "+JSON.stringify(res.error));
+	            		resDel = await this.SaiTools.deleteModule(this.validatedModuleName); // ask for module deletion
+	            		this.redirectToErrorPage();
+	            		break;
+	            	// no default
+	            }
+	            
+	            $view.hideLoading();
+	            
+	            return;
+	        }
+	        
+	        $view.hideLoading();
+	        if (this.showJson) {
+	            app.setJsonValidation(() => app.prepareJson(app), res);
+	        } else {
+	            app.prepareJson(app, res[1]);
+	        }
+        } catch (e) {
+        	// TODO : handle unusual API error (timeout etc)
         }
     }
 
@@ -712,7 +791,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         
         try {
             JSON.parse(jsonValue); // Tente de parser le JSON
-            //ctn.html('');
+            
             let res = await this.SaiTools.callApi({
                 action: "prepareJson",
                 json: jsonValue,
@@ -742,6 +821,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 		                undo: false,
 		                pinable: false
 		            });
+		            
 		            this.setChatInteraction(); // back to chat without historic (so keep module name)
 		            return;
 	        	}
@@ -803,62 +883,73 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             .attr("id", "mermaidImage")
         );
         for (let obj of objects) {
-            let mermaidObj = await this.SaiTools.callApi({
-                action: "genObj",
-                objName: obj,
-            });
-            mermaidText += "class " + mermaidObj.name + " {\n";
-
-            let objectFields = [];
-            for (let field of mermaidObj.fields) {
-                objectFields.push(field);
-                mermaidText += "    " + field + "\n";
-            }
-
-            console.log("Creating module object : " + obj + " -> " + objectFields);
-
-            this.moduleObjects.push({
-                code: obj,
-                fields: objectFields
-            });
-
-            mermaidText += "}\n";
-            console.log(mermaidText);
-
-            mermaid.render("mermaidImg", mermaidText).then((res) => {
-                const svg = `data:image/svg+xml;base64,${$app.base64Encode(res.svg)}`;
-                $("#sainewmodulefront").find("img").attr("src", svg);
-            });
+        	
+        	try {
+	            let mermaidObj = await this.SaiTools.callApi({
+	                action: "genObj",
+	                objName: obj,
+	            });
+	            mermaidText += "class " + mermaidObj.name + " {\n";
+	
+	            let objectFields = [];
+	            for (let field of mermaidObj.fields) {
+	                objectFields.push(field);
+	                mermaidText += "    " + field + "\n";
+	            }
+	
+	            console.log("Creating module object : " + obj + " -> " + objectFields);
+	
+	            this.moduleObjects.push({
+	                code: obj,
+	                fields: objectFields
+	            });
+	
+	            mermaidText += "}\n";
+	            console.log(mermaidText);
+	
+	            mermaid.render("mermaidImg", mermaidText).then((res) => {
+	                const svg = `data:image/svg+xml;base64,${$app.base64Encode(res.svg)}`;
+	                $("#sainewmodulefront").find("img").attr("src", svg);
+	            });
+        	} catch (e) {
+        		// TODO : handle unusual error (timeout etc)
+        	}
         }
 
-        let links = await this.SaiTools.callApi({
-            action: "genlinks"
-        });
-        console.log(links);
-        for (let link of links.links) {
-            mermaidText += "    " + link + "\n";
-        }
-        console.log(mermaidText);
-        mermaid.render("mermaidImg", mermaidText).then((res) => {
-            const svg = `data:image/svg+xml;base64,${$app.base64Encode(res.svg)}`;
-            $("#sainewmodulefront").find("img").attr("src", svg);
-        });
-
-        let nextButton = $(
-            `<button id="nextButton" class="actionButton-blue">${$T(
-        "SAI_NEXT"
-      )}</button>`
-        );
-        nextButton.addClass("simai-safe-navigation").on("click", () => {
-            app.clearCache(mermaidText);
-        });
-
-        let interactiveBox = $("<div/>").addClass("simai-interactiveBox");
-        interactiveBox.append(nextButton);
-
-        dialog.append(interactiveBox);
+		try {
+	        let links = await this.SaiTools.callApi({
+	            action: "genlinks"
+	        });
+	        
+	        console.log(links);
+	        for (let link of links.links) {
+	            mermaidText += "    " + link + "\n";
+	        }
+	        console.log(mermaidText);
+	        mermaid.render("mermaidImg", mermaidText).then((res) => {
+	            const svg = `data:image/svg+xml;base64,${$app.base64Encode(res.svg)}`;
+	            $("#sainewmodulefront").find("img").attr("src", svg);
+	        });
+	
+	        let nextButton = $(
+	            `<button id="nextButton" class="actionButton-blue">${$T(
+	        "SAI_NEXT"
+	      )}</button>`
+	        );
+	        nextButton.addClass("simai-safe-navigation").on("click", () => {
+	            app.clearCache(mermaidText);
+	        });
+	
+	        let interactiveBox = $("<div/>").addClass("simai-interactiveBox");
+	        interactiveBox.append(nextButton);
+	
+	        dialog.append(interactiveBox);
+	        
+	        dialog.append(this.createTips($T("SAI_TIP_UML")));
         
-        dialog.append(this.createTips($T("SAI_TIP_UML")));
+		} catch (e) {
+			// TODO : handle unusual error (timeout etc)
+		}
     }
 
     async clearCache(mermaidText) {
@@ -1137,35 +1228,39 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             };
         } else {
         	// first attempts -> trying with ALL data
-            res = await this.SaiTools.callApi({}, "genJsonData");
-	        if (res?.error) {
-	        	// both 500 & 413 are the same so whatev'
-	            $view.widget.toast({
-	                level: "warning", // first is only a warning
-	                content: $T("SAI_ERR_JSONDATA"),
-	                position: "top",
-	                align: "right",
-	                duration: 4000,
-	                undo: false,
-	                pinable: false
-	            });
-	            
-	            res = await this.SaiTools.callApi({}, "genJsonData"); // this ain't "less data", yet just retrying ...
-	            if (res?.error) {
+        	try {
+	            res = await this.SaiTools.callApi({}, "genJsonData");
+		        if (res?.error) {
 		        	// both 500 & 413 are the same so whatev'
 		            $view.widget.toast({
-		                level: "error", // second is an error
-		                content: $T("SAI_ERR_JSONDATA_BIS"),
+		                level: "warning", // first is only a warning
+		                content: $T("SAI_ERR_JSONDATA"),
 		                position: "top",
 		                align: "right",
-		                duration: 4500,
+		                duration: 4000,
 		                undo: false,
 		                pinable: false
 		            });
 		            
-		            res = {}; // going with absolutely no data ... (no return ?)
-	            }
-	        }
+		            res = await this.SaiTools.callApi({}, "genJsonData"); // this ain't "less data", yet just retrying ...
+		            if (res?.error) {
+			        	// both 500 & 413 are the same so whatev'
+			            $view.widget.toast({
+			                level: "error", // second is an error
+			                content: $T("SAI_ERR_JSONDATA_BIS"),
+			                position: "top",
+			                align: "right",
+			                duration: 4500,
+			                undo: false,
+			                pinable: false
+			            });
+			            
+			            res = {}; // going with absolutely no data ... (no return ?)
+		            }
+		        }
+        	} catch (e) {
+        		// TODO : handle unusual error (timeout)
+        	}
         }
         
         $view.hideLoading();
@@ -1196,39 +1291,47 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             const editor = window.ace.edit("jsonEditor");
             const jsonValue = editor.getValue();
         }
-        let res = await this.SaiTools.callApi({
-            action: "genDatas",
-            datas: jsonValue
-        });
         
-        if (res?.error) {
-        	// only 404 possible
-        	$view.widget.toast({
-		    	level: "warning",
-		    	content: $T("SAI_ERR_404_DATA"),
-		    	position: "top",
-		    	align: "right",
-		    	duration: 4000,
-		    	undo: false,
-		    	pinable: false
-		    });
-		    // retry once
-		    let resBis = await this.SaiTools.callApi({ action: "genDatas", datas: jsonValue });
-		    if (resBis?.error) {
-		    	$view.widget.toast({
-			    	level: "error",
-			    	content: $T("SAI_ERR_404_DATA_BIS"),
+        let res;
+        try {
+	        res = await this.SaiTools.callApi({
+	            action: "genDatas",
+	            datas: jsonValue
+	        });
+	        
+	        if (res?.error) {
+	        	// only 404 possible
+	        	$view.widget.toast({
+			    	level: "warning",
+			    	content: $T("SAI_ERR_404_DATA"),
 			    	position: "top",
 			    	align: "right",
-			    	duration: 4500,
+			    	duration: 4000,
 			    	undo: false,
 			    	pinable: false
 			    });
-			    /*
-			    	??? what to do here ???
-			    */
-		    }
-		    res = resBis;
+			    // retry once
+				
+			    let resBis = await this.SaiTools.callApi({ action: "genDatas", datas: jsonValue });
+			    if (resBis?.error) {
+			    	$view.widget.toast({
+				    	level: "error",
+				    	content: $T("SAI_ERR_404_DATA_BIS"),
+				    	position: "top",
+				    	align: "right",
+				    	duration: 4500,
+				    	undo: false,
+				    	pinable: false
+				    });
+				    /*
+				    	??? what to do here ???
+				    */
+			    }
+			    res = resBis;
+	        }
+        } catch (e) {
+        	// TODO : handle unusual errors (timeout)
+        	return;
         }
         
         console.log(res);
@@ -1251,6 +1354,9 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async redirectToModule() {
+    	
+    	// await app.SaiTools.callApi({}, "endTokensHistory");
+    	
         let ctn = $("#sainewmodulefront");
         ctn.html("");
         let res = await this.SaiTools.getRedirectScope();
@@ -1395,7 +1501,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 				}
 				
 				example.append(
-					$(`<i class="collapsedIcon fas fa-arrow-left"></i>`)
+					$(`<i class="collapsedIcon fas fa-angle-left"></i>`)
 				);
 				
 				let mainPart = $("<div/>")
@@ -1697,7 +1803,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	    const moduleName = $("#modalModuleName").val();
 	    if (moduleName) {
 	        let available = await this.SaiTools.isModuleNameAvailable(moduleName);
-	
+
 	        if (available) {
 	            this.validatedModuleName = moduleName;
 	            modalOverlay.remove();
@@ -1727,8 +1833,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	}
 	
 	createTips(tipText="") {
-		// TODO : implement the tips section taking the .warning-section styles (but green/blue).
-		
 		let tipDiv = $("<div/>").addClass("simai-bottom-tips");
 		
 		let tipSection = $("<div/>").addClass("tip-section");
@@ -1737,5 +1841,34 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 		tipDiv.append(tipSection);
 		
 		return tipDiv;
+	}
+	
+	scrollToLatestUserMessage(smooth = true) {
+	    const chatContainer = $("#chatContainer")[0];
+	    if (!chatContainer) return;
+	    
+	    // Find the last user message
+	    const userMessages = chatContainer.querySelectorAll('.user-messages');
+	    if (userMessages.length === 0) return;
+	    
+	    const lastUserMessage = userMessages[userMessages.length - 1];
+	    
+	    // Calculate position relative to chatContainer's scrollable content
+	    const containerRect = chatContainer.getBoundingClientRect();
+	    const messageRect = lastUserMessage.getBoundingClientRect();
+	    
+	    // Calculate the scroll position needed to put the user message at the top
+	    const currentScrollTop = chatContainer.scrollTop;
+	    const messageOffsetFromContainerTop = messageRect.top - containerRect.top;
+	    const targetScrollTop = currentScrollTop + messageOffsetFromContainerTop;
+	    
+	    if (smooth) {
+	        chatContainer.scrollTo({
+	            top: targetScrollTop,
+	            behavior: 'smooth'
+	        });
+	    } else {
+	        chatContainer.scrollTop = targetScrollTop;
+	    }
 	}
 };

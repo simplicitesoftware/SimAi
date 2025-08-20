@@ -130,6 +130,12 @@ Management of commercial contact and module registration.
 | `saiCntViewhomeId` link to **`ViewHome`**                    | id                                       |          |           |          | -                                                                                |
 | _Ref. `saiCntViewhomeId.viw_name`_                           | _char(100)_                              |          |           |          | -                                                                                |
 
+`SaiContactDashboard` external object definition
+------------------------------------------------
+
+
+
+
 `SaiCreateModuleApi` external object definition
 -----------------------------------------------
 

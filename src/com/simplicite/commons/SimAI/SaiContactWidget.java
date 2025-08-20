@@ -23,10 +23,20 @@ public class SaiContactWidget extends com.simplicite.webapp.web.widgets.WidgetEx
 		String id = getContactId(mld,g);
 		if(Tool.isEmpty(id))return "error";
 		String js = "$ui.displayForm($('#contact'),'SaiContact','"+id+"',null,null);";
+ 		
+		String contentDiv = "<div id='contact'></div>";
+		// String dashboardDiv = "<div id='saicontactdashboard'></div>";
 		
-		String contentDiv = "<div id='contact'/>";
+		// String dashboard_js = HTMLTool.getResourceJSContent(getGrant(), "SAI_DASHBOARD_CLASS");
+		String dashboard_css = HTMLTool.getResourceCSSContent(getGrant(), "SAI_DASHBOARD_STYLE");
 		
 		contentDiv += HTMLTool.jsBlock(js);
+		
+		// String moduleVar = "const moduleName = '"+ mld +"';";
+		
+		// contentDiv += dashboardDiv;
+		// contentDiv += HTMLTool.jsBlock(moduleVar + dashboard_js);
+		contentDiv += HTMLTool.cssBlock(dashboard_css);
 		
 		return contentDiv;
 
