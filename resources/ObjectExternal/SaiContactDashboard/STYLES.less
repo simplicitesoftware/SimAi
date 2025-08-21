@@ -1,0 +1,105 @@
+@dashboard-text: #5E5E5E;
+@dashboard-text-strong: #303030;
+@dashboard-light-yellow: floralwhite;
+@dashboard-light-purple: #FCF2FC;
+@dashboard-light-blue: #F0F0FF;
+@dashboard-light-green: #EEFDF5;
+@dashboard-yellow: #FFE3A3;
+@dashboard-purple: #F7D8F8;
+@dashboard-blue: #DDDCFF;
+@dashboard-green: #BCF7D7;
+
+#contact, .card {
+	scroll-behavior: smooth;
+}
+#saicontactdashboard {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: start;
+	gap: 24px;
+	width: 100%;
+	padding: 1rem;
+	
+	scroll-behavior: smooth;
+}
+
+.warning-section {
+    background-color: @dashboard-light-yellow;
+    border-left: 3px solid @dashboard-yellow;
+    padding: 12px;
+    margin: 16px 0;
+    color: @dashboard-text;
+    
+    i {
+    	font-size: 18px;
+        color: darken(@dashboard-yellow, 25%);
+        margin-right: 8px;
+    }
+}
+
+#saicontactdashboard-cards {
+	width: 100%;
+	height: 100%;
+	padding: 32px 0px;
+	border-top: solid 1px fade(@dashboard-text,25%);
+	border-bottom: solid 1px fade(@dashboard-text,25%);
+	
+	.dashboard-card-container {
+		display: flex;
+		flex-wrap: wrap;
+		row-gap: 32px;
+		width: 100%;
+		row-gap: 32px;
+		gap: 32px;
+			
+		.dashboard-card {
+			width: 400px;
+			height: 250px;
+			padding: 12px;
+			font-size: 16px;
+			
+			border: solid 1px @dashboard-text;
+			color: @dashboard-text;
+			
+			display: flex;
+			flex-direction: column;
+			justify-content: end;
+			align-items: start;
+			
+			
+			.dashboard-card-header {
+				font-size: 24px;
+				color: @dashboard-text-strong;
+				margin-bottom: 6px;
+				
+				img {
+					width: 48px;
+					height: 48px;
+					padding: 8px;
+				}
+			}
+			
+			&.util-card {
+				background-color: @dashboard-light-blue;
+				img {
+					background-color: @dashboard-blue;
+				}
+			}
+			
+			&.info-card {
+				background-color: @dashboard-light-yellow;
+				img {
+					background-color: @dashboard-yellow;
+				}
+			}
+			
+			&.eco-card {
+				background-color: @dashboard-light-green;
+				img {
+					background-color: @dashboard-green;
+				}
+			}
+		}
+	}
+}
