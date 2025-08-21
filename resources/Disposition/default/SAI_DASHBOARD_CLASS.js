@@ -2,7 +2,7 @@
 // const moduleName = '_';
 
 let introText = $("<div/>").html( $T("SAI_DASHBOARD_INTRO") );
-let outroText = $("<div/>").html( $T("SAI_DASHBOARD_OUTRO") );
+// let outroText = $("<div/>").html( $T("SAI_DASHBOARD_OUTRO") );
 
 let cards = $("<div/>").attr("id","saicontactdashboard-cards");
 
@@ -71,7 +71,7 @@ cards.append(gridContainer);
 $("#saicontactdashboard")
 	.append(introText)
 	.append(cards)
-	.append(outroText);
+	/*.append(outroText)*/;
 
 // UTILS FUNCTIONS
 function getTimeMetric() {

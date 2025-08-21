@@ -232,6 +232,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	    );
 	    
 	    this.firstMessage = true;
+	    this.activateExamples(true);
 	    
 	    setTimeout(() => {
 	        this.showIntroModal();
@@ -531,6 +532,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 		        	
 			        this.scrollToLatestUserMessage();
 			        this.firstMessage = false;
+			        
+			        this.activateExamples(false);
 		        }
             }, 2000);
 	        
@@ -629,6 +632,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 		            
 		            this.redirectToErrorPage(); // redirect to dead-end page (back to website at least ?)
             		break;
+            		
             	default:
             		console.log("UNKNOWN ERROR : "+JSON.stringify(res.error));
             		this.redirectToErrorPage();
@@ -661,6 +665,14 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             .markdownToHTML(res?.choices[0]?.message?.content)
             .html();
         
+        console.log("Finish Reason : "+ res?.choices[0]?.finish_reason);
+        
+        if (res?.choices[0]?.finished_reason === "length")
+        	response += $T("SAI_BOT_MESSAGE_LENGTH");
+        else if (res?.choices[0]?.finished_reason === "error")
+        	response += $T("SAI_BOT_MESSAGE_LENGTH");
+        
+        
         ctn.find("#chatContainer").append( AiJsTools.getDisplayBotMessage(response) );
         this.scrollToLatestUserMessage();
         
@@ -674,6 +686,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         	ctn.find("#chatContainer").append( AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE_BIS")}`) );
 	        
 	        this.firstMessage = false;
+	        this.activateExamples(false);
         }
     }
 
@@ -716,9 +729,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        });
 	        
 	        // reload page should send back to the CHAT
-	        setTimeout(() => {
-	        	this.forcedReloadPage();
-	        },5000);
+	        await this.forcedReloadPage();
     	}
     }
 
@@ -808,9 +819,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        });
 	        
 	        // reload page should send back to the CHAT
-	        setTimeout(() => {
-	        	this.forcedReloadPage();
-	        },5000);
+	        await this.forcedReloadPage();
         }
     }
 
@@ -945,20 +954,18 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	            });
         	} catch (e) {
         		// supposely session's timeout
-    		$view.widget.toast({
-	            level: "error",
-	            content: $T("SAI_SESSION_TIMEOUT"),
-	            position: "top",
-	            align: "right",
-	            duration: 5000,
-	            undo: false,
-	            pinable: false
-	        });
-	        
-	        // reload page should send back to the CHAT
-	        setTimeout(() => {
-	        	this.forcedReloadPage();
-	        },5000);
+	    		$view.widget.toast({
+		            level: "error",
+		            content: $T("SAI_SESSION_TIMEOUT"),
+		            position: "top",
+		            align: "right",
+		            duration: 5000,
+		            undo: false,
+		            pinable: false
+		        });
+		        
+		        // reload page should send back to the CHAT
+		        await this.forcedReloadPage();
         	}
         }
 
@@ -1006,9 +1013,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        });
 	        
 	        // reload page should send back to the CHAT
-	        setTimeout(() => {
-	        	this.forcedReloadPage();
-	        },5000);
+	        await this.forcedReloadPage();
 		}
     }
 
@@ -1320,20 +1325,18 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 		        }
         	} catch (e) {
         		// supposely session's timeout
-    		$view.widget.toast({
-	            level: "error",
-	            content: $T("SAI_SESSION_TIMEOUT"),
-	            position: "top",
-	            align: "right",
-	            duration: 5000,
-	            undo: false,
-	            pinable: false
-	        });
-	        
-	        // reload page should send back to the CHAT
-	        setTimeout(() => {
-	        	this.forcedReloadPage();
-	        },5000);
+	    		$view.widget.toast({
+		            level: "error",
+		            content: $T("SAI_SESSION_TIMEOUT"),
+		            position: "top",
+		            align: "right",
+		            duration: 5000,
+		            undo: false,
+		            pinable: false
+		        });
+		        
+		        // reload page should send back to the CHAT
+		        await this.forcedReloadPage();
         	}
         }
         
@@ -1416,9 +1419,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        });
 	        
 	        // reload page should send back to the CHAT
-	        setTimeout(() => {
-	        	this.forcedReloadPage();
-	        },5000);
+	        await this.forcedReloadPage();
 	        
         	return;
         }
@@ -1843,7 +1844,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	    let modalFooter = $("<div/>").addClass("simai-modal-footer");
 	    
 	    let cancelButton = $("<button/>")
-	        .text("Annuler")
+	        .text($T("SAI_CANCEL_BUTTON"))
 	        .addClass("actionButton-blue")
 	        .css({ marginRight: "8px" })
 	        .on("click", () => modalOverlay.remove());
@@ -1961,7 +1962,25 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	    }
 	}
 	
-	forcedReloadPage() {
-    	window.location.reload(true);
+	async forcedReloadPage() {
+		// here should reload the session ...
+		// How to properly do ??
+		$view.hideLoading();
+		
+		// sending back to first step + asking for module deletion 
+		await this.SaiTools.deleteModule(this.validatedModuleName); // ask for module deletion
+		this.validatedModuleName = "";
+		
+    	this.setChatInteraction();
+    }
+    
+    activateExamples(bool = true) {
+    	if (bool) {
+    		$("#exampleHint").removeClass("simai-disabledButton");
+    		$("#sainewmodulefront_examples").css("display", "flex");
+    	} else {
+    		$("#exampleHint").addClass("simai-disabledButton");
+    		$("#sainewmodulefront_examples").css("display", "none");
+    	}
     }
 };
