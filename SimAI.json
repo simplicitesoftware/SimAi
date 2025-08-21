@@ -4,17 +4,17 @@
  "item": {
   "mdl_name": "SimAI",
   "mdl_prefix": "sai",
-  "mdl_version": "0.5",
+  "mdl_version": "0.6",
   "mdl_type": null,
   "mdl_icon": null,
-  "mdl_url": "{\n    \"origin\": {\"uri\": \"https://github.com/simplicitesoftware/SimAi.git\"},\n    \"type\": \"git\",\n    \"branch\": \"master\"\n}",
+  "mdl_url": "{\n    \"origin\": {\"uri\": \"https://github.com/simplicitesoftware/SimAi.git\"},\n    \"type\": \"git\",\n    \"branch\": \"dev\"\n}",
   "mdl_comment": "**SimAI** is an addon of [AiBySimplicite](https://github.com/simplicitesoftware/module_ai) containing a simplified business process for automatic module generation.\n\n## Installation\n\n### Classic\n1. Make sure you have the `AiBySimplicite` module installed\n2. Add this module in your Simplicite instance\n3. Create a user and configure SAI_CREATE_MODULE rights\n\n### Portainer\nIn docker compose add the environement parameter to: \n* Import [`SimThemes`](https://github.com/simplicitesoftware/module-theming), [`AIBySimplicite`](https://github.com/simplicitesoftware/module_ai.git) and [`SimAi`](https://github.com/CBimont/SimAi.git) with dataset and unit test to import examples and create user.\n* Define the AI parameters:\n```json\n{\n     \"completion_url\": \"\",\n     \"bot_name\": \"\",\n     \"code_max_token\": \"\",\n     \"provider\": \"\",\n     \"api_key\": \"\",\n     \"default_max_token\": \"\",\n     \"showDataDisclaimer\": true,\n     \"data_number\": \"\",\n     \"hist_depth\": \"\",\n     \"model\": \"\",\n     \"stt_url\": \"\",\n     \"ping_url\": \"\"\n}\n```\n* Define user information `usrName` and `password`.\n#### Example:\n```\nenvironment:\n      MODULES_IMPORT_SPEC: |\n        title: \"AI External\"\n        modules:\n          - name: \"SimThemes\"\n            version: \"0.3\"\n            git:\n              uri: \"https://github.com/simplicitesoftware/module-theming\"\n          - name: \"AIBySimplicite\"\n            version: \"0.31\"\n            git:\n              uri: \"https://github.com/simplicitesoftware/module_ai.git\"\n              branch: \"simplifiedProcess\"\n          - name: \"SimAi\"\n            version: \"0.4\"\n            datasets: true \n            unittests: true\n            git:\n              uri: \"https://github.com/CBimont/SimAi.git\"\n\n        \n      SIMPLICITE_SYSPARAM_AI_API_PARAM: |\n        {\n         \"completion_url\": \"https://api.mistral.ai/v1/chat/completions\",\n         \"bot_name\": \"George\",\n         \"code_max_token\": \"2000\",\n         \"provider\": \"Mistral AI\",\n         \"api_key\": \"${mistral_api_key}\",\n         \"default_max_token\": \"5000\",\n         \"showDataDisclaimer\": true,\n         \"data_number\": \"3\",\n         \"hist_depth\": \"3\",\n         \"model\": \"pixtral-12b-2409\",\n         \"stt_url\": \"\",\n         \"ping_url\": \"https://api.mistral.ai/v1/models\"\n        }\n      usrName: \"${user_name}\"\n      password: \"${user_password}\"\n```\n\n`SaiContactWidget` widget definition\n------------------------------------\n\nWidget for home page (contact)\n\n`createAiUser` unit test\n-------------------------\n\nCreate a new user granted to process with `usrName` and `password` environment variable, dedicated for docker compose auto deployment."
  },
  "links": [
   {
    "object": "SystemParam",
    "label": "System parameters",
-   "icon": "img/system/system_param",
+   "icon": "fas/cog",
    "field": "row_module_id",
    "list": [
     {
@@ -77,7 +77,7 @@
   {
    "object": "Disposition",
    "label": "Dispositions",
-   "icon": "img/system/disposition",
+   "icon": "fas/window-restore",
    "field": "row_module_id",
    "list": [
     {
@@ -115,7 +115,7 @@
   {
    "object": "View",
    "label": "Views",
-   "icon": "img/system/view",
+   "icon": "far/window-maximize",
    "field": "row_module_id",
    "list": [
     {
@@ -155,7 +155,7 @@
   {
    "object": "Group",
    "label": "Groups",
-   "icon": "img/system/group",
+   "icon": "fas/users",
    "field": "row_module_id",
    "list": [
     {
@@ -218,7 +218,7 @@
   {
    "object": "Profile",
    "label": "Profiles",
-   "icon": "img/system/profile",
+   "icon": "fas/user-circle",
    "field": "row_module_id",
    "list": [
     {
@@ -244,7 +244,7 @@
   {
    "object": "Responsability",
    "label": "Responsibilities",
-   "icon": "img/system/responsability",
+   "icon": "fas/user-shield",
    "field": "row_module_id",
    "list": [{
     "object": "Responsability",
@@ -262,7 +262,7 @@
   {
    "object": "ListOfValue",
    "label": "Static text",
-   "icon": "img/system/static_text",
+   "icon": "fas/list-ul",
    "field": "row_module_id",
    "list": [
     {
@@ -272,7 +272,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ASK_FOR_MODULE",
       "lov_lang": "ENU",
-      "lov_value": "Your solution has been successfully managed! It is available for a trial period of X hours.\n<p>If you have any questions or would like to keep the module permanently or customise it, please contact us using the form below.<\/p>\n<p>You can find this form at any time in the home menu.",
+      "lov_value": "<p id=\"contact-anchor\">Right below you'll find the contact form.<\/p>\n<p>Fill and send it to us if you want a copy of your app, or if you wanna take it further with Simplicité 😉<\/p><br>",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -285,7 +285,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_BOT_MESSAGE",
       "lov_lang": "ENU",
-      "lov_value": "<b>🚀 Welcome to your AI Business App Builder!<\/b><br>\nReady to bring your business idea to life? I'm here to help you create a custom application using Simplicité Software \u2013 no coding required!<br>\nHere's how we can work together :<br>\n💬 Chat with me \u2013 Describe your vision, explain your business needs, or walk through your workflow. The more details you share, the better I can craft your perfect app!<br>\n🖼️ Show, don't just tell \u2013 Upload images, mockups, or screenshots to illustrate exactly what you have in mind<br>\n📸 Sketch it live \u2013 Got a napkin drawing or whiteboard sketch? Snap a photo and I'll understand your concept instantly<br>\n⚡ Jump in fast \u2013 Not sure where to start? Check out the example prompts on the left for inspiration!<br>\nWhether you're building a CRM, inventory tracker, project manager, or something completely unique \u2013 I'll handle the technical heavy lifting while you focus on your vision.<br>\nWhat's your business challenge? Let's solve it together! 👇",
+      "lov_value": "<b>🚀 Welcome to your AI Business App Builder!<\/b><br>\nReady to bring your business idea to life? I'll help you create a custom application using Simplicité Software \u2013 no coding required!<br>\nHere's how we work together:<br><br>\n💬 <b>Describe your vision<\/b> \u2013 Share your business needs and workflow details<br><br>\n🖼️ <b>Show your ideas<\/b> \u2013 Upload images, mockups, or screenshots<br><br>\n📸 <b>Sketch it out<\/b> \u2013 Snap photos of drawings or whiteboard concepts<br><br>\n⚡ <b>Need inspiration?<\/b> \u2013 Check the example prompts on the left!<br><br>\nWhether it's a CRM, inventory tracker, project manager, or something unique \u2013 I'll handle the technical work while you focus on your vision.<br>\nWhat's your business challenge? Let's solve it together! 👇",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -306,6 +306,19 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_BOT_MESSAGE_LENGTH~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_BOT_MESSAGE_LENGTH",
+      "lov_lang": "ENU",
+      "lov_value": "<br>\nSorry this message exceeded the maximum length, indeed you can ask me for the rest of it !",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_BOT_MESSAGE_TIMEOUT~ENU",
      "item": {
       "lov_name": "TEXT",
@@ -319,12 +332,142 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_BOT_REDIRECT~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_BOT_REDIRECT",
+      "lov_lang": "ENU",
+      "lov_value": "I finished creating your app. Now by clicking on the button below, you'll be redirect right into it ! Have fun !",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_BOT_THINKING~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_BOT_THINKING",
+      "lov_lang": "ENU",
+      "lov_value": "Processing your request ...",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_CANCEL_BUTTON~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_CANCEL_BUTTON",
+      "lov_lang": "ENU",
+      "lov_value": "Cancel",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_CONTACT_INTRO~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_CONTACT_INTRO",
+      "lov_lang": "ENU",
+      "lov_value": "<p><strong>Here it is !<\/strong> Now you'll be able to play with your application 🎉<\/p>\n<p>Keep in mind that you only have a total of <strong>1 hour<\/strong> (time left is indicated by the timer in the app's header). Afterwards, if you are interested in either keeping a copy of your application or taking it further, please fill the <b>contact form<\/b> right below !<\/p>\n<div class=\"warning-section\">\n<p><i class=\"fas fa-info\"><\/i><strong>Remember it's AI-crafted<\/strong><\/p>\n<p>Thus it might contain some errors, inconsistencies, and probably won't match your expectations at 100%... For perfect results &amp; performances, our team/integrators stays the best option 😁<\/p>\n<\/div>",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_CREATE_MODULE~ENU",
      "item": {
       "lov_name": "TEXT",
       "lov_code": "SAI_CREATE_MODULE",
       "lov_lang": "ENU",
       "lov_value": "Create my app !",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DASHBOARD_CARBON~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DASHBOARD_CARBON",
+      "lov_lang": "ENU",
+      "lov_value": "Is an estimate of the CO2 emissions from creating this application using AI.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DASHBOARD_ELECTRICITY~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DASHBOARD_ELECTRICITY",
+      "lov_lang": "ENU",
+      "lov_value": "Is an estimate of the electricity consumed during your application's creation.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DASHBOARD_INTRO~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DASHBOARD_INTRO",
+      "lov_lang": "ENU",
+      "lov_value": "Below you'll find some insights about your application's creation process 🤓<br>\nThose are estimations and thus might not be fully accurate, but they still provide a good overview/understanding of AI's consumptions & possible drawbacks.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DASHBOARD_PRICE~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DASHBOARD_PRICE",
+      "lov_lang": "ENU",
+      "lov_value": "Is the cost that Simplicité covered for creating your application prototype.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DASHBOARD_TIME~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DASHBOARD_TIME",
+      "lov_lang": "ENU",
+      "lov_value": "Is the time you spent creating your application prototype with our AI assistant.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DASHBOARD_TOKENS~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DASHBOARD_TOKENS",
+      "lov_lang": "ENU",
+      "lov_value": "Is the amount of tokens that our API used. They measure how complex your application was to create.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -558,7 +701,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_GEN_MODULE",
       "lov_lang": "ENU",
-      "lov_value": "Generate solution",
+      "lov_value": "Generate my app !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -592,6 +735,19 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_HELP_MODAL_HEADER~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_HELP_MODAL_HEADER",
+      "lov_lang": "ENU",
+      "lov_value": "Need more help ?",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_INTRO_BUTTON~ENU",
      "item": {
       "lov_name": "TEXT",
@@ -610,7 +766,20 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_INTRO_MODAL",
       "lov_lang": "ENU",
-      "lov_value": "<p><strong>Create your custom application from scratch using AI!<\/strong><\/p>\n<p>Our AI assistant will help you design and build a complete Simplicité application by:<\/p>\n<p>\n<strong>Understanding your needs<\/strong> through natural conversation<br>\n<strong>Generating UML diagrams<\/strong> and database structure<br>\n<strong>Creating all necessary objects<\/strong> and sample data<br>\n<strong>Delivering a working application<\/strong> ready to use\n<\/p>\n<div class=\"warning-section\">\n<p><i class=\"fas fa-exclamation-triangle warning-icon\"><\/i><strong>Important to know:<\/strong><\/p>\n<p>\nLike all AI systems, our assistant may occasionally provide incorrect suggestions or \"hallucinate\" information. \nAlways review the generated structure and data before using in production. \nYou can modify and refine everything after generation.\n<\/p>\n<\/div>\n<p><small><strong>Tip:<\/strong> <em>Be specific about your requirements for better results!<\/em><\/small><\/p>",
+      "lov_value": "<p><strong>Create your custom application from scratch using AI!<\/strong><\/p>\n<p>Our AI assistant will help you design and build a complete Simplicité application by:<\/p>\n<p>\n<strong>Understanding your needs<\/strong> through natural conversation<br>\n<strong>Generating UML diagrams<\/strong> and database structure<br>\n<strong>Creating all necessary objects<\/strong> and sample data<br>\n<strong>Delivering a working application<\/strong> ready to use\n<\/p>\n<div class=\"warning-section\">\n<p><i class=\"fas fa-exclamation-triangle warning-icon\"><\/i><strong>Important to know:<\/strong><\/p>\n<p>\n<ul>\n<li>Like all AI systems, our assistant may occasionally provide incorrect suggestions or \"hallucinate\" information.<\/li>\n<li>Ensure to check and validate AI's prompts before actually generating your application !<\/li>\n<li>You only have one shot at it so use it thoughtfully, once your application is created, you can't create another one.<\/li>\n<\/p>\n<\/div>\n<p><small><strong>Tip:<\/strong> <em>Be specific about your requirements for better results!<\/em><\/small><\/p>",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_INTRO_MODAL_HEADER~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_INTRO_MODAL_HEADER",
+      "lov_lang": "ENU",
+      "lov_value": "Welcome to Simplicité's AI assistant !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -722,19 +891,6 @@
     },
     {
      "object": "ListOfValue",
-     "userkey": "TEXT~SAI_MODULE_SUMMARY~ENU",
-     "item": {
-      "lov_name": "TEXT",
-      "lov_code": "SAI_MODULE_SUMMARY",
-      "lov_lang": "ENU",
-      "lov_value": "Your created application will be composed of :",
-      "lov_order_by": 1,
-      "lov_event_id__lev_code": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "ListOfValue",
      "userkey": "TEXT~SAI_MODULE_UML~ENU",
      "item": {
       "lov_name": "TEXT",
@@ -766,7 +922,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_PAGE_CONTENT",
       "lov_lang": "ENU",
-      "lov_value": "<p><strong>Service temporarily unavailable<\/strong><\/p>\n<p>We're sorry, but we couldn't resolve your request at the moment. Our service is experiencing technical difficulties and our team is working to restore it as quickly as possible.<\/p>\n\n<div class=\"warning-section\">\n<p><i class=\"fas fa-tools warning-icon\"><\/i><strong>What you can do:<\/strong><\/p>\n<p>\n<strong>Contact our support team<\/strong> at <a href=\"mailto:contact@simplicite.fr\">contact@simplicite.fr<\/a> for assistance<br>\n<strong>Visit our main website<\/strong> at <a href=\"https://simplicite.fr\" target=\"_blank\">simplicite.fr<\/a><br>\n<strong>Request a demo<\/strong> to discover our platform at <a href=\"https://www.simplicite.fr/contact#demo\" target=\"_blank\">simplicite.fr/contact#demo<\/a>\n<\/p>\n<\/div>\n\n<p><strong>We apologize for any inconvenience!<\/strong><\/p>\n<p>Our team is committed to providing you with the best experience possible. Thank you for your patience and understanding.<\/p>",
+      "lov_value": "<p><strong>Service temporarily unavailable<\/strong><\/p>\n<p>We're sorry, but we couldn't resolve your request at the moment. Our service is experiencing technical difficulties and our team is working to restore it as quickly as possible.<\/p>\n<div class=\"warning-section\">\n<p><i class=\"fas fa-tools warning-icon\"><\/i><strong>What you can do:<\/strong><\/p>\n<p>\n<strong>Contact our support team<\/strong> at <a href=\"mailto:contact@simplicite.fr\">contact@simplicite.fr<\/a> for assistance<br>\n<strong>Visit our main website<\/strong> at <a href=\"https://simplicite.fr\" target=\"_blank\">simplicite.fr<\/a><br>\n<strong>Request a demo<\/strong> to discover our platform at <a href=\"https://www.simplicite.fr/contact#demo\" target=\"_blank\">simplicite.fr/contact#demo<\/a>\n<\/p>\n<\/div>\n<p><strong>We apologize for any inconvenience!<\/strong><\/p>\n<p>Our team is committed to providing you with the best experience possible. Thank you for your patience and understanding.<\/p>",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -780,6 +936,32 @@
       "lov_code": "SAI_PAGE_TITLE",
       "lov_lang": "ENU",
       "lov_value": "This service is encountering an unexpected issue ...",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_PH_MESSAGE~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_PH_MESSAGE",
+      "lov_lang": "ENU",
+      "lov_value": "Type your prompt ...",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_PH_MODULE~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_PH_MODULE",
+      "lov_lang": "ENU",
+      "lov_value": "Enter your app's name",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -826,12 +1008,142 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_SESSION_TIMEOUT~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_SESSION_TIMEOUT",
+      "lov_lang": "ENU",
+      "lov_value": "Sorry we encountered a request timeout issue...\nPlease restart the process.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_TIME~ENU",
      "item": {
       "lov_name": "TEXT",
       "lov_code": "SAI_TIME",
       "lov_lang": "ENU",
       "lov_value": "Time remaining :",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TIP_DATA~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TIP_DATA",
+      "lov_lang": "ENU",
+      "lov_value": "<p class=\"tip-header\"><i class=\"fas fa-lightbulb tip-icon\"><\/i>\n<b>Data Quality Expectations<\/b>\n<\/p>\n<p>\n<ul>\n<li><b>AI-generated content -<\/b> Data may contain inconsistencies or naming issues<\/li>\n<li><b>Prototype limitations -<\/b> Expect some imperfections, it's a work in progress<\/li>\n<li><b>Review outputs -<\/b> Always check results for accuracy<\/li>\n<\/ul>\n<\/p>",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TIP_PROMPT~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TIP_PROMPT",
+      "lov_lang": "ENU",
+      "lov_value": "<p class=\"tip-header\"><i class=\"fas fa-lightbulb tip-icon\"><\/i>\n<b>Writing Effective Prompts<\/b>\n<\/p>\n<p>\n<ul>\n<li><b>Be specific and direct -<\/b> Take time to clearly describe what you need<\/li>\n<li><b>Remember it's AI -<\/b> Don't overthink it, just be clear about your request<\/li>\n<\/ul>\n<\/p>",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TIP_UML~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TIP_UML",
+      "lov_lang": "ENU",
+      "lov_value": "<p class=\"tip-header\"><i class=\"fas fa-lightbulb tip-icon\"><\/i>\n<b>Understanding the Graph<\/b>\n<\/p>\n<p>\n<ul>\n<li><b>Boxes = Objects -<\/b> Each box shows an object with its properties/fields<\/li>\n<li><b>Lines = Relationships -<\/b> Lines connect related objects together<\/li>\n<\/ul>\n<\/p>",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TOOLTIP_COPY~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TOOLTIP_COPY",
+      "lov_lang": "ENU",
+      "lov_value": "Copyr prompt",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TOOLTIP_EXAMPLES~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TOOLTIP_EXAMPLES",
+      "lov_lang": "ENU",
+      "lov_value": "Check our examples",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TOOLTIP_IMAGE~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TOOLTIP_IMAGE",
+      "lov_lang": "ENU",
+      "lov_value": "Upload an image",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TOOLTIP_MESSAGE~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TOOLTIP_MESSAGE",
+      "lov_lang": "ENU",
+      "lov_value": "Send the message",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TOOLTIP_PICTURE~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TOOLTIP_PICTURE",
+      "lov_lang": "ENU",
+      "lov_value": "Take a picture",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TOOLTIP_SPEECH~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TOOLTIP_SPEECH",
+      "lov_lang": "ENU",
+      "lov_value": "Talk to AI",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -870,7 +1182,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ASK_FOR_MODULE",
       "lov_lang": "FRA",
-      "lov_value": "<p>Votre solution a été générée avec succès ! Elle est disponible pour une période d'essai de X heures.<\/p>\n<p>Pour toute question ou si vous souhaitez conserver le module de manière permanente ou le personnaliser, merci de nous contacter via le formulaire ci-dessous.<\/p>\n<p>Vous pouvez retrouver ce formulaire à tout moment dans l\u0092accueil du menu.<\/p>",
+      "lov_value": "<p id=\"contact-anchor\">Vous trouverez ci-dessous le formulaire de contact.<\/p>\n<p>Remplissez et envoyez le nous afin d'obtenir une copie de votre application, ou si vous souhaitez plus amplement utiliser Simplicité 😉<\/p><br>",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -883,7 +1195,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_BOT_MESSAGE",
       "lov_lang": "FRA",
-      "lov_value": "<b>🚀 Bienvenue dans votre Créateur d'Applications Métier IA !<\/b><br>\nPrêt à donner vie à votre idée business ? Je suis là pour vous aider à créer une application sur mesure avec Simplicité Software \u2013 sans aucun code à écrire !<br>\nVoici comment nous pouvons travailler ensemble :<br>\n💬 Discutons ensemble \u2013 Décrivez-moi votre vision, expliquez vos besoins métier, ou détaillez votre processus de travail. Plus vous partagez de détails, mieux je peux concevoir votre app parfaite !<br>\n🖼️ Montrez-moi plutôt que de décrire \u2013 Uploadez des images, maquettes, ou captures d'écran pour illustrer exactement ce que vous avez en tête<br>\n📸 Esquissez en direct \u2013 Vous avez un croquis sur papier ou un schéma au tableau ? Prenez une photo et je comprendrai votre concept instantanément<br>\n⚡ Démarrez rapidement \u2013 Vous ne savez pas par où commencer ? Consultez les exemples de prompts à gauche pour vous inspirer !<br>\nQue vous construisiez un CRM, un gestionnaire d'inventaire, un outil de gestion de projet, ou quelque chose de complètement unique \u2013 je m'occupe de tout l'aspect technique pendant que vous vous concentrez sur votre vision.<br>\nQuel est votre défi métier ? Résolvons-le ensemble ! 👇<br>",
+      "lov_value": "<b>🚀 Bienvenue dans votre Créateur d'Apps Business IA !<\/b><br>\nPrêt à donner vie à votre idée d'entreprise ? Je vais vous aider à créer une application personnalisée avec Simplicité Software \u2013 aucun codage requis !<br>\nVoici comment nous travaillons ensemble :<br><br>\n💬 <b>Décrivez votre vision<\/b> \u2013 Partagez vos besoins métier et détails de workflow<br><br>\n🖼️ <b>Montrez vos idées<\/b> \u2013 Téléchargez des images, maquettes ou captures d'écran<br><br>\n📸 <b>Esquissez-le<\/b> \u2013 Prenez des photos de dessins ou concepts sur tableau<br><br>\n⚡ <b>Besoin d'inspiration ?<\/b> \u2013 Consultez les exemples de prompts à gauche !<br><br>\nQu'il s'agisse d'un CRM, gestionnaire d'inventaire, chef de projet, ou quelque chose d'unique \u2013 je m'occupe du technique pendant que vous vous concentrez sur votre vision.<br>\nQuel est votre défi métier ? Résolvons-le ensemble ! 👇",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -904,12 +1216,77 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_BOT_MESSAGE_LENGTH~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_BOT_MESSAGE_LENGTH",
+      "lov_lang": "FRA",
+      "lov_value": "<br>\nDésolé, ce message à dépasser la longueur maximale autorisée, vous pouvez néanmoins me demander la suite !",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_BOT_MESSAGE_TIMEOUT~FRA",
      "item": {
       "lov_name": "TEXT",
       "lov_code": "SAI_BOT_MESSAGE_TIMEOUT",
       "lov_lang": "FRA",
-      "lov_value": "Désolé je n'ai pas pu interpréter votre message assez rapidement...<br>\nVeuillez réessayer avec un message moins long/compliqué.",
+      "lov_value": "Désolé, je n'ai pas pu interpréter votre message assez rapidement...<br>\nVeuillez réessayer avec un message moins long/compliqué.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_BOT_REDIRECT~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_BOT_REDIRECT",
+      "lov_lang": "FRA",
+      "lov_value": "J'ai terminé la création de votre application. En cliquant sur le bouton ci-dessous, vous y serez redirigé ! Amusez-vous bien !",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_BOT_THINKING~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_BOT_THINKING",
+      "lov_lang": "FRA",
+      "lov_value": "Traitement de votre demande en cours ...",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_CANCEL_BUTTON~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_CANCEL_BUTTON",
+      "lov_lang": "FRA",
+      "lov_value": "Annuler",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_CONTACT_INTRO~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_CONTACT_INTRO",
+      "lov_lang": "FRA",
+      "lov_value": "<p><strong>Et voilà !<\/strong> Vous allez maintenant pouvoir découvrir votre application 🎉<\/p>\n<p>Rappelez-vous que vous n'avez qu'un total de <b>1 heure<\/b> (le temps restant est indiqué dans le chronomètre en en-tête de l'application). Si vous voulez soit récupérer une copie de votre application, soit continuer à travailler avec Simplicité, alors remplissez le <b>formulaire de contact<\/b> ci-dessous !<\/p>\n<div class=\"warning-section\">\n<p><i class=\"fas fa-info\"><\/i><b>Gardez en tête que c'est créé par une IA<\/b><p>\n<p>Par conséquent, il est possible qu'il y ait quelques erreurs, inconsistences, ou encore que le résultat ne corresponde pas à 100% à vos attentes... Pour un résultat idéal, faire appel à notre équipe/nos intégrateurs reste la meilleure option 😁<\/p>",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -930,12 +1307,90 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DASHBOARD_CARBON~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DASHBOARD_CARBON",
+      "lov_lang": "FRA",
+      "lov_value": "Est une estimation des émissions de CO2 générées par la création de cette application avec l'IA.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DASHBOARD_ELECTRICITY~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DASHBOARD_ELECTRICITY",
+      "lov_lang": "FRA",
+      "lov_value": "Est une estimation de l'électricité consommée lors de la création de votre application.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DASHBOARD_INTRO~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DASHBOARD_INTRO",
+      "lov_lang": "FRA",
+      "lov_value": "Vous trouverez ci-dessous quelques données à propos du processus de création de votre application 🤓<br>\nGardez à l'esprit que ce ne sont que des estimations, par conséquent elles ne sont pas précises à 100%, néanmoins elles permettent d'avoir un aperçu/de comprendre globalement la consommation de l'IA et ses possibles effets secondaires.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DASHBOARD_PRICE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DASHBOARD_PRICE",
+      "lov_lang": "FRA",
+      "lov_value": "Est le coût que Simplicité a pris en charge pour créer votre prototype d'application.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DASHBOARD_TIME~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DASHBOARD_TIME",
+      "lov_lang": "FRA",
+      "lov_value": "Est le temps que vous avez passé à créer votre prototype d'application avec notre assistant IA.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_DASHBOARD_TOKENS~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_DASHBOARD_TOKENS",
+      "lov_lang": "FRA",
+      "lov_value": "Est le nombre de tokens que notre API a utilisés. Ils mesurent la complexité de création de votre application.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_DATA_GEN~FRA",
      "item": {
       "lov_name": "TEXT",
       "lov_code": "SAI_DATA_GEN",
       "lov_lang": "FRA",
-      "lov_value": "Votre  application a été créé, vous allez maintenant devoir vous déconnecter/reconnecter en cliquant sur \"Me reconnecter\" afin de crée vos données et accéder à votre application !",
+      "lov_value": "Votre  application a été créée, vous allez maintenant devoir vous déconnecter/reconnecter en cliquant sur \"Me reconnecter\" afin de finaliser la génération et accéder à votre application !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -948,7 +1403,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_DATA_GENERATED",
       "lov_lang": "FRA",
-      "lov_value": "Vos données ont été générées, vous allez maintenant pouvoir accéder à votre application après avoir cliqué sur \"Suivant\".",
+      "lov_value": "Des données fictives ont été générées, vous allez maintenant pouvoir accéder à votre application après avoir cliqué sur \"Suivant\".",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -961,7 +1416,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_DATA_GENERATING",
       "lov_lang": "FRA",
-      "lov_value": "Vos données sont en train d'être créées, veuillez attendre jusqu'à ce que la génération soit complète.",
+      "lov_value": "Je génère des données d'exemple, veuillez attendre jusqu'à ce que la génération soit complète.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1013,7 +1468,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ERR_400_CHAT",
       "lov_lang": "FRA",
-      "lov_value": "Il y a eu une erreur lors du traitement de votre message : Veuillez essayer de renvoyer votre message.",
+      "lov_value": "Il y a eu une erreur lors du traitement de votre message : veuillez essayer de renvoyer votre message.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1026,7 +1481,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ERR_404_DATA",
       "lov_lang": "FRA",
-      "lov_value": "Il y a eu une erreur lors de l'interprétation des données de tests de votre application.<br>\nVeuillez patienter, nous réessayons.",
+      "lov_value": "Il y a eu une erreur lors de la finalisation de votre application.<br>\nVeuillez patienter, nous réessayons.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1039,7 +1494,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ERR_404_DATA_BIS",
       "lov_lang": "FRA",
-      "lov_value": "Impossible de générer les données de tests pour votre application...<br>\nCelle-ci est quand même créée et accessible, vous serez rediriger bientôt.",
+      "lov_value": "Impossible de générer les données de tests pour votre application...<br>\nCelle-ci est quand même créée et accessible, vous serez redirigé bientôt.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1052,7 +1507,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ERR_404_JSON",
       "lov_lang": "FRA",
-      "lov_value": "Il y a eu une erreur lors de l'interprétation des données de création de votre application.<br>\nVeuillez patienter, nous réessayons.",
+      "lov_value": "Il y a eu une erreur lors de l'interprétation des informations de création de votre application.<br>\nVeuillez patienter, nous réessayons.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1091,7 +1546,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_ERR_503_CHAT",
       "lov_lang": "FRA",
-      "lov_value": "Le système n'est actuellement pas disponible, nous en sommes désolé.<br>\nVeuillez réessayer plus tard...",
+      "lov_value": "Le système n'est actuellement pas disponible, nous en sommes désolés.<br>\nVeuillez réessayer plus tard...",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1190,6 +1645,19 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_HELP_MODAL_HEADER~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_HELP_MODAL_HEADER",
+      "lov_lang": "FRA",
+      "lov_value": "Besoin d'aide supplémentaire ?",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_INTRO_BUTTON~FRA",
      "item": {
       "lov_name": "TEXT",
@@ -1208,7 +1676,20 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_INTRO_MODAL",
       "lov_lang": "FRA",
-      "lov_value": "<p><strong>Créez votre application personnalisée à partir de zéro avec l'IA !<\/strong><\/p>\n<p>Notre assistant IA vous aide à concevoir et construire une application Simplicité complète en :<\/p>\n<p>\n<strong>Comprenant vos besoins<\/strong> à travers une conversation naturelle<br>\n<strong>Générant des diagrammes UML<\/strong> et la structure de base de données<br>\n<strong>Créant tous les objets nécessaires<\/strong> et des données d'exemple<br>\n<strong>Livrant une application fonctionnelle<\/strong> prête à utiliser\n<\/p>\n<div class=\"warning-section\">\n<p><i class=\"fas fa-exclamation-triangle warning-icon\"><\/i><strong>Important à savoir :<\/strong><\/p>\n<p>\nComme tous les systèmes d'IA, notre assistant peut parfois fournir des suggestions incorrectes ou \"halluciner\" des informations. \nVérifiez toujours la structure et les données générées avant utilisation en production. \nVous pouvez modifier et affiner tout après la génération.\n<\/p>\n<\/div>\n<p><small><strong>Astuce :<\/strong> <em>Soyez précis dans vos exigences pour de meilleurs résultats !<\/em><\/small><\/p>",
+      "lov_value": "<p><strong>Créez votre application personnalisée à partir de zéro grâce à l'IA !<\/strong><\/p>\n<p>Notre assistant IA vous aidera à concevoir et créer une application Simplicité complète en :<\/p>\n<p>\n<strong>Comprenant vos besoins<\/strong> grâce à une conversation naturelle<br>\n<strong>Générant des diagrammes UML<\/strong> et la structure de base de données<br>\n<strong>Créant tous les objets nécessaires<\/strong> et des données d'exemple<br>\n<strong>Livrant une application fonctionnelle<\/strong> prête à utiliser\n<\/p>\n<div class=\"warning-section\">\n<p><i class=\"fas fa-exclamation-triangle warning-icon\"><\/i><strong>Important à savoir :<\/strong><\/p>\n<p>\n<ul>\n<li>Comme tous les systèmes d'IA, notre assistant peut parfois fournir des suggestions incorrectes ou « halluciner » des informations.<\/li>\n<li>Assurez-vous de vérifier et valider les suggestions de l'IA avant de générer réellement votre application !<\/li>\n<li>Vous n'avez qu'une seule chance alors utilisez-la judicieusement, une fois votre application créée, vous ne pouvez pas en créer une autre.<\/li>\n<\/p>\n<\/div>\n<p><small><strong>Astuce :<\/strong> <em>Soyez précis concernant vos exigences pour de meilleurs résultats !<\/em><\/small><\/p>",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_INTRO_MODAL_HEADER~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_INTRO_MODAL_HEADER",
+      "lov_lang": "FRA",
+      "lov_value": "Bienvenue dans l'assistant IA de Simplicité !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1234,7 +1715,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_LOADER_MODULE_GEN",
       "lov_lang": "FRA",
-      "lov_value": "Les données de création de votre application sont en train d'être traitée.\nVeuillez patienter pendant que nous générons votre application à partir de votre discussion !",
+      "lov_value": "Les informations de création de votre application sont en train d'être traitées.\nVeuillez patienter pendant que nous générons votre application à partir de votre discussion !",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1320,19 +1801,6 @@
     },
     {
      "object": "ListOfValue",
-     "userkey": "TEXT~SAI_MODULE_SUMMARY~FRA",
-     "item": {
-      "lov_name": "TEXT",
-      "lov_code": "SAI_MODULE_SUMMARY",
-      "lov_lang": "FRA",
-      "lov_value": "L'application créée va être composée de :",
-      "lov_order_by": 1,
-      "lov_event_id__lev_code": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "ListOfValue",
      "userkey": "TEXT~SAI_MODULE_UML~FRA",
      "item": {
       "lov_name": "TEXT",
@@ -1364,7 +1832,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_PAGE_CONTENT",
       "lov_lang": "FRA",
-      "lov_value": "<p><strong>Le service est temporairement indisponible<\/strong><\/p>\n<p>Nous sommes désolés, nous rencontrons un problème technique, nous travaillons à sa résolution dés que possible.<\/p>\n\n<div class=\"warning-section\">\n<p><i class=\"fas fa-tools warning-icon\"><\/i><strong>Ce que vous pouvez faire :<\/strong><\/p>\n<p>\n<strong>Contacter notre équipe support<\/strong> à l'adresse <a href=\"mailto:contact@simplicite.fr\">contact@simplicite.fr<\/a> pour plus d'aide<br>\n<strong>Retourner sur notre site web<\/strong> <a href=\"https://simplicite.fr\" target=\"_blank\">simplicite.fr<\/a><br>\n<strong>Faire une demande de démo<\/strong> pour découvrir l'entièreté de notre solution, en remplissant <a href=\"https://www.simplicite.fr/contact#demo\" target=\"_blank\">ce formulaire<\/a>\n<\/p>\n<\/div>\n\n<p><strong>Nous nous excusons pour ces difficultés et le désagrément !<\/strong><\/p>\n<p>Notre équipe est dédiée à votre satisfaction, et souhaite vous fournir la meilleure expérience possible. Merci de votre patience et votre compréhension.<\/p>",
+      "lov_value": "<p><strong>Le service est temporairement indisponible<\/strong><\/p>\n<p>Nous sommes désolés, nous rencontrons un problème technique, nous travaillons à sa résolution dés que possible.<\/p>\n<div class=\"warning-section\">\n<p><i class=\"fas fa-tools warning-icon\"><\/i><strong>Ce que vous pouvez faire :<\/strong><\/p>\n<p>\n<strong>Contacter notre équipe support<\/strong> à l'adresse <a href=\"mailto:contact@simplicite.fr\">contact@simplicite.fr<\/a> pour plus d'aide<br>\n<strong>Retourner sur notre site web<\/strong> <a href=\"https://simplicite.fr\" target=\"_blank\">simplicite.fr<\/a><br>\n<strong>Faire une demande de démo<\/strong> pour découvrir l'entièreté de notre solution, en remplissant <a href=\"https://www.simplicite.fr/contact#demo\" target=\"_blank\">ce formulaire<\/a>\n<\/p>\n<\/div>\n<p><strong>Nous nous excusons pour ces difficultés et le désagrément !<\/strong><\/p>\n<p>Notre équipe est dédiée à votre satisfaction, et souhaite vous fournir la meilleure expérience possible. Merci de votre patience et de votre compréhension.<\/p>",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1385,12 +1853,38 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_PH_MESSAGE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_PH_MESSAGE",
+      "lov_lang": "FRA",
+      "lov_value": "Entrez votre prompt ...",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_PH_MODULE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_PH_MODULE",
+      "lov_lang": "FRA",
+      "lov_value": "Entrez le nom de votre app",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_REACHED_TIMEOUT~FRA",
      "item": {
       "lov_name": "TEXT",
       "lov_code": "SAI_REACHED_TIMEOUT",
       "lov_lang": "FRA",
-      "lov_value": "La limite de temps de réflexion de l'IA a été atteinte...<br>\nVeuillez essayer de formuler une requête plus simple/courte, ou de fournir des images moins compliquée.",
+      "lov_value": "La limite de temps de réflexion de l'IA a été atteinte...<br>\nVeuillez essayer de formuler une requête plus simple/courte, ou de fournir des images moins compliquées.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1424,6 +1918,19 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_SESSION_TIMEOUT~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_SESSION_TIMEOUT",
+      "lov_lang": "FRA",
+      "lov_value": "Désolé, nous avons rencontré un soucis, lié à une requête trop longue...\nVeuillez recommencer du début.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_TIME~FRA",
      "item": {
       "lov_name": "TEXT",
@@ -1437,12 +1944,129 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TIP_DATA~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TIP_DATA",
+      "lov_lang": "FRA",
+      "lov_value": "<p class=\"tip-header\"><i class=\"fas fa-lightbulb tip-icon\"><\/i>\n<b>Attentes Qualité des Données<\/b>\n<\/p>\n<p>\n<ul>\n<li><b>Contenu généré par IA -<\/b> Les données peuvent contenir des incohérences ou problèmes de nommage<\/li>\n<li><b>Limitations du prototype -<\/b> Attendez-vous à quelques imperfections, c'est en cours de développement<\/li>\n<li><b>Vérifiez les résultats -<\/b> Vérifiez toujours la précision des résultats<\/li>\n<\/ul>\n<\/p>",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TIP_PROMPT~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TIP_PROMPT",
+      "lov_lang": "FRA",
+      "lov_value": "<p class=\"tip-header\"><i class=\"fas fa-lightbulb tip-icon\"><\/i>\n<b>Rédiger des Prompts Efficaces<\/b>\n<\/p>\n<p>\n<ul>\n<li><b>Soyez spécifique et direct -<\/b> Prenez le temps de décrire clairement ce dont vous avez besoin<\/li>\n<li><b>Rappelez-vous que c'est de l'IA -<\/b> Ne compliquez pas, soyez juste clair dans votre demande<\/li>\n<\/ul>\n<\/p>",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TIP_UML~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TIP_UML",
+      "lov_lang": "FRA",
+      "lov_value": "<p class=\"tip-header\"><i class=\"fas fa-lightbulb tip-icon\"><\/i>\n<b>Comprendre le Graphique<\/b>\n<\/p>\n<p>\n<ul>\n<li><b>Boîtes = Objets -<\/b> Chaque boîte montre un objet avec ses propriétés/champs<\/li>\n<li><b>Lignes = Relations -<\/b> Les lignes connectent les objets liés entre eux<\/li>\n<\/ul>\n<\/p>",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TOOLTIP_COPY~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TOOLTIP_COPY",
+      "lov_lang": "FRA",
+      "lov_value": "Copier le prompt",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TOOLTIP_EXAMPLES~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TOOLTIP_EXAMPLES",
+      "lov_lang": "FRA",
+      "lov_value": "Regarder nos exemples",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TOOLTIP_IMAGE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TOOLTIP_IMAGE",
+      "lov_lang": "FRA",
+      "lov_value": "Joindre une image",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TOOLTIP_MESSAGE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TOOLTIP_MESSAGE",
+      "lov_lang": "FRA",
+      "lov_value": "Envoyer le message",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TOOLTIP_PICTURE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TOOLTIP_PICTURE",
+      "lov_lang": "FRA",
+      "lov_value": "Prendre une photo",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_TOOLTIP_SPEECH~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_TOOLTIP_SPEECH",
+      "lov_lang": "FRA",
+      "lov_value": "Parler à l'IA",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_USE_EXAMPLE~FRA",
      "item": {
       "lov_name": "TEXT",
       "lov_code": "SAI_USE_EXAMPLE",
       "lov_lang": "FRA",
-      "lov_value": "Utiliser cet example",
+      "lov_value": "Utiliser cet exemple",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -1466,7 +2090,7 @@
   {
    "object": "FieldList",
    "label": "List of values",
-   "icon": "img/system/list_of_values",
+   "icon": "fas/list",
    "field": "row_module_id",
    "list": [{
     "object": "FieldList",
@@ -1483,7 +2107,7 @@
   {
    "object": "FieldListCode",
    "label": "List code",
-   "icon": "img/system/list_of_values",
+   "icon": "fas/list",
    "field": "row_module_id",
    "list": [
     {
@@ -1536,7 +2160,7 @@
   {
    "object": "FieldListValue",
    "label": "Translated list value",
-   "icon": "img/system/translation",
+   "icon": "bi/translate",
    "field": "row_module_id",
    "list": [
     {
@@ -1610,7 +2234,7 @@
   {
    "object": "Field",
    "label": "Fields",
-   "icon": "img/system/field",
+   "icon": "fas/bars",
    "field": "row_module_id",
    "list": [
     {
@@ -2253,7 +2877,7 @@
   {
    "object": "Template",
    "label": "Templates",
-   "icon": "img/system/template",
+   "icon": "bi/box-fill",
    "field": "row_module_id",
    "list": [
     {
@@ -2300,7 +2924,7 @@
   {
    "object": "ObjectFieldArea",
    "label": "Fields areas",
-   "icon": "img/system/field_area",
+   "icon": "bi/input-cursor",
    "field": "row_module_id",
    "list": [
     {
@@ -2322,7 +2946,7 @@
       "ofa_name": "SaiContact-1",
       "ofa_position": 1,
       "ofa_title": false,
-      "ofa_ui": "<div>\n  <div class=\"text\" data-text=\"SAI_ASK_FOR_MODULE\"><\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactName\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactEmail\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactPhone\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-8\">\n      <div class=\"field\" data-field=\"saiContactComment\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-autoopen=\"false\" data-field=\"saiCntDeletion\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntSended\"><\/div>\n      <div class=\"field\" data-field=\"saiCntViewhomeId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntViewhomeId__viw_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_xml\"><\/div>\n    <\/div>\n  <\/div>\n<\/div>",
+      "ofa_ui": "<div>\n  <div class=\"text\" data-text=\"SAI_CONTACT_INTRO\"><\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactName\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactEmail\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactPhone\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-8\">\n      <div class=\"field\" data-field=\"saiContactComment\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-autoopen=\"false\" data-field=\"saiCntDeletion\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntSended\"><\/div>\n      <div class=\"field\" data-field=\"saiCntViewhomeId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntViewhomeId__viw_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_xml\"><\/div>\n    <\/div>\n  <\/div>\n<\/div>",
       "ofa_icon": "star",
       "row_module_id__mdl_name": "SimAI"
      }
@@ -2344,7 +2968,7 @@
   {
    "object": "Domain",
    "label": "Domains",
-   "icon": "img/system/domain",
+   "icon": "fas/passport",
    "field": "row_module_id",
    "list": [{
     "object": "Domain",
@@ -2365,9 +2989,28 @@
   {
    "object": "ObjectExternal",
    "label": "External objects",
-   "icon": "img/system/external_object",
+   "icon": "fas/external-link-alt",
    "field": "row_module_id",
    "list": [
+    {
+     "object": "ObjectExternal",
+     "userkey": "SaiContactDashboard",
+     "item": {
+      "obe_name": "SaiContactDashboard",
+      "obe_type": "E",
+      "obe_nature": "com_simplicite_webapp_web_ResponsiveExternalObject",
+      "obe_url": null,
+      "obe_settings": null,
+      "obe_comment": null,
+      "obe_help": null,
+      "obe_class": "com.simplicite.webapp.web.ResponsiveExternalObject",
+      "obe_script_id": null,
+      "obe_icon": null,
+      "obe_permalink": null,
+      "obe_widget": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
     {
      "object": "ObjectExternal",
      "userkey": "SaiCreateModuleApi",
@@ -2442,7 +3085,7 @@
   {
    "object": "ObjectInternal",
    "label": "Business objects",
-   "icon": "img/system/business_object",
+   "icon": "fas/cube",
    "field": "row_module_id",
    "list": [
     {
@@ -2618,7 +3261,7 @@
   {
    "object": "ObjectFieldSystem",
    "label": "Object fields",
-   "icon": "img/system/object_field",
+   "icon": "fas/draw-polygon",
    "field": "row_module_id",
    "list": [
     {
@@ -3221,7 +3864,7 @@
   {
    "object": "Link",
    "label": "Links",
-   "icon": "img/system/link",
+   "icon": "fas/link",
    "field": "row_module_id",
    "list": [
     {
@@ -3277,7 +3920,7 @@
   {
    "object": "Function",
    "label": "Functions",
-   "icon": "img/system/function",
+   "icon": "fas/toolbox",
    "field": "row_module_id",
    "list": [
     {
@@ -3357,7 +4000,7 @@
   {
    "object": "Grant",
    "label": "Grant",
-   "icon": "img/system/grant",
+   "icon": "fas/key",
    "field": "row_module_id",
    "list": [
     {
@@ -3689,7 +4332,7 @@
   {
    "object": "ConstraintObject",
    "label": "Constraints",
-   "icon": "img/system/constraint",
+   "icon": "bi/braces",
    "field": "row_module_id",
    "list": [
     {
@@ -3735,7 +4378,7 @@
   {
    "object": "ConstraintImpact",
    "label": "Impacts",
-   "icon": "img/system/impact",
+   "icon": "fas/bullseye",
    "field": "row_module_id",
    "list": [
     {
@@ -3797,7 +4440,7 @@
   {
    "object": "Map",
    "label": "Main menu",
-   "icon": "img/system/main_menu",
+   "icon": "fas/bars",
    "field": "row_module_id",
    "list": [
     {
@@ -3807,7 +4450,7 @@
       "map_domain_id__obd_name": "SaiDomain",
       "map_object": {
        "item": {"obo_name": "SaiContact"},
-       "icon": "img/system/business_object",
+       "icon": "fas/cube",
        "label": "Business object",
        "userkeylabel": "SaiContact",
        "object": "ObjectInternal"
@@ -3824,7 +4467,7 @@
       "map_domain_id__obd_name": "SaiDomain",
       "map_object": {
        "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
@@ -3841,7 +4484,7 @@
       "map_domain_id__obd_name": "SaiDomain",
       "map_object": {
        "item": {"obo_name": "SaiApplicationExample"},
-       "icon": "img/system/business_object",
+       "icon": "fas/cube",
        "label": "Business object",
        "userkeylabel": "SaiApplicationExample",
        "object": "ObjectInternal"
@@ -3912,16 +4555,40 @@
   {
    "object": "Resource",
    "label": "Resources",
-   "icon": "img/system/resource",
+   "icon": "fas/file-image",
    "field": "row_module_id",
    "list": [
+    {
+     "object": "Resource",
+     "userkey": "Disposition(default)~ANY~SAI_DASHBOARD_STYLE",
+     "item": {
+      "res_object": {
+       "item": {"dis_code": "default"},
+       "icon": "fas/window-restore",
+       "label": "Disposition",
+       "userkeylabel": "default",
+       "object": "Disposition"
+      },
+      "res_type": "CSS",
+      "res_lang": "ANY",
+      "res_code": "SAI_DASHBOARD_STYLE",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/Disposition/default/SAI_DASHBOARD_STYLE.less",
+       "mime": "text/x-less",
+       "name": "sai_dashboard_style.less"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
     {
      "object": "Resource",
      "userkey": "Disposition(default)~ANY~LOGON_ADDON",
      "item": {
       "res_object": {
        "item": {"dis_code": "default"},
-       "icon": "img/system/disposition",
+       "icon": "fas/window-restore",
        "label": "Disposition",
        "userkeylabel": "default",
        "object": "Disposition"
@@ -3941,11 +4608,35 @@
     },
     {
      "object": "Resource",
+     "userkey": "Disposition(default)~ANY~SAI_DASHBOARD_CLASS",
+     "item": {
+      "res_object": {
+       "item": {"dis_code": "default"},
+       "icon": "fas/window-restore",
+       "label": "Disposition",
+       "userkeylabel": "default",
+       "object": "Disposition"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "SAI_DASHBOARD_CLASS",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/Disposition/default/SAI_DASHBOARD_CLASS.js",
+       "mime": "text/javascript",
+       "name": "sai_dashboard.js"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
      "userkey": "Disposition(default)~ANY~SaiTools",
      "item": {
       "res_object": {
        "item": {"dis_code": "default"},
-       "icon": "img/system/disposition",
+       "icon": "fas/window-restore",
        "label": "Disposition",
        "userkeylabel": "default",
        "object": "Disposition"
@@ -3969,7 +4660,7 @@
      "item": {
       "res_object": {
        "item": {"dis_code": "default"},
-       "icon": "img/system/disposition",
+       "icon": "fas/window-restore",
        "label": "Disposition",
        "userkeylabel": "default",
        "object": "Disposition"
@@ -3993,7 +4684,7 @@
      "item": {
       "res_object": {
        "item": {"dis_code": "default"},
-       "icon": "img/system/disposition",
+       "icon": "fas/window-restore",
        "label": "Disposition",
        "userkeylabel": "default",
        "object": "Disposition"
@@ -4013,11 +4704,107 @@
     },
     {
      "object": "Resource",
+     "userkey": "ObjectExternal(SaiErrorPage)~ANY~STYLES",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiErrorPage"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiErrorPage",
+       "object": "ObjectExternal"
+      },
+      "res_type": "CSS",
+      "res_lang": "ANY",
+      "res_code": "STYLES",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiErrorPage/STYLES.less",
+       "mime": "text/x-less",
+       "name": "SaiErrorPage.less"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectExternal(SaiErrorPage)~ENU~HTML",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiErrorPage"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiErrorPage",
+       "object": "ObjectExternal"
+      },
+      "res_type": "HTML",
+      "res_lang": "ENU",
+      "res_code": "HTML",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiErrorPage/ENU/HTML.html",
+       "mime": "text/html",
+       "name": "SaiErrorPage.html"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectExternal(SaiErrorPage)~FRA~HTML",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiErrorPage"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiErrorPage",
+       "object": "ObjectExternal"
+      },
+      "res_type": "HTML",
+      "res_lang": "FRA",
+      "res_code": "HTML",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiErrorPage/FRA/HTML.html",
+       "mime": "text/html",
+       "name": "SaiErrorPage.html"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectExternal(SaiErrorPage)~ANY~CLASS",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiErrorPage"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiErrorPage",
+       "object": "ObjectExternal"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "CLASS",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiErrorPage/CLASS.js",
+       "mime": "text/javascript",
+       "name": "SaiErrorPage.js"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
      "userkey": "ObjectExternal(SaiNewModuleFront)~ANY~STYLES",
      "item": {
       "res_object": {
        "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
@@ -4041,7 +4828,7 @@
      "item": {
       "res_object": {
        "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
@@ -4065,7 +4852,7 @@
      "item": {
       "res_object": {
        "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
@@ -4085,13 +4872,13 @@
     },
     {
      "object": "Resource",
-     "userkey": "ObjectExternal(SaiErrorPage)~ANY~STYLES",
+     "userkey": "ObjectExternal(SaiContactDashboard)~ANY~STYLES",
      "item": {
       "res_object": {
-       "item": {"obe_name": "SaiErrorPage"},
-       "icon": "img/system/external_object",
+       "item": {"obe_name": "SaiContactDashboard"},
+       "icon": "fas/external-link-alt",
        "label": "External object",
-       "userkeylabel": "SaiErrorPage",
+       "userkeylabel": "SaiContactDashboard",
        "object": "ObjectExternal"
       },
       "res_type": "CSS",
@@ -4099,9 +4886,9 @@
       "res_code": "STYLES",
       "res_cached": false,
       "res_file": {
-       "path": "resources/ObjectExternal/SaiErrorPage/STYLES.less",
+       "path": "resources/ObjectExternal/SaiContactDashboard/STYLES.less",
        "mime": "text/x-less",
-       "name": "STYLES.less"
+       "name": "SaiContactDashboard.less"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -4109,23 +4896,23 @@
     },
     {
      "object": "Resource",
-     "userkey": "ObjectExternal(SaiErrorPage)~ENU~HTML",
+     "userkey": "ObjectExternal(SaiContactDashboard)~ANY~HTML",
      "item": {
       "res_object": {
-       "item": {"obe_name": "SaiErrorPage"},
-       "icon": "img/system/external_object",
+       "item": {"obe_name": "SaiContactDashboard"},
+       "icon": "fas/external-link-alt",
        "label": "External object",
-       "userkeylabel": "SaiErrorPage",
+       "userkeylabel": "SaiContactDashboard",
        "object": "ObjectExternal"
       },
       "res_type": "HTML",
-      "res_lang": "ENU",
+      "res_lang": "ANY",
       "res_code": "HTML",
       "res_cached": false,
       "res_file": {
-       "path": "resources/ObjectExternal/SaiErrorPage/ENU/HTML.html",
+       "path": "resources/ObjectExternal/SaiContactDashboard/HTML.html",
        "mime": "text/html",
-       "name": "HTML.html"
+       "name": "SaiContactDashboard.html"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -4133,37 +4920,13 @@
     },
     {
      "object": "Resource",
-     "userkey": "ObjectExternal(SaiErrorPage)~FRA~HTML",
+     "userkey": "ObjectExternal(SaiContactDashboard)~ANY~CLASS",
      "item": {
       "res_object": {
-       "item": {"obe_name": "SaiErrorPage"},
-       "icon": "img/system/external_object",
+       "item": {"obe_name": "SaiContactDashboard"},
+       "icon": "fas/external-link-alt",
        "label": "External object",
-       "userkeylabel": "SaiErrorPage",
-       "object": "ObjectExternal"
-      },
-      "res_type": "HTML",
-      "res_lang": "FRA",
-      "res_code": "HTML",
-      "res_cached": false,
-      "res_file": {
-       "path": "resources/ObjectExternal/SaiErrorPage/FRA/HTML.html",
-       "mime": "text/html",
-       "name": "HTML.html"
-      },
-      "res_image": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "Resource",
-     "userkey": "ObjectExternal(SaiErrorPage)~ANY~CLASS",
-     "item": {
-      "res_object": {
-       "item": {"obe_name": "SaiErrorPage"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiErrorPage",
+       "userkeylabel": "SaiContactDashboard",
        "object": "ObjectExternal"
       },
       "res_type": "JS",
@@ -4171,9 +4934,9 @@
       "res_code": "CLASS",
       "res_cached": false,
       "res_file": {
-       "path": "resources/ObjectExternal/SaiErrorPage/CLASS.js",
+       "path": "resources/ObjectExternal/SaiContactDashboard/CLASS.js",
        "mime": "text/javascript",
-       "name": "CLASS.js"
+       "name": "SaiContactDashboard.js"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
@@ -4184,7 +4947,7 @@
   {
    "object": "Script",
    "label": "Shared code",
-   "icon": "img/system/shared_code",
+   "icon": "fas/share-alt",
    "field": "row_module_id",
    "list": [
     {
@@ -4234,280 +4997,16 @@
   {
    "object": "TranslateField",
    "label": "Field translation",
-   "icon": "img/system/translation",
+   "icon": "bi/translate",
    "field": "row_module_id",
    "list": [
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiCntModuleId)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiCntModuleId"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiCntModuleId",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Module",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiCntModuleId)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiCntModuleId"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiCntModuleId",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Module",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiCntSended)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiCntSended"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiCntSended",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "sended",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiCntSended)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiCntSended"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiCntSended",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Cnt sended",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiContactComment)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiContactComment"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiContactComment",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Comment",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiContactComment)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiContactComment"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiContactComment",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Commentaire",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiContactEmail)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiContactEmail"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiContactEmail",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Email",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiContactEmail)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiContactEmail"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiContactEmail",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Email",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiContactName)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiContactName"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiContactName",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Name",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiContactName)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiContactName"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiContactName",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Nom",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiContactPhone)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiContactPhone"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiContactPhone",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Phone",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiContactPhone)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiContactPhone"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiContactPhone",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Téléphone",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
     {
      "object": "TranslateField",
      "userkey": "Field(saiCntDeletion)~ENU",
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiCntDeletion"},
-       "icon": "img/system/field",
+       "icon": "fas/bars",
        "label": "Field",
        "userkeylabel": "saiCntDeletion",
        "object": "Field"
@@ -4529,7 +5028,7 @@
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiCntDeletion"},
-       "icon": "img/system/field",
+       "icon": "fas/bars",
        "label": "Field",
        "userkeylabel": "saiCntDeletion",
        "object": "Field"
@@ -4547,11 +5046,99 @@
     },
     {
      "object": "TranslateField",
+     "userkey": "Field(saiCntModuleId)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiCntModuleId"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiCntModuleId",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Module",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiCntModuleId)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiCntModuleId"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiCntModuleId",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Module",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiCntSended)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiCntSended"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiCntSended",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "sended",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiCntSended)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiCntSended"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiCntSended",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Cnt sended",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
      "userkey": "Field(saiCntViewhomeId)~ENU",
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiCntViewhomeId"},
-       "icon": "img/system/field",
+       "icon": "fas/bars",
        "label": "Field",
        "userkeylabel": "saiCntViewhomeId",
        "object": "Field"
@@ -4573,7 +5160,7 @@
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiCntViewhomeId"},
-       "icon": "img/system/field",
+       "icon": "fas/bars",
        "label": "Field",
        "userkeylabel": "saiCntViewhomeId",
        "object": "Field"
@@ -4591,11 +5178,187 @@
     },
     {
      "object": "TranslateField",
+     "userkey": "Field(saiContactComment)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiContactComment"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiContactComment",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Comment",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiContactComment)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiContactComment"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiContactComment",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Commentaire",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiContactEmail)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiContactEmail"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiContactEmail",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Email",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiContactEmail)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiContactEmail"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiContactEmail",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Email",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiContactName)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiContactName"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiContactName",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Name",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiContactName)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiContactName"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiContactName",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Nom",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiContactPhone)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiContactPhone"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiContactPhone",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Phone",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiContactPhone)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiContactPhone"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiContactPhone",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Téléphone",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
      "userkey": "Field(saiSaePrompt)~ENU",
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiSaePrompt"},
-       "icon": "img/system/field",
+       "icon": "fas/bars",
        "label": "Field",
        "userkeylabel": "saiSaePrompt",
        "object": "Field"
@@ -4617,7 +5380,7 @@
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiSaePrompt"},
-       "icon": "img/system/field",
+       "icon": "fas/bars",
        "label": "Field",
        "userkeylabel": "saiSaePrompt",
        "object": "Field"
@@ -4635,143 +5398,11 @@
     },
     {
      "object": "TranslateField",
-     "userkey": "Field(saiSaeTitle)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiSaeTitle"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiSaeTitle",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Sae title",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiSaeTitle)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiSaeTitle"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiSaeTitle",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "TitleFrench",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiSaeSummary)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiSaeSummary"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiSaeSummary",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Sae summary",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiSaeSummary)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiSaeSummary"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiSaeSummary",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "SummaryFrench",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiSaeTitleEnglish)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiSaeTitleEnglish"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiSaeTitleEnglish",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Sae title english",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiSaeTitleEnglish)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiSaeTitleEnglish"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiSaeTitleEnglish",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "TitleEnglish",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
      "userkey": "Field(saiSaePromptEnglish)~ENU",
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiSaePromptEnglish"},
-       "icon": "img/system/field",
+       "icon": "fas/bars",
        "label": "Field",
        "userkeylabel": "saiSaePromptEnglish",
        "object": "Field"
@@ -4793,7 +5424,7 @@
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiSaePromptEnglish"},
-       "icon": "img/system/field",
+       "icon": "fas/bars",
        "label": "Field",
        "userkeylabel": "saiSaePromptEnglish",
        "object": "Field"
@@ -4811,11 +5442,55 @@
     },
     {
      "object": "TranslateField",
+     "userkey": "Field(saiSaeSummary)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaeSummary"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiSaeSummary",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Sae summary",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaeSummary)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaeSummary"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiSaeSummary",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "SummaryFrench",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
      "userkey": "Field(saiSaeSummaryEnglish)~ENU",
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiSaeSummaryEnglish"},
-       "icon": "img/system/field",
+       "icon": "fas/bars",
        "label": "Field",
        "userkeylabel": "saiSaeSummaryEnglish",
        "object": "Field"
@@ -4837,7 +5512,7 @@
      "item": {
       "tsl_object": {
        "item": {"fld_name": "saiSaeSummaryEnglish"},
-       "icon": "img/system/field",
+       "icon": "fas/bars",
        "label": "Field",
        "userkeylabel": "saiSaeSummaryEnglish",
        "object": "Field"
@@ -4852,86 +5527,110 @@
       "tsl_tooltip": null,
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaeTitle)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaeTitle"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiSaeTitle",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Sae title",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaeTitle)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaeTitle"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiSaeTitle",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "TitleFrench",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaeTitleEnglish)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaeTitleEnglish"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiSaeTitleEnglish",
+       "object": "Field"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Sae title english",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateField",
+     "userkey": "Field(saiSaeTitleEnglish)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"fld_name": "saiSaeTitleEnglish"},
+       "icon": "fas/bars",
+       "label": "Field",
+       "userkeylabel": "saiSaeTitleEnglish",
+       "object": "Field"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "TitleEnglish",
+      "tsl_simplehelp": null,
+      "tsl_plural_value": null,
+      "tsl_short_value": null,
+      "tsl_placeholder": null,
+      "tsl_listhelp": null,
+      "tsl_tooltip": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
   },
   {
    "object": "TranslateFieldArea",
    "label": "Field area translation",
-   "icon": "img/system/translation",
+   "icon": "bi/translate",
    "field": "row_module_id",
    "list": [
-    {
-     "object": "TranslateFieldArea",
-     "userkey": "ObjectFieldArea(SaiContact-1)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"ofa_name": "SaiContact-1"},
-       "icon": "img/system/field_area",
-       "label": "Fields area",
-       "userkeylabel": "SaiContact-1",
-       "object": "ObjectFieldArea"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Contact",
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateFieldArea",
-     "userkey": "ObjectFieldArea(SaiContact-1)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"ofa_name": "SaiContact-1"},
-       "icon": "img/system/field_area",
-       "label": "Fields area",
-       "userkeylabel": "SaiContact-1",
-       "object": "ObjectFieldArea"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Contact",
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateFieldArea",
-     "userkey": "ObjectFieldArea(SaiInstance-1)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"ofa_name": "SaiInstance-1"},
-       "icon": "img/system/field_area",
-       "label": "Fields area",
-       "userkeylabel": "SaiInstance-1",
-       "object": "ObjectFieldArea"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Instance",
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateFieldArea",
-     "userkey": "ObjectFieldArea(SaiInstance-1)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"ofa_name": "SaiInstance-1"},
-       "icon": "img/system/field_area",
-       "label": "Fields area",
-       "userkeylabel": "SaiInstance-1",
-       "object": "ObjectFieldArea"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Instance",
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
     {
      "object": "TranslateFieldArea",
      "userkey": "ObjectFieldArea(SaiApplicationExample-1)~ENU",
      "item": {
       "tsl_object": {
        "item": {"ofa_name": "SaiApplicationExample-1"},
-       "icon": "img/system/field_area",
+       "icon": "bi/input-cursor",
        "label": "Fields area",
        "userkeylabel": "SaiApplicationExample-1",
        "object": "ObjectFieldArea"
@@ -4947,7 +5646,7 @@
      "item": {
       "tsl_object": {
        "item": {"ofa_name": "SaiApplicationExample-1"},
-       "icon": "img/system/field_area",
+       "icon": "bi/input-cursor",
        "label": "Fields area",
        "userkeylabel": "SaiApplicationExample-1",
        "object": "ObjectFieldArea"
@@ -4956,13 +5655,77 @@
       "tsl_value": "SaiApplicationExample-1",
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "TranslateFieldArea",
+     "userkey": "ObjectFieldArea(SaiContact-1)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"ofa_name": "SaiContact-1"},
+       "icon": "bi/input-cursor",
+       "label": "Fields area",
+       "userkeylabel": "SaiContact-1",
+       "object": "ObjectFieldArea"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Contact",
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateFieldArea",
+     "userkey": "ObjectFieldArea(SaiContact-1)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"ofa_name": "SaiContact-1"},
+       "icon": "bi/input-cursor",
+       "label": "Fields area",
+       "userkeylabel": "SaiContact-1",
+       "object": "ObjectFieldArea"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Contact",
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateFieldArea",
+     "userkey": "ObjectFieldArea(SaiInstance-1)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"ofa_name": "SaiInstance-1"},
+       "icon": "bi/input-cursor",
+       "label": "Fields area",
+       "userkeylabel": "SaiInstance-1",
+       "object": "ObjectFieldArea"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Instance",
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateFieldArea",
+     "userkey": "ObjectFieldArea(SaiInstance-1)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"ofa_name": "SaiInstance-1"},
+       "icon": "bi/input-cursor",
+       "label": "Fields area",
+       "userkeylabel": "SaiInstance-1",
+       "object": "ObjectFieldArea"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Instance",
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
   },
   {
    "object": "TranslateDomain",
    "label": "Domain translation",
-   "icon": "img/system/translation",
+   "icon": "bi/translate",
    "field": "row_module_id",
    "list": [
     {
@@ -4971,7 +5734,7 @@
      "item": {
       "tsl_object": {
        "item": {"obd_name": "SaiDomain"},
-       "icon": "img/system/domain",
+       "icon": "fas/passport",
        "label": "Domain",
        "userkeylabel": "SaiDomain",
        "object": "Domain"
@@ -4988,7 +5751,7 @@
      "item": {
       "tsl_object": {
        "item": {"obd_name": "SaiDomain"},
-       "icon": "img/system/domain",
+       "icon": "fas/passport",
        "label": "Domain",
        "userkeylabel": "SaiDomain",
        "object": "Domain"
@@ -5004,52 +5767,16 @@
   {
    "object": "TranslateObject",
    "label": "Object translation",
-   "icon": "img/system/translation",
+   "icon": "bi/translate",
    "field": "row_module_id",
    "list": [
-    {
-     "object": "TranslateObject",
-     "userkey": "ObjectInternal(SaiContact)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"obo_name": "SaiContact"},
-       "icon": "img/system/business_object",
-       "label": "Business object",
-       "userkeylabel": "SaiContact",
-       "object": "ObjectInternal"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Contact",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateObject",
-     "userkey": "ObjectInternal(SaiContact)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"obo_name": "SaiContact"},
-       "icon": "img/system/business_object",
-       "label": "Business object",
-       "userkeylabel": "SaiContact",
-       "object": "ObjectInternal"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Contact",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
     {
      "object": "TranslateObject",
      "userkey": "ObjectInternal(SaiApplicationExample)~ENU",
      "item": {
       "tsl_object": {
        "item": {"obo_name": "SaiApplicationExample"},
-       "icon": "img/system/business_object",
+       "icon": "fas/cube",
        "label": "Business object",
        "userkeylabel": "SaiApplicationExample",
        "object": "ObjectInternal"
@@ -5067,7 +5794,7 @@
      "item": {
       "tsl_object": {
        "item": {"obo_name": "SaiApplicationExample"},
-       "icon": "img/system/business_object",
+       "icon": "fas/cube",
        "label": "Business object",
        "userkeylabel": "SaiApplicationExample",
        "object": "ObjectInternal"
@@ -5078,13 +5805,49 @@
       "tsl_help": null,
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "TranslateObject",
+     "userkey": "ObjectInternal(SaiContact)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"obo_name": "SaiContact"},
+       "icon": "fas/cube",
+       "label": "Business object",
+       "userkeylabel": "SaiContact",
+       "object": "ObjectInternal"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Contact",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateObject",
+     "userkey": "ObjectInternal(SaiContact)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"obo_name": "SaiContact"},
+       "icon": "fas/cube",
+       "label": "Business object",
+       "userkeylabel": "SaiContact",
+       "object": "ObjectInternal"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Contact",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
   },
   {
    "object": "TranslateExternal",
    "label": "External object translate",
-   "icon": "img/system/translation",
+   "icon": "bi/translate",
    "field": "row_module_id",
    "list": [
     {
@@ -5093,7 +5856,7 @@
      "item": {
       "tsl_object": {
        "item": {"obe_name": "SaiCreateModuleApi"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiCreateModuleApi",
        "object": "ObjectExternal"
@@ -5111,7 +5874,7 @@
      "item": {
       "tsl_object": {
        "item": {"obe_name": "SaiCreateModuleApi"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiCreateModuleApi",
        "object": "ObjectExternal"
@@ -5125,47 +5888,11 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "ObjectExternal(SaiNewModuleFront)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiNewModuleFront",
-       "object": "ObjectExternal"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "New module front",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateExternal",
-     "userkey": "ObjectExternal(SaiNewModuleFront)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiNewModuleFront",
-       "object": "ObjectExternal"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Nouveau Module",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateExternal",
      "userkey": "ObjectExternal(SaiErrorPage)~ENU",
      "item": {
       "tsl_object": {
        "item": {"obe_name": "SaiErrorPage"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiErrorPage",
        "object": "ObjectExternal"
@@ -5183,7 +5910,7 @@
      "item": {
       "tsl_object": {
        "item": {"obe_name": "SaiErrorPage"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiErrorPage",
        "object": "ObjectExternal"
@@ -5194,13 +5921,85 @@
       "tsl_help": null,
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "ObjectExternal(SaiNewModuleFront)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"obe_name": "SaiNewModuleFront"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiNewModuleFront",
+       "object": "ObjectExternal"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "New module front",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "ObjectExternal(SaiNewModuleFront)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"obe_name": "SaiNewModuleFront"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiNewModuleFront",
+       "object": "ObjectExternal"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Nouveau Module",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "ObjectExternal(SaiContactDashboard)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"obe_name": "SaiContactDashboard"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiContactDashboard",
+       "object": "ObjectExternal"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "AI dashboard - Contact",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "ObjectExternal(SaiContactDashboard)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"obe_name": "SaiContactDashboard"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiContactDashboard",
+       "object": "ObjectExternal"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Tableau de bord IA - Contact",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
   },
   {
    "object": "TranslateObjectField",
    "label": "Object field translation",
-   "icon": "img/system/translation",
+   "icon": "bi/translate",
    "field": "row_module_id",
    "list": [
     {
@@ -5213,7 +6012,7 @@
         "obf_field_id__fld_name": "mdl_name",
         "obf_order": 110
        },
-       "icon": "img/system/object_field",
+       "icon": "fas/draw-polygon",
        "label": "Object field",
        "userkeylabel": "SaiContact mdl_name 110",
        "object": "ObjectFieldSystem"
@@ -5238,7 +6037,7 @@
         "obf_field_id__fld_name": "mdl_name",
         "obf_order": 110
        },
-       "icon": "img/system/object_field",
+       "icon": "fas/draw-polygon",
        "label": "Object field",
        "userkeylabel": "SaiContact mdl_name 110",
        "object": "ObjectFieldSystem"
@@ -5258,7 +6057,7 @@
   {
    "object": "TranslateView",
    "label": "View translation",
-   "icon": "img/system/translation",
+   "icon": "bi/translate",
    "field": "row_module_id",
    "list": [
     {
@@ -5267,7 +6066,7 @@
      "item": {
       "tsl_object": {
        "item": {"viw_name": "SimAIScope"},
-       "icon": "img/system/view",
+       "icon": "far/window-maximize",
        "label": "View",
        "userkeylabel": "SimAIScope",
        "object": "View"
@@ -5284,7 +6083,7 @@
      "item": {
       "tsl_object": {
        "item": {"viw_name": "SimAIScope"},
-       "icon": "img/system/view",
+       "icon": "far/window-maximize",
        "label": "View",
        "userkeylabel": "SimAIScope",
        "object": "View"
@@ -5300,7 +6099,7 @@
   {
    "object": "Dataset",
    "label": "Datasets",
-   "icon": "img/color/file",
+   "icon": "fas/database",
    "field": "row_module_id",
    "list": [{
     "object": "Dataset",
@@ -5311,7 +6110,7 @@
      "dt_file": {
       "path": "data/CREATE_DUMMY_EXAMPLES.xml",
       "mime": "text/xml",
-      "name": "CREATE_DUMMY_EXAMPLES.xml"
+      "name": "DummyExamples.xml"
      },
      "dt_desc": "Creates 5 application examples for the user to test out in the AI chat."
     }
@@ -5320,7 +6119,7 @@
   {
    "object": "Permission",
    "label": "Permissions",
-   "icon": "img/system/state_transition_permission",
+   "icon": "fas/lock-open",
    "field": "row_module_id",
    "list": [
     {
@@ -5330,7 +6129,7 @@
       "prm_group_id__grp_name": "SAI_ADMIN",
       "prm_object": {
        "item": {"obd_name": "SaiDomain"},
-       "icon": "img/system/domain",
+       "icon": "fas/passport",
        "label": "Domain",
        "userkeylabel": "SaiDomain",
        "object": "Domain"
@@ -5350,7 +6149,7 @@
       "prm_group_id__grp_name": "SAI_ADMIN",
       "prm_object": {
        "item": {"fld_name": "saiCntModuleId"},
-       "icon": "img/system/field",
+       "icon": "fas/bars",
        "label": "Field",
        "userkeylabel": "Module",
        "object": "Field"
@@ -5360,7 +6159,7 @@
       "prm_req": null,
       "prm_prop": {
        "item": {"fld_name": "fld_visible"},
-       "icon": "img/system/field",
+       "icon": "fas/bars",
        "label": "Field",
        "userkeylabel": "Visible",
        "object": "Field"
@@ -5376,7 +6175,7 @@
       "prm_group_id__grp_name": "SAI_ADMIN",
       "prm_object": {
        "item": {"obe_name": "SaiCreateModuleApi"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiCreateModuleApi",
        "object": "ObjectExternal"
@@ -5396,9 +6195,29 @@
       "prm_group_id__grp_name": "SAI_ADMIN",
       "prm_object": {
        "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiNewModuleFront",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_ADMIN~ObjectExternal(SaiContactDashboard)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_ADMIN",
+      "prm_object": {
+       "item": {"obe_name": "SaiContactDashboard"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiContactDashboard",
        "object": "ObjectExternal"
       },
       "prm_perm": true,
@@ -5416,7 +6235,7 @@
       "prm_group_id__grp_name": "SAI_CLEAR_CACHE",
       "prm_object": {
        "item": {"obe_name": "Monitoring"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "Monitoring",
        "object": "ObjectExternal"
@@ -5436,7 +6255,7 @@
       "prm_group_id__grp_name": "SAI_CLEAR_CACHE",
       "prm_object": {
        "item": {"obe_name": "SystemInfo"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SystemInfo",
        "object": "ObjectExternal"
@@ -5456,7 +6275,7 @@
       "prm_group_id__grp_name": "SAI_CLEAR_CACHE",
       "prm_object": {
        "item": {"obe_name": "SystemCache"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SystemCache",
        "object": "ObjectExternal"
@@ -5476,9 +6295,29 @@
       "prm_group_id__grp_name": "SAI_CLEAR_CACHE",
       "prm_object": {
        "item": {"obe_name": "SystemAddField"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SystemAddField",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_CNT_GROUP~ObjectExternal(SaiContactDashboard)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_CNT_GROUP",
+      "prm_object": {
+       "item": {"obe_name": "SaiContactDashboard"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiContactDashboard",
        "object": "ObjectExternal"
       },
       "prm_perm": true,
@@ -5496,7 +6335,7 @@
       "prm_group_id__grp_name": "SAI_CREATE_MODULE",
       "prm_object": {
        "item": {"obe_name": "AIRestAPI"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "AIRestAPI",
        "object": "ObjectExternal"
@@ -5516,29 +6355,9 @@
       "prm_group_id__grp_name": "SAI_CREATE_MODULE",
       "prm_object": {
        "item": {"obe_name": "SaiCreateModuleApi"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiCreateModuleApi",
-       "object": "ObjectExternal"
-      },
-      "prm_perm": true,
-      "prm_upd": false,
-      "prm_req": false,
-      "prm_prop": null,
-      "prm_value": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "Permission",
-     "userkey": "SAI_CREATE_MODULE~ObjectExternal(SaiNewModuleFront)~",
-     "item": {
-      "prm_group_id__grp_name": "SAI_CREATE_MODULE",
-      "prm_object": {
-       "item": {"obe_name": "SaiNewModuleFront"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiNewModuleFront",
        "object": "ObjectExternal"
       },
       "prm_perm": true,
@@ -5556,9 +6375,49 @@
       "prm_group_id__grp_name": "SAI_CREATE_MODULE",
       "prm_object": {
        "item": {"obe_name": "SaiErrorPage"},
-       "icon": "img/system/external_object",
+       "icon": "fas/external-link-alt",
        "label": "External object",
        "userkeylabel": "SaiErrorPage",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_CREATE_MODULE~ObjectExternal(SaiNewModuleFront)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_CREATE_MODULE",
+      "prm_object": {
+       "item": {"obe_name": "SaiNewModuleFront"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiNewModuleFront",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_CREATE_MODULE~ObjectExternal(SaiContactDashboard)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_CREATE_MODULE",
+      "prm_object": {
+       "item": {"obe_name": "SaiContactDashboard"},
+       "icon": "fas/external-link-alt",
+       "label": "External object",
+       "userkeylabel": "SaiContactDashboard",
        "object": "ObjectExternal"
       },
       "prm_perm": true,
@@ -5576,7 +6435,7 @@
       "prm_group_id__grp_name": "SAI_CREATE_MODULE",
       "prm_object": {
        "item": {"obo_name": "SaiApplicationExample"},
-       "icon": "img/system/business_object",
+       "icon": "fas/cube",
        "label": "Business object",
        "userkeylabel": "SaiApplicationExample",
        "object": "ObjectInternal"
@@ -5604,7 +6463,7 @@
      "pmg_perm_id__prm_group_id__grp_name": "SAI_ADMIN",
      "pmg_perm_id__prm_object": {
       "item": {"obe_name": "SaiCreateModuleApi"},
-      "icon": "img/system/external_object",
+      "icon": "fas/external-link-alt",
       "label": "External object",
       "userkeylabel": "SaiCreateModuleApi",
       "object": "ObjectExternal"

@@ -23,16 +23,17 @@ public class createAiUser {
 			String usrName = System.getenv("usrName");
 			String usrPassword = System.getenv("password");
 			Grant g = Grant.getSystemAdmin();
-			boolean[] old = g.changeAccess("SimpleUser",true,true,true,false);
-			ObjectDB o = g.getTmpObject("SimpleUser");
+			boolean[] old = g.changeAccess("User",true,true,true,false);
+			ObjectDB o = g.getTmpObject("User");
 			BusinessObjectTool t = o.getTool();
 			t.getForCreate();
 			o.setFieldValue("usr_login",usrName);
 			o.setFieldValue("usr_active",GrantCore.USER_ACTIVE);
+			//o.setFieldValue("usr_lang_pref","ENU");
 			t.validateAndCreate();
 			Grant.addResponsibility(Grant.getUserId(usrName),"SAI_CREATE_MODULE");
 			g.changePassword(usrName,usrPassword,false,false);
-			g.changeAccess("SimpleUser",old);
+			g.changeAccess("User",old);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

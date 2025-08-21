@@ -538,7 +538,23 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		homeContact.put("row_module_id", appMldId);
 		homeContact.put("obe_settings", new JSONObject().put("module",mldName).toString());
 		homeContact.put("obe_class", "com.simplicite.commons.SimAI.SaiContactWidget");
+		homeContact.put("obe_icon","fas/envelope");
 		String extId = AITools.createOrUpdateWithJson("ObjectExternal",homeContact,true,g);
+		
+		// translate external object
+		try{
+			createOrUpdateTranslation("ObjectExternal",extId,"FRA","Contactez-nous!",appMldId,g);
+			createOrUpdateTranslation("ObjectExternal",extId,"ENU","Contact us!",appMldId,g);
+		}catch(Exception e){
+			AppLog.error("Error creating translation for external object: " + extId, e, g);
+		}
+		// add external object to Domain
+		JSONObject domain = new JSONObject();
+		domain.put("map_domain_id",moduleInfo.getString("domainId"));
+		domain.put("map_object","ObjectExternal:"+extId);
+		domain.put("map_order",10);
+		domain.put("row_module_id",appMldId);
+		AITools.createOrUpdateWithJson("Map",domain,g);
 		// add permisions
 
 		JSONObject permissionFlds = new JSONObject();
@@ -547,21 +563,22 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		permissionFlds.put("row_module_id",appMldId);
 		AITools.createOrUpdateWithJson("Permission",permissionFlds,g);
 		// Create DomainePage
-		JSONObject domainPage = new JSONObject();
-		domainPage.put("viw_name",moduleInfo.getString("mPrefix")+"Home");
-		domainPage.put("viw_type","D");
-		domainPage.put("viw_ui","<div class=\"area\" data-area=\"1\"></div>");
-		domainPage.put("row_module_id",appMldId);
-		domainPage.put("viw_order",1);
-		String pageId =AITools.createOrUpdateWithJson("ViewDomain",domainPage,true,g);
+		// JSONObject domainPage = new JSONObject();
+		// domainPage.put("viw_name",moduleInfo.getString("mPrefix")+"Home");
+		// domainPage.put("viw_type","D");
+		// domainPage.put("viw_ui","<div class=\"area\" data-area=\"1\"></div>");
+		// domainPage.put("row_module_id",appMldId);
+		// domainPage.put("viw_order",1);
+		// String pageId =AITools.createOrUpdateWithJson("ViewDomain",domainPage,true,g);
 		// add to domain
 		ObjectDB obj = g.getTmpObject("Domain");
-		synchronized(obj.getLock()){
-			obj.select(pageId);
-			obj.setFieldValue("obd_view_id",pageId);
-			obj.validate();
-			obj.save();
-		}
+		// synchronized(obj.getLock()){
+		// 	obj.select(pageId);
+		// 	obj.setFieldValue("obd_view_id",pageId);
+		// 	obj.validate();
+		// 	obj.save();
+		// }
+		
 		// add html to scope
 		obj = g.getTmpObject("ViewHome");
 		synchronized(obj.getLock()){
@@ -573,13 +590,13 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 
 		// add area to scope and domaine page ViewItem
 		JSONObject area = new JSONObject();
-		area.put("vwi_view_id",pageId);
+		//area.put("vwi_view_id",pageId);
 		area.put("vwi_type","E");
 		area.put("vwi_position",1);
 		area.put("vwi_title",false);
 		area.put("vwi_url",new JSONObject().put("extobject",extName).toString());
 		area.put("row_module_id",appMldId);
-		AITools.createOrUpdateWithJson("ViewItem",area,true,g);
+		//AITools.createOrUpdateWithJson("ViewItem",area,true,g);
 		area.put("vwi_view_id",scopeId);
 		AITools.createOrUpdateWithJson("ViewItem",area,true,g);
 		
@@ -590,6 +607,12 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		contactProfile.put("row_module_id",appMldId);
 		AITools.createOrUpdateWithJson("Profile",contactProfile,g);
 		
+	}
+	private String getDomainId(String moduleName,Grant g){
+		ObjectDB obj = g.getTmpObject("Domain");
+		obj.resetFilters();
+		obj.setFieldFilter("row_module_id",ModuleDB.getModuleId(moduleName,false));
+		return obj.search().get(0)[obj.getRowIdFieldIndex()];
 	}
 	private String checkModuleName(String moduleName){
 		if(Tool.isEmpty(moduleName)) return null;
@@ -982,5 +1005,24 @@ This JSON template represents the UML class diagram for the order application, w
 		return new JSONObject().put("success", true);
 	}
 	
-
+	private static void createOrUpdateTranslation(String obj,String objId,String lang,String val, String moduleId,Grant g) throws GetException, UpdateException, ValidateException{
+		ObjectDB oTra = g.getTmpObject("Translate");
+		synchronized(oTra.getLock()){
+			BusinessObjectTool oTraT = oTra.getTool();
+			if(!Tool.isEmpty(objId)){
+				String objectRef = Tool.toSQL(obj)+":"+Tool.toSQL(objId);
+				if(!Tool.isEmpty(val)){
+					if(!oTraT.selectForCreateOrUpdate(new JSONObject().put("tsl_object",objectRef).put("tsl_lang",lang))){
+						oTra.setFieldValue("tsl_object",objectRef);
+						oTra.setFieldValue("tsl_lang",lang);
+						oTra.setFieldValue("row_module_id",moduleId);
+					}
+					oTra.setFieldValue("tsl_value", val);
+					oTraT.validateAndUpdate();
+				}
+				
+			}
+		}
+		
+	}
 }

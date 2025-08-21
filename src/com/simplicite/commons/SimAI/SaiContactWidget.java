@@ -7,6 +7,7 @@ import com.simplicite.bpm.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 import org.json.JSONObject;
+
 /**
  * Shared code SaiContactWidget
  */
@@ -21,8 +22,23 @@ public class SaiContactWidget extends com.simplicite.webapp.web.widgets.WidgetEx
 		String mld = settings.optString("module");
 		String id = getContactId(mld,g);
 		if(Tool.isEmpty(id))return "error";
-		String js = "$ui.displayForm($('#contact'),'SaiContact','"+id+"',null,null);"; 
-		return "<div id='contact'/>"+HTMLTool.jsBlock(js);
+		String js = "$ui.displayForm($('#contact'),'SaiContact','"+id+"',null,null);";
+ 		
+		String contentDiv = "<div id='contact'></div>";
+		// String dashboardDiv = "<div id='saicontactdashboard' class='card'></div>"; // inheriting the '.card' styles (border etc)
+		
+		// String dashboard_js = HTMLTool.getResourceJSContent(getGrant(), "SAI_DASHBOARD_CLASS");
+		String dashboard_css = HTMLTool.getResourceCSSContent(getGrant(), "SAI_DASHBOARD_STYLE");
+		
+		contentDiv += HTMLTool.jsBlock(js);
+		
+		// String moduleVar = "var moduleName = '"+ mld +"';"; // handle "already been created" ?
+		
+		// contentDiv += dashboardDiv;
+		// contentDiv += HTMLTool.jsBlock(moduleVar + dashboard_js);
+		contentDiv += HTMLTool.cssBlock(dashboard_css);
+		
+		return contentDiv;
 
 		
 	}
@@ -46,7 +62,6 @@ public class SaiContactWidget extends com.simplicite.webapp.web.widgets.WidgetEx
 			AppLog.error(e,g);
 			return null;
 		}
-		
 	}
 	
 }

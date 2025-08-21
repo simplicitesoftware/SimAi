@@ -21,6 +21,7 @@ public class SaiNewModuleFront extends com.simplicite.webapp.web.ResponsiveExter
 		addSimpliciteClient();
 		addMermaid();
 		appendJSInclude(HTMLTool.getResourceJSURL(getGrant(), "SaiTools"));
+		appendJSInclude(HTMLTool.getResourceJSURL(getGrant(), "AiJsTools"));
 		
 	}
 	@Override

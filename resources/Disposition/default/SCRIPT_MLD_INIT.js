@@ -27,7 +27,7 @@
 					let minutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
 					let seconds = Math.floor((diffTime % (1000 * 60)) / 1000);
 					
-					let timeString = hours.toString().padStart(2, '0') + "h" + minutes.toString().padStart(2, '0') /*+ "m" + seconds.toString().padStart(2, '0') + "s"*/;
+					let timeString = hours.toString().padStart(2, '0') + "h" + minutes.toString().padStart(2, '0') + "m" + seconds.toString().padStart(2, '0') + "s";
 					
 					// Afficher en rouge si moins de 10 minutes
 					if (diffTime < (10 * 60 * 1000)) { // 10 minutes en millisecondes

@@ -1,0 +1,125 @@
+@dashboard-text: #5E5E5E;
+@dashboard-text-strong: #303030;
+@dashboard-light-yellow: floralwhite;
+@dashboard-light-purple: #FCF2FC;
+@dashboard-light-blue: #F0F0FF;
+@dashboard-light-green: #EEFDF5;
+@dashboard-yellow: #FFE3A3;
+@dashboard-purple: #F7D8F8;
+@dashboard-blue: #DDDCFF;
+@dashboard-green: #BCF7D7;
+
+#saicontactdashboard {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: start;
+	gap: 24px;
+	width: 100%;
+	padding: 1rem;
+	background: #f9f8f7;
+	
+	scroll-behavior: smooth;
+}
+
+.warning-section {
+    background-color: @dashboard-light-yellow;
+    border-left: 3px solid @dashboard-yellow;
+    padding: 12px;
+    margin: 16px 0;
+    color: @dashboard-text;
+    
+    i {
+    	font-size: 18px;
+        color: darken(@dashboard-yellow, 25%);
+        margin-right: 8px;
+    }
+}
+
+#saicontactdashboard-cards {
+	width: 100%;
+	height: 100%;
+	padding: 32px 0px;
+	border-top: solid 1px fade(@dashboard-text,25%);
+	// border-bottom: solid 1px fade(@dashboard-text,25%);
+	
+	.dashboard-card-container {
+		display: flex;
+		flex-wrap: wrap;
+		row-gap: 32px;
+		width: 100%;
+		row-gap: 32px;
+		gap: 32px;
+			
+		.dashboard-card {
+			width: 400px;
+			height: 250px;
+			padding: 12px;
+			font-size: 16px;
+			
+			border: solid 1px @dashboard-text;
+			color: @dashboard-text;
+			
+			display: flex;
+			flex-direction: column;
+			justify-content: end;
+			align-items: start;
+			
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			
+			&:hover {
+				transform: translateY(-4px) scale(1.025);
+		        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+			}
+			
+			
+			.dashboard-card-header {
+				font-size: 24px;
+				color: @dashboard-text-strong;
+				margin-bottom: 6px;
+				
+				img {
+					width: 48px;
+					height: 48px;
+					padding: 8px;
+				}
+			}
+			
+			&.util-card {
+				background-color: @dashboard-light-blue;
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADRCAYAAACJgf3NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALPSURBVHgB7dxNTlRBFIbhU9DOWUK3CmOXADuRJbgCdQW6E+MKZAk6MuEn3e6ghw6ky0tiCAP86HTgQprnmdSkRjd57+icakVdnPf5cEyLmxavXrdZPXM7BfyXQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgWBSVK9atOKm4XssCgAAAAAAAAAAAICHNfoQ63zepwUbms3aokY0aiDzn326elHzgg3t7A6NjBiJhSkIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCASjv83bq04KNrRc1rIAAAAAAAAAAAAAtsVaT4+envY3rdVewZbovZYHB+37XffWGnff2alPQ0mHBVti+OGfDMfRXfcsTEEgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIFhrWLH1+jqktCjYEn1VvwoAAAAAAAAAAADgsbXT0/62gFu1i/PeC7iVhSkIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCASTVa+PBQAAAAAAAAAAAACMr52d9Q8F3MrbvBBYmIJAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQDC5XNVxAQAAAAAAAAAAAADja+tcurjo74djWrAlVqv6sb/fPt91b1Jr6L0Oh5IOC7bEbquT4bgzEAtTEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAI1hpW3F3Vuz+t9gq2xKTXsgAAAAAAAAAAAAAe21pv896X+bzv9cv6UrChtlvHs1lb1EjWGne/N79rr7/wxi+bG/WPXhamIBIIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQjD37dTXROy3Y0JiTvAAAAAAAAAAAAAAPbvRp3qfo/Lx/Gz7EtLg2fI/Fy9ftqJ65cd/mfaL+xTEtrvXiioUpCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEfwGjZ1rv9W2kYAAAAABJRU5ErkJggg==);
+				background-position: 250px -50px;
+				background-size: 200px 200px;
+		        background-repeat: no-repeat;
+		        
+				img {
+					background-color: @dashboard-blue;
+				}
+			}
+			
+			&.info-card {
+				background-color: @dashboard-light-yellow;
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADRCAYAAACJgf3NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAK3SURBVHgB7dyxbZNBGMfh9+AbIC0FwtmAEcIgIDwCEwATwAYWRNSICcgIMIENEaJNSWF8OFQImX8sK/kSnOcp7pprf937Xiuqnx7P19ek+NOi3X98WLfcnQL+SSAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAwFOcWxd8WBQAAAAAAAAAAAMDVajWyPp9NCnbUDqeLGtGogfyOYxjmBbsaloft3niRWJiCQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUBwHX/znhTs6kedFQAAAAAAAAAAAMC+2Orr0T6fPawaDgr2xvKsHU4/XfRqu3H3YXi1Po8K9sZwsj4eXfTKwhQEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBILthhVX/UPdrUXBvuj9SwEAAAAAAAAAAABct9a/vn1awEZDtTYrYCMLUxAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCIZarV4WAAAAAAAAAAAAADC+1r+8eVHARq2fHvcCNrIwBYFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBYKjepwUAAAAAAAAAAAAAjK9t86h/e/e8+s9Jwb74WZ/bgyevL3o21DZWq6N1S0cF++JOnazP1xc/A/5JIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQLDdsGJbPqs+HBTsi7Y8KwAAAAAAAAAAAIDrttXfvJelz2cHNQzvC3Y1LKft3nRRI9lu3P3ynI/MHxX8JyxMQSAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgGHWa91z/PpsU7GjMSV4AAAAAAAAAAACAKzf6NO9N1E+PP66vSfGnRbv/+FHdcmP/zXtTTUogbGBhCgKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCwS9D6FFemLL/BAAAAABJRU5ErkJggg==);
+				background-position: 250px -50px;
+				background-size: 200px 200px;
+		        background-repeat: no-repeat;
+		        
+				img {
+					background-color: @dashboard-yellow;
+				}
+			}
+			
+			&.eco-card {
+				background-color: @dashboard-light-green;
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADRCAYAAACJgf3NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALsSURBVHgB7dwxjlNXFMfh88Ym2KlmCaaJNKmSHYBEIs0uwhKygiQrSHaQJUSpRgJGzA4ACeQSswKmABkJni+eBlGY/1gWvAHzfdLTbW71pF93zu2KOl3On7WqWfGhxe3p0Y36xh0U8FECgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEgnFRrWrRFR+6+CcFAAAAAAAAAAAAwOc1+BDryfLhrGBHx9OfFzWgQQM5Wc5n16qeFezoTdWN4+nRogZiYQoCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAsFVvM17VrCjyeT1eQEAAAAAAAAAAADsi62eHr378slPXWuHBXuiXb9+/ut3Pzy67N5W4+4Ho9Hf6+NmwZ7o+v5sfdy67J6FKQgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBFsNK7bW/u9G3aJgT7S3q+cFAAAAAAAAAAAAcNW605dPfitgo3Ebjf4tYCMLUxAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCMZttfqrAAAAAAAAAAAAAIDhdfdePf2zgI26+8t5K2AjC1MQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAjGXV93CgAAAAAAAAAAAAAYXrfNpdPl/I92ULOCPdH69viX73/857J749pCq7pZq/UHe6LrurP1cWkgFqYgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBBsNay4GvW/d/3osGBPtL4/LwAAAAAAAAAAAICrttXbvJ/KgxcPD/vJ5L+CHb2punM8PVrUQLYad/9UXk8mh9fKG798PSxMQSAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgGHSa98LJcj4r2NGQk7wAAAAAAAAAAAAAn93g07xfovvL+YP1j5gV77Wqxe3p0a36xg36Nu+X6iKOJhA2sDAFgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoHgHT2aY3cfL/N5AAAAAElFTkSuQmCC);
+				background-position: 250px -50px;
+				background-size: 200px 200px;
+		        background-repeat: no-repeat;
+				
+				img {
+					background-color: @dashboard-green;
+				}
+			}
+		}
+	}
+}
