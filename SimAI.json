@@ -3018,6 +3018,25 @@
     },
     {
      "object": "ObjectExternal",
+     "userkey": "SaiEndOfTime",
+     "item": {
+      "obe_name": "SaiEndOfTime",
+      "obe_type": "E",
+      "obe_nature": "com_simplicite_webapp_web_ResponsiveExternalObject",
+      "obe_url": null,
+      "obe_settings": null,
+      "obe_comment": "External page, redirect page when end time has been reached",
+      "obe_help": null,
+      "obe_class": "com.simplicite.webapp.web.ResponsiveExternalObject",
+      "obe_script_id": null,
+      "obe_icon": null,
+      "obe_permalink": null,
+      "obe_widget": false,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ObjectExternal",
      "userkey": "SaiErrorPage",
      "item": {
       "obe_name": "SaiErrorPage",
@@ -4923,6 +4942,102 @@
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectExternal(SaiEndOfTime)~ANY~STYLES",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiEndOfTime"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiEndOfTime",
+       "object": "ObjectExternal"
+      },
+      "res_type": "CSS",
+      "res_lang": "ANY",
+      "res_code": "STYLES",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiEndOfTime/STYLES.less",
+       "mime": "text/x-less",
+       "name": "STYLES.less"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectExternal(SaiEndOfTime)~ENU~HTML",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiEndOfTime"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiEndOfTime",
+       "object": "ObjectExternal"
+      },
+      "res_type": "HTML",
+      "res_lang": "ENU",
+      "res_code": "HTML",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiEndOfTime/ENU/HTML.html",
+       "mime": "text/html",
+       "name": "HTML.html"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectExternal(SaiEndOfTime)~FRA~HTML",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiEndOfTime"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiEndOfTime",
+       "object": "ObjectExternal"
+      },
+      "res_type": "HTML",
+      "res_lang": "FRA",
+      "res_code": "HTML",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiEndOfTime/FRA/HTML.html",
+       "mime": "text/html",
+       "name": "HTML.html"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectExternal(SaiEndOfTime)~ANY~CLASS",
+     "item": {
+      "res_object": {
+       "item": {"obe_name": "SaiEndOfTime"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiEndOfTime",
+       "object": "ObjectExternal"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "CLASS",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectExternal/SaiEndOfTime/CLASS.js",
+       "mime": "text/javascript",
+       "name": "CLASS.js"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
   },
@@ -5971,6 +6086,42 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Nouveau Module",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "ObjectExternal(SaiEndOfTime)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"obe_name": "SaiEndOfTime"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiEndOfTime",
+       "object": "ObjectExternal"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "End of time",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "ObjectExternal(SaiEndOfTime)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"obe_name": "SaiEndOfTime"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiEndOfTime",
+       "object": "ObjectExternal"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "End of time",
       "tsl_plural_value": null,
       "tsl_help": null,
       "row_module_id__mdl_name": "SimAI"
