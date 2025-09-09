@@ -212,6 +212,19 @@
       "grp_home_id__viw_name": "SimAIScope",
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "Group",
+     "userkey": "SAI_VIEW_MODULE",
+     "item": {
+      "aiGroupGuiVirtual": null,
+      "grp_name": "SAI_VIEW_MODULE",
+      "grp_comment": null,
+      "grp_type": ["G"],
+      "grp_parent_id__grp_name": null,
+      "grp_home_id__viw_name": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
   },
@@ -3022,13 +3035,17 @@
      "item": {
       "obe_name": "SaiEndOfTime",
       "obe_type": "E",
-      "obe_nature": "com_simplicite_webapp_web_ResponsiveExternalObject",
+      "obe_nature": "com_simplicite_webapp_web_WebPageExternalObject",
       "obe_url": null,
       "obe_settings": null,
       "obe_comment": "External page, redirect page when end time has been reached",
       "obe_help": null,
-      "obe_class": "com.simplicite.webapp.web.ResponsiveExternalObject",
-      "obe_script_id": null,
+      "obe_class": null,
+      "obe_script_id": {
+       "path": "src/com/simplicite/extobjects/SimAI/SaiEndOfTime.java",
+       "mime": "text/plain",
+       "name": "SaiEndOfTime.java"
+      },
       "obe_icon": null,
       "obe_permalink": null,
       "obe_widget": false,
@@ -3204,11 +3221,7 @@
       "obo_updall": true,
       "obo_delall": true,
       "obo_listsearch": true,
-      "obo_list_edit": [
-       "N",
-       "L",
-       "E"
-      ],
+      "obo_list_edit": ["N"],
       "obo_useform": true,
       "obo_title": null,
       "obo_icon": null,
@@ -3226,7 +3239,7 @@
       "obo_btn_reload": "0",
       "obo_btn_prefs": "0",
       "obo_btn_bookmark": "0",
-      "obo_btn_del": "P",
+      "obo_btn_del": "0",
       "obo_btn_copy": "0",
       "obo_btn_export": "0",
       "obo_btn_listadd": "0",
@@ -3236,10 +3249,10 @@
       "obo_btn_delall": "0",
       "obo_btn_merge": "0",
       "obo_btn_save": true,
-      "obo_btn_saveclose": true,
-      "obo_btn_savenew": true,
-      "obo_btn_savecopy": true,
-      "obo_btn_close": true,
+      "obo_btn_saveclose": false,
+      "obo_btn_savenew": false,
+      "obo_btn_savecopy": false,
+      "obo_btn_close": false,
       "obo_tray": true,
       "obo_dashboard": [
        "1",
@@ -3254,7 +3267,7 @@
       "obo_minifiable": "M",
       "obo_minified": false,
       "obo_permalink": null,
-      "obo_btn_searchform": true
+      "obo_btn_searchform": false
      }
     }
    ]
@@ -5014,30 +5027,6 @@
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
      }
-    },
-    {
-     "object": "Resource",
-     "userkey": "ObjectExternal(SaiEndOfTime)~ANY~CLASS",
-     "item": {
-      "res_object": {
-       "item": {"obe_name": "SaiEndOfTime"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiEndOfTime",
-       "object": "ObjectExternal"
-      },
-      "res_type": "JS",
-      "res_lang": "ANY",
-      "res_code": "CLASS",
-      "res_cached": false,
-      "res_file": {
-       "path": "resources/ObjectExternal/SaiEndOfTime/CLASS.js",
-       "mime": "text/javascript",
-       "name": "CLASS.js"
-      },
-      "res_image": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
     }
    ]
   },
@@ -6563,6 +6552,26 @@
     },
     {
      "object": "Permission",
+     "userkey": "SAI_CREATE_MODULE~ObjectExternal(SaiEndOfTime)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_CREATE_MODULE",
+      "prm_object": {
+       "item": {"obe_name": "SaiEndOfTime"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiEndOfTime",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
      "userkey": "SAI_CREATE_MODULE~ObjectInternal(SaiApplicationExample)~",
      "item": {
       "prm_group_id__grp_name": "SAI_CREATE_MODULE",
@@ -6580,6 +6589,26 @@
       "prm_value": null,
       "row_module_id__mdl_name": "SimAI"
      }
+    },
+    {
+     "object": "Permission",
+     "userkey": "SAI_VIEW_MODULE~ObjectExternal(SaiEndOfTime)~",
+     "item": {
+      "prm_group_id__grp_name": "SAI_VIEW_MODULE",
+      "prm_object": {
+       "item": {"obe_name": "SaiEndOfTime"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiEndOfTime",
+       "object": "ObjectExternal"
+      },
+      "prm_perm": true,
+      "prm_upd": false,
+      "prm_req": false,
+      "prm_prop": null,
+      "prm_value": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
    ]
   },
@@ -6588,23 +6617,59 @@
    "label": "Group permissions",
    "icon": "img/system/state_transition_permission",
    "field": "row_module_id",
-   "list": [{
-    "object": "PermGroup",
-    "userkey": "DESIGNER~SAI_ADMIN~ObjectExternal(SaiCreateModuleApi)~",
-    "item": {
-     "pmg_group_id__grp_name": "DESIGNER",
-     "pmg_perm_id__prm_group_id__grp_name": "SAI_ADMIN",
-     "pmg_perm_id__prm_object": {
-      "item": {"obe_name": "SaiCreateModuleApi"},
-      "icon": "img/system/external_object",
-      "label": "External object",
-      "userkeylabel": "SaiCreateModuleApi",
-      "object": "ObjectExternal"
-     },
-     "pmg_perm_id__prm_prop": null,
-     "row_module_id__mdl_name": "SimAI"
+   "list": [
+    {
+     "object": "PermGroup",
+     "userkey": "DESIGNER~SAI_ADMIN~ObjectExternal(SaiCreateModuleApi)~",
+     "item": {
+      "pmg_group_id__grp_name": "DESIGNER",
+      "pmg_perm_id__prm_group_id__grp_name": "SAI_ADMIN",
+      "pmg_perm_id__prm_object": {
+       "item": {"obe_name": "SaiCreateModuleApi"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiCreateModuleApi",
+       "object": "ObjectExternal"
+      },
+      "pmg_perm_id__prm_prop": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "PermGroup",
+     "userkey": "PUBLIC~SAI_CREATE_MODULE~ObjectExternal(SaiEndOfTime)~",
+     "item": {
+      "pmg_group_id__grp_name": "PUBLIC",
+      "pmg_perm_id__prm_group_id__grp_name": "SAI_CREATE_MODULE",
+      "pmg_perm_id__prm_object": {
+       "item": {"obe_name": "SaiEndOfTime"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiEndOfTime",
+       "object": "ObjectExternal"
+      },
+      "pmg_perm_id__prm_prop": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "PermGroup",
+     "userkey": "PUBLIC~SAI_VIEW_MODULE~ObjectExternal(SaiEndOfTime)~",
+     "item": {
+      "pmg_group_id__grp_name": "PUBLIC",
+      "pmg_perm_id__prm_group_id__grp_name": "SAI_VIEW_MODULE",
+      "pmg_perm_id__prm_object": {
+       "item": {"obe_name": "SaiEndOfTime"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiEndOfTime",
+       "object": "ObjectExternal"
+      },
+      "pmg_perm_id__prm_prop": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
     }
-   }]
+   ]
   }
  ]
 }

@@ -38,6 +38,8 @@
 				} else {
 					$("#custom-timer").html(`${$T("SAI_TIME")} 00h00m00s`);
 					clearInterval(timerInterval);
+					window.location.replace($app.getExternalObjectURL("SaiEndOfTime",{},true));
+					
 				}
 			}
 			

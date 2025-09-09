@@ -540,7 +540,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		homeContact.put("obe_class", "com.simplicite.commons.SimAI.SaiContactWidget");
 		homeContact.put("obe_icon","fas/envelope");
 		String extId = AITools.createOrUpdateWithJson("ObjectExternal",homeContact,true,g);
-		
+		String groupId = moduleInfo.getString("groupId");
 		// translate external object
 		try{
 			createOrUpdateTranslation("ObjectExternal",extId,"FRA","Contactez-nous!",appMldId,g);
@@ -558,26 +558,25 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		// add permisions
 
 		JSONObject permissionFlds = new JSONObject();
-		permissionFlds.put("prm_group_id",moduleInfo.getString("groupId"));
+		permissionFlds.put("prm_group_id",groupId);
 		permissionFlds.put("prm_object","ObjectExternal:"+extId);
 		permissionFlds.put("row_module_id",appMldId);
 		AITools.createOrUpdateWithJson("Permission",permissionFlds,g);
-		// Create DomainePage
-		// JSONObject domainPage = new JSONObject();
-		// domainPage.put("viw_name",moduleInfo.getString("mPrefix")+"Home");
-		// domainPage.put("viw_type","D");
-		// domainPage.put("viw_ui","<div class=\"area\" data-area=\"1\"></div>");
-		// domainPage.put("row_module_id",appMldId);
-		// domainPage.put("viw_order",1);
-		// String pageId =AITools.createOrUpdateWithJson("ViewDomain",domainPage,true,g);
-		// add to domain
+
+		//Add View group to active group
+		JSONObject viewGroupFlds = new JSONObject();
+		viewGroupFlds.put("vig_view_id",scopeId);
+		viewGroupFlds.put("vig_group_id",GroupDB.getGroupId("SAI_VIEW_MODULE"));
+		viewGroupFlds.put("row_module_id",appMldId);
+		AITools.createOrUpdateWithJson("ViewGroup",viewGroupFlds,g);
+		// remove home in domaine
 		ObjectDB obj = g.getTmpObject("Domain");
-		// synchronized(obj.getLock()){
-		// 	obj.select(pageId);
-		// 	obj.setFieldValue("obd_view_id",pageId);
-		// 	obj.validate();
-		// 	obj.save();
-		// }
+		synchronized(obj.getLock()){
+			obj.select(getDomainId(mldName,g));
+			obj.setFieldValue("obd_nohome",true);
+			obj.validate();
+			obj.save();
+		}
 		
 		// add html to scope
 		obj = g.getTmpObject("ViewHome");

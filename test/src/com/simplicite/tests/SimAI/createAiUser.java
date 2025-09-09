@@ -38,6 +38,7 @@ public class createAiUser {
 			o.setFieldValue("usr_lang",lang);
 			t.validateAndCreate();
 			Grant.addResponsibility(Grant.getUserId(usrName),"SAI_CREATE_MODULE");
+			Grant.addResponsibility(Grant.getUserId(usrName),"SAI_VIEW_MODULE");
 			g.changePassword(usrName,usrPassword,false,false);
 			g.changePassword("designer","S1mplicite_",false,true);
 			g.changeAccess("User",old);
