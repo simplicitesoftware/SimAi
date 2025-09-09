@@ -548,6 +548,33 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		}catch(Exception e){
 			AppLog.error("Error creating translation for external object: " + extId, e, g);
 		}
+		//add External to shortcut
+		JSONObject shortcut = new JSONObject();
+		shortcut.put("shc_name", extName);
+		shortcut.put("shc_url","[EXPR:HTMLTool.getExternalObjectURL(\""+extName+"\")]");
+		shortcut.put("shc_visible","P;B");
+		shortcut.put("shc_order",500);
+		shortcut.put("shc_icon","fas/envelope");
+		shortcut.put("row_module_id",appMldId);
+		String shcId = AITools.createOrUpdateWithJson("ShortCut",shortcut,g);
+
+		//translate shortcut
+		JSONObject shortcutTrans = new JSONObject();
+		shortcutTrans.put("tsl_object","ShortCut:"+shcId);
+		shortcutTrans.put("row_module_id",appMldId);
+		shortcutTrans.put("tsl_lang","FRA");
+		shortcutTrans.put("tsl_value","Contactez-nous!");
+		AITools.createOrUpdateWithJson("Translate",shortcutTrans,true,g);
+		shortcutTrans.put("tsl_lang","ENU");
+		shortcutTrans.put("tsl_value","Contact us!");
+		AITools.createOrUpdateWithJson("Translate",shortcutTrans,true,g);
+		//add permission to shortcut
+		JSONObject permission = new JSONObject();
+		permission.put("prm_group_id",groupId);
+		permission.put("prm_object","ShortCut:"+shcId);
+		permission.put("row_module_id",appMldId);
+		AITools.createOrUpdateWithJson("Permission",permission,g);
+
 		// add external object to Domain
 		JSONObject domain = new JSONObject();
 		domain.put("map_domain_id",moduleInfo.getString("domainId"));
