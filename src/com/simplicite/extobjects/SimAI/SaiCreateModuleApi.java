@@ -8,7 +8,6 @@ import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 import com.simplicite.commons.AIBySimplicite.AIModel;
-import com.docusign.esign.client.JSON;
 import com.simplicite.commons.AIBySimplicite.AIData;
 import com.simplicite.commons.AIBySimplicite.AITools;
 import java.util.regex.Pattern;
