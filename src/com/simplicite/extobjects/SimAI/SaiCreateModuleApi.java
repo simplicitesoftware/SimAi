@@ -52,8 +52,6 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 					return isPostClearCache();
 				case "getModuleObjects":
 					return getModuleObjects(uriParts.size()>1?uriParts.get(1):null);
-				case "getTokensHistory":
-                    return getTokensHistory(uriParts.size()>1?uriParts.get(1):null);
 				default:
 					return badRequest("Invalid action");
 			}
@@ -687,34 +685,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
         return success("initTokensHistory: "+Tool.getCurrentDatetime());
     }
     
-    @RESTServiceOperation(method = "get", path = "/getTokensHistory/{moduleName}", desc = "Get history for a module")
-    public Object getTokensHistory(@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name", required = true, in="path") String moduleName) {
-    	// Todo
-        String tmp = """
-            {
-              'begin': '2025-08-19 10:00:00',
-              'end': '2025-08-19 11:00:00',
-              'tokens': [
-                {
-                  "completion_tokens": 2535,
-                  "prompt_tokens": 33,
-                  "total_tokens": 2568
-                },
-                {
-                  "completion_tokens": 4647,
-                  "prompt_tokens": 1564,
-                  "total_tokens": 6211
-                },
-                {
-                  "completion_tokens": 5000,
-                  "prompt_tokens": 1768,
-                  "total_tokens": 6768
-                }
-              ]
-            }
-        """;    
-        return new JSONObject(tmp);
-    }
+    
     
     private Object endTokensHistory(JSONObject req) {
         //Todo

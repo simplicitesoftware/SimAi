@@ -17,7 +17,8 @@ public class SaiContactWidget extends com.simplicite.webapp.web.widgets.WidgetEx
 	public String content(Parameters params)
 	{
 		Grant g =Grant.getSystemAdmin();
-			
+		addSimpliciteClient();
+		appendJSInclude(HTMLTool.getResourceJSURL(getGrant(), "SaiTools"));
 		JSONObject settings = getSettings();
 		String mld = settings.optString("module");
 		String id = getContactId(mld,g);

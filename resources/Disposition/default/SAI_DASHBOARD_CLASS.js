@@ -9,13 +9,13 @@ let cards = $("<div/>").attr("id","saicontactdashboard-cards");
 // creating cards
 let gridContainer = $("<div/>").addClass("dashboard-card-container");
 
-/*const st = new SaiTools(
+const st = new SaiTools(
 	{
 		_authToken: $grant.authtoken
 	});
 
 let historyMetrics = st.getTokensHistory(moduleName);
-console.log(historyMetrics);*/
+console.log("historyMetrics",historyMetrics);
 
 let timeCard = $(`
 			<div class="dashboard-card util-card">
