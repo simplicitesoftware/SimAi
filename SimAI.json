@@ -3288,6 +3288,29 @@
     },
     {
      "object": "ObjectExternal",
+     "userkey": "SaiModulesApi",
+     "item": {
+      "obe_name": "SaiModulesApi",
+      "obe_type": "E",
+      "obe_nature": "com_simplicite_webapp_services_RESTServiceExternalObject",
+      "obe_url": null,
+      "obe_settings": null,
+      "obe_comment": null,
+      "obe_help": null,
+      "obe_class": null,
+      "obe_script_id": {
+       "path": "src/com/simplicite/extobjects/SimAI/SaiModulesApi.java",
+       "mime": "text/plain",
+       "name": "SaiUndoApi.java"
+      },
+      "obe_icon": null,
+      "obe_permalink": null,
+      "obe_widget": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ObjectExternal",
      "userkey": "SaiNewModuleFront",
      "item": {
       "obe_name": "SaiNewModuleFront",
@@ -3305,29 +3328,6 @@
       },
       "obe_icon": null,
       "obe_permalink": "/update-my-module",
-      "obe_widget": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "ObjectExternal",
-     "userkey": "SaiUndoApi",
-     "item": {
-      "obe_name": "SaiUndoApi",
-      "obe_type": "E",
-      "obe_nature": "com_simplicite_webapp_services_RESTServiceExternalObject",
-      "obe_url": null,
-      "obe_settings": null,
-      "obe_comment": null,
-      "obe_help": null,
-      "obe_class": null,
-      "obe_script_id": {
-       "path": "src/com/simplicite/extobjects/SimAI/SaiUndoApi.java",
-       "mime": "text/plain",
-       "name": "SaiUndoApi.java"
-      },
-      "obe_icon": null,
-      "obe_permalink": null,
       "obe_widget": null,
       "row_module_id__mdl_name": "SimAI"
      }
@@ -6595,13 +6595,13 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "ObjectExternal(SaiUndoApi)~ENU",
+     "userkey": "ObjectExternal(SaiModulesApi)~ENU",
      "item": {
       "tsl_object": {
-       "item": {"obe_name": "SaiUndoApi"},
+       "item": {"obe_name": "SaiModulesApi"},
        "icon": "img/system/external_object",
        "label": "External object",
-       "userkeylabel": "SaiUndoApi",
+       "userkeylabel": "SaiModulesApi",
        "object": "ObjectExternal"
       },
       "tsl_lang": "ENU",
@@ -6613,13 +6613,13 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "ObjectExternal(SaiUndoApi)~FRA",
+     "userkey": "ObjectExternal(SaiModulesApi)~FRA",
      "item": {
       "tsl_object": {
-       "item": {"obe_name": "SaiUndoApi"},
+       "item": {"obe_name": "SaiModulesApi"},
        "icon": "img/system/external_object",
        "label": "External object",
-       "userkeylabel": "SaiUndoApi",
+       "userkeylabel": "SaiModulesApi",
        "object": "ObjectExternal"
       },
       "tsl_lang": "FRA",
@@ -7193,14 +7193,14 @@
     },
     {
      "object": "Permission",
-     "userkey": "SAI_CNT_GROUP~ObjectExternal(SaiUndoApi)~",
+     "userkey": "SAI_CNT_GROUP~ObjectExternal(SaiModulesApi)~",
      "item": {
       "prm_group_id__grp_name": "SAI_CNT_GROUP",
       "prm_object": {
-       "item": {"obe_name": "SaiUndoApi"},
+       "item": {"obe_name": "SaiModulesApi"},
        "icon": "img/system/external_object",
        "label": "External object",
-       "userkeylabel": "SaiUndoApi",
+       "userkeylabel": "SaiModulesApi",
        "object": "ObjectExternal"
       },
       "prm_perm": true,

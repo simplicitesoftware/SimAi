@@ -14,9 +14,9 @@ import com.simplicite.util.annotations.RESTServiceOperation;
 import com.simplicite.commons.SimAI.SaiTool;
 
 /**
- * REST service external object SaiUndoApi
+ * REST service external object SaiModulesApi
  */
-public class SaiUndoApi extends com.simplicite.webapp.services.RESTServiceExternalObject {
+public class SaiModulesApi extends com.simplicite.webapp.services.RESTServiceExternalObject {
 	private static final long serialVersionUID = 1L;
 
 	/*@Override
