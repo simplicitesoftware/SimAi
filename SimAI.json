@@ -6953,6 +6953,32 @@
     },
     {
      "object": "Permission",
+     "userkey": "DESIGNER~Field(Home page)~Field(Visible)",
+     "item": {
+      "prm_group_id__grp_name": "DESIGNER",
+      "prm_object": {
+       "item": {"fld_name": "saiCntViewhomeId"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "Home page",
+       "object": "Field"
+      },
+      "prm_perm": null,
+      "prm_upd": null,
+      "prm_req": null,
+      "prm_prop": {
+       "item": {"fld_name": "fld_visible"},
+       "icon": "img/system/field",
+       "label": "Field",
+       "userkeylabel": "Visible",
+       "object": "Field"
+      },
+      "prm_value": "2",
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Permission",
      "userkey": "DESIGNER~ObjectFieldSystem(SaiContact saiCntModuleId 100)~Field(Field visibility)",
      "item": {
       "prm_group_id__grp_name": "DESIGNER",

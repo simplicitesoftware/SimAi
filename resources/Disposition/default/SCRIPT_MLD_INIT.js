@@ -16,6 +16,7 @@
 		let obj = $grant.getTmpObject("SaiContact");
 		
 		obj.search((rows) => {
+			console.log("rows: ",rows);
 			let deleteDate = parseUTCDate(rows[0].saiCntDeletion);
 			let oId = rows[0].row_id;
 			
@@ -49,7 +50,7 @@
 			
 			let timerInterval = setInterval(updateTimer, 1000);
 			updateTimer();
-		});
+		},{saiCntViewhomeId__viw_name:$grant.scope.home});
 		
 		// customize UI here
 	
