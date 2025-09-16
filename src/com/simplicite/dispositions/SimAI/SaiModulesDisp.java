@@ -38,7 +38,6 @@ public class SaiModulesDisp extends Disposition {
 					// Ignore the permalink
 				}
 			}
-
 			ResponsivePage wp = new ResponsivePage(params.getRoot(), g.getWindowTitle(), g, dl);
 			wp.appendJSInclude(HTMLPage.getResourceJSURL(getGrant(), "SCRIPT_MLD_INIT"));
 			return wp.toString();

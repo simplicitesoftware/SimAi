@@ -136,7 +136,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        .text(`${$T("SAI_MODULE_SPEC")}`)
 	    );
 	    
-	    let subCtn = $("<div/>").attr("id", "sainewmodulefront_chatFooter");
+	    let subCtn = $("<div/>").attr("id", "sainewmodulefront_chatFooter").addClass("chatFooter");
 	
 	    subCtn.append('<div id="chatContainer"></div>');
 	    
@@ -1284,7 +1284,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async redirectToModule() {
-    	await app.SaiTools.callApi({}, "endTokensHistory");
+    	await this.SaiTools.callApi({}, "endTokensHistory");
     	
         let ctn = $("#sainewmodulefront");
         ctn.html("");

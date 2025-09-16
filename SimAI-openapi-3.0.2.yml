@@ -61,6 +61,29 @@ components:
         Management of commercial contact and module registration.
       type: object
       properties:
+        saiCntSended:
+          description: sended
+          type: boolean
+        saiCntViewhomeId__viw_name:
+          description: Home page Name
+          type: string
+          maxLength: 100
+        saiContactName:
+          description: Name
+          type: string
+          maxLength: 100
+        saiContactEmail:
+          description: Email
+          type: string
+          maxLength: 100
+        saiCntViewhomeId:
+          description: Home page
+          type: string
+          maxLength: 11
+        saiContactComment:
+          description: Comment
+          type: string
+          maxLength: 1000
         saiCntModuleId:
           description: Module
           type: string
@@ -72,26 +95,11 @@ components:
           description: Module name
           type: string
           maxLength: 100
-        saiCntSended:
-          description: sended
-          type: boolean
-        saiCntViewhomeId__viw_name:
-          description: Home page Name
-          type: string
-          maxLength: 100
         saiCntDeletion:
           description: Deletion
           type: string
           maxLength: 19
           example: yyyy-MM-dd HH:mm:ss
-        saiContactName:
-          description: Name
-          type: string
-          maxLength: 100
-        saiContactEmail:
-          description: Email
-          type: string
-          maxLength: 100
         row_id:
           description: Unique technical row ID
           type: string
@@ -100,14 +108,11 @@ components:
           description: Phone
           type: string
           maxLength: 100
-        saiCntViewhomeId:
-          description: Home page
+        saiCntNow:
+          description: Now
           type: string
-          maxLength: 11
-        saiContactComment:
-          description: Comment
-          type: string
-          maxLength: 1000
+          maxLength: 19
+          example: yyyy-MM-dd HH:mm:ss
     PlaceMapData:
       description: Places map data
       type: object
@@ -893,6 +898,12 @@ paths:
         in: query
         name: saiCntViewhomeId__viw_name
         description: Search filter for Home page Name
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: saiCntNow
+        description: Search filter for Now
         required: false
       tags:
       - SaiContact

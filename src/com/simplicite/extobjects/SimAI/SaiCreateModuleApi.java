@@ -722,9 +722,3 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
         return success("endTokensHistory: "+Tool.getCurrentDatetime());
     }
 }
-
-
-
-
-
-

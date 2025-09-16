@@ -129,6 +129,7 @@ Management of commercial contact and module registration.
 | `saiCntDeletion`                                             | datetime                                 |          |           |          | -                                                                                |
 | `saiCntViewhomeId` link to **`ViewHome`**                    | id                                       |          |           |          | -                                                                                |
 | _Ref. `saiCntViewhomeId.viw_name`_                           | _char(100)_                              |          |           |          | -                                                                                |
+| `saiCntNow`                                                  | datetime                                 |          |           |          | -                                                                                |
 
 `SaiContactDashboard` external object definition
 ------------------------------------------------
