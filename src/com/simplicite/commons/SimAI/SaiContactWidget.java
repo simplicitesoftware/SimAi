@@ -39,8 +39,9 @@ public class SaiContactWidget extends com.simplicite.webapp.web.widgets.WidgetEx
 		contentDiv += HTMLTool.cssBlock(dashboard_css);
 		
 		return contentDiv;
+
+		
 	}
-	
 	private String getContactId(String mld,Grant g){
 		try{
 			ObjectDB cnt =  g.getTmpObject("SaiContact");

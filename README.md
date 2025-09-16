@@ -142,6 +142,12 @@ Management of commercial contact and module registration.
 Custom endpoint, Interface with the AIBySimplicite process.
 
 
+`SaiEndOfTime` external object definition
+-----------------------------------------
+
+External page, redirect page when end time has been reached
+
+
 `SaiErrorPage` external object definition
 -----------------------------------------
 
@@ -152,5 +158,17 @@ External page, redirect page in case of technical error (such as inaccessible Mi
 ----------------------------------------------
 
 External page, module generation process.
+
+
+`SaiUndoApi` external object definition
+---------------------------------------
+
+
+
+
+`SaiUpdateModuleFront` external object definition
+-------------------------------------------------
+
+
 
 

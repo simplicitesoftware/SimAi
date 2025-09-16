@@ -9,7 +9,7 @@
 		$("#header .header .actions div:not(.logged-user) .btn-group").hide();
 		$("#header .header .actions .logged-scope").hide();
 		$("#header .header .actions .shortcuts-bar").hide();
-
+		console.log("Sai Disp loaded");
 		// customize UI here before home page
 	});
 
