@@ -43,6 +43,8 @@ public class SaiDisp extends Disposition {
 			ResponsivePage wp = new ResponsivePage(params.getRoot(), g.getWindowTitle(), g, dl);
 			AppLog.info("js url "+HTMLPage.getResourceJSURL(getGrant(), "SCRIPT_INIT"));
 			wp.appendJSInclude(HTMLPage.getResourceJSURL(getGrant(), "SCRIPT_INIT"));
+			wp.appendCSSInclude(HTMLPage.getResourceCSSURL(getGrant(), "SAI_STYLES"));
+			AppLog.info("css url "+HTMLPage.getResourceCSSURL(getGrant(), "SAI_STYLES"));
 			return wp.toString();
 		}
 		catch (Exception e) // Catch any exception

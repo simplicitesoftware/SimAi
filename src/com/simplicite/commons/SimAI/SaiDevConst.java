@@ -1,0 +1,290 @@
+package com.simplicite.commons.SimAI;
+
+
+import com.simplicite.util.Grant;
+/**
+ * Shared code SaiDevConst
+ */
+public class SaiDevConst implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+	private static final boolean TEST_WITHOUT_AI_CALL = Grant.getSystemAdmin().getBooleanParameter("SAI_TEST_INIB_AI_CALL");
+	public static boolean isWithoutAiDebug() {
+		return TEST_WITHOUT_AI_CALL;
+	}
+  public static String getDefaultDescModule(){
+    return """
+    Pour décrire ce module en utilisant un langage compréhensible par un non-technicien, nous allons imaginer un système de commande en ligne. Voici comment cela pourrait être expliqué :
+
+### Les Classes et leurs Attributs
+
+1. **Commande (Order)** :
+   - **Code de Commande (OrdCode)** : Un numéro unique pour chaque commande.
+   - **Code d'Utilisateur (UsrCode)** : Un numéro unique pour chaque utilisateur.
+   - **Identifiant de l'Utilisateur (OrdUser_id)** : Un identifiant pour l'utilisateur qui a passé la commande.
+   - **Date de la Commande (OrdEr_date)** : La date à laquelle la commande a été passée.
+   - **Montant Total de la Commande (OrdTotal_amount)** : Le montant total de la commande.
+   - **Statut de la Commande (OrdStatus)** : Le statut actuel de la commande (par exemple, en cours, expédié, annulé).
+
+2. **Produit (Product)** :
+   - **Code du Produit (ProCode)** : Un numéro unique pour chaque produit.
+   - **Nom du Produit (ProName)** : Le nom du produit.
+   - **Description du Produit (ProDescription)** : Une description du produit.
+   - **Prix du Produit (ProPrice)** : Le prix du produit.
+   - **Quantité en Stock (ProStock_count)** : La quantité de ce produit disponible en stock.
+
+3. **Utilisateur (User)** :
+   - **Code d'Utilisateur (UsrCode)** : Un numéro unique pour chaque utilisateur.
+   - **Nom d'Utilisateur (UsrUsername)** : Le nom d'utilisateur pour se connecter.
+   - **Adresse Email (UsrEmail)** : L'adresse email de l'utilisateur.
+   - **Mot de Passe (UsrPassword)** : Le mot de passe de l'utilisateur.
+   - **Adresse (UsrAddress)** : L'adresse de l'utilisateur.
+
+### Les Relations entre les Classes
+
+1. **Commande et Utilisateur** :
+   - Une commande est passée par un utilisateur. Un utilisateur peut passer plusieurs commandes (une commande est liée à un utilisateur, mais un utilisateur peut avoir plusieurs commandes).
+
+2. **Commande et Produit** :
+   - Une commande peut contenir plusieurs produits. Chaque produit dans la commande est lié à une commande spécifique.
+
+3. **Produit et Commande** :
+   - Une commande peut inclure plusieurs produits. Chaque produit dans la commande est lié à une commande spécifique.
+
+### Exemple Concret
+
+Imaginons que vous passez une commande sur un site de commerce en ligne :
+
+- **Commande** : Vous passez une commande avec un numéro unique (OrdCode), et cette commande est liée à votre compte utilisateur (UsrCode).
+- **Produit** : Vous ajoutez plusieurs articles à votre panier, chaque article ayant un code unique (ProCode), un nom (ProName), une description (ProDescription), un prix (ProPrice) et une quantité en stock (ProStock_count).
+- **Utilisateur** : Vous êtes identifié par votre code utilisateur (UsrCode), nom d'utilisateur (UsrUsername), adresse email (UsrEmail) et mot de passe (UsrPassword).
+
+En résumé, ce module décrit comment les commandes, les produits et les utilisateurs sont organisés et liés entre eux dans un système de commerce en ligne.
+    """;
+  }
+	public static String getFakeResponse() {
+		return """
+Here is the given JSON template with the UML class diagram for the order application extrapolated and completed with the data:
+```json
+{
+  "classes": [
+    {
+      "name": "User",
+      "trigram": "USR",
+      "bootstrapIcon": "person",
+      "en": "User",
+      "fr": "Utilisateur",
+      "comment": "Represents the application users",
+      "attributes": [
+        {
+          "name": "id",
+          "fr": "Identifiant",
+          "en": "Identifier",
+          "key": true,
+          "required": true,
+          "type": "Integer",
+          "isStatus": false,
+          "class": ""
+        },
+        {
+          "name": "username",
+          "fr": "Nom d'utilisateur",
+          "en": "Username",
+          "key": false,
+          "required": true,
+          "type": "Short text",
+          "isStatus": false,
+          "class": ""
+        },
+        {
+          "name": "email",
+          "fr": "Email",
+          "en": "Email",
+          "key": false,
+          "required": true,
+          "type": "Email",
+          "isStatus": false,
+          "class": ""
+        },
+        {
+          "name": "password",
+          "fr": "Mot de passe",
+          "en": "Password",
+          "key": false,
+          "required": true,
+          "type": "Password",
+          "isStatus": false,
+          "class": ""
+        },
+        {
+          "name": "address",
+          "fr": "Adresse",
+          "en": "Address",
+          "key": false,
+          "required": false,
+          "type": "Long text",
+          "isStatus": false,
+          "class": ""
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "trigram": "PRO",
+      "bootstrapIcon": "box",
+      "en": "Product",
+      "fr": "Produit",
+      "comment": "Represents the products available in the application",
+      "attributes": [
+        {
+          "name": "id",
+          "fr": "Identifiant",
+          "en": "Identifier",
+          "key": true,
+          "required": true,
+          "type": "Integer",
+          "isStatus": false,
+          "class": ""
+        },
+        {
+          "name": "name",
+          "fr": "Nom",
+          "en": "Name",
+          "key": false,
+          "required": true,
+          "type": "Short text",
+          "isStatus": false,
+          "class": ""
+        },
+        {
+          "name": "description",
+          "fr": "Description",
+          "en": "Description",
+          "key": false,
+          "required": false,
+          "type": "Long text",
+          "isStatus": false,
+          "class": ""
+        },
+        {
+          "name": "price",
+          "fr": "Prix",
+          "en": "Price",
+          "key": false,
+          "required": true,
+          "type": "Decimal",
+          "isStatus": false,
+          "class": ""
+        },
+        {
+          "name": "stock_count",
+          "fr": "Stock",
+          "en": "Stock count",
+          "key": false,
+          "required": true,
+          "type": "Integer",
+          "isStatus": false,
+          "class": ""
+        }
+      ]
+    },
+    {
+      "name": "Order",
+      "trigram": "ORD",
+      "bootstrapIcon": "shopping-cart",
+      "en": "Order",
+      "fr": "Commande",
+      "comment": "Represents the orders placed by users",
+      "attributes": [
+        {
+          "name": "id",
+          "fr": "Identifiant",
+          "en": "Identifier",
+          "key": true,
+          "required": true,
+          "type": "Integer",
+          "isStatus": false,
+          "class": ""
+        },
+        {
+          "name": "user_id",
+          "fr": "Utilisateur",
+          "en": "User",
+          "key": false,
+          "required": true,
+          "type": "Integer",
+          "isStatus": false,
+          "class": "User"
+        },
+        {
+          "name": "order_date",
+          "fr": "Date de commande",
+          "en": "Order date",
+          "key": false,
+          "required": true,
+          "type": "Date and time",
+          "isStatus": false,
+          "class": ""
+        },
+        {
+          "name": "total_amount",
+          "fr": "Montant total",
+          "en": "Total amount",
+          "key": false,
+          "required": true,
+          "type": "Decimal",
+          "isStatus": false,
+          "class": ""
+        },
+        {
+          "name": "status",
+          "fr": "Statut",
+          "en": "Status",
+          "key": false,
+          "required": true,
+          "type": "Enumeration",
+          "isStatus": false,
+          "Enumeration": {
+            "Values": [
+              {
+                "code": "P",
+                "en": "Pending",
+                "fr": "En attente",
+                "color": "orange"
+              },
+              {
+                "code": "S",
+                "en": "Shipped",
+                "fr": "Expédié",
+                "color": "green"
+              },
+              {
+                "code": "C",
+                "en": "Cancelled",
+                "fr": "Annulé",
+                "color": "red"
+              }
+            ]
+          },
+          "class": ""
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "class1": "User",
+      "class2": "Order",
+      "type": "OneToMany"
+    },
+    {
+      "class1": "Order",
+      "class2": "Product",
+      "type": "ManyToMany"
+    }
+  ]
+}
+```
+This JSON template represents the UML class diagram for the order application, with the classes, their attributes, relationships, and enumerations defined. The relationships between classes indicate that a user has many orders (OneToMany), and each order contains many products (ManyToMany). The enumeration for the order status has values "Pending" (P), "Shipped" (S), and "Cancelled" (C) with corresponding colors orange, green, and red.
+				""";
+	}
+}

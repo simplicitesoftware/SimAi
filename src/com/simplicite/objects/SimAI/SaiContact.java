@@ -2,10 +2,9 @@ package com.simplicite.objects.SimAI;
 
 import java.util.*;
 import com.simplicite.commons.SimAI.SaiMailTool;
+import com.simplicite.commons.SimAI.SaiTool;
 import com.simplicite.util.*;
-import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
-import java.io.*;
 
 
 import org.json.*;
@@ -54,6 +53,19 @@ public class SaiContact extends ObjectDB {
 		
 		return msgs;
 	}
+	public String saveModule(){
+		String mldName = getFieldValue("mdl_name");
+		String msg = ModuleDB.exportModule(Grant.getSystemAdmin(),mldName, "xml", false,false,false,false,false,null);
+		if(!Tool.isEmpty(msg) && Message.isError(msg))return msg;
+		return null;
+	}
+	public String reloadSaved(){
+		String mldName = getFieldValue("mdl_name");
+		String msg = ModuleDB.importModule(Grant.getSystemAdmin(),mldName, false,null);
+		if(!Tool.isEmpty(msg) && Message.isError(msg))return msg;
+		SystemTool.resetCache(Grant.getSystemAdmin(),true,true,true,true,0);
+		return javascript("window.location.reload();");
+	}
 	private void recreateHomeDispAndTheme(JSONArray save,Grant g){
 		for(int i = 0; i < save.length(); i++){
 			JSONObject item = save.getJSONObject(i);
@@ -74,7 +86,7 @@ public class SaiContact extends ObjectDB {
 	private JSONArray removeHomeDispAndTheme(String moduleId,Grant g){
 		JSONArray save = new JSONArray();
 		ObjectDB obj = g.getTmpObject("ViewHome");
-		String appMldId = ModuleDB.getModuleId("SimAiTmp",true);
+		String appMldId = SaiTool.DEFAULT_MODULE_ID;
 		synchronized(obj.getLock()){
 			obj.resetFilters();
 			obj.setFieldFilter("row_module_id",moduleId);
