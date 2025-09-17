@@ -168,6 +168,8 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
 
 		let res;
 		try {
+			params.module = this.moduleName;
+			console.log("params: ",params);
         	res = await this.SaiTools.callApi(params, "chat");
 		} catch (e) {
 			console.error("Timeout error ?\n"+e);
@@ -417,13 +419,15 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
                     '{"role":"user","content":[{"type":"text","text":"app de commande"}]}',
                     '{"role":"assistant","content":"Designing a UML (Unified Modeling Language) class diagram for an \\"app de commande\\" (order application) involves creating a visual representation of the classes, their attributes, methods, and relationships in an object-oriented application.\\nHere\'s a sample UML class diagram for an order application without function (method) descriptions, focusing on the relationships between classes.\\nClass: User\\n\\nattributes:\\nid (integer)\\nusername (string)\\nemail (string)\\npassword (string)\\naddress (string)\\n\\n\\n\\nClass: Product\\n\\nattributes:\\nid (integer)\\nname (string)\\ndescription (string)\\nprice (float)\\nstock_count (integer)\\n\\n\\n\\nClass: Order\\n\\nattributes:\\nid (integer)\\nuser_id (integer)\\norder_date (date)\\ntotal_amount (float)\\nstatus (string)\\n\\n\\n\\nRelationships:\\n\\nUser -> Order (1:N, Composition, A User has many Orders)\\nOrder -> Product (N:M, Association, An Order contains many Products and a Product can be in many Orders)\\n\\n\\nattributes:\\nquantity (integer)\\ndiscount (float)\\n\\n\\n\\nNotes:\\n\\nThe \\"User\\" class represents the application\'s users, having attributes like id, username, email, and address.\\nThe \\"Product\\" class represents the products available in the application, with attributes like id, name, description, price, and stock_count.\\nThe \\"Order\\" class represents the orders placed by users, involving user_id, order_date, total_amount, and status.\\nThe relationships between classes depict that a user has many orders (1:N), and each order contains many products (N:M).\\nIn the N:M association between Order and Product, an attribute called \\"quantity\\" signifies the number of a specific product in an order, and \\"discount\\", if any, offered on the product for the specific order.\\n\\nThis UML design does not include function descriptions, focusing solely on the classes, their attributes, and relationships."}',
                 ],
+				moduleName: this.moduleName
             };
         } else {
             let ctn = $("#saiupdatemodulefront");
             let historic = await this.SaiTools.getHistoric(ctn,this.initialDesc);
 			console.log("historic: ",historic);
             params = {
-                historic: historic
+                historic: historic,
+				moduleName: this.moduleName
             };
         }
         

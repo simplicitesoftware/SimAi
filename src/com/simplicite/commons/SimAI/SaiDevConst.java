@@ -2,6 +2,8 @@ package com.simplicite.commons.SimAI;
 
 
 import com.simplicite.util.Grant;
+
+import kong.unirest.core.json.JSONArray;
 /**
  * Shared code SaiDevConst
  */
@@ -11,6 +13,9 @@ public class SaiDevConst implements java.io.Serializable {
 	public static boolean isWithoutAiDebug() {
 		return TEST_WITHOUT_AI_CALL;
 	}
+  public static JSONArray getFakeUsage() {
+    return new JSONArray("[{\"completion_tokens\":382,\"prompt_tokens\":31,\"total_tokens\":413},{\"completion_tokens\":1285,\"prompt_tokens\":676,\"total_tokens\":1961},{\"completion_tokens\":991,\"prompt_tokens\":460,\"total_tokens\":1451}]");
+  }
   public static String getDefaultDescModule(){
     return """
     Pour décrire ce module en utilisant un langage compréhensible par un non-technicien, nous allons imaginer un système de commande en ligne. Voici comment cela pourrait être expliqué :

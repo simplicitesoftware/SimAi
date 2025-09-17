@@ -1284,8 +1284,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async redirectToModule() {
-    	await this.SaiTools.callApi({}, "endTokensHistory");
-    	
+    	await this.SaiTools.callApi({moduleName: this.moduleName}, "endTokensHistory");
         let ctn = $("#sainewmodulefront");
         ctn.html("");
         let res = await this.SaiTools.getRedirectScope();

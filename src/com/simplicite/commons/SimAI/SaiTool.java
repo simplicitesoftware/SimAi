@@ -18,6 +18,7 @@ public class SaiTool implements java.io.Serializable {
 	private static final Grant sysAdmin = Grant.getSystemAdmin();
 	public static final String DEFAULT_MODULE = "SimAiTmp";
 	public static final String DEFAULT_MODULE_ID = ModuleDB.getModuleId(DEFAULT_MODULE,true);
+	private static final String USAGE_CURRENT_PARAM = "SAI_CURRENT_USAGE";
 
 	public static String getDomainId(String moduleName,Grant g){
 		ObjectDB obj = g.getTmpObject("Domain");
@@ -110,6 +111,11 @@ public class SaiTool implements java.io.Serializable {
 		String moduleParam = g.getUserSystemParam("AI_CURRENT_MODULE_GEN");
 		if(Tool.isEmpty(moduleParam)) return null;
 		return new JSONObject(moduleParam).optString("moduleId");
+	}
+	public static String getCurrentModuleName(Grant g) {
+		String moduleId = getCurrentModuleId(g);
+		if(Tool.isEmpty(moduleId)) return null;
+		return ModuleDB.getModuleName(moduleId);
 	}
 	public static void createOrUpdateTranslation(String obj,String objId,String lang,String val, String moduleId,Grant g) throws GetException, UpdateException, ValidateException{
 		ObjectDB oTra = g.getTmpObject("Translate");
@@ -485,6 +491,21 @@ public class SaiTool implements java.io.Serializable {
 		return null;
 	}
 
-	
+	public static String getModuleUsageParamName(String moduleName) {
+		if (Tool.isEmpty(moduleName)) return USAGE_CURRENT_PARAM;
+		return "SAI_USAGE_"+moduleName.toUpperCase();
+	} 
+	public static void addTokensHistory(Grant g, String moduleName, JSONObject usage) {
+		//if empty modulename, is chat no module known so use current param
+		String paramName = getModuleUsageParamName(moduleName);
+		if(Tool.isEmpty(g.getUserSystemParam(paramName))){
+			AppLog.info("addTokensHistory: empty param");
+			return;
+		}
+		JSONObject usageJson = new JSONObject(g.getUserSystemParam(paramName));
+		usageJson.getJSONArray("tokens").put(usage);
+		g.setUserSystemParam(paramName, usageJson.toString(1), true);
+		
+	}
 	
 }
