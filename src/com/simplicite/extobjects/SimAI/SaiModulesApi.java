@@ -45,7 +45,7 @@ public class SaiModulesApi extends com.simplicite.webapp.services.RESTServiceExt
 					return undoRegnerate(uriParts.size()>1?uriParts.get(1):null,uriParts.size()>2?uriParts.get(2):null);
 				case "getTokensHistory":
                     return getTokensHistory(uriParts.size()>1?uriParts.get(1):null);
-					default:
+				default:
 					return badRequest("Invalid action");
 			}
 		}catch(Exception e){
@@ -70,10 +70,13 @@ public class SaiModulesApi extends com.simplicite.webapp.services.RESTServiceExt
 	}
 	@RESTServiceOperation(method = "get", path = "/getTokensHistory/{moduleName}", desc = "Get history for a module")
     public Object getTokensHistory(@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name", required = true, in="path") String moduleName) {
-    	
+    	AppLog.info("SaiModulesApi -> getTokensHistory("+moduleName+")");
 		JSONObject tmp = new JSONObject(getGrant().getUserSystemParam(SaiTool.getModuleUsageParamName(moduleName)));
-		if(SaiDevConst.isWithoutAiDebug())
+		AppLog.info("SaiModulesApi -> getTokensHistory() -> tmp is "+tmp);
+		if(SaiDevConst.isWithoutAiDebug()) {
 			tmp.put("tokens", SaiDevConst.getFakeUsage());
+			AppLog.info("SaiModulesApi -> getTokensHistory() -> isWithoutAiDebug -> tmp is "+tmp);
+    	}
         return success(tmp.toString());
     }
 	/**

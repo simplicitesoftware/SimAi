@@ -3,7 +3,8 @@ package com.simplicite.commons.SimAI;
 
 import com.simplicite.util.Grant;
 
-import kong.unirest.core.json.JSONArray;
+import org.json.JSONArray;
+
 /**
  * Shared code SaiDevConst
  */
