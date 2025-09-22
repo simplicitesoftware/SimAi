@@ -4,7 +4,6 @@ package com.simplicite.commons.SimAI;
 import com.simplicite.util.Grant;
 
 import org.json.JSONArray;
-
 /**
  * Shared code SaiDevConst
  */
@@ -65,6 +64,365 @@ Imaginons que vous passez une commande sur un site de commerce en ligne :
 - **Utilisateur** : Vous êtes identifié par votre code utilisateur (UsrCode), nom d'utilisateur (UsrUsername), adresse email (UsrEmail) et mot de passe (UsrPassword).
 
 En résumé, ce module décrit comment les commandes, les produits et les utilisateurs sont organisés et liés entre eux dans un système de commerce en ligne.
+    """;
+  }
+  public static String getFakejsonUpdateResponse() {
+    return """
+    {
+      "classes": [
+        {
+          "name": "User",
+          "action": "update",
+          "trigram": "usr",
+          "bootstrapIcon": "user",
+          "en": "User",
+          "fr": "Utilisateur",
+          "comment": "Represents the application users",
+          "attributes": [
+            {
+              "name": "UsrCode",
+              "fr": "Code utilisateur",
+              "en": "User Code",
+              "key": true,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "UsrUserID",
+              "fr": "Identifiant utilisateur",
+              "en": "User ID",
+              "key": true,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "UsrUsername",
+              "fr": "Nom d'utilisateur",
+              "en": "Username",
+              "key": false,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "UsrEmail",
+              "fr": "Adresse email",
+              "en": "Email",
+              "key": false,
+              "required": true,
+              "type": "Email"
+            },
+            {
+              "name": "UsrAddress",
+              "fr": "Adresse",
+              "en": "Address",
+              "key": false,
+              "required": false,
+              "type": "Long text"
+            },
+            {
+              "name": "UsrPassword",
+              "fr": "Mot de passe",
+              "en": "Password",
+              "key": false,
+              "required": true,
+              "type": "Password"
+            }
+          ]
+        },
+        {
+          "name": "Order",
+          "action": "update",
+          "trigram": "ord",
+          "bootstrapIcon": "shopping-cart",
+          "en": "Order",
+          "fr": "Commande",
+          "comment": "Represents the orders placed by users",
+          "attributes": [
+            {
+              "name": "OrdCode",
+              "fr": "Code commande",
+              "en": "Order Code",
+              "key": true,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "UsrCode",
+              "fr": "Code utilisateur",
+              "en": "User Code",
+              "key": true,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "UsrUserID",
+              "fr": "Identifiant utilisateur",
+              "en": "User ID",
+              "key": true,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "OrdErID",
+              "fr": "Identifiant commande",
+              "en": "Order ID",
+              "key": true,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "OrdUser_id",
+              "fr": "Identifiant utilisateur pour la commande",
+              "en": "Order User ID",
+              "key": false,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "OrdUserID",
+              "fr": "Identifiant utilisateur pour la commande",
+              "en": "Order User ID",
+              "key": false,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "OrdEr_date",
+              "fr": "Date de la commande",
+              "en": "Order Date",
+              "key": false,
+              "required": true,
+              "type": "Date and time"
+            },
+            {
+              "name": "OrdErDate",
+              "fr": "Date de la commande",
+              "en": "Order Date",
+              "key": false,
+              "required": true,
+              "type": "Date and time"
+            },
+            {
+              "name": "OrdTotal_amount",
+              "fr": "Montant total de la commande",
+              "en": "Total Amount",
+              "key": false,
+              "required": true,
+              "type": "Decimal"
+            },
+            {
+              "name": "OrdTotalAmount",
+              "fr": "Montant total de la commande",
+              "en": "Total Amount",
+              "key": false,
+              "required": true,
+              "type": "Decimal"
+            },
+            {
+              "name": "OrdStatus",
+              "fr": "Statut de la commande",
+              "en": "Status",
+              "key": false,
+              "required": true,
+              "type": "Enumeration",
+              "Enumeration": {
+                "Values": [
+                  {
+                    "code": "pending",
+                    "en": "Pending",
+                    "fr": "En attente",
+                    "color": "orange"
+                  },
+                  {
+                    "code": "shipped",
+                    "en": "Shipped",
+                    "fr": "Expédié",
+                    "color": "green"
+                  },
+                  {
+                    "code": "delivered",
+                    "en": "Delivered",
+                    "fr": "Livré",
+                    "color": "blue"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "OrderProduct",
+          "action": "update",
+          "trigram": "op",
+          "bootstrapIcon": "cart-plus",
+          "en": "OrderProduct",
+          "fr": "Produit Commande",
+          "comment": "Represents the link between an order and a product",
+          "attributes": [
+            {
+              "name": "OpCode",
+              "fr": "Code produit commande",
+              "en": "Order Product Code",
+              "key": true,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "OrdCode",
+              "fr": "Code commande",
+              "en": "Order Code",
+              "key": true,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "OrdErID",
+              "fr": "Identifiant commande",
+              "en": "Order ID",
+              "key": true,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "OpOrderID",
+              "fr": "Identifiant commande pour le produit",
+              "en": "Order ID",
+              "key": false,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "OpProductID",
+              "fr": "Identifiant produit",
+              "en": "Product ID",
+              "key": false,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "OpQuantity",
+              "fr": "Quantité du produit commandée",
+              "en": "Quantity",
+              "key": false,
+              "required": true,
+              "type": "Integer"
+            }
+          ]
+        },
+        {
+          "name": "Product",
+          "action": "update",
+          "trigram": "pro",
+          "bootstrapIcon": "box",
+          "en": "Product",
+          "fr": "Produit",
+          "comment": "Represents the products available in the application",
+          "attributes": [
+            {
+              "name": "ProCode",
+              "fr": "Code produit",
+              "en": "Product Code",
+              "key": true,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "OpCode",
+              "fr": "Code produit commande",
+              "en": "Order Product Code",
+              "key": true,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "ProDuctID",
+              "fr": "Identifiant produit",
+              "en": "Product ID",
+              "key": true,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "ProName",
+              "fr": "Nom du produit",
+              "en": "Product Name",
+              "key": false,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "ProDuctName",
+              "fr": "Nom du produit",
+              "en": "Product Name",
+              "key": false,
+              "required": true,
+              "type": "Short text"
+            },
+            {
+              "name": "ProDescription",
+              "fr": "Description du produit",
+              "en": "Product Description",
+              "key": false,
+              "required": false,
+              "type": "Long text"
+            },
+            {
+              "name": "ProStock_count",
+              "fr": "Quantité en stock",
+              "en": "Stock Count",
+              "key": false,
+              "required": true,
+              "type": "Integer"
+            },
+            {
+              "name": "ProStockCount",
+              "fr": "Quantité en stock",
+              "en": "Stock Count",
+              "key": false,
+              "required": true,
+              "type": "Integer"
+            },
+            {
+              "name": "ProPrice",
+              "fr": "Prix du produit",
+              "en": "Price",
+              "key": false,
+              "required": true,
+              "type": "Decimal"
+            }
+          ]
+        }
+      ],
+        "relationships": [
+          {
+            "class1": "User",
+            "class2": "Order",
+            "type": "ManyToOne",
+            "action": "update"
+          },
+          {
+            "class1": "Order",
+            "class2": "OrderProduct",
+            "type": "ManyToOne",
+            "action": "update"
+          },
+          {
+            "class1": "Product",
+            "class2": "OrderProduct",
+            "type": "ManyToOne",
+            "action": "update"
+          },
+          {
+            "class1": "OrderProduct",
+            "class2": "Product",
+            "type": "ManyToOne",
+            "action": "update"
+          }
+        ],
+        "objectToDelete": [
+          "Favoris"
+        ]
+      }
     """;
   }
 	public static String getFakeResponse() {
@@ -274,6 +632,38 @@ Here is the given JSON template with the UML class diagram for the order applica
           "class": ""
         }
       ]
+    },
+    {
+      "name": "Favoris",
+      "trigram": "FRV",
+      "bootstrapIcon": "heart",
+      "en": "Favorite",
+      "fr": "Favoris",
+      "comment": "Représente un produit ajouté aux favoris par un utilisateur.",
+      "attributes": [
+          {
+              "name": "FavoriteId",
+              "fr": "Identifiant du favori",
+              "en": "Favorite ID",
+              "key": true,
+              "required": true,
+              "type": "Integer"
+          },
+          {
+              "name": "UserId",
+              "fr": "Identifiant de l'utilisateur",
+              "en": "User ID",
+              "required": true,
+              "type": "Integer"
+          },
+          {
+              "name": "ProductId",
+              "fr": "Identifiant du produit",
+              "en": "Product ID",
+              "required": true,
+              "type": "Integer"
+          }
+      ]
     }
   ],
   "relationships": [
@@ -286,6 +676,16 @@ Here is the given JSON template with the UML class diagram for the order applica
       "class1": "Order",
       "class2": "Product",
       "type": "ManyToMany"
+    },
+    {
+        "class1": "User",
+        "class2": "Favoris",
+        "type": "OneToMany"
+    },
+    {
+        "class1": "Favoris",
+        "class2": "Product",
+        "type": "ManyToOne"
     }
   ]
 }

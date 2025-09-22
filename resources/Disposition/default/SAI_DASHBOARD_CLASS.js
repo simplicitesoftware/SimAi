@@ -192,13 +192,3 @@ function calculateCO2(data) {
 
 
 
-
-
-
-
-
-
-
-
-
-

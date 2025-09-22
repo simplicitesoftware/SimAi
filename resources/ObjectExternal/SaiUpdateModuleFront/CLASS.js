@@ -398,7 +398,6 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
 	    dialog.find("#chatContainer").append(
 	        AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE_UPDATE")}`)
 	    );
-		console.log("moduleDesc: "+moduleDesc);
 		let mdModuleDesc = $view.markdownToHTML(moduleDesc).html();
 		dialog.find("#chatContainer").append(
 	        AiJsTools.getDisplayBotMessage(`${mdModuleDesc}`)
@@ -408,7 +407,6 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
 		let params = {};
 		params.moduleName = this.moduleName;
 		let res = await this.SaiTools.callApi(params, "initUpdateModule");
-		console.log("initUpdateModule: ",res);
 		this.generateUpdateModule(app);
 	}
 	async generateUpdateModule(app) {
@@ -435,17 +433,8 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
         this.SaiTools.replaceLoader($T("SAI_LOADER_MODULE_GEN"));
         
         try {
-			let res;
-			if(testWithoutAiCall) {
-				res = [
-					"D'accord, je vais vous fournir un modèle UML en JSON pour une application qui inclut les classes `Commande`, `Article de Commande`, `Produit`, `Utilisateur` et `Favoris`. Voici le modèle complet en utilisant le template JSON fourni :\n\n\n",
-					"{\n    \"classes\": [\n        {\n            \"name\": \"Commande\",\n            \"trigram\": \"CMD\",\n            \"bootstrapIcon\": \"shopping-cart\",\n            \"en\": \"Order\",\n            \"fr\": \"Commande\",\n            \"comment\": \"Représente une commande passée par un utilisateur.\",\n            \"attributes\": [\n                {\n                    \"name\": \"OrderId\",\n                    \"fr\": \"Identifiant de commande\",\n                    \"en\": \"Order ID\",\n                    \"key\": true,\n                    \"required\": true,\n                    \"type\": \"Integer\"\n                },\n                {\n                    \"name\": \"OrderDate\",\n                    \"fr\": \"Date de la commande\",\n                    \"en\": \"Order Date\",\n                    \"required\": true,\n                    \"type\": \"Date and time\"\n                },\n                {\n                    \"name\": \"OrderStatus\",\n                    \"fr\": \"Statut de la commande\",\n                    \"en\": \"Order Status\",\n                    \"required\": true,\n                    \"type\": \"Enumeration\",\n                    \"Enumeration\": {\n                        \"Values\": [\n                            {\n                                \"code\": \"PENDING\",\n                                \"en\": \"Pending\",\n                                \"fr\": \"En attente\",\n                                \"color\": \"orange\"\n                            },\n                            {\n                                \"code\": \"SHIPPED\",\n                                \"en\": \"Shipped\",\n                                \"fr\": \"Expédié\",\n                                \"color\": \"green\"\n                            },\n                            {\n                                \"code\": \"CANCELLED\",\n                                \"en\": \"Cancelled\",\n                                \"fr\": \"Annulé\",\n                                \"color\": \"red\"\n                            }\n                        ]\n                    }\n                }\n            ]\n        },\n        {\n            \"name\": \"Article de Commande\",\n            \"trigram\": \"OIT\",\n            \"bootstrapIcon\": \"cart-plus\",\n            \"en\": \"OrderItem\",\n            \"fr\": \"Article de Commande\",\n            \"comment\": \"Représente un article dans une commande.\",\n            \"attributes\": [\n                {\n                    \"name\": \"OrderItemId\",\n                    \"fr\": \"Identifiant de l'article de commande\",\n                    \"en\": \"Order Item ID\",\n                    \"key\": true,\n                    \"required\": true,\n                    \"type\": \"Integer\"\n                },\n                {\n                    \"name\": \"Quantity\",\n                    \"fr\": \"Quantité\",\n                    \"en\": \"Quantity\",\n                    \"required\": true,\n                    \"type\": \"Integer\"\n                },\n                {\n                    \"name\": \"Price\",\n                    \"fr\": \"Prix\",\n                    \"en\": \"Price\",\n                    \"required\": true,\n                    \"type\": \"Decimal\"\n                }\n            ]\n        },\n        {\n            \"name\": \"Produit\",\n            \"trigram\": \"PRD\",\n            \"bootstrapIcon\": \"box\",\n            \"en\": \"Product\",\n            \"fr\": \"Produit\",\n            \"comment\": \"Représente un produit disponible à la vente.\",\n            \"attributes\": [\n                {\n                    \"name\": \"ProductId\",\n                    \"fr\": \"Identifiant du produit\",\n                    \"en\": \"Product ID\",\n                    \"key\": true,\n                    \"required\": true,\n                    \"type\": \"Integer\"\n                },\n                {\n                    \"name\": \"Name\",\n                    \"fr\": \"Nom\",\n                    \"en\": \"Name\",\n                    \"required\": true,\n                    \"type\": \"Short text\"\n                },\n                {\n                    \"name\": \"Description\",\n                    \"fr\": \"Description\",\n                    \"en\": \"Description\",\n                    \"required\": false,\n                    \"type\": \"Long text\"\n                },\n                {\n                    \"name\": \"Price\",\n                    \"fr\": \"Prix\",\n                    \"en\": \"Price\",\n                    \"required\": true,\n                    \"type\": \"Decimal\"\n                }\n            ]\n        },\n        {\n            \"name\": \"Utilisateur\",\n            \"trigram\": \"USR\",\n            \"bootstrapIcon\": \"user\",\n            \"en\": \"User\",\n            \"fr\": \"Utilisateur\",\n            \"comment\": \"Représente un utilisateur de l'application.\",\n            \"attributes\": [\n                {\n                    \"name\": \"UserId\",\n                    \"fr\": \"Identifiant de l'utilisateur\",\n                    \"en\": \"User ID\",\n                    \"key\": true,\n                    \"required\": true,\n                    \"type\": \"Integer\"\n                },\n                {\n                    \"name\": \"Username\",\n                    \"fr\": \"Nom d'utilisateur\",\n                    \"en\": \"Username\",\n                    \"required\": true,\n                    \"type\": \"Short text\"\n                },\n                {\n                    \"name\": \"Password\",\n                    \"fr\": \"Mot de passe\",\n                    \"en\": \"Password\",\n                    \"required\": true,\n                    \"type\": \"Password\"\n                },\n                {\n                    \"name\": \"Email\",\n                    \"fr\": \"Email\",\n                    \"en\": \"Email\",\n                    \"required\": true,\n                    \"type\": \"Email\"\n                }\n            ]\n        },\n        {\n            \"name\": \"Favoris\",\n            \"trigram\": \"FRV\",\n            \"bootstrapIcon\": \"heart\",\n            \"en\": \"Favorite\",\n            \"fr\": \"Favoris\",\n            \"comment\": \"Représente un produit ajouté aux favoris par un utilisateur.\",\n            \"attributes\": [\n                {\n                    \"name\": \"FavoriteId\",\n                    \"fr\": \"Identifiant du favori\",\n                    \"en\": \"Favorite ID\",\n                    \"key\": true,\n                    \"required\": true,\n                    \"type\": \"Integer\"\n                },\n                {\n                    \"name\": \"UserId\",\n                    \"fr\": \"Identifiant de l'utilisateur\",\n                    \"en\": \"User ID\",\n                    \"required\": true,\n                    \"type\": \"Integer\"\n                },\n                {\n                    \"name\": \"ProductId\",\n                    \"fr\": \"Identifiant du produit\",\n                    \"en\": \"Product ID\",\n                    \"required\": true,\n                    \"type\": \"Integer\"\n                }\n            ]\n        }\n    ],\n    \"relationships\": [\n        {\n            \"class1\": \"Commande\",\n            \"class2\": \"Article de Commande\",\n            \"type\": \"OneToMany\"\n        },\n        {\n            \"class1\": \"Article de Commande\",\n            \"class2\": \"Produit\",\n            \"type\": \"ManyToOne\"\n        },\n        {\n            \"class1\": \"Commande\",\n            \"class2\": \"Utilisateur\",\n            \"type\": \"ManyToOne\"\n        },\n        {\n            \"class1\": \"Utilisateur\",\n            \"class2\": \"Favoris\",\n            \"type\": \"OneToMany\"\n        },\n        {\n            \"class1\": \"Favoris\",\n            \"class2\": \"Produit\",\n            \"type\": \"ManyToOne\"\n        }\n    ]\n}",
-					"\n\n\nCe modèle JSON décrit les classes et leurs attributs, ainsi que les relations entre elles. Chaque classe a des attributs spécifiques, et les relations entre les classes sont définies pour montrer comment elles interagissent. Vous pouvez utiliser ce modèle pour générer un diagramme UML ou pour implémenter une application en Java."
-				]
-			} else {
-				res = await this.SaiTools.callApi(params, "genUpdateJson");
-			}
-	
+			let res =await this.SaiTools.callApi(params, "genUpdateJson");
+			
 	        if (res?.error) {
 	            switch (res.error[0]) {
 	            	case 500:
@@ -617,28 +606,30 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
 	                action: "genUpdateObj",
 	                objName: obj,
 	            });
-	            mermaidText += "class " + mermaidObj.name + " {\n";
-	
-	            let objectFields = [];
-	            for (let field of mermaidObj.fields) {
-	                objectFields.push(field);
-	                mermaidText += "    " + field + "\n";
-	            }
-	
-	            console.log("Creating module object : " + obj + " -> " + objectFields);
-	
-	            this.moduleObjects.push({
-	                code: obj,
-	                fields: objectFields
-	            });
-	
-	            mermaidText += "}\n";
-	            console.log(mermaidText);
-	
-	            mermaid.render("mermaidImg", mermaidText).then((res) => {
-	                const svg = `data:image/svg+xml;base64,${$app.base64Encode(res.svg)}`;
-	                $("#saiupdatemodulefront").find("img").attr("src", svg);
-	            });
+				if(mermaidObj.name) {
+					mermaidText += "class " + mermaidObj.name + " {\n";
+		
+					let objectFields = [];
+					for (let field of mermaidObj.fields) {
+						objectFields.push(field);
+						mermaidText += "    " + field + "\n";
+					}
+		
+					console.log("Creating module object : " + obj + " -> " + objectFields);
+		
+					this.moduleObjects.push({
+						code: obj,
+						fields: objectFields
+					});
+		
+					mermaidText += "}\n";
+					
+		
+					mermaid.render("mermaidImg", mermaidText).then((res) => {
+						const svg = `data:image/svg+xml;base64,${$app.base64Encode(res.svg)}`;
+						$("#saiupdatemodulefront").find("img").attr("src", svg);
+					});
+				}
         	} catch (e) {
         		// supposely session's timeout
 	    		$view.widget.toast({
@@ -662,11 +653,9 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
 	            action: "genlinks"
 	        });
 	        
-	        console.log(links);
 	        for (let link of links.links) {
 	            mermaidText += "    " + link + "\n";
 	        }
-	        console.log(mermaidText);
 	        mermaid.render("mermaidImg", mermaidText).then((res) => {
 	            const svg = `data:image/svg+xml;base64,${$app.base64Encode(res.svg)}`;
 	            $("#saiupdatemodulefront").find("img").attr("src", svg);

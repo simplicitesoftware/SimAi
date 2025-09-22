@@ -70,13 +70,10 @@ public class SaiModulesApi extends com.simplicite.webapp.services.RESTServiceExt
 	}
 	@RESTServiceOperation(method = "get", path = "/getTokensHistory/{moduleName}", desc = "Get history for a module")
     public Object getTokensHistory(@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name", required = true, in="path") String moduleName) {
-    	AppLog.info("SaiModulesApi -> getTokensHistory("+moduleName+")");
+    	
 		JSONObject tmp = new JSONObject(getGrant().getUserSystemParam(SaiTool.getModuleUsageParamName(moduleName)));
-		AppLog.info("SaiModulesApi -> getTokensHistory() -> tmp is "+tmp);
-		if(SaiDevConst.isWithoutAiDebug()) {
+		if(SaiDevConst.isWithoutAiDebug())
 			tmp.put("tokens", SaiDevConst.getFakeUsage());
-			AppLog.info("SaiModulesApi -> getTokensHistory() -> isWithoutAiDebug -> tmp is "+tmp);
-    	}
         return success(tmp.toString());
     }
 	/**
