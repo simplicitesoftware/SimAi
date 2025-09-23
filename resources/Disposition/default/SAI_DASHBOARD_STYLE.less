@@ -25,7 +25,7 @@
 .warning-section {
     background-color: @dashboard-light-yellow;
     border-left: 3px solid @dashboard-yellow;
-    padding: 12px;
+    padding: 6px 12px;
     margin: 16px 0;
     color: @dashboard-text;
     
@@ -46,6 +46,7 @@
 	.dashboard-card-container {
 		display: flex;
 		flex-wrap: wrap;
+		justify-content: center;
 		row-gap: 32px;
 		width: 100%;
 		row-gap: 32px;
@@ -55,7 +56,7 @@
 			width: 400px;
 			height: 250px;
 			padding: 12px;
-			font-size: 16px;
+			font-size: 18px;
 			
 			border: solid 1px @dashboard-text;
 			color: @dashboard-text;
@@ -67,21 +68,28 @@
 			
 			transition: transform 0.3s ease, box-shadow 0.3s ease, background-size 0.3s ease;
 			
-			&:hover {
-				transform: scale(1.025);
-				background-size: 115%;
-			}
-			
-			
 			.dashboard-card-header {
 				font-size: 24px;
 				color: @dashboard-text-strong;
 				margin-bottom: 6px;
+				display: flex;
+				gap: 8px;
+				align-items: center;
+				transition: transform 0.3s ease, font-weight 0.3s ease;
 				
 				img {
 					width: 48px;
 					height: 48px;
 					padding: 8px;
+				}
+			}
+			
+			&:hover {
+				transform: scale(1.025);
+				
+				.dashboard-card-header {
+					transform: scale(1.075);
+					font-weight: bold;
 				}
 			}
 			

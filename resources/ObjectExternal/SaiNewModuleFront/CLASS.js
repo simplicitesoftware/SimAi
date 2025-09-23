@@ -916,8 +916,11 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             .addClass("simai-contextualHelp")
             .text(`${$T("SAI_DATA_GEN")}`)
         );
-
-        dialog.append(this.SaiTools.getModuleSummary());
+		
+        // dialog.append(this.SaiTools.getModuleSummary());
+        dialog.append(
+        	AiJsTools.getDisplayBotMessage(`${$T("SAI_MODULE_RECONNECT")}`)
+        );
 
         let interactiveBox = $("<div/>").addClass("simai-interactiveBox");
 

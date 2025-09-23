@@ -143,8 +143,8 @@ function calculateTokens(data) {
 
 function calculateCost(data) {
     // Mistral Medium 3 pricing (as of 2025 estimates)
-    const INPUT_PRICE_PER_1M = 0.34; // €
-    const OUTPUT_PRICE_PER_1M = 1.7; // €
+    const INPUT_PRICE_PER_1M = 0.13; // €
+    const OUTPUT_PRICE_PER_1M = 0.13; // €
     
     let totalPromptTokens = 0;
     let totalCompletionTokens = 0;
