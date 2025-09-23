@@ -142,7 +142,7 @@ function calculateTokens(data) {
 }
 
 function calculateCost(data) {
-    // Mistral Medium 3 pricing (as of 2025 estimates)
+    // Pixtral 12B pricing (official)
     const INPUT_PRICE_PER_1M = 0.13; // €
     const OUTPUT_PRICE_PER_1M = 0.13; // €
     
@@ -157,7 +157,10 @@ function calculateCost(data) {
     const inputCost = (totalPromptTokens / 1000000) * INPUT_PRICE_PER_1M;
     const outputCost = (totalCompletionTokens / 1000000) * OUTPUT_PRICE_PER_1M;
     
-    return parseFloat((inputCost + outputCost).toFixed(2));
+    let cost = parseFloat((inputCost + outputCost).toFixed(2));
+    if (cost == 0)
+    	cost = 0.01;
+    return cost;
 }
 
 function calculateEnergy(data) {
