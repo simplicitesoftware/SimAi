@@ -155,20 +155,23 @@ External page, redirect page when end time has been reached
 External page, redirect page in case of technical error (such as inaccessible Mistral API or missing token).
 
 
+`SaiModulesApi` external object definition
+------------------------------------------
+
+
+
+
 `SaiNewModuleFront` external object definition
 ----------------------------------------------
 
 External page, module generation process.
 
 
+
 `SaiUndoApi` external object definition
 ---------------------------------------
 
 
-
-
-`SaiUpdateModuleFront` external object definition
--------------------------------------------------
 
 
 

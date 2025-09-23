@@ -27,7 +27,8 @@ public class SaiUndoWidget extends com.simplicite.webapp.web.widgets.WidgetExter
 		String sessionJS = """
 			
 		function undoRegnerate(moduleName = "", extId = "",data = {}){
-			let externalObject = 'SaiUndoApi';
+
+			let externalObject = 'SaiModulesApi';
 			let app = simplicite.session({
 				 endpoint: 'ui',
 				 authtoken: data._authtoken, // set in Java
@@ -36,7 +37,8 @@ public class SaiUndoWidget extends com.simplicite.webapp.web.widgets.WidgetExter
 			});
 			console.log("undoRegnerate", moduleName, extId);
 			if(!moduleName || !extId) alert($T("SAI_ERR_MODULE_NAME_OR_EXT_ID"));
-			$view.showLoading();
+			$view.menu.menuMin();
+			$view.showLoading($("body"));
 			replaceLoader($T("SAI_LOADER_UNDO_REGNERATE"));
 			app.getExternalObject(externalObject).invoke(null,null,{'method':'GET','path':'undoRegnerate/' + moduleName + '/' + extId,'accept':'application/json'}).then(() => {
 				$view.hideLoading();
