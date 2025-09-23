@@ -26,13 +26,13 @@ public class SaiContactWidget extends com.simplicite.webapp.web.widgets.WidgetEx
 		String js = "$ui.displayForm($('#contact'),'SaiContact','"+id+"',null,null);";
  		
 		String contentDiv = "<div id='contact'></div>";
+
 		String dashboardDiv = "<div id='saicontactdashboard' class='card'></div>"; // inheriting the '.card' styles (border etc)
 		
 		String dashboard_js = HTMLTool.getResourceJSContent(getGrant(), "SAI_DASHBOARD_CLASS");
 		String dashboard_css = HTMLTool.getResourceCSSContent(getGrant(), "SAI_DASHBOARD_STYLE");
 		
 		contentDiv += HTMLTool.jsBlock(js);
-		
 		String moduleVar = "var moduleName = '"+ mld +"';"; // handle "already been created" ?
 		
 		contentDiv += dashboardDiv;

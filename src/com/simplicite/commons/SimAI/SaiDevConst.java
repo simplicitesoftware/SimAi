@@ -4,6 +4,7 @@ package com.simplicite.commons.SimAI;
 import com.simplicite.util.Grant;
 
 import org.json.JSONArray;
+
 /**
  * Shared code SaiDevConst
  */

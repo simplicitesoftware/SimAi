@@ -188,7 +188,3 @@ function calculateCO2(data) {
     
     return parseFloat(carbonEmissions.toFixed(2));
 }
-
-
-
-

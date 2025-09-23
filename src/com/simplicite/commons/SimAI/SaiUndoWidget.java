@@ -27,6 +27,7 @@ public class SaiUndoWidget extends com.simplicite.webapp.web.widgets.WidgetExter
 		String sessionJS = """
 			
 		function undoRegnerate(moduleName = "", extId = "",data = {}){
+
 			let externalObject = 'SaiModulesApi';
 			let app = simplicite.session({
 				 endpoint: 'ui',

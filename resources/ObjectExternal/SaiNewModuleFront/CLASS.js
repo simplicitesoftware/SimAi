@@ -112,7 +112,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async setChatInteraction() {
-    	await this.SaiTools.callApi({}, "initTokensHistory");
+    await this.SaiTools.callApi({}, "initTokensHistory");
+
     	
 	    this.currentState = "chatInteraction";
 	    let dialog = $("#sainewmodulefront_dialog").addClass("sai_front_dialog");
@@ -477,7 +478,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             		console.log("UNKNOWN ERROR : "+JSON.stringify(res.error));
             		this.SaiTools.redirectToErrorPage();
             		break;
-            		
             	// no default.
             }
             
@@ -916,7 +916,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             .addClass("simai-contextualHelp")
             .text(`${$T("SAI_DATA_GEN")}`)
         );
-		
         // dialog.append(this.SaiTools.getModuleSummary());
         dialog.append(
         	AiJsTools.getDisplayBotMessage(`${$T("SAI_MODULE_RECONNECT")}`)

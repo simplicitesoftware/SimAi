@@ -882,12 +882,13 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 				return "Short text";
 		}
 	}
+
 	private Object clearGlobalCache(JSONObject req) {
 		boolean isUpdate = req.optBoolean("isUpdate",false);
 		String moduleName = req.optString("moduleName","");
 		return clearGlobalCache(isUpdate,moduleName);
 	}
-	
+
 	@RESTServiceOperation(method = "post", path = "/clearCache", desc = "clear all cache")
 	public Object clearGlobalCache(@RESTServiceParam(name = "isUpdate", type = "boolean", desc = "Is update context for scope user", required = false, in="body") boolean isUpdate,
 		@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name", required = false, in="body") String moduleName){
@@ -930,5 +931,4 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		getGrant().setUserSystemParam(SaiTool.getModuleUsageParamName(moduleName), usage.toString(), true);
 		return success("endTokensHistory: "+moduleName);
 	}
-	
 }

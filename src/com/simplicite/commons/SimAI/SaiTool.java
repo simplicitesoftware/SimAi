@@ -491,6 +491,7 @@ public class SaiTool implements java.io.Serializable {
 		return null;
 	}
 
+
 	public static String getModuleUsageParamName(String moduleName) {
 		if (Tool.isEmpty(moduleName)) return USAGE_CURRENT_PARAM;
 		return "SAI_USAGE_"+moduleName.toUpperCase();
@@ -507,5 +508,6 @@ public class SaiTool implements java.io.Serializable {
 		g.setUserSystemParam(paramName, usageJson.toString(1), true);
 		
 	}
+
 	
 }

@@ -463,7 +463,6 @@ class  SaiTools {
 	// 	setToken,
 	// 	isModuleNameAvailable
 	// };
-	
 	async getTokensHistory(moduleName = ""){
 	    const response =this.app.getExternalObject(this.modulesApi).invoke(null,null,{'method':'GET','path':'getTokensHistory/' + moduleName,'accept':'application/json'});
 	    const res = await response;
