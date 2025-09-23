@@ -3200,25 +3200,6 @@
    "list": [
     {
      "object": "ObjectExternal",
-     "userkey": "SaiContactDashboard",
-     "item": {
-      "obe_name": "SaiContactDashboard",
-      "obe_type": "E",
-      "obe_nature": "com_simplicite_webapp_web_ResponsiveExternalObject",
-      "obe_url": null,
-      "obe_settings": null,
-      "obe_comment": null,
-      "obe_help": null,
-      "obe_class": "com.simplicite.webapp.web.ResponsiveExternalObject",
-      "obe_script_id": null,
-      "obe_icon": null,
-      "obe_permalink": null,
-      "obe_widget": true,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "ObjectExternal",
      "userkey": "SaiCreateModuleApi",
      "item": {
       "obe_name": "SaiCreateModuleApi",
@@ -6415,42 +6396,6 @@
    "list": [
     {
      "object": "TranslateExternal",
-     "userkey": "ObjectExternal(SaiContactDashboard)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"obe_name": "SaiContactDashboard"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiContactDashboard",
-       "object": "ObjectExternal"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "AI dashboard - Contact",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateExternal",
-     "userkey": "ObjectExternal(SaiContactDashboard)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"obe_name": "SaiContactDashboard"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiContactDashboard",
-       "object": "ObjectExternal"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Tableau de bord IA - Contact",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateExternal",
      "userkey": "ObjectExternal(SaiCreateModuleApi)~ENU",
      "item": {
       "tsl_object": {
@@ -6595,42 +6540,6 @@
     },
     {
      "object": "TranslateExternal",
-     "userkey": "ObjectExternal(SaiModulesApi)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"obe_name": "SaiModulesApi"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiModulesApi",
-       "object": "ObjectExternal"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "Undo api",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateExternal",
-     "userkey": "ObjectExternal(SaiModulesApi)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"obe_name": "SaiModulesApi"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiModulesApi",
-       "object": "ObjectExternal"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Undo api",
-      "tsl_plural_value": null,
-      "tsl_help": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateExternal",
      "userkey": "ObjectExternal(SaiUpdateModuleFront)~ENU",
      "item": {
       "tsl_object": {
@@ -6660,6 +6569,42 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Update module front",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "ObjectExternal(SaiModulesApi)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"obe_name": "SaiModulesApi"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiModulesApi",
+       "object": "ObjectExternal"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Undo api",
+      "tsl_plural_value": null,
+      "tsl_help": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateExternal",
+     "userkey": "ObjectExternal(SaiModulesApi)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"obe_name": "SaiModulesApi"},
+       "icon": "img/system/external_object",
+       "label": "External object",
+       "userkeylabel": "SaiModulesApi",
+       "object": "ObjectExternal"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Undo api",
       "tsl_plural_value": null,
       "tsl_help": null,
       "row_module_id__mdl_name": "SimAI"
@@ -7013,26 +6958,6 @@
     },
     {
      "object": "Permission",
-     "userkey": "SAI_ADMIN~ObjectExternal(SaiContactDashboard)~",
-     "item": {
-      "prm_group_id__grp_name": "SAI_ADMIN",
-      "prm_object": {
-       "item": {"obe_name": "SaiContactDashboard"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiContactDashboard",
-       "object": "ObjectExternal"
-      },
-      "prm_perm": true,
-      "prm_upd": false,
-      "prm_req": false,
-      "prm_prop": null,
-      "prm_value": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "Permission",
      "userkey": "SAI_ADMIN~ObjectExternal(SaiCreateModuleApi)~",
      "item": {
       "prm_group_id__grp_name": "SAI_ADMIN",
@@ -7173,26 +7098,6 @@
     },
     {
      "object": "Permission",
-     "userkey": "SAI_CNT_GROUP~ObjectExternal(SaiContactDashboard)~",
-     "item": {
-      "prm_group_id__grp_name": "SAI_CNT_GROUP",
-      "prm_object": {
-       "item": {"obe_name": "SaiContactDashboard"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiContactDashboard",
-       "object": "ObjectExternal"
-      },
-      "prm_perm": true,
-      "prm_upd": false,
-      "prm_req": false,
-      "prm_prop": null,
-      "prm_value": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "Permission",
      "userkey": "SAI_CNT_GROUP~ObjectExternal(SaiModulesApi)~",
      "item": {
       "prm_group_id__grp_name": "SAI_CNT_GROUP",
@@ -7221,26 +7126,6 @@
        "icon": "img/system/external_object",
        "label": "External object",
        "userkeylabel": "AIRestAPI",
-       "object": "ObjectExternal"
-      },
-      "prm_perm": true,
-      "prm_upd": false,
-      "prm_req": false,
-      "prm_prop": null,
-      "prm_value": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "Permission",
-     "userkey": "SAI_CREATE_MODULE~ObjectExternal(SaiContactDashboard)~",
-     "item": {
-      "prm_group_id__grp_name": "SAI_CREATE_MODULE",
-      "prm_object": {
-       "item": {"obe_name": "SaiContactDashboard"},
-       "icon": "img/system/external_object",
-       "label": "External object",
-       "userkeylabel": "SaiContactDashboard",
        "object": "ObjectExternal"
       },
       "prm_perm": true,

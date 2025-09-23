@@ -131,12 +131,6 @@ Management of commercial contact and module registration.
 | _Ref. `saiCntViewhomeId.viw_name`_                           | _char(100)_                              |          |           |          | -                                                                                |
 | `saiCntNow`                                                  | datetime                                 |          |           |          | -                                                                                |
 
-`SaiContactDashboard` external object definition
-------------------------------------------------
-
-
-
-
 `SaiCreateModuleApi` external object definition
 -----------------------------------------------
 
@@ -167,11 +161,8 @@ External page, redirect page in case of technical error (such as inaccessible Mi
 External page, module generation process.
 
 
-
-`SaiUndoApi` external object definition
----------------------------------------
-
-
+`SaiUpdateModuleFront` external object definition
+-------------------------------------------------
 
 
 
