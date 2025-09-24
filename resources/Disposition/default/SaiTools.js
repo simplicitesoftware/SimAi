@@ -394,6 +394,7 @@ class  SaiTools {
 	async getRedirectScope(module = ""){
 		const response = this.app.getExternalObject(this.externalObject).invoke(null,null,{'method':'GET','path':'getRedirectScope' + (module ? '/' + module : ''),'accept':'application/json'});
 		const res = await response;
+		console.log("SaiTools.getRedirectScope -> "+JSON.stringify(res));
 		return res;
 	}
 	async  isPostClearCache(){

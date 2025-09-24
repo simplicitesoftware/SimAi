@@ -397,8 +397,10 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
 	    
 	    genButton.addClass("simai-safe-navigation").on("click", () => this.initUpdateModule(this));
 	    backButton.addClass("simai-safe-navigation").on("click", () => {
-	    	this.SaiTools.getRedirectScope(this.moduleName);
-	    });
+		    this.SaiTools.getRedirectScope(this.moduleName).then((scope) => {
+		        window.location.assign("?"+scope.redirect);
+		    });
+		});
 	    
 	    let updateActions = $("<div/>").addClass("simai-update-actions");
 	    	
