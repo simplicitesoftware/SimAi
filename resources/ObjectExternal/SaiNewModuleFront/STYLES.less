@@ -36,15 +36,13 @@
 	padding-top: 32px;
 }
 
-
-
 #sainewmodulefront_examples {
 	z-index: 1;
 	position: absolute;
-	left: -400px;
+	left: -250px;
 	top: 0;
 	width: 100%;
-	max-width: 400px;
+	max-width: 250px;
 	min-width: 200px;
 	height: 100%;
 	display: flex;
@@ -55,12 +53,16 @@
 	
 	.simai-example {
 	    width: 32px;
-	    height: 100%;
-	    max-height: 50px;
+	    display: flex;
+		flex-direction: column;
 	    background-color: @simAI-ExampleBackground1;
 	    border: solid 1px @simAI-BorderColor;
-	    transition: width 0.5s ease-in-out, max-height 0.5s ease-in-out;
+	    transition: background-color 0.5s ease-in-out, width 0.5s ease-in-out, max-height 0.5s ease-in-out;
 	    overflow: hidden;
+	    
+	    &.hinted {
+	    	background-color: @simAI-BorderColor;
+	    }
 	    
 	    &.collapsed {
 	        display: flex;
@@ -69,6 +71,7 @@
 	        align-items: center;
 	        width: 32px;
 	        opacity: 0.75;
+	        height: 50px;
 	        
 	        .simai-example-header {
 	            display: none;
@@ -80,9 +83,8 @@
 	    
 	    &.expanding {
 		    width: 100%;
-		    max-width: 400px;
+		    max-width: 250px;
 		    min-widht: 200px;
-		    max-height: 50px;
 		    
 		    .simai-example-header {
 		        display: flex;
@@ -93,15 +95,20 @@
 		    	display: none;
 		    }
 		    .simai-example-toggle {
-		        display: none;
+		        display: flex;
+		        flex-direction: column;
+		        justify-content: start;
+		        align-items: start;
+		        opacity: 0;  // Start with opacity 0 instead of display none
+		        max-height: 0;  // Keep it collapsed
+		        overflow: hidden;  // Hide content while collapsed
+		        transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out 0.2s;
 		    }
 		}
 		
 		&.expanded {
 		    width: 100%;
-		    max-width: 400px;
-		    min-widht: 200px;
-		    max-height: 250px;
+		    max-width: 250px;
 		    
 		    .simai-example-header {
 		        display: flex;
@@ -111,10 +118,19 @@
 		    	display: none;
 		    }
 		    .simai-example-toggle {
-		    	height: 100%;
-		        display: block;
+		        display: flex;
+		        flex-direction: column;
+		        justify-content: start;
+		        align-items: start;
 		        opacity: 1;
 		        transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out 0.2s;
+		        
+		        .example-actionbar {
+					width: 100%;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+				}
 		    }
 		}
 	    
@@ -168,10 +184,13 @@
 	}
 }
 
-// Responsive shit
-@media only screen and (max-width: 1430px) {
+@media only screen and (max-width: 1100px) { /* use better units ?! */
 	#sainewmodulefront {
 		padding-right: 64px !important;
 		justify-content: end !important;
 	}
-  }
+}
+
+
+
+

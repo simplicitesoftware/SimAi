@@ -104,9 +104,7 @@ Chat prompt examples
 |--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
 | `saiSaeTitle`                                                | char(50)                                 | yes*     | yes       |          | -                                                                                |
 | `saiSaeTitleEnglish`                                         | char(100)                                | yes*     | yes       |          | -                                                                                |
-| `saiSaeSummary`                                              | text(350)                                |          | yes       |          | -                                                                                |
 | `saiSaePrompt`                                               | text(1500)                               |          | yes       |          | -                                                                                |
-| `saiSaeSummaryEnglish`                                       | text(350)                                |          | yes       |          | -                                                                                |
 | `saiSaePromptEnglish`                                        | text(1500)                               |          | yes       |          | -                                                                                |
 
 `SaiContact` business object definition

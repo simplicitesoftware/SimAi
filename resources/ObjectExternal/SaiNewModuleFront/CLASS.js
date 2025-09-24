@@ -20,7 +20,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         });
         const app = this;
 
-        if (typeof AiJsTools !== 'undefined') console.log("AiJsTools loaded");
+        if (typeof AiJsTools !== 'undefined')
+        	console.log("AiJsTools loaded");
         else {
             console.log("AiJsTools not loaded, loading now...");
             await $ui.loadScript({
@@ -47,7 +48,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         		let dialog = $("<div/>").attr("id", "sainewmodulefront_dialog").addClass("sai_front_dialog");
         		$(front).append(dialog);
         		
-                app.setChatInteraction(); // trying to start directly on the chat !
+                app.setChatInteraction();
             } else {
                 app.genData();
             }
@@ -272,12 +273,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             });
         }
     }
-
-    
-    
-   
-    
-
     
     async speechToText() {
     	// TODO : inspire from the module process for this one
@@ -285,24 +280,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
     
     async exampleHint() {
-	    const examples = $("#sainewmodulefront_examples .simai-example");
-    
-	    if (examples.length > 0) {
-	        examples.each((index, example) => {
-	            const $example = $(example);
-	            
-	            // Start each example with a delay to create wave effect
-	            setTimeout(() => {
-	                // Trigger mouseenter to expand
-	                $example.trigger('mouseenter');
-	                
-	                // After 0.33 seconds, trigger mouseleave to collapse
-	                setTimeout(() => {
-	                    $example.trigger('mouseleave');
-	                }, 50);
-	            }, index * 50); // 120ms delay between each example
-	        });
-	    }
+	    // Shall redo it ...
     }
 
     async sendMessage() {
@@ -1293,18 +1271,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
         let redirect = res.redirect;
         window.location.href = "/ui?" + redirect;
     }
-
-    
-    
-    applyExamplePrompt(prompt) {
-	    return () => { // Return function to be used as event handler
-	        $("#message").val(prompt);
-	        
-	        this.SaiTools.autoResizeTextarea(document.getElementById('message'));
-	        
-	        $("#message").focus();
-	    };
-	}
 	
 	setButtonLoading(buttonSelector, isLoading, originalIcon = "fas fa-arrow-up") {
 	    const button = $(buttonSelector);
@@ -1350,17 +1316,15 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 				let example = $("<div/>").addClass("simai-example").addClass("collapsed");
 				
 				let lang = $grant.getLang();
-				let title, prompt, summary;
+				let title, prompt;
 				
 				if (lang==="FRA") {
 					title = ex.saiSaeTitle;
 					prompt = ex.saiSaePrompt;
-					summary = ex.saiSaeSummary;
 				} else {
 					// using english as default (only ENU or FRA tho)
 					title = ex.saiSaeTitleEnglish;
 					prompt = ex.saiSaePromptEnglish;
-					summary = ex.saiSaeSummaryEnglish;
 				}
 				
 				example.append(
@@ -1371,28 +1335,33 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 					.addClass("simai-example-header")
 					.append(
 						$("<div/>").addClass("example-title").text(title)
-					)
-					.append(
-						$("<button/>").addClass("actionButton-blue").addClass("simai-safe-navigation").text($T("SAI_USE_EXAMPLE")).on("click", this.applyExamplePrompt(prompt))
 					);
 				
 				let copyBtn = $("<button/>").addClass("example-copy")
-					.append(`<i class="fas fa-clipboard" title="${$T("SAI_TOOLTIP_COPY")}"></i>`)
-					.on("click", () => { navigator.clipboard.writeText(prompt); });
+					.append(`<i class="fas fa-eye" title="${$T("SAI_TOOLTIP_COPY")}"></i>`)
+					.on("click", () => { this.SaiTools.openPromptModal(title,prompt) }); /*navigator.clipboard.writeText(prompt);*/
+				
+				let actionBar = $("<div/>").addClass("example-actionbar");
+				
+				actionBar
+					.append(copyBtn)
+					.append(
+						$("<button/>").addClass("actionButton-blue").addClass("simai-safe-navigation").text($T("SAI_USE_EXAMPLE")).on("click", this.SaiTools.applyExamplePrompt(prompt))
+					);
 				
 				let toggledPart = $("<div/>")
 					.addClass("simai-example-toggle")
 					.addClass("untoggled")
-					.append(
-						$("<p/>")
-				            .append(copyBtn)
-				            .append(prompt)
-					);
+					.append(actionBar);
 				
 				example.append(mainPart).append(toggledPart);
 				
+				// Replace the animation part with this version:
+				let expandTimeout = null;
+				let actionBarTimeout = null;
 				let collapseTimeout = null;
-	
+				let isAnimating = false;
+				
 				example.on('mouseenter', () => {
 				    if (collapseTimeout) {
 				        clearTimeout(collapseTimeout);
@@ -1406,15 +1375,17 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 				            if (example.hasClass('expanding')) {
 				                example.removeClass('expanding').addClass('expanded');
 				            }
-				        }, 500);
+				        }, 300);
 				    }
 				});
 				
 				example.on('mouseleave', () => {
 				    collapseTimeout = setTimeout(() => {
-				        example.addClass('collapsed').removeClass('expanding expanded');
+				        if (!example.is(':hover')) {
+				            example.removeClass('expanding expanded').addClass('collapsed');
+				        }
 				        collapseTimeout = null;
-				    }, 200);
+				    }, 150);
 				});
 				
 				exampleList.append(example);
@@ -1712,4 +1683,5 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     		$("#sainewmodulefront_examples").css("display", "none");
     	}
     }
+	
 };

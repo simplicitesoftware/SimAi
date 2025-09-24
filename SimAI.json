@@ -313,6 +313,19 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_BACK_TO_APP~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_BACK_TO_APP",
+      "lov_lang": "ENU",
+      "lov_value": "Back to app",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_BOT_MESSAGE~ENU",
      "item": {
       "lov_name": "TEXT",
@@ -1067,6 +1080,19 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_PROMPT_TITLE~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_PROMPT_TITLE",
+      "lov_lang": "ENU",
+      "lov_value": "Here is an optimized prompt for an application of",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_REACHED_TIMEOUT~ENU",
      "item": {
       "lov_name": "TEXT",
@@ -1262,6 +1288,32 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_USE_PROMPT~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_USE_PROMPT",
+      "lov_lang": "ENU",
+      "lov_value": "Use this prompt",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_USR_MESSAGE~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_USR_MESSAGE",
+      "lov_lang": "ENU",
+      "lov_value": "Id like to modify my application prototype, could you recall me what's its actual structure ?",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_VALIDATE~ENU",
      "item": {
       "lov_name": "TEXT",
@@ -1281,6 +1333,19 @@
       "lov_code": "SAI_ASK_FOR_MODULE",
       "lov_lang": "FRA",
       "lov_value": "<p id=\"contact-anchor\">Vous trouverez ci-dessous le formulaire de contact.<\/p>\n<p>Remplissez et envoyez le nous afin d'obtenir une copie de votre application, ou si vous souhaitez plus amplement utiliser Simplicité 😉<\/p><br>",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_BACK_TO_APP~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_BACK_TO_APP",
+      "lov_lang": "FRA",
+      "lov_value": "Retourner sur l'app",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -2042,6 +2107,19 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_PROMPT_TITLE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_PROMPT_TITLE",
+      "lov_lang": "FRA",
+      "lov_value": "Voici un prompt optimisé pour une application de",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_REACHED_TIMEOUT~FRA",
      "item": {
       "lov_name": "TEXT",
@@ -2230,6 +2308,32 @@
       "lov_code": "SAI_USE_EXAMPLE",
       "lov_lang": "FRA",
       "lov_value": "Utiliser cet exemple",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_USE_PROMPT~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_USE_PROMPT",
+      "lov_lang": "FRA",
+      "lov_value": "Utiliser ce prompt",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_USR_MESSAGE~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_USR_MESSAGE",
+      "lov_lang": "FRA",
+      "lov_value": "Je voudrais modifier mon prototype d'application, peux-tu me rappeler sa structure actuelle ?",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -3140,7 +3244,7 @@
       "ofa_name": "SaiApplicationExample-1",
       "ofa_position": 1,
       "ofa_title": true,
-      "ofa_ui": "<div class=\"row\">\n  <div class=\"col-sm-2\">\n    <div class=\"field\" data-field=\"saiSaeTitle\"><\/div>\n    <div class=\"field\" data-field=\"saiSaeTitleEnglish\"><\/div>\n  <\/div>\n  <div class=\"col-sm-5\">\n    <div class=\"field\" data-field=\"saiSaeSummary\"><\/div>\n    <div class=\"field\" data-field=\"saiSaeSummaryEnglish\"><\/div>\n  <\/div>\n  <div class=\"col-sm-5\">\n    <div class=\"field\" data-field=\"saiSaePrompt\"><\/div>\n    <div class=\"field\" data-field=\"saiSaePromptEnglish\"><\/div>\n  <\/div>\n<\/div>",
+      "ofa_ui": "<div class=\"row\">\n  <div class=\"col-sm-6\">\n    <div class=\"row\">\n      <div class=\"col-sm-6\">\n        <div class=\"field\" data-field=\"saiSaeTitle\"><\/div>\n      <\/div>\n      <div class=\"col-sm-6\"><\/div>\n    <\/div>\n    <div class=\"field\" data-field=\"saiSaePrompt\"><\/div>\n  <\/div>\n  <div class=\"col-sm-6\">\n    <div class=\"row\">\n      <div class=\"col-sm-6\">\n        <div class=\"field\" data-field=\"saiSaeTitleEnglish\"><\/div>\n      <\/div>\n      <div class=\"col-sm-6\"><\/div>\n    <\/div>\n    <div class=\"field\" data-field=\"saiSaePromptEnglish\"><\/div>\n  <\/div>\n<\/div>",
       "ofa_icon": "star",
       "row_module_id__mdl_name": "SimAI"
      }
@@ -3588,81 +3692,11 @@
     },
     {
      "object": "ObjectFieldSystem",
-     "userkey": "SaiApplicationExample~saiSaeSummary~20",
-     "item": {
-      "obf_object_id__obo_name": "SaiApplicationExample",
-      "obf_field_id__fld_name": "saiSaeSummary",
-      "obf_order": 20,
-      "obf_group_by": null,
-      "obf_dfault_order": null,
-      "obf_input": null,
-      "obf_ref_field_id__fld_name": null,
-      "obf_ref_object_id__obo_name": null,
-      "obf_cascad": null,
-      "obf_card": null,
-      "obf_visible": null,
-      "obf_ref_export": true,
-      "obf_copy": null,
-      "obf_ref_order": null,
-      "obf_fld_visible": null,
-      "obf_fld_required": null,
-      "obf_fld_updatable": null,
-      "obf_fld_research": null,
-      "obf_fld_more": null,
-      "obf_fld_listmore": null,
-      "obf_fld_researchreq": null,
-      "obf_fld_dfault": null,
-      "obf_fld_exportable": null,
-      "obf_fld_uk": null,
-      "obf_area_id__ofa_name": "SaiApplicationExample-1",
-      "row_module_id__mdl_name": "SimAI",
-      "obf_joined_id__obf_object_id__obo_name": null,
-      "obf_joined_id__obf_field_id__fld_name": null,
-      "obf_joined_id__obf_order": null
-     }
-    },
-    {
-     "object": "ObjectFieldSystem",
      "userkey": "SaiApplicationExample~saiSaePrompt~30",
      "item": {
       "obf_object_id__obo_name": "SaiApplicationExample",
       "obf_field_id__fld_name": "saiSaePrompt",
       "obf_order": 30,
-      "obf_group_by": null,
-      "obf_dfault_order": null,
-      "obf_input": null,
-      "obf_ref_field_id__fld_name": null,
-      "obf_ref_object_id__obo_name": null,
-      "obf_cascad": null,
-      "obf_card": null,
-      "obf_visible": null,
-      "obf_ref_export": true,
-      "obf_copy": null,
-      "obf_ref_order": null,
-      "obf_fld_visible": null,
-      "obf_fld_required": null,
-      "obf_fld_updatable": null,
-      "obf_fld_research": null,
-      "obf_fld_more": null,
-      "obf_fld_listmore": null,
-      "obf_fld_researchreq": null,
-      "obf_fld_dfault": null,
-      "obf_fld_exportable": null,
-      "obf_fld_uk": null,
-      "obf_area_id__ofa_name": "SaiApplicationExample-1",
-      "row_module_id__mdl_name": "SimAI",
-      "obf_joined_id__obf_object_id__obo_name": null,
-      "obf_joined_id__obf_field_id__fld_name": null,
-      "obf_joined_id__obf_order": null
-     }
-    },
-    {
-     "object": "ObjectFieldSystem",
-     "userkey": "SaiApplicationExample~saiSaeSummaryEnglish~50",
-     "item": {
-      "obf_object_id__obo_name": "SaiApplicationExample",
-      "obf_field_id__fld_name": "saiSaeSummaryEnglish",
-      "obf_order": 50,
       "obf_group_by": null,
       "obf_dfault_order": null,
       "obf_input": null,

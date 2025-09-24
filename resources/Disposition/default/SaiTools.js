@@ -14,14 +14,15 @@ class  SaiTools {
 		this.chatUmlSpecialisation = "You help design uml for object-oriented applications. Without function and whith relation description. Respond with a text for no technical users" ;
 		
 	}
+	
 	getModuleSummary() { // Is this really useful ???
     	
         let summary = $("<div/>").attr("id", "simai-moduleSummary");
-
         summary.append($("<p/>").addClass("simai-reconnectWarning").text(`${$T("SAI_MODULE_RECONNECT")}`));
 
         return summary;
     }
+    
 	replaceLoader(msg = "") {
 		let loaderBody = $(".waitdlg .waitbody");
 		
@@ -29,30 +30,14 @@ class  SaiTools {
 		
 		let customLoader = $("<div/>").addClass("custom-loader");
 		customLoader
-			.append(
-				$("<div/>").addClass("custom-loader-line")
-			)
-			.append(
-				$("<div/>").addClass("custom-loader-line")
-			)
-			.append(
-				$("<div/>").addClass("custom-loader-line")
-			)
-			.append(
-				$("<div/>").addClass("custom-loader-line")
-			)
-			.append(
-				$("<div/>").addClass("custom-loader-line")
-			)
-			.append(
-				$("<div/>").addClass("custom-loader-line")
-			)
-			.append(
-				$("<div/>").addClass("custom-loader-line")
-			)
-			.append(
-				$("<div/>").addClass("custom-loader-line")
-			);
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") );
 		
 		let message = $("<div/>").addClass("custom-loader-text").text(msg);
 		
@@ -172,7 +157,7 @@ class  SaiTools {
 	        .html('<i class="fas fa-times"></i>')
 	        .on("click", () => modalOverlay.remove());
 	    
-	    let header = $("<h3/>").text( $T("SAI_HELP_MODAL_HEADER"));
+	    let header = $("<div/>").text( $T("SAI_HELP_MODAL_HEADER"));
 	    
 	    let content = $("<div/>").html($T("SAI_HELP_MODAL"));
 	    
@@ -208,6 +193,73 @@ class  SaiTools {
 	        }
 	    });
 	}
+	
+	applyExamplePrompt(prompt) {
+	    return () => { // Return function to be used as event handler
+	        $("#message").val(prompt);
+	        
+	        this.SaiTools.autoResizeTextarea(document.getElementById('message'));
+	        
+	        $("#message").focus();
+	    };
+	}
+	
+	openPromptModal(title, prompt) {
+    	$("#simai-promptmodal").remove();
+	    
+	    let modalOverlay = $("<div/>")
+	        .attr("id", "simai-promptmodal")
+	        .css({
+	            position: "fixed",
+	            top: 0,
+	            left: 0,
+	            width: "100%",
+	            height: "100%",
+	            backgroundColor: "rgba(0, 0, 0, 0.7)",
+	            zIndex: 1000,
+	            display: "flex",
+	            justifyContent: "center",
+	            alignItems: "center"
+	        });
+	        
+	    let modal = $("<div/>").addClass("simai-prompt-modal");
+	    
+	    let modalHeader = $("<div/>").addClass("simai-promptmodal-header");
+	    let modalBody = $("<div/>").addClass("simai-promptmodal-body");
+	    let modalFooter = $("<div/>").addClass("simai-promptmodal-footer");
+	    
+	    modalHeader
+	    	.append( $("<div/>").text($T("SAI_PROMPT_TITLE")) )
+	    	.append( $("<h3/>").text(title) );
+	    	
+	    modalBody.append( $("<div/>").text("\" "+prompt+" \"") );
+	    
+	    modalFooter.append( $("<button/>").addClass("actionButton-blue").text(`${$T("SAI_USE_PROMPT")}`).on("click", this.applyExamplePrompt(prompt)) );
+	    
+	    modal
+	        .append(modalHeader)
+	        .append(modalBody)
+	        .append(modalFooter);
+	    
+	    modalOverlay.append(modal);
+	    
+	    $("body").append(modalOverlay);
+	    
+	    modalOverlay.on("click", (e) => {
+	        if (e.target === modalOverlay[0]) {
+	            modalOverlay.remove();
+	        }
+	    });
+	    
+	    $(document).on("keydown.promptmodal", (e) => {
+	        if (e.key === "Escape") {
+	            modalOverlay.remove();
+	            $(document).off("keydown.promptmodal");
+	        }
+	    });
+    }
+    
+    
 	async takePicture() {
 	    this.setButtonLoading("#takePicture", true, "fas fa-cog");
 	    $("#addImage").addClass("simai-disabledButton");
@@ -230,7 +282,6 @@ class  SaiTools {
 	        ]);
 	        
 	        if (image_base64) {
-	            console.log("-> IMAGE_BASE64");
 	            $("#input-img img").attr("src", image_base64);
 	            $("#input-img").show();
 	            $("#input-img").css("display", "block");
@@ -240,8 +291,6 @@ class  SaiTools {
 	        }
 	        
 	    } catch (e) {
-	        console.log("CATCH", e.message);
-	        
 	        if (e.message === 'CAMERA_TIMEOUT') {
 	            console.log("Camera dialog was likely closed by user");
 	        } else {
@@ -343,7 +392,7 @@ class  SaiTools {
 		return res;
 	}
 	async getRedirectScope(module = ""){
-		const response =this.app.getExternalObject(this.externalObject).invoke(null,null,{'method':'GET','path':'getRedirectScope' + (module ? '/' + module : ''),'accept':'application/json'});
+		const response = this.app.getExternalObject(this.externalObject).invoke(null,null,{'method':'GET','path':'getRedirectScope' + (module ? '/' + module : ''),'accept':'application/json'});
 		const res = await response;
 		return res;
 	}

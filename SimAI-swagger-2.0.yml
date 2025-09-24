@@ -55,18 +55,8 @@ paths:
         type: string
         required: false
       - in: query
-        name: saiSaeSummary
-        description: Search filter for Sae summary
-        type: string
-        required: false
-      - in: query
         name: saiSaePrompt
         description: Search filter for Sae prompt
-        type: string
-        required: false
-      - in: query
-        name: saiSaeSummaryEnglish
-        description: Search filter for Sae summary english
         type: string
         required: false
       - in: query
@@ -711,10 +701,6 @@ definitions:
         description: Sae title
         type: string
         maxLength: 50
-      saiSaeSummary:
-        description: Sae summary
-        type: string
-        maxLength: 350
       saiSaeTitleEnglish:
         description: Sae title english
         type: string
@@ -727,10 +713,6 @@ definitions:
         description: Unique technical row ID
         type: string
         maxLength: 11
-      saiSaeSummaryEnglish:
-        description: Sae summary english
-        type: string
-        maxLength: 350
   ActionResult:
     description: Action result
     type: object

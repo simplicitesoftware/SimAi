@@ -383,6 +383,12 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
 		inputCtn.append(imageCtn).append(textCtn);
 	    subCtn.append(inputCtn);
 	
+		let backButton = $(
+	        `<button id="backToApp" class="actionButton-yellow">${$T(
+	            "SAI_BACK_TO_APP"
+	        )}</button>`
+	    );
+		
 	    let genButton = $(
 	        `<button id="generateModule" class="actionButton-blue simai-disabledButton">${$T(
 	            "SAI_GEN_MODULE"
@@ -390,14 +396,25 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
 	    );
 	    
 	    genButton.addClass("simai-safe-navigation").on("click", () => this.initUpdateModule(this));
-	    subCtn.append(genButton);
+	    backButton.addClass("simai-safe-navigation").on("click", () => {
+	    	this.SaiTools.getRedirectScope(this.moduleName);
+	    });
+	    
+	    let updateActions = $("<div/>").addClass("simai-update-actions");
+	    	
+	    updateActions.append(backButton).append(genButton);
+	    subCtn.append(updateActions);
 	
 	    dialog.append(subCtn);
 	    dialog.append(this.SaiTools.createTips($T("SAI_TIP_PROMPT")));
 	
-	    dialog.find("#chatContainer").append(
+	    /*dialog.find("#chatContainer").append(
 	        AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE_UPDATE")}`)
+	    );*/
+	    dialog.find("#chatContainer").append(
+	        AiJsTools.getDisplayCustomUserMessage(`${$T("SAI_USR_MESSAGE")}`)
 	    );
+	    
 		let mdModuleDesc = $view.markdownToHTML(moduleDesc).html();
 		dialog.find("#chatContainer").append(
 	        AiJsTools.getDisplayBotMessage(`${mdModuleDesc}`)
@@ -719,7 +736,10 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
             .text(`${$T("SAI_DATA_GEN")}`)
         );
 
-        dialog.append(this.SaiTools.getModuleSummary());
+        // dialog.append(this.SaiTools.getModuleSummary());
+        dialog.append(
+        	AiJsTools.getDisplayBotMessage(`${$T("SAI_MODULE_RECONNECT")}`)
+        );
 
         let interactiveBox = $("<div/>").addClass("simai-interactiveBox");
 		

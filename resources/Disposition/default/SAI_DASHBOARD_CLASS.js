@@ -46,7 +46,7 @@ var historyMetrics = st.getTokensHistory(moduleName).then((result) => {
 		</div>
 	`);
 		
-	var priceCard = $(`
+	/*var priceCard = $(`
 		<div class="dashboard-card info-card">
 			<div class="dashboard-card-header">
 				<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAIASURBVHgB5VftdcIwDLx0gdIJmg2aTlA6QekEwATABMAEbScAJoBOgJmAMAHeAEaoRJxXx/lwlJL+4d4TCYpsnW1JtoFbR4A/IoqikB5dktBSn0gOcRwrX/tGBMhphx4jkjFJx2O+JFmVkREREDp2sSGZEBHdiICZ6i2yU90ETOJTRICcR8Z50agVktEdLB3b9UheUEx4RiTmtQhUjPzLdHT2tB/QY1rQ/pXj4g5+uM7PpvHY55xBNku2J9HOp3v+qSRA7EclzhUEMIH3TLIyKkWy45fAcjZAfpr6jk5bnRThSM6qvucQWM4XuA5EM5QuQYjrIZIYpwSWyAdJE2gkKVkbmTQ0KcfgPN5bnxTJEB64VU5MwCFytFTf1HkPLaBOHWCc0BLSLOApXyMbjKFjq+HHhmZqAgHaSMOhqX61kC6BdGutgmi57ErIW+QTfgmFyBNTqMaORj9DEwIuTFwcHRKZvbwJOMPsdA08xnzy+bBU6WYUQ+44DfQukoDmfnRlGprR2s64ky11JqoJpq7sjXMG/x/wS5068I5sCl5GQp0urMpZ5rhDMjXOXdtLoZMcydYo3rQU8kcytuM2fRRn2DwN1v8+lHIMTew6Ib4XEJEZkjOeFApJkdK2sunFJERyN3hD9YzwiHl5rnMxKSETGRKPJA9GrZFkj65zcL1t/ABL5rUwnT5AYwAAAABJRU5ErkJggg=="/>
@@ -54,8 +54,8 @@ var historyMetrics = st.getTokensHistory(moduleName).then((result) => {
 			</div>
 			<div>${$T("SAI_DASHBOARD_PRICE")}</div>
 		</div>
-	`);
-		
+	`);*/
+	
 	var electricityCard = $(`
 		<div class="dashboard-card eco-card">
 			<div class="dashboard-card-header">
@@ -79,7 +79,7 @@ var historyMetrics = st.getTokensHistory(moduleName).then((result) => {
 	gridContainer
 		.append(timeCard)
 		.append(tokenCard)
-		.append(priceCard)
+		/*.append(priceCard)*/
 		.append(electricityCard)
 		.append(carbonCard);
 			
@@ -158,6 +158,7 @@ function calculateCost(data) {
     const outputCost = (totalCompletionTokens / 1000000) * OUTPUT_PRICE_PER_1M;
     
     let cost = parseFloat((inputCost + outputCost).toFixed(2));
+    
     if (cost == 0)
     	cost = 0.01;
     return cost;

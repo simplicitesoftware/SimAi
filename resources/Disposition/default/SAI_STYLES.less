@@ -81,6 +81,13 @@
     transition: opacity 0.2s ease;
 }
 
+.simai-update-actions {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
 #sai_helpPin {
     position: absolute;
     z-index: 5;
@@ -289,6 +296,43 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.simai-prompt-modal {
+	background-color: @simAI-DialogBackground1;
+    border: solid 1px @simAI-BorderColor;
+    max-width: 625px;
+    width: 90%;
+    position: relative;
+    color: @simAI-TextColor;
+    
+    .simai-promptmodal-header {
+    	background-color: @simAI-DialogBackground2;
+    	display: flex;
+    	justify-content: space-between;
+    	align-items: center;
+    	padding: 16px 24px;
+    	border-bottom: solid 1px @simAI-BorderColor;
+    	gap: 8px;
+    }
+    
+    .simai-promptmodal-body {
+    	display: flex;
+    	justify-content: start;
+    	align-items: start;
+    	text-align: left;
+    	padding: 0px 24px;
+    	margin-top: 24px;
+    }
+    
+    .simai-promptmodal-footer {
+    	width: 100%;
+    	display: flex;
+    	padding: 0px 24px;
+    	justify-content: end;
+    	align-items: center;
+    	margin: 24px 0px; 
+    }
 }
 
 .simai-help-modal, .simai-intro-modal {
@@ -524,6 +568,7 @@ button {
 }
 
 .actionButton-blue {
+	color: white;
 	background-color: @simAI-AccentColorBlue;
 	&:hover {
 		background-color: @simAI-AccentColorBlue2;
