@@ -890,7 +890,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_INTRO_MODAL",
       "lov_lang": "ENU",
-      "lov_value": "<p><strong>Let's design your next Simplicité application together!<\/strong><\/p>\n\n<p>George, our assistant, will talk to you to understand your needs:<\/p>\n<p>Once you are satisfied with the proposal, everything will be taken care of down to the smallest detail:\n<strong>UML diagrams<\/strong>, <strong>database structure<\/strong>, <strong>objects and sample data<\/strong>. Your application is ready!<\/p>\n\n<div class=\"\"warning-section\"\">\n<p><i class=\"\"fas fa-exclamation-triangle warning-icon\"\"><\/i><strong>However, important!<\/strong><\/p>\n<p><ul>\n<li>- Like all AI systems, George may provide incorrect suggestions.<\/li>\n<li>- Check carefully before clicking the generate button, as you will not be able to undo it!<\/li>\n<\/ul>\n<\/p><\/div>\n<p><small><strong>Tip:<\/strong><em> Your accuracy will be the key to optimal results<\/em><\/small><\/p>",
+      "lov_value": "<p><strong>Let's design your next Simplicité application together!<\/strong><\/p>\n\n<p>George, our assistant, will talk to you to understand your needs:<\/p>\n<p>Once you are satisfied with the proposal, everything will be taken care of down to the smallest detail:\n<strong>UML diagrams<\/strong>, <strong>database structure<\/strong>, <strong>objects and sample data<\/strong>. Your application is ready!<\/p>\n\n<div class=\"warning-section\">\n<p><i class=\"fas fa-exclamation-triangle warning-icon\"><\/i><strongHowever, important!<\/strong><\/p>\n<p><ul>\n<li>Like all AI systems, George may provide incorrect suggestions.<\/li>\n<li>Check carefully before clicking the generate button, as you will not be able to undo it!<\/li>\n<\/ul>\n<\/p><\/div>\n<p><small><strong>Tip:<\/strong><em> Your accuracy will be the key to optimal results<\/em><\/small><\/p>",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -3566,7 +3566,7 @@
       "obo_comment": "Chat prompt examples",
       "obo_type": "O",
       "obo_searchspec": null,
-      "obo_exportorder": null,
+      "obo_exportorder": 1,
       "obo_distinct": false,
       "obo_indexable": false,
       "obo_groupby": false,
@@ -3652,7 +3652,7 @@
       "obo_comment": "Management of commercial contact and module registration.",
       "obo_type": "O",
       "obo_searchspec": null,
-      "obo_exportorder": null,
+      "obo_exportorder": 0,
       "obo_distinct": false,
       "obo_indexable": false,
       "obo_groupby": false,
@@ -6891,16 +6891,16 @@
    "field": "row_module_id",
    "list": [{
     "object": "Dataset",
-    "userkey": "SimAI~CREATE_DUMMY_EXAMPLES",
+    "userkey": "SimAI~PROMPT_EXAMPLES",
     "item": {
      "row_module_id__mdl_name": "SimAI",
-     "dt_name": "CREATE_DUMMY_EXAMPLES",
+     "dt_name": "PROMPT_EXAMPLES",
      "dt_file": {
-      "path": "data/CREATE_DUMMY_EXAMPLES.xml",
+      "path": "data/PROMPT_EXAMPLES.xml",
       "mime": "text/xml",
-      "name": "CREATE_DUMMY_EXAMPLES.xml"
+      "name": "SimAI-data-20250925154337.xml"
      },
-     "dt_desc": "Creates 5 application examples for the user to test out in the AI chat."
+     "dt_desc": "5 prompt exemple for help user"
     }
    }]
   },
