@@ -36,66 +36,13 @@
 	padding-top: 32px;
 }
 
-#sainewmodulefront_dialog {
-	z-index: 5;
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	overflow: visible;
-	align-items: flex-start;
-	padding: 12px;
-	min-width: 300px;
-	min-height: 300px;
-	max-width: 600px;
-	max-height: 850px;
-	font-size: 14px;
-	background-color: @simAI-DialogBackground1;
-	background-image: url(data:image/png;base64,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);
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 300px 106px;
-	border: solid 1px @simAI-BorderColor;
-	
-	.simai-contextualHelp {
-		width: 100%;
-		display: flex;
-		jsutify-content: start;
-		font-style: italic;
-		margin-bottom: 16px;
-		color: @simAI-TextColorLowFade;
-		padding-bottom: 6px;
-		font-size: 16px;
-		border-bottom: solid 1px @simAI-BorderColor;
-	}
-	.simai-interactiveBox {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		jsutify-content: center;
-		align-items: end;
-		gap: 8px;
-	}
-	
-	.simai-reconnectWarning {
-		color: @simAI-AccentColorYellow;
-		font-size: 18px;
-		line-height: 1.25;
-	}
-	
-	.hljs {
-		background-color: #171717;
-		padding: 6px;
-	}
-}
-
 #sainewmodulefront_examples {
 	z-index: 1;
 	position: absolute;
-	left: -400px;
+	left: -250px;
 	top: 0;
 	width: 100%;
-	max-width: 400px;
+	max-width: 250px;
 	min-width: 200px;
 	height: 100%;
 	display: flex;
@@ -106,12 +53,16 @@
 	
 	.simai-example {
 	    width: 32px;
-	    height: 100%;
-	    max-height: 50px;
+	    display: flex;
+		flex-direction: column;
 	    background-color: @simAI-ExampleBackground1;
 	    border: solid 1px @simAI-BorderColor;
-	    transition: width 0.5s ease-in-out, max-height 0.5s ease-in-out;
+	    transition: background-color 0.5s ease-in-out, width 0.5s ease-in-out, max-height 0.5s ease-in-out;
 	    overflow: hidden;
+	    
+	    &.hinted {
+	    	background-color: @simAI-BorderColor;
+	    }
 	    
 	    &.collapsed {
 	        display: flex;
@@ -120,6 +71,7 @@
 	        align-items: center;
 	        width: 32px;
 	        opacity: 0.75;
+	        height: 50px;
 	        
 	        .simai-example-header {
 	            display: none;
@@ -131,9 +83,8 @@
 	    
 	    &.expanding {
 		    width: 100%;
-		    max-width: 400px;
+		    max-width: 250px;
 		    min-widht: 200px;
-		    max-height: 50px;
 		    
 		    .simai-example-header {
 		        display: flex;
@@ -144,15 +95,20 @@
 		    	display: none;
 		    }
 		    .simai-example-toggle {
-		        display: none;
+		        display: flex;
+		        flex-direction: column;
+		        justify-content: start;
+		        align-items: start;
+		        opacity: 0;  // Start with opacity 0 instead of display none
+		        max-height: 0;  // Keep it collapsed
+		        overflow: hidden;  // Hide content while collapsed
+		        transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out 0.2s;
 		    }
 		}
 		
 		&.expanded {
 		    width: 100%;
-		    max-width: 400px;
-		    min-widht: 200px;
-		    max-height: 250px;
+		    max-width: 250px;
 		    
 		    .simai-example-header {
 		        display: flex;
@@ -162,10 +118,19 @@
 		    	display: none;
 		    }
 		    .simai-example-toggle {
-		    	height: 100%;
-		        display: block;
+		        display: flex;
+		        flex-direction: column;
+		        justify-content: start;
+		        align-items: start;
 		        opacity: 1;
 		        transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out 0.2s;
+		        
+		        .example-actionbar {
+					width: 100%;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+				}
 		    }
 		}
 	    
@@ -219,528 +184,13 @@
 	}
 }
 
-// Loading spinner
-.simai-spinner {
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.chatButton i {
-    transition: opacity 0.2s ease;
-}
-
-#sai_helpPin {
-    position: absolute;
-    z-index: 5;
-    top: 0px;  
-    right: -48px;
-    height: 32px;
-    width: 32px;
-    border: solid 2px @simAI-BorderColor;
-    transition: background 0.25s ease-in-out;
-    
-    & > i {
-        height: 100%;
-        font-size: 20px;
-        color: @simAI-BorderColor;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    &:hover {
-    	background: @simAI-BorderColorFade;
-    	cursor: pointer;
-    }
-}
-
-#moduleName {
-	width: 100%;
-	padding: 4px;
-	border: solid 1px @simAI-BorderColor;
-	background-color: @simAI-DialogBackground2;
-}
-
-#chatContainer {
-	width: 100%;
-	height: 50vh;
-	max-height: 500px;
-	overflow-y: scroll;
-	scroll-behavior: smooth;
-	
-	.user-messages {
-		padding: 0px 4px;
-		margin-bottom: 6px;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: start;
-		align-items: start;
-		border-left: solid 2px @simAI-AccentColorGreen;
-		
-		& > strong { color: @simAI-AccentColorGreen; }
-		& > .msg {
-			max-width: 450px;
-			word-wrap: break-word;
-		}
+@media only screen and (max-width: 1100px) { /* use better units ?! */
+	#sainewmodulefront {
+		padding-right: 64px !important;
+		justify-content: end !important;
 	}
 }
 
-#bot-thinking-text {
-	padding: 4px 0px;
-    background: linear-gradient(
-        90deg,
-        transparent 0%, 
-        transparent 40%, 
-        rgba(255, 255, 255, 0.4) 50%, 
-        transparent 60%, 
-        transparent 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 4s infinite linear;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: rgba(255, 255, 255, 0.1);
-    font-style: italic;
-}
 
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
 
-.bot-messages {
-	padding: 0px 4px;
-	margin-bottom: 6px;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: start;
-	align-items: start;
-	border-left: solid 2px @simAI-AccentColorYellow;
-	
-	& > strong { color: @simAI-AccentColorYellow !important; }
-	& > .msg {
-		word-wrap: break-word;
-	}
-	
-	&:last-child {
-		padding-bottom: 8px;
-	}
-}
 
-.ai-chat-img {
-	max-width: 125px;
-}
-
-.simai-disabledButton {
-	pointer-events: none;
-	opacity: 0.5;
-}
-
-#sainewmodulefront_chatFooter {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: end;
-	gap: 8px;
-}
-
-#mermaidImage {
-	max-height: 800px;
-	max-widht: 580px;
-	min-width: 500px;
-	aspect-ratio: 1/1;
-}
-
-#simai-moduleSummary {
-	width: 100%;
-	display: flex;
-	
-	.simai-moduleSummarySection {
-		width: 50%;
-		display: flex;
-		flex-direction: column;
-		justify-content: start;
-		align-items: start;
-		margin: 6px;
-		padding: 0px 6px;
-	}
-}
-
-// Custom Loader styles
-.loader--container {
-	opacity: 0 !important;
-}
-.waitdlg {
-	opacity: 1 !important;
-	background-color: rgba(46,46,46, 0.85) !important;
-}
-.waitbody {
-	transform: translate(-50%, -12.5%);
-	padding: 32px;
-	margin-top: -32px;
-}
-.custom-loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 9px;
-}
-.custom-loader-line {
-    height: 7.5px;
-    opacity: 0;
-    animation: lineReveal 3s infinite;
-}
-	
-.custom-loader-text {
-	word-break: break-word;
-	text-align: center;
-	margin-top: 48px;
-	font-size: 24px;
-	line-height: 1.25;
-	color: white;
-	// font-weight: 600;
-}
-
-.custom-loader .custom-loader-line:nth-child(1) { background-color: #E7E7E7; width: 48px; animation-delay: 0s; }
-.custom-loader .custom-loader-line:nth-child(2) { background-color: #5451FF; width: 84px; animation-delay: 0.1s; }
-.custom-loader .custom-loader-line:nth-child(3) { background-color: #EC9DED; width: 106px; animation-delay: 0.2s; }
-.custom-loader .custom-loader-line:nth-child(4) { background-color: #E7E7E7; width: 119px; animation-delay: 0.3s; }
-.custom-loader .custom-loader-line:nth-child(5) { background-color: #58EC9B; width: 119px; animation-delay: 0.4s; }
-.custom-loader .custom-loader-line:nth-child(6) { background-color: #FFD166; width: 106px; animation-delay: 0.5s; }
-.custom-loader .custom-loader-line:nth-child(7) { background-color: #5451FF; width: 84px; animation-delay: 0.6s; }
-.custom-loader .custom-loader-line:nth-child(8) { background-color: #FB3640; width: 48px; animation-delay: 0.7s; }
-
-@keyframes lineReveal {
-    0% { opacity: 0; }
-    13% { opacity: 1; }  
-    60% { opacity: 1; }    
-    73% { opacity: 0; }  
-    100% { opacity: 0; }
-}
-
-// Modal styles
-#simai-helpModal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.simai-help-modal, .simai-intro-modal {
-    background-color: @simAI-DialogBackground1;
-    border: solid 1px @simAI-BorderColor;
-    padding: 24px;
-    max-width: 500px;
-    width: 90%;
-    position: relative;
-    color: @simAI-TextColor;
-    
-    h3 {
-        color: @simAI-TextColor;
-        margin-bottom: 16px;
-        font-size: 18px;
-        font-weight: 600;
-        margin-top: 0;
-    }
-    
-    p {
-        line-height: 1.5;
-        margin-bottom: 12px;
-        
-        &:last-of-type {
-            margin-bottom: 20px;
-        }
-    }
-    
-    a {
-        color: @simAI-AccentColorYellow;
-        text-decoration: none;
-        transition: color 0.2s ease;
-        
-        &:hover {
-            color: @simAI-AccentColorYellow2;
-        }
-    }
-    
-    small {
-        color: @simAI-TextColorLowFade;
-        opacity: 0.6;
-    }
-    
-    .simai-modal-close-btn {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        background: transparent;
-        border: none;
-        color: @simAI-BorderColor;
-        font-size: 16px;
-        cursor: pointer;
-        padding: 4px 8px;
-        transition: color 0.2s ease;
-        
-        &:hover {
-            color: @simAI-TextColor;
-        }
-    }
-    
-    .simai-modal-footer {
-        margin-top: 8px;
-        display: flex;
-        justify-content: flex-end;
-        
-        * {
-        	color: white;
-        }
-    }
-}
-
-.simai-bottom-tips {
-	position: absolute;
-	bottom: -200px;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	max-height: 200px;
-    max-width: 600px;
-    
-    .tip-section {
-        background-color: rgba(45,136,86, 0.1);
-        border-left: 3px solid @simAI-AccentColorGreen;
-        padding: 12px;
-        margin: 16px 0;
-        
-        .tip-icon {
-            color: @simAI-AccentColorGreen !important;
-            margin-right: 8px;
-        }
-        
-        p, b, ul > li {
-        	color: rgba(255,255,255, 0.75) !important;
-        }
-    }
-}
-
-.simai-intro-modal {
-    max-width: 600px; // wider for more content
-    
-    .intro-icon {
-        font-size: 24px;
-        color: @simAI-AccentColorYellow;
-        margin-right: 8px;
-    }
-    
-    .warning-section {
-        background-color: rgba(255, 178, 62, 0.1); // @simAI-AccentColorYellow with opacity ...
-        border-left: 3px solid @simAI-AccentColorYellow;
-        padding: 12px;
-        margin: 16px 0;
-        color: rgba(255,255,255, 0.8) !important;
-        
-        .warning-icon {
-            color: @simAI-AccentColorYellow;
-            margin-right: 8px;
-        }
-    }
-}
-
-.ai-chat-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.ai-image-input-area {
-    width: 100%;
-}
-
-.ai-chat-input-area {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    padding: 6px;
-    background-color: #454545;
-    border: solid 1px #8b8b8b;
-    
-    .simai-textarea-container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .simai-buttons-container {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .chat-left-buttons,
-    .chat-right-buttons {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-    }
-}
-
-#message {
-    width: 100%;
-    max-height: 120px;
-    resize: none;
-    overflow-y: auto;
-    min-height: 60px;
-    border: none;
-    background: transparent;
-    
-    &:focus-visible {
-    	outline: none !important;
-    }
-}
-
-#input-img {
-    display: none;
-    position: relative;
-    max-width: 150px;
-    width: 100%;
-    margin: 0;
-    padding: 8px;
-    background-color: @simAI-DialogBackground2;
-    border: 2px dashed @simAI-BorderColorFade;
-    order: -1;
-    
-    img {
-        max-width: 100%;
-        max-height: 100px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        display: block;
-    }
-    
-    .remove-image-btn {
-    	background: transparent;
-        position: absolute;
-        top: -16px;
-        right: -16px;
-        color: white;
-        border: none;
-        width: 32px;
-        height: 32px;
-        cursor: pointer;
-        font-size: 12px;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.25s ease;
-        
-        &:hover {
-            transform: scale(1.1);
-            i { color: red !important; }
-        }
-        
-        i {
-            font-size: 16px;
-        }
-    }
-}
-// V2 generic styles
-button {
-	position: relative;
-	border: none;
-	padding: 8px 12px;
-	transition: transform 0.33s ease-in, background-color 0.33s ease-in;
-	
-	&:active {
-		transform: scale(0.9);
-	}
-}
-
-.actionButton-blue {
-	background-color: @simAI-AccentColorBlue;
-	&:hover {
-		background-color: @simAI-AccentColorBlue2;
-	}
-}
-.actionButton-green {
-	padding: 4px 8px;
-	background-color: @simAI-AccentColorGreen;
-	&:hover {
-		background-color: @simAI-AccentColorGreen2;
-	}
-}
-.actionButton-yellow {
-	background-color: @simAI-AccentColorYellow;
-	&:hover {
-		background-color: @simAI-AccentColorYellow2;
-	}
-}
-
-.chatButton {
-	background-color: @simAI-AccentColorGreen;
-	transition: transform 0.25s ease-in-out;
-	width: 32px;
-	height: 32px;
-	
-	display: flex;
-    justify-content: center;
-    align-items: center;
-    i {
-    	font-size: 16px;
-    }
-	
-	&:hover {
-		background-color: @simAI-AccentColorGreen2;
-		transform: translateY(-4px);
-	}
-}
-
-.chatButtonGrey {
-    // background-color: @simAI-BorderColor;
-    transition: transform 0.25s ease-in-out;
-    width: 32px;
-    height: 32px;
-    background: transparent;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    i {
-    	font-size: 16px;
-    }
-    
-    &:hover {
-        background-color: @simAI-BorderColor;
-    }
-}
-
-.copy-link{
-	display: none;
-}
-
-// Responsive shit
-@media only screen and (max-width: 1430px) {
-  #sainewmodulefront {
-  	padding-right: 64px !important;
-  	justify-content: end !important;
-  }
-}

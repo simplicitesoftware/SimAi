@@ -8,23 +8,25 @@ import com.simplicite.util.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 import com.simplicite.commons.AIBySimplicite.AIModel;
-import com.docusign.esign.client.JSON;
 import com.simplicite.commons.AIBySimplicite.AIData;
 import com.simplicite.commons.AIBySimplicite.AITools;
+import com.simplicite.commons.SimAI.SaiTool;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import com.simplicite.util.annotations.RESTService;
 import com.simplicite.util.annotations.RESTServiceParam;
 import com.simplicite.util.annotations.RESTServiceOperation;
 import com.simplicite.commons.SimAI.SaiMailTool;
+import com.simplicite.commons.SimAI.SaiDevConst;
 /**
  * REST service external object SaiCreateModuleApi
  */
 @RESTService(title = "Custom REST API create module by AI", desc = "Custom REST API for create module by AI")
 public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServiceExternalObject {
-	private static final boolean testWithoutAiCall = Grant.getSystemAdmin().getBooleanParameter("SAI_TEST_INIB_AI_CALL");
+	
 	private static final long serialVersionUID = 1L;
 	private static final Grant sysAdmin = Grant.getSystemAdmin();
+	
 	/**
 	 * GET method handler (returns bad request by default)
 	 * @param params Request parameters
@@ -49,6 +51,9 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 					return getModuleInfo();
 				case "isPostClearCache":
 					return isPostClearCache();
+				case "getModuleObjects":
+					return getModuleObjects(uriParts.size()>1?uriParts.get(1):null);
+				
 				default:
 					return badRequest("Invalid action");
 			}
@@ -56,6 +61,83 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			AppLog.error(e,getGrant());
 			return error(e);
 		}
+	}
+	
+	@RESTServiceOperation(method = "get", path = "/getModuleObjects/{module}", desc = "Get module objects")
+	public Object getModuleObjects(String module){
+		if(Tool.isEmpty(module) || !ModuleDB.exists(module)) return error(404,"Module not found");
+		String moduleId = ModuleDB.getModuleId(module,false);
+		List<String[]> objs = getModuleObjects(moduleId,sysAdmin);
+		AppLog.info("objs: "+objs);
+		if(Tool.isEmpty(objs)) return error(404,"Empty module");
+		JSONObject json = objectToJSON(objs,ModuleDB.getModulePrefixFromId(moduleId));
+		AppLog.info("json: "+json.toString(1));
+		return success(json.toString(1));
+	}
+
+	
+
+
+	private List<String[]> getModuleObjects(String moduleId,Grant g){
+		ObjectDB obj = g.getTmpObject("ObjectInternal");
+		obj.resetFilters();
+		obj.setFieldFilter("row_module_id", moduleId);
+
+		return obj.search();
+	}
+	private JSONObject objectToJSON(List<String[]> objs,String modulePrefix){
+		JSONArray objects = new JSONArray();
+		JSONArray relationship = new JSONArray();
+		ObjectDB obj = sysAdmin.getTmpObject("ObjectInternal");
+		for(String[] el : objs){
+			JSONObject object = new JSONObject();
+			String objName = el[obj.getFieldIndex("obo_name")];
+			String regex = "^(?i)"+modulePrefix+"(.*)$";
+			if(objName.matches(regex)){
+				object.put("name", objName.replaceFirst(regex, "$1"));
+			}else{
+				object.put("name", objName);
+			}
+			
+			object.put("comment", el[obj.getFieldIndex("obo_comment")]);
+			object.put("attributes", getFieldArray(objName,relationship,modulePrefix));
+			objects.put(object);
+		}
+
+		return new JSONObject().put("classes",objects).put("relationships",relationship);
+	}
+	private JSONArray getFieldArray(String objName, JSONArray relationship, String modulePrefix) {
+		String regex = "^(?i)"+modulePrefix+"(.*)$";
+		ObjectDB obj = getGrant().getTmpObject(objName);
+		JSONArray array = new JSONArray();
+		for (ObjectField field : obj.getFields()) {
+			if(field.isForeignKey()){
+				field.getRefObjectName();
+				JSONObject relation = new JSONObject();
+				String class1 = objName;
+				if(class1.matches(regex)){
+					class1 = class1.replaceFirst(regex, "$1");
+				}
+				
+				String class2 = field.getRefObjectName();
+				if(class2.matches(regex)){
+					class2 = class2.replaceFirst(regex, "$1");
+				}
+				relation.put("class1", class1);
+				relation.put("class2", class2);
+				relation.put("type","ManyToOne");
+				relationship.put(relation);
+			}else if(!field.isTechnicalField()){
+				JSONObject fieldJson = new JSONObject();
+				fieldJson.put("name", field.getName().replace(modulePrefix, ""));
+				fieldJson.put("type", ObjectField.getFieldTypeName(String.valueOf(field.getType())));
+				fieldJson.put("key", field.isFunctId());
+				fieldJson.put("required",field.isRequired());
+				array.put(fieldJson);
+			}
+			
+		}
+		return array;
 	}
 	/**
 	 * DELETE method handler (returns bad request by default)
@@ -65,7 +147,6 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	 */
 	@Override
 	public Object del(Parameters params) throws HTTPException {
-		Grant g = getGrant();
 		List<String> uriParts = params.getURIParts(getName());
 		String action = uriParts.isEmpty()?params.getParameter("action",""):uriParts.get(0);
 		switch(action){
@@ -77,7 +158,6 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	}
 	@RESTServiceOperation(method = "delete", path = "/deleteModule/{module}", desc = "Delete a module")
 	public Object deleteModule(String module){
-		Grant g = getGrant();
 		if(Tool.isEmpty(module) || !ModuleDB.exists(module)) return error(404,"Module not found");
 		String err = ModuleDB.delete(Grant.getSystemAdmin(),module,false,null,null,null);
 		if(Tool.isEmpty(err)){
@@ -89,7 +169,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	@RESTServiceOperation(method = "get", path = "/isModuleNameAvailable/{module}", desc = "Check if a module name is available")
 	public Object isModuleNameAvailable(@RESTServiceParam(name = "module",in="path", type = "string", desc = "Module name", required = false) String moduleName) {
 		if(Tool.isEmpty(moduleName)) return badRequest("Empty module name");
-		moduleName = checkModuleName(moduleName);
+		moduleName = SaiTool.checkModuleName(moduleName,getGrant());
 		return new JSONObject().put("available", !ModuleDB.exists(moduleName));
 	}
 	private Object getOpenAPISchema(String name) {
@@ -110,10 +190,10 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	public Object post(Parameters params) throws HTTPException {
 		try {
 			JSONObject req = params.getJSONObject();
+			List<String> uriParts = params.getURIParts(getName());
 			if (req!=null) {
 				String action = req.optString("action");
 				if(Tool.isEmpty(action)){
-					List<String> uriParts = params.getURIParts(getName());
 					if(!uriParts.isEmpty()){
 						action = uriParts.get(0);
 					}
@@ -126,16 +206,20 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 						return chat(req);
 					case "genJson":
 						return genJson(req);
+					case "genUpdateJson"://TODO
+						return genUpdateJson(req);
 					case "prepareJson":
 						return prepareJson(req);
 					case "genObj":
 						return genObj(req);
+					case "genUpdateObj":
+						return genUpdateObj(req);
 					case "genlinks":
 						return genLinks();
 					case "initClearCache":
 						return initClearCache(req);
 					case "clearCache":
-						return clearGlobalCache();
+						return clearGlobalCache(req);
 					case "postClearCache":
 						return postClearCache();
 					case "genJsonData":
@@ -144,6 +228,14 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 						return genDatas(req);
 					case "help":
 						return help(req);
+					case "getModuleDesc":
+						return getModuleDesc(req,uriParts.size()>1?uriParts.get(1):null);
+					case "initUpdateModule":
+						return initUpdateModule(req);
+					case "initTokensHistory":
+                        return initTokensHistory(req);
+                    case "endTokensHistory":
+                        return endTokensHistory(req);
 					default:
 						return badRequest("Invalid action");
 					
@@ -155,6 +247,41 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			return error(e);
 		}
 	}
+	private Object initUpdateModule(JSONObject req) {
+		String moduleName = req.optString("moduleName");
+		return initUpdateModule(moduleName);
+	}
+	@RESTServiceOperation(method = "post", path = "/initUpdateModule", desc = "Init update module")
+	public Object initUpdateModule(@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name", required = true, in="body") String moduleName) {
+		getGrant().setUserSystemParam("AI_DATA_MAP_OBJECT", "", true);
+		JSONObject moduleInfo = SaiTool.getModuleInfoByModuleName(moduleName);
+		if(Tool.isEmpty(moduleInfo)) return error(404,"Module not found");
+		getGrant().setUserSystemParam("AI_CURRENT_MODULE_GEN", moduleInfo.toString(1), true);
+		return success(moduleInfo);
+	}
+	
+	private Object getModuleDesc(JSONObject req, String module) {
+		String objs = req.optString("objs");
+		return getModuleDesc(objs,module);
+	}
+	@RESTServiceOperation(method = "post", path = "/getModuleDesc/{module}", desc = "Get module description")
+	public Object getModuleDesc(@RESTServiceParam(
+		name = "objs", type = "string", desc = "Objects", required = true, in="body") String objs,
+		@RESTServiceParam(name = "module", type = "string", desc = "Module", required = true, in="path") String module
+	) {
+		if(Tool.isEmpty(objs)) objs = getModuleObjects(module).toString();
+		if(Tool.isEmpty(objs)) return error(404,"Empty module");
+		if(SaiDevConst.isWithoutAiDebug()) return success(SaiDevConst.getDefaultDescModule());
+		String spec = ("FRA".equals(getGrant().getLang()))?"Tu décris un module en UML pour un non-technique":"you describe UML for non technical person";
+		String prompt = (("FRA".equals(getGrant().getLang()))?"Décris le module decrit dans le json pour un non-technique":"Describes the application defined by this JSON in a graphical way for non-technical users: ")+objs;
+		JSONObject jsonResponse =AITools.aiCaller(sysAdmin, spec,prompt, null,false,true);
+		AppLog.info("jsonResponse: "+jsonResponse.toString(1));
+		SaiTool.addTokensHistory(getGrant(), module, jsonResponse.optJSONObject(AITools.USAGE_KEY));
+		String contextApp =AITools.parseJsonResponse(jsonResponse);
+		AppLog.info("contextApp: "+contextApp);
+		return success(contextApp);
+	}
+
 	
 	private Object help(JSONObject req) {
 		String question = req.optString("question");
@@ -171,41 +298,23 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		Grant g = getGrant();
 		return new JSONObject().put("isPostClearCache", g.hasParameter("AI_AWAIT_CLEAR_CACHE")).put("isPostClearCache", g.hasParameter("AI_AWAIT_CLEAR_CACHE"));
 	}
-	private String getCurrentModuleId() {
-		Grant g = getGrant();
-		String moduleParam = g.getUserSystemParam("AI_CURRENT_MODULE_GEN");
-		if(Tool.isEmpty(moduleParam)) return null;
-		return new JSONObject(moduleParam).optString("moduleId");
-	}
+	
 
 	@RESTServiceOperation(method = "get", path = "/getRedirectScope/{module}", desc = "Get redirect scope for a module")
 	public Object getRedirectScope(@RESTServiceParam(name = "module",in="path", type = "string", desc = "Module name. Default is current creation module", required = false) String module) {
 		String mldid;
 		if(Tool.isEmpty(module)){
-			mldid = getCurrentModuleId();
+			mldid = SaiTool.getCurrentModuleId(getGrant());
 			if(Tool.isEmpty(mldid)) return error(404, "No current module creation");
 		}else{
 			mldid = ModuleDB.getModuleId(module);
 		}
 		if(Tool.isEmpty(mldid)) return error(404,"Module not found");
-		String scope = getScopeByModuleId(mldid);
+		String scope = SaiTool.getScopeByModuleId(mldid);
 		if(Tool.isEmpty(scope)) return error(404,"No scope found");
 		return new JSONObject()
 			.put("redirect", "scope="+scope);
 		
-	}
-	private String getScopeByModuleId(String moduleId){
-		ObjectDB obj = sysAdmin.getTmpObject("ViewHome");
-		synchronized(obj.getLock()){
-			obj.resetFilters();
-			obj.setFieldFilter("row_module_id", moduleId);
-			List<String[]> search = obj.search();
-			if(search.isEmpty()){
-				return null;
-			}
-
-			return search.get(0)[obj.getFieldIndex("viw_name")];
-		}
 	}
 	@RESTServiceOperation(method = "post", path = "/genDatas", desc = "generate datas for a module")
 	public Object genDatas(@RESTServiceParam(name = "datas", type = "string", desc = "Datas: JSON string", required = true, in="body") String datas) {
@@ -227,7 +336,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		AIModel.ModuleInfo mInfo = new AIModel.ModuleInfo(new JSONObject(moduleParam));
 		String moduleName =ModuleDB.getModuleName(mInfo.getModuleId());
 		if(Tool.isEmpty(moduleName)) return badRequest("Module not found");
-		JSONObject response = AIData.genDataForModule(moduleName,sysAdmin);
+		JSONObject response = AIData.genDataForModule(moduleName,true,sysAdmin);
 		if(response.has("error")){
 			if(response.has("error_status")){
 				return error(response.getInt("error_status"),response.getString("error"));
@@ -237,6 +346,8 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			}
 			return error(500,response.getString("error"));
 		}
+		SaiTool.addTokensHistory(getGrant(), moduleName, response.optJSONObject(AITools.USAGE_KEY));
+		response.remove(AITools.USAGE_KEY);
 		return  response.toString(1);
 	}
 
@@ -287,120 +398,25 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		JSONObject json = AITools.getValidJson(jsonString);
 		JSONObject res =AIModel.createLinks(json.getJSONArray(AIModel.JSON_LINK_KEY),mInfo, dataMaps,true, sysAdmin);
 		
-		List<String> order = order(res.getJSONArray("links"),dataMaps.getObjCreateIds(),sysAdmin);
-		addOrderExport(order,sysAdmin);
+		List<String> order = SaiTool.order(res.getJSONArray("links"),dataMaps.getObjCreateIds(),sysAdmin);
+		SaiTool.addOrderExport(order,sysAdmin);
 		return new JSONObject().put("links",res.getJSONArray("mermaid")).put("order",order);
 	}
-	private void addOrderExport(List<String> order,Grant g){
-		ObjectDB obj = g.getTmpObject("ObjectInternal");
-		synchronized(obj.getLock()){
-			obj.resetFilters();
-			int i = 1;
-			for(String id : order){
-				obj.select(id);
-				obj.setFieldValue("obo_exportorder",i);
-				obj.save();
-				i+=10;
-			}
-			
-		}
-	}
-	private List<String> order(JSONArray links,List<String> objs,Grant g){
-		ArrayList<String> ordered = new ArrayList<>();
-		JSONObject sources = new JSONObject();
-		JSONObject targets = new JSONObject();
-		ArrayList<String> both = new ArrayList<>();
-		ArrayList<String> end = new ArrayList<>();
-		for(int i = 0; i < links.length(); i++){
-			JSONObject link = links.getJSONObject(i);
-			String source = link.getString("source");
-			String target = link.getString("target");
-			if(sources.has(source)){
-				sources.getJSONArray(source).put(target);
-			}else{
-				sources.put(source,new JSONArray().put(target));
-			}
-			if(targets.has(target)){
-				targets.getJSONArray(target).put(source);
-			}else{
-				targets.put(target,new JSONArray().put(source));
-			}
-		}
-		for (String obj : objs) {
-			if(sources.has(obj) && targets.has(obj)){
-				both.add(obj);
-			}else if(sources.has(obj)){
-				//source at end
-				end.add(obj);
-			}else {
-				//target or nothing at begin
-				ordered.add(obj);
-			}
-		}
-		ordered.addAll(orderBoth(both,sources,targets,g));
-		ordered.addAll(end);
-
-		return ordered;
-	}
-	private List<String> orderBoth(List<String> both,JSONObject sources,JSONObject targets,Grant g){
-		List<String> safe = new ArrayList<>();
-		List<String> ordered = new ArrayList<>();
-		for(String target : both){
-			// Si les sources ne sont pas dans both, alors safe (ajout a la fin)
-			JSONArray sourcesArray = targets.getJSONArray(target);
-			if(!sourcesInBoth(sourcesArray,both)){
-				safe.add(target);
-			}else{
-				// Si une sources est dans both, alors si orddered vide ajout
-				if(Tool.isEmpty(ordered)){
-					ordered.add(target);
-				}else{
-					List<String> newOrder = new ArrayList<>();
-					boolean isInserted = false;
-					// Sinon ordoannacement (parcour de ordered si id dans ordered est source de target ajout avant sinon pas au suivant)
-					for(String id : ordered){
-						if(!isInserted && isSourceOfTarget(target,sources.getJSONArray(id))){
-							newOrder.add(target);
-							newOrder.add(id);
-							isInserted = true;
-						}else{
-							newOrder.add(id);
-						}
-					}
-					ordered = newOrder;
-				}
-				
-			}
-			
-			
-
-		}
-		ordered.addAll(safe);
-		//TODO pas de gestion des boucles.
-		return ordered;
-	}
-	private boolean isSourceOfTarget(String target,JSONArray targets){
-		for(int i = 0; i < targets.length(); i++){
-			if(targets.optString(i,"").equals(target)){
-				return true;
-			}
-		}
-		return false;
-	}
-	private boolean sourcesInBoth(JSONArray sources,List<String> both){
-		for(Object source : sources){
-			if(both.contains((String) source)){
-				return true;
-			}
-		}
-		return false;
-	}
+	
 	
 	@RESTServiceOperation(method = "post", path = "/genObj", desc = "generate an object for a module")
 	public Object genObj(@RESTServiceParam(name = "objName", type = "string", desc = "Object name", required = true, in="body") String objName) throws GetException, ValidateException, SaveException{
-		int fieldOrder = 100;
-		Grant g = getGrant();
 
+		Grant g = getGrant();
+		String jsonString = g.getUserSystemParam("AI_JSON_TOGEN");
+		JSONObject json = AITools.getValidJson(jsonString);
+		JSONObject classes = json.getJSONObject("classes");
+		JSONObject jsonObj = classes.getJSONObject(objName);
+		
+		return createObj(jsonObj, objName,json,g);
+	}
+	private Object createObj(JSONObject jsonObj, String objName,JSONObject json,Grant g) throws GetException, ValidateException, SaveException{
+		int fieldOrder = 100;
 		String datamapParam =g.getUserSystemParam("AI_DATA_MAP_OBJECT");
 		AIModel.DataMapObject dataMaps;
 		if(Tool.isEmpty(datamapParam)){
@@ -409,12 +425,10 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		}else{
 			dataMaps = new AIModel.DataMapObject(new JSONObject(datamapParam));
 		}
-		String jsonString = g.getUserSystemParam("AI_JSON_TOGEN");
-		JSONObject json = AITools.getValidJson(jsonString);
-		JSONObject classes = json.getJSONObject("classes");
-		JSONObject jsonObj = classes.getJSONObject(objName);
 		int domainOrder = jsonObj.getInt("domainOrder");
 		String objPrefix=AIModel.getOboPrefix(jsonObj, objName);
+		AppLog.info("objPrefix: "+objPrefix);
+		AppLog.info("moduleInfo: "+g.getUserSystemParam("AI_CURRENT_MODULE_GEN"));
 		AIModel.ModuleInfo mInfo = new AIModel.ModuleInfo(new JSONObject(g.getUserSystemParam("AI_CURRENT_MODULE_GEN")));
 		String oboId = AIModel.createObject(jsonObj, objName, objPrefix, domainOrder,mInfo, dataMaps, sysAdmin);
 		List<String> fields = new ArrayList<>();
@@ -424,18 +438,70 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		}
 		
 		g.setUserSystemParam("AI_DATA_MAP_OBJECT", dataMaps.toJson().toString(1), true);
-		return new JSONObject().put("name", objName).put("fields",fields);
+		JSONObject res = new JSONObject().put("name", objName).put("fields",fields);
+		AppLog.info("res: "+res.toString(1));
+		return res;
 	}
+	
 	private Object genObj(JSONObject req) throws GetException, ValidateException, SaveException{
 		
 		String objName = req.getString("objName");
 		return genObj(objName);
 	}
+	private Object genUpdateObj(JSONObject req) {
+		String objName = req.getString("objName");
+		return genUpdateObj(objName);
+	}
+	@RESTServiceOperation(method = "post", path = "/genUpdateObj", desc = "create update or delete object")
+	public Object genUpdateObj(@RESTServiceParam(name = "objName", type = "string", desc = "Object name", required = true, in="body") String objName) {
+		Grant g = getGrant();
+		String jsonString = g.getUserSystemParam("AI_JSON_TOGEN");
+		JSONObject json = AITools.getValidJson(jsonString);
+		JSONObject classes = json.getJSONObject("classes");
+		JSONObject jsonObj = classes.getJSONObject(objName);
+		if(!jsonObj.has("action")) jsonObj.put("action", "create");
+		try{
+			switch(jsonObj.getString("action").toLowerCase()){
+				case "delete":
+					return deleteObj(jsonObj, objName,json,g);
+				case "update":
+					return updateObj(jsonObj, objName,json,g);
+				case "create": //default create new object
+				default:
+					return createObj(jsonObj, objName,json,g);
+			}
+		}catch(GetException |ValidateException |SaveException e){
+			return error(500,"Error creating or updating object: "+e.getMessage());
+		}
+	}
+	private Object deleteObj(JSONObject jsonObj, String objName,JSONObject json,Grant g) {
+		AIModel.ModuleInfo mInfo = new AIModel.ModuleInfo(new JSONObject(g.getUserSystemParam("AI_CURRENT_MODULE_GEN")));
+		String name = mInfo.getFormatedObjectName(objName);
+		
+		String id = ObjectCore.getObjectId(name);
+		if(Tool.isEmpty(id)) return error(404,"Object to delete not found");
+		ObjectDB obj = sysAdmin.getTmpObject("ObjectInternal");
+		try{
+			synchronized(obj.getLock()){
+				BusinessObjectTool t = obj.getTool();
+				t.getForDelete(id);
+				obj.delete();
+			}
+		}catch(GetException e){
+			return error(500,"Error deleting object: "+e.getMessage());
+		}
+		return success(name);
+		
+	}
+	private Object updateObj(JSONObject jsonObj, String objName,JSONObject json,Grant g) throws GetException, ValidateException, SaveException{
+		return createObj(jsonObj, objName,json,g);
+	}
 	@RESTServiceOperation(method = "post", path = "/prepareJson", desc = "prepare json for create object")
 	public Object prepareJson(
 		@RESTServiceParam(name = "json", type = "string", desc = "JSON string", required = true, in="body") String json
 		) {
-		int domainOrder = 100;
+		String domainId =new JSONObject(getGrant().getUserSystemParam("AI_CURRENT_MODULE_GEN")).getString("domainId");
+		int domainOrder = getInitialDomainOrder(domainId);
 		JSONObject jsonObjects = new JSONObject(json);
 		if(Tool.isEmpty(jsonObjects)) return error(404,"Invalid json");
 		List<String> objects = new ArrayList<>();
@@ -454,9 +520,36 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			//check if AI mis placed link
 			jsonToGen.getJSONArray(AIModel.JSON_LINK_KEY).putAll(AIModel.checkMisplacedLink(jsonObj,objName));
 		}
+		if(jsonObjects.has("objectToDelete")){
+			AppLog.info("objectToDelete: "+jsonObjects.getJSONArray("objectToDelete").toString());
+			for(Object object : jsonObjects.getJSONArray("objectToDelete")){
+				String objName = (String) object;
+				objects.add(objName);
+				classes.put(objName, new JSONObject().put("name", AIModel.formatObjectNames(objName)).put("action", "delete"));
+			}
+		}
 		jsonToGen.put("classes", classes);
 		getGrant().setUserSystemParam​("AI_JSON_TOGEN", jsonToGen.toString(1), true);
 		return new JSONObject().put("objects", objects);
+	}
+	private int getInitialDomainOrder(String domainId) {
+		ObjectDB obj = sysAdmin.getTmpObject("Map");
+		obj.resetFilters();
+		obj.setFieldFilter("map_domain_id", domainId);
+		obj.resetOrders();
+		obj.setFieldOrder("map_order", -1);
+		List<String[]> rows = obj.search();
+		AppLog.info("rows: "+rows.toString());
+		if(Tool.isEmpty(rows)) return 100;
+		for(String[] row : rows){
+			AppLog.info("row: "+String.join(",",row));
+		}
+		int initialOrder = 100;
+		if(rows.size() > 3) initialOrder = Integer.parseInt(rows.get(2)[obj.getFieldIndex("map_order")])+100;//pass the external objects
+		if(initialOrder == 0) initialOrder = 100;
+		if(initialOrder == 9100) initialOrder = 9100;
+		AppLog.info("initialOrder: "+String.valueOf(initialOrder));
+		return initialOrder;
 	}
 	private Object prepareJson(JSONObject req) {
 		String json = req.optString("json");
@@ -475,7 +568,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		String login = getGrant().getLogin();
 		
 		if(Tool.isEmpty(moduleName)) return error(400, "Empty module name");
-		String validModuleName = checkModuleName(moduleName); 
+		String validModuleName = SaiTool.checkModuleName(moduleName,getGrant()); 
 		if (ModuleDB.exists(validModuleName)) {
 			if(!validModuleName.endsWith("_"+login) && ModuleDB.exists(validModuleName+"_"+login)) return error(409, "Module " + moduleName + " already exists!");
 			validModuleName = validModuleName+"_"+login;
@@ -510,147 +603,29 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		if(moduleInfo.has("error")){
 			return error(500, moduleInfo.getString("error"));
 		}
-		addHomeContact(scopeId,validModuleName,moduleInfo,sysAdmin);
-		addDisposition(scopeId,"SaiModulesDisp",sysAdmin);
-		getGrant().setUserSystemParam​("AI_CURRENT_MODULE_GEN", moduleInfo.toString(1), true);
+		SaiTool.addHomeContact(scopeId,validModuleName,moduleInfo,sysAdmin);
+		SaiTool.addUpdate(validModuleName,moduleInfo,sysAdmin);
+		getGrant().addResponsibility("SAI_UPDATE_MODULE","","",true,SaiTool.DEFAULT_MODULE);
+		//Grant.addResponsibility(String.valueOf(getGrant().getUserId()),"SAI_UPDATE_MODULE");
+		SaiTool.addDisposition(scopeId,"SaiModulesDisp",sysAdmin);
+		getGrant().setUserSystemParam("AI_CURRENT_MODULE_GEN", moduleInfo.toString(1), true);
 		sysAdmin.changeAccess("Theme",oldThemeAccess);
+		// move usage from curent to dedicated module
+		String currentParam = SaiTool.getModuleUsageParamName("");
+		JSONObject usage = new JSONObject(getGrant().getUserSystemParam(currentParam));
+		getGrant().setUserSystemParam(SaiTool.getModuleUsageParamName(validModuleName), usage.toString(), true);
+		getGrant().removeUserSystemParam(currentParam,true);
 		return moduleInfo.put("name",validModuleName);
 	}
-	private void addDisposition(String scopeId,String dispName,Grant g){
-		ObjectDB obj = g.getTmpObject("ViewHome");
-		synchronized(obj.getLock()){
-			obj.resetFilters();
-			obj.select(scopeId);
-			obj.setFieldValue("viw_disp_id",Disposition.getDispositionId(dispName));
-			obj.populate(true);
-			obj.validate();
-			obj.save();
-		}
-	}
-	private void addHomeContact(String scopeId,String mldName, JSONObject moduleInfo,Grant g){
-		
-		String appMldId = ModuleDB.getModuleId("SimAiTmp",true);
-		// Create external object
-		String extName = moduleInfo.getString("mPrefix")+"HomeContact";
-		JSONObject homeContact = new JSONObject();
-		homeContact.put("obe_name", extName);
-		homeContact.put("obe_widget", true);
-		homeContact.put("row_module_id", appMldId);
-		homeContact.put("obe_settings", new JSONObject().put("module",mldName).toString());
-		homeContact.put("obe_class", "com.simplicite.commons.SimAI.SaiContactWidget");
-		homeContact.put("obe_icon","fas/envelope");
-		String extId = AITools.createOrUpdateWithJson("ObjectExternal",homeContact,true,g);
-		
-		// translate external object
-		try{
-			createOrUpdateTranslation("ObjectExternal",extId,"FRA","Contactez-nous!",appMldId,g);
-			createOrUpdateTranslation("ObjectExternal",extId,"ENU","Contact us!",appMldId,g);
-		}catch(Exception e){
-			AppLog.error("Error creating translation for external object: " + extId, e, g);
-		}
-		// add external object to Domain
-		JSONObject domain = new JSONObject();
-		domain.put("map_domain_id",moduleInfo.getString("domainId"));
-		domain.put("map_object","ObjectExternal:"+extId);
-		domain.put("map_order",10);
-		domain.put("row_module_id",appMldId);
-		AITools.createOrUpdateWithJson("Map",domain,g);
-		// add permisions
-
-		JSONObject permissionFlds = new JSONObject();
-		permissionFlds.put("prm_group_id",moduleInfo.getString("groupId"));
-		permissionFlds.put("prm_object","ObjectExternal:"+extId);
-		permissionFlds.put("row_module_id",appMldId);
-		AITools.createOrUpdateWithJson("Permission",permissionFlds,g);
-		// Create DomainePage
-		// JSONObject domainPage = new JSONObject();
-		// domainPage.put("viw_name",moduleInfo.getString("mPrefix")+"Home");
-		// domainPage.put("viw_type","D");
-		// domainPage.put("viw_ui","<div class=\"area\" data-area=\"1\"></div>");
-		// domainPage.put("row_module_id",appMldId);
-		// domainPage.put("viw_order",1);
-		// String pageId =AITools.createOrUpdateWithJson("ViewDomain",domainPage,true,g);
-		// add to domain
-		ObjectDB obj = g.getTmpObject("Domain");
-		// synchronized(obj.getLock()){
-		// 	obj.select(pageId);
-		// 	obj.setFieldValue("obd_view_id",pageId);
-		// 	obj.validate();
-		// 	obj.save();
-		// }
-		
-		// add html to scope
-		obj = g.getTmpObject("ViewHome");
-		synchronized(obj.getLock()){
-			obj.select(scopeId);
-			obj.setFieldValue("viw_ui","<div class=\"area\" data-area=\"1\"></div>");
-			obj.validate();
-			obj.save();
-		}
-
-		// add area to scope and domaine page ViewItem
-		JSONObject area = new JSONObject();
-		//area.put("vwi_view_id",pageId);
-		area.put("vwi_type","E");
-		area.put("vwi_position",1);
-		area.put("vwi_title",false);
-		area.put("vwi_url",new JSONObject().put("extobject",extName).toString());
-		area.put("row_module_id",appMldId);
-		//AITools.createOrUpdateWithJson("ViewItem",area,true,g);
-		area.put("vwi_view_id",scopeId);
-		AITools.createOrUpdateWithJson("ViewItem",area,true,g);
-		
-		// add contact profile to groupe
-		JSONObject contactProfile = new JSONObject();
-		contactProfile.put("prf_profile_id",moduleInfo.getString("groupId"));
-		contactProfile.put("prf_group_id",GroupDB.getGroupId("SAI_CNT_GROUP"));
-		contactProfile.put("row_module_id",appMldId);
-		AITools.createOrUpdateWithJson("Profile",contactProfile,g);
-		
-	}
-	private String getDomainId(String moduleName,Grant g){
-		ObjectDB obj = g.getTmpObject("Domain");
-		obj.resetFilters();
-		obj.setFieldFilter("row_module_id",ModuleDB.getModuleId(moduleName,false));
-		return obj.search().get(0)[obj.getRowIdFieldIndex()];
-	}
-	private String checkModuleName(String moduleName){
-		if(Tool.isEmpty(moduleName)) return null;
-		
-		// Decode URL-encoded characters
-		try {
-			moduleName = java.net.URLDecoder.decode(moduleName, "UTF-8");
-		} catch (Exception e) {
-			AppLog.error("Error decoding module name: " + moduleName, e, getGrant());
-		}
-		Pattern pattern = Pattern.compile("^[a-zA-Z]{1}[a-zA-Z0-9_]*$");
-		Matcher matcher = pattern.matcher(moduleName);
-		if(!matcher.matches()){
-			//remove spaces
-			moduleName = moduleName.replaceAll(" ", "_");
-			//remove accents
-			moduleName = removeAccents(moduleName);
-			//remove special characters
-			moduleName = moduleName.replaceAll("[^a-zA-Z0-9_]", "");
-
-		}
-		return moduleName;
-	}
-	private String removeAccents(String text){
-		return text.replaceAll("(?u)[éèêë]", "e")
-			.replaceAll("(?u)[àâä]", "a")
-			.replaceAll("(?u)[îï]", "i")
-			.replaceAll("(?u)[ôö]", "o")
-			.replaceAll("(?u)[ùûü]", "u")
-			.replaceAll("(?u)ç", "c")
-			.replaceAll("(?u)ÿ", "y");
-	}
+	
 	@RESTServiceOperation(method = "post", path = "/chat", desc = "chat with the AI")
 	public Object chat(
 		@RESTServiceParam(name = "prompt", type = "object", desc = "Prompt: string or JSON Object", required = true, in="body") String prompt,
 		@RESTServiceParam(name = "specialisation", type = "string", desc = "Specialisation default specialization for uml definition", required = false, in="body") String specialisation,
 		@RESTServiceParam(name = "historic", type = "array", desc = "Historic: JSON Array", required = false, in="body") JSONArray historic,
-		@RESTServiceParam(name = "providerParams", type = "object", desc = "Provider parameters: JSON Object", required = false, in="body") JSONObject providerParams
+		@RESTServiceParam(name = "providerParams", type = "object", desc = "Provider parameters: JSON Object", required = false, in="body") JSONObject providerParams,
+		@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name for reprompting", required = false, in="body") String moduleName
+		
 		){
 			boolean isJsonPrompt = true;
 			String ping = AITools.pingAI();
@@ -662,7 +637,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			if(Tool.isEmpty(prompt)){
 				return error(400,"Empty prompt");
 			}
-			JSONArray jsonPrompt = optJSONArray(prompt);
+			JSONArray jsonPrompt = SaiTool.optJSONArray(prompt);
 			if(Tool.isEmpty(jsonPrompt)){
 				isJsonPrompt = false;
 			}
@@ -671,6 +646,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 				SaiMailTool.sendAiAlert(resJson.getString("error"));
 				return error(503,resJson.getString("error"));
 			}
+			SaiTool.addTokensHistory(getGrant(), moduleName, resJson.optJSONObject(AITools.USAGE_KEY));
 			return resJson;
 	}
 	/**
@@ -689,278 +665,36 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		String specialisation = req.optString("specialisation");
 		String historicString = req.optString("historic");
 		String providerParamsString = req.optString("providerParams");
-		JSONArray historic = optHistoric(historicString, histDepth);
-		JSONObject providerParams = optJSONObject(providerParamsString);
-		return chat(prompt, specialisation, historic, providerParams);
+		String moduleName = req.optString("module","");
+		if(req.has("moduleContext")){
+			//todo call api with context
+		}
+		JSONArray historic = SaiTool.optHistoric(historicString, histDepth);
+		JSONObject providerParams = SaiTool.optJSONObject(providerParamsString);
+		return chat(prompt, specialisation, historic, providerParams, moduleName);
 
 	}
-	private JSONArray optHistoric(String historicString, int histDepth){
-		if (Tool.isEmpty(historicString)) return null;
-		JSONArray historic = new JSONArray();
-		int i=0;
-		JSONArray list = new JSONArray(historicString);
-		int begin = list.length()-histDepth*2;
-		for(Object hist : list){
-			if(i>=begin)
-				historic.put(AITools.formatMessageHistoric(new JSONObject((String) hist)));
-			i++;
-		}
-		return historic;
-	}
-	private JSONArray optJSONArray(String prompt){
-		try {
-			return new JSONArray(prompt);
-		}catch(Exception e){
-		 	return new JSONArray();
-		}
-	}
-	private JSONObject optJSONObject(String object){
-		if(Tool.isEmpty(object)) return new JSONObject();
-		try{
-			return new JSONObject(object);
-		}catch(JSONException e){
-			return new JSONObject();
-		}
-	}
+	
 	@RESTServiceOperation(method = "post", path = "/genJson", desc = "generate a json module from a chat of design")
 	public Object genJson(
-		@RESTServiceParam(name = "historic", type = "array", desc = "Historic: JSON Array", required = true, in="body") String historicString
+		@RESTServiceParam(name = "historic", type = "array", desc = "Historic: JSON Array", required = true, in="body") String historicString,
+		@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name for reprompting", required = false, in="body") String moduleName
 		){
+		if(Tool.isEmpty(moduleName)) moduleName = SaiTool.getCurrentModuleName(getGrant());
 		int histDepth = AITools.getHistDepth();
-		JSONArray historic = optHistoric(historicString, histDepth);	
+		JSONArray historic = SaiTool.optHistoric(historicString, histDepth);	
 		byte[] template =getGrant().getExternalObject("AIProcessResource").getResourceContent(Resource.TYPE_OTHER,"CONTEXT_INTERACTION_PROMPT");
 		String result;
-		if(testWithoutAiCall){
-			result = """
-Here is the given JSON template with the UML class diagram for the order application extrapolated and completed with the data:
-```json
-{
-  "classes": [
-    {
-      "name": "User",
-      "trigram": "USR",
-      "bootstrapIcon": "person",
-      "en": "User",
-      "fr": "Utilisateur",
-      "comment": "Represents the application users",
-      "attributes": [
-        {
-          "name": "id",
-          "fr": "Identifiant",
-          "en": "Identifier",
-          "key": true,
-          "required": true,
-          "type": "Integer",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "username",
-          "fr": "Nom d'utilisateur",
-          "en": "Username",
-          "key": false,
-          "required": true,
-          "type": "Short text",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "email",
-          "fr": "Email",
-          "en": "Email",
-          "key": false,
-          "required": true,
-          "type": "Email",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "password",
-          "fr": "Mot de passe",
-          "en": "Password",
-          "key": false,
-          "required": true,
-          "type": "Password",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "address",
-          "fr": "Adresse",
-          "en": "Address",
-          "key": false,
-          "required": false,
-          "type": "Long text",
-          "isStatus": false,
-          "class": ""
-        }
-      ]
-    },
-    {
-      "name": "Product",
-      "trigram": "PRO",
-      "bootstrapIcon": "box",
-      "en": "Product",
-      "fr": "Produit",
-      "comment": "Represents the products available in the application",
-      "attributes": [
-        {
-          "name": "id",
-          "fr": "Identifiant",
-          "en": "Identifier",
-          "key": true,
-          "required": true,
-          "type": "Integer",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "name",
-          "fr": "Nom",
-          "en": "Name",
-          "key": false,
-          "required": true,
-          "type": "Short text",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "description",
-          "fr": "Description",
-          "en": "Description",
-          "key": false,
-          "required": false,
-          "type": "Long text",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "price",
-          "fr": "Prix",
-          "en": "Price",
-          "key": false,
-          "required": true,
-          "type": "Decimal",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "stock_count",
-          "fr": "Stock",
-          "en": "Stock count",
-          "key": false,
-          "required": true,
-          "type": "Integer",
-          "isStatus": false,
-          "class": ""
-        }
-      ]
-    },
-    {
-      "name": "Order",
-      "trigram": "ORD",
-      "bootstrapIcon": "shopping-cart",
-      "en": "Order",
-      "fr": "Commande",
-      "comment": "Represents the orders placed by users",
-      "attributes": [
-        {
-          "name": "id",
-          "fr": "Identifiant",
-          "en": "Identifier",
-          "key": true,
-          "required": true,
-          "type": "Integer",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "user_id",
-          "fr": "Utilisateur",
-          "en": "User",
-          "key": false,
-          "required": true,
-          "type": "Integer",
-          "isStatus": false,
-          "class": "User"
-        },
-        {
-          "name": "order_date",
-          "fr": "Date de commande",
-          "en": "Order date",
-          "key": false,
-          "required": true,
-          "type": "Date and time",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "total_amount",
-          "fr": "Montant total",
-          "en": "Total amount",
-          "key": false,
-          "required": true,
-          "type": "Decimal",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "status",
-          "fr": "Statut",
-          "en": "Status",
-          "key": false,
-          "required": true,
-          "type": "Enumeration",
-          "isStatus": false,
-          "Enumeration": {
-            "Values": [
-              {
-                "code": "P",
-                "en": "Pending",
-                "fr": "En attente",
-                "color": "orange"
-              },
-              {
-                "code": "S",
-                "en": "Shipped",
-                "fr": "Expédié",
-                "color": "green"
-              },
-              {
-                "code": "C",
-                "en": "Cancelled",
-                "fr": "Annulé",
-                "color": "red"
-              }
-            ]
-          },
-          "class": ""
-        }
-      ]
-    }
-  ],
-  "relationships": [
-    {
-      "class1": "User",
-      "class2": "Order",
-      "type": "OneToMany"
-    },
-    {
-      "class1": "Order",
-      "class2": "Product",
-      "type": "ManyToMany"
-    }
-  ]
-}
-```
-This JSON template represents the UML class diagram for the order application, with the classes, their attributes, relationships, and enumerations defined. The relationships between classes indicate that a user has many orders (OneToMany), and each order contains many products (ManyToMany). The enumeration for the order status has values "Pending" (P), "Shipped" (S), and "Cancelled" (C) with corresponding colors orange, green, and red.
-				""";
+		if(SaiDevConst.isWithoutAiDebug()){
+			result = SaiDevConst.getFakeResponse();
 		}else{
 			JSONObject jsonResponse = AITools.aiCaller(getGrant(), AITools.SPECIALISATION_NEED_JSON, template!=null?new String(template):"", historic,false,true);
 			if(jsonResponse.has("error")){
 				SaiMailTool.sendAiAlert(jsonResponse.getString("error"));
 				return error(503,jsonResponse.getString("error"));
 			}
+			
+			SaiTool.addTokensHistory(getGrant(), moduleName, jsonResponse.optJSONObject(AITools.USAGE_KEY));
 			result = AITools.parseJsonResponse(jsonResponse);
 		}
 		List<String> listResult = new ArrayList<>();
@@ -993,36 +727,209 @@ This JSON template represents the UML class diagram for the order application, w
 		jsonRes.put(listResult.get(0));
 		jsonRes.put(listResult.get(1));
 		jsonRes.put(listResult.get(2));
+		AppLog.info("jsonRes: "+jsonRes.toString(1));
 		return jsonRes;
 	}
 	private Object genJson(JSONObject req) {
 		String historicString = req.optString("historic");
-		return genJson(historicString);
+		if(req.has("moduleContext")){
+			//todo call api in update context
+		}
+		return genJson(historicString,"");
 	}
+	private Object genUpdateJson(JSONObject req) {
+		String historicString = req.optString("historic");
+		String moduleName = req.optString("moduleName",SaiTool.getCurrentModuleName(getGrant()));
+		return genUpdateJson(historicString,moduleName);
+	}
+	@RESTServiceOperation(method = "post", path = "/genUpdateJson", desc = "generate a json module from a chat of design for update")
+	public Object genUpdateJson(
+		@RESTServiceParam(name = "historic", type = "array", desc = "Historic: JSON Array", required = true, in="body") String historicString,
+		@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name", required = false, in="body") String moduleName
+		){
+		if(Tool.isEmpty(moduleName)) moduleName = SaiTool.getCurrentModuleName(getGrant());
+		int histDepth = AITools.getHistDepth();
+		JSONArray historic = SaiTool.optHistoric(historicString, histDepth);	
+		byte[] template =getGrant().getExternalObject("AIProcessResource").getResourceContent(Resource.TYPE_OTHER,"CONTEXT_INTERACTION_UPDATE_PROMPT");
+		String result;
+		String objs = getModuleObjects(moduleName).toString();
+		AppLog.info("objs: "+objs);
+		if(SaiDevConst.isWithoutAiDebug()){
+			result = SaiDevConst.getFakejsonUpdateResponse();
+		}else{
+			// todo adapte template and specialisation to update
+			JSONObject actualDescription  = getJSONDescription(moduleName);
+			
+			JSONObject jsonResponse = AITools.aiCaller(getGrant(), AITools.SPECIALISATION_UPDATE_JSON+" "+objs/*getModuleObjects(moduleName).toString()*/, template!=null?new String(template):"", historic,false,true);
+			if(jsonResponse.has("error")){
+				SaiMailTool.sendAiAlert(jsonResponse.getString("error"));
+				return error(503,jsonResponse.getString("error"));
+			}
+			AppLog.info("jsonResponse: "+jsonResponse.toString(1));
+			SaiTool.addTokensHistory(getGrant(), moduleName, jsonResponse.optJSONObject(AITools.USAGE_KEY));
+			result = AITools.parseJsonResponse(jsonResponse);
+			AppLog.info("result: "+result);
+		}
+		List<String> listResult = new ArrayList<>();
+		
+		JSONObject jsonres = AITools.getValidJson(result);
+		if(Tool.isEmpty(jsonres)){	
+			listResult = AITools.getJSONBlock(result,getGrant());
+			
+			if(Tool.isEmpty(listResult)){
+				jsonres = AITools.getValidJson(listResult.get(1));
+				if(Tool.isEmpty(jsonres)){
+					return error(500,"Sorry AI do not return interpretable json:"+result);
+				}else{
+					listResult.set(1,jsonres.toString());
+				}
+				
+			}
+			if(Tool.isEmpty(listResult.get(0))){		
+				listResult.add(0,"''");
+			}
+			if(Tool.isEmpty(listResult.get(listResult.size()-1))){
+				listResult.add(listResult.size()-1,"''");
+			}
+		}else{
+			listResult.add("''");
+			listResult.add(jsonres.toString(1));
+			listResult.add("''");	
+		}
+		JSONArray jsonRes = new JSONArray();
+		jsonRes.put(listResult.get(0));
+		jsonRes.put(listResult.get(1));
+		jsonRes.put(listResult.get(2));
+		AppLog.info("jsonRes: "+jsonRes.toString(1));
+		return jsonRes;
+	}
+	JSONObject getJSONDescription(String moduleName) {
+		JSONObject json = new JSONObject();
+		JSONArray classes = new JSONArray();
+		ObjectDB obj = sysAdmin.getTmpObject("ObjectInternal");
+		List<String[]> objs = getModuleObjects(moduleName,sysAdmin);
+		for(String[] objRow : objs){
+			JSONObject ojson = new JSONObject();
+			ojson.put("name", objRow[obj.getFieldIndex("obo_name")]);
+			ojson.put("trigram", objRow[obj.getFieldIndex("obo_prefix")]);
+			ojson.put("comment", objRow[obj.getFieldIndex("obo_comment")]);		
+			JSONArray attributes = new JSONArray();
+			ObjectDB objAttr = sysAdmin.getTmpObject("ObjectFieldSystem");
+			objAttr.resetFilters();
+			objAttr.setFieldFilter("row_object_id", objRow[obj.getFieldIndex("row_id")]);
+			List<String[]> attrs = objAttr.search();
+			for(String[] attrRow : attrs){
+				JSONObject attr = new JSONObject();
+				attr.put("name", attrRow[objAttr.getFieldIndex("fld_name")]);
+				attr.put("type", translateFieldType(Integer.parseInt(attrRow[objAttr.getFieldIndex("fld_type")])));
+				attr.put("required", ("1".equals(attrRow[objAttr.getFieldIndex("fld_required")])?"true":"false"));
+				attr.put("key", ("1".equals(attrRow[objAttr.getFieldIndex("fld_fonctid")])?"true":"false"));
+				attributes.put(attr);
+			}
+			ojson.put("attributes", attributes);
+			classes.put(ojson);
+		}
+		return json;
+	}
+	String translateFieldType(Integer type) {
+		switch(type){
+			case ObjectField.TYPE_STRING:
+				return "Short text";
+			case ObjectField.TYPE_LONG_STRING:
+				return "Long text";
+			case ObjectField.TYPE_INT:
+				return "Integer";
+			case ObjectField.TYPE_FLOAT:
+				return "Decimal";
+			case ObjectField.TYPE_BIGDECIMAL:
+				return "BigDecimal";
+			case ObjectField.TYPE_DATE:
+				return "Date";
+			case ObjectField.TYPE_DATETIME:
+				return "Date and time";
+			case ObjectField.TYPE_TIME:
+				return "Time";
+			case ObjectField.TYPE_ENUM:
+				return "Enumeration";
+			case ObjectField.TYPE_ENUM_MULTI:
+				return "Multiple enumeration";
+			case ObjectField.TYPE_BOOLEAN:
+				return "Boolean";
+			case ObjectField.TYPE_URL:
+				return "URL";
+			case ObjectField.TYPE_HTML:
+				return "HTML content";
+			case ObjectField.TYPE_EMAIL:
+				return "Email";
+			case ObjectField.TYPE_DOC:
+				return "Document";
+			case ObjectField.TYPE_OBJECT:
+				return "Object";
+			case ObjectField.TYPE_PASSWORD:
+				return "Password";
+			case ObjectField.TYPE_EXTFILE:
+				return "External file";
+			case ObjectField.TYPE_IMAGE:
+				return "Image";
+			case ObjectField.TYPE_NOTEPAD:
+				return "Notepad";
+			case ObjectField.TYPE_PHONENUM:
+				return "Phone number";
+			case ObjectField.TYPE_COLOR:
+				return "Color";
+			case ObjectField.TYPE_GEOCOORDS:
+				return "Geographical coordinates";
+			default:
+				return "Short text";
+		}
+	}
+
+	private Object clearGlobalCache(JSONObject req) {
+		boolean isUpdate = req.optBoolean("isUpdate",false);
+		String moduleName = req.optString("moduleName","");
+		return clearGlobalCache(isUpdate,moduleName);
+	}
+
 	@RESTServiceOperation(method = "post", path = "/clearCache", desc = "clear all cache")
-	public Object clearGlobalCache(){
+	public Object clearGlobalCache(@RESTServiceParam(name = "isUpdate", type = "boolean", desc = "Is update context for scope user", required = false, in="body") boolean isUpdate,
+		@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name", required = false, in="body") String moduleName){
+		if(isUpdate){
+			Grant g = getGrant();
+			String moduleId = ModuleDB.getModuleId(moduleName,false);
+			if(Tool.isEmpty(moduleId)) return error(404,"Module not found");
+			String scope = SaiTool.getScopeByModuleId(moduleId);
+			if(Tool.isEmpty(scope)) return error(404,"No scope found");
+			g.changeScope(scope);
+		}
 		SystemTool.resetCache(Grant.getSystemAdmin(),true,true,true,true,0);
 		return new JSONObject().put("success", true);
 	}
 	
-	private static void createOrUpdateTranslation(String obj,String objId,String lang,String val, String moduleId,Grant g) throws GetException, UpdateException, ValidateException{
-		ObjectDB oTra = g.getTmpObject("Translate");
-		synchronized(oTra.getLock()){
-			BusinessObjectTool oTraT = oTra.getTool();
-			if(!Tool.isEmpty(objId)){
-				String objectRef = Tool.toSQL(obj)+":"+Tool.toSQL(objId);
-				if(!Tool.isEmpty(val)){
-					if(!oTraT.selectForCreateOrUpdate(new JSONObject().put("tsl_object",objectRef).put("tsl_lang",lang))){
-						oTra.setFieldValue("tsl_object",objectRef);
-						oTra.setFieldValue("tsl_lang",lang);
-						oTra.setFieldValue("row_module_id",moduleId);
-					}
-					oTra.setFieldValue("tsl_value", val);
-					oTraT.validateAndUpdate();
-				}
-				
-			}
-		}
-		
+	private Object initTokensHistory(JSONObject req) {
+		JSONObject usage = new JSONObject().put("begin", Tool.getCurrentDatetime())
+											.put("end","")
+											.put("tokens",new JSONArray());
+
+		getGrant().setUserSystemParam​(SaiTool.getModuleUsageParamName(""), usage.toString(), true);
+        return success("initTokensHistory: "+Tool.getCurrentDatetime());
+    }
+    
+    
+    
+    private Object endTokensHistory(JSONObject req) {
+        String moduleName = req.optString("moduleName");
+		if(Tool.isEmpty(moduleName)) moduleName = SaiTool.getCurrentModuleName(getGrant());
+		if(Tool.isEmpty(moduleName)) return error(404,"Module not found");
+		return endTokensHistory(moduleName);
+    }
+   
+	@RESTServiceOperation(method = "post", path = "/endTokensHistory", desc = "add tokens history")
+	public Object endTokensHistory(@RESTServiceParam(name = "moduleName", type = "string", desc = "Module name", required = true, in="body") String moduleName) {
+		AppLog.info("endTokensHistory: "+moduleName);
+		AppLog.info("getGrant().getUserSystemParam(SaiTool.getModuleUsageParamName(moduleName)): "+getGrant().getUserSystemParam(SaiTool.getModuleUsageParamName(moduleName)));
+		JSONObject usage = new JSONObject(getGrant().getUserSystemParam(SaiTool.getModuleUsageParamName(moduleName)));
+		usage.put("end", Tool.getCurrentDatetime());
+		getGrant().setUserSystemParam(SaiTool.getModuleUsageParamName(moduleName), usage.toString(), true);
+		return success("endTokensHistory: "+moduleName);
 	}
 }

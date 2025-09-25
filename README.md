@@ -93,22 +93,6 @@ Widget for home page (contact)
 
 Create a new user granted to process with `usrName` and `password` environment variable, dedicated for docker compose auto deployment.
 
-`SaiApplicationExample` business object definition
---------------------------------------------------
-
-Chat prompt examples
-
-### Fields
-
-| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
-|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
-| `saiSaeTitle`                                                | char(50)                                 | yes*     | yes       |          | -                                                                                |
-| `saiSaeTitleEnglish`                                         | char(100)                                | yes*     | yes       |          | -                                                                                |
-| `saiSaeSummary`                                              | text(350)                                |          | yes       |          | -                                                                                |
-| `saiSaePrompt`                                               | text(1500)                               |          | yes       |          | -                                                                                |
-| `saiSaeSummaryEnglish`                                       | text(350)                                |          | yes       |          | -                                                                                |
-| `saiSaePromptEnglish`                                        | text(1500)                               |          | yes       |          | -                                                                                |
-
 `SaiContact` business object definition
 ---------------------------------------
 
@@ -129,17 +113,32 @@ Management of commercial contact and module registration.
 | `saiCntDeletion`                                             | datetime                                 |          |           |          | -                                                                                |
 | `saiCntViewhomeId` link to **`ViewHome`**                    | id                                       |          |           |          | -                                                                                |
 | _Ref. `saiCntViewhomeId.viw_name`_                           | _char(100)_                              |          |           |          | -                                                                                |
+| `saiCntNow`                                                  | datetime                                 |          |           |          | -                                                                                |
 
-`SaiContactDashboard` external object definition
-------------------------------------------------
+`SaiApplicationExample` business object definition
+--------------------------------------------------
 
+Chat prompt examples
 
+### Fields
 
+| Name                                                         | Type                                     | Required | Updatable | Personal | Description                                                                      |
+|--------------------------------------------------------------|------------------------------------------|----------|-----------|----------|----------------------------------------------------------------------------------|
+| `saiSaeTitle`                                                | char(50)                                 | yes*     | yes       |          | -                                                                                |
+| `saiSaeTitleEnglish`                                         | char(100)                                | yes*     | yes       |          | -                                                                                |
+| `saiSaePrompt`                                               | text(10000)                              |          | yes       |          | -                                                                                |
+| `saiSaePromptEnglish`                                        | text(10000)                              |          | yes       |          | -                                                                                |
 
 `SaiCreateModuleApi` external object definition
 -----------------------------------------------
 
 Custom endpoint, Interface with the AIBySimplicite process.
+
+
+`SaiEndOfTime` external object definition
+-----------------------------------------
+
+External page, redirect page when end time has been reached
 
 
 `SaiErrorPage` external object definition
@@ -148,9 +147,21 @@ Custom endpoint, Interface with the AIBySimplicite process.
 External page, redirect page in case of technical error (such as inaccessible Mistral API or missing token).
 
 
+`SaiModulesApi` external object definition
+------------------------------------------
+
+
+
+
 `SaiNewModuleFront` external object definition
 ----------------------------------------------
 
 External page, module generation process.
+
+
+`SaiUpdateModuleFront` external object definition
+-------------------------------------------------
+
+
 
 

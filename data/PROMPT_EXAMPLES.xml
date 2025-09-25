@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simplicite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.simplicite.fr/base" xsi:schemaLocation="http://www.simplicite.fr/base https://www.simplicite.io/resources/schemas/base.xsd">
+<object>
+	<name>SaiApplicationExample</name>
+	<action>upsert</action>
+	<data>
+		<saiSaeTitle>Extranet Client et Suivi de Dossiers</saiSaeTitle>
+		<saiSaeTitleEnglish>Client Extranet &amp; Case Management</saiSaeTitleEnglish>
+		<saiSaePrompt><![CDATA[# Développement d'une Application Web Sécurisée (Extranet)
+
+Nous souhaitons développer une **application web sécurisée** (Extranet) permettant à nos **clients externes** (particuliers, entreprises, partenaires) d’accéder à leurs dossiers en temps réel, de suivre leur avancée, et d’interagir avec nos équipes internes.
+
+**Objectifs** :
+- Améliorer la **transparence** et la **collaboration**.
+- Réduire les échanges **emails/téléphoniques**.
+- Automatiser les **processus de suivi**.
+
+---
+
+## Public Cible
+- **Clients finaux** (particuliers, entreprises).
+- **Équipes internes** (responsables de dossiers, administrateurs, support).
+- **Partenaires externes** (sous-traitants, experts, etc.).
+
+---
+
+## 1. Fonctionnalités
+
+### **A. Espace Client (Front-Office)**
+
+#### **Tableau de bord personnalisé**
+- Vue synthétique des dossiers (en cours/terminés) :
+  - Statut, dates clés, alertes.
+- **Notifications** (push/email) pour les mises à jour (ex : *"Votre dossier est en attente de validation"*).
+- **Recherche avancée** (par numéro de dossier, date, type, etc.).
+
+#### **Gestion des dossiers**
+- Consultation des **documents associés** (PDF, images, contrats).
+- **Commentaires/notes** entre le client et l’équipe interne (messagerie intégrée ou fils de discussion par dossier).
+
+#### **Demandes et interactions**
+- Création de **tickets** pour demandes spécifiques (ex : *"Demande de modification de contrat"*).
+- **Upload de documents** par le client (limites de taille/formats autorisés).
+- **Signature électronique intégrée** (ex : DocuSign, Yousign, ou API open-source comme SignServer).
+
+#### **Calendrier partagé**
+- Affichage des **échéances** (dates de paiement, rendez-vous, délais légaux).
+- Synchronisation avec **Google Calendar/Outlook** (optionnel).
+
+---
+
+### **B. Back-Office (Administration)**
+
+#### **Gestion des utilisateurs**
+- Création/modification/suppression de **comptes clients**.
+- **Rôles et permissions** (ex : client standard, admin, super-admin).
+
+#### **Gestion des dossiers**
+- Création/édition de dossiers avec **modèles pré-remplis** (ex : modèle de contrat type).
+- **Assignation automatique** des dossiers aux équipes internes (règles métiers).
+- **Workflow de validation** (ex : *"En attente de signature"* → *"Validé"* → *"Archivé"*).]]></saiSaePrompt>
+		<saiSaePromptEnglish><![CDATA[# Development of a Secure Web Application (Extranet)
+
+We wish to develop a **secure web application** (Extranet) allowing our **external clients** (individuals, businesses, partners) to access their files in real time, track progress, and interact with our internal teams.
+
+**Objectives**:
+- Improve **transparency** and **collaboration**.
+- Reduce **email/phone exchanges**.
+- Automate **tracking processes**.
+
+---
+
+## Target Audience
+- **End customers** (individuals, businesses).
+- **Internal teams** (case managers, administrators, support).
+- **External partners** (subcontractors, experts, etc.).
+
+---
+
+## 1. Key Required Features
+
+### **A. Client Portal (Front-Office)**
+
+#### **Personalized Dashboard**
+- Synthetic view of files (ongoing/completed):
+  - Status, key dates, alerts.
+- **Notifications** (push/email) for updates (e.g., *"Your file is pending validation"*).
+- **Advanced search** (by file number, date, type, etc.).
+
+#### **File Management**
+- Viewing **associated documents** (PDFs, images, contracts).
+- **Comments/notes** between clients and internal teams (integrated messaging or discussion threads per file).
+
+#### **Requests and Interactions**
+- Creation of **tickets** for specific requests (e.g., *"Contract modification request"*).
+- **Document upload** by clients (size/format restrictions).
+- **Integrated e-signature** (e.g., DocuSign, Yousign, or open-source APIs like SignServer).
+
+#### **Shared Calendar**
+- Display of **deadlines** (payment dates, appointments, legal deadlines).
+- Sync with **Google Calendar/Outlook** (optional).
+
+---
+
+### **B. Back-Office (Administration)**
+
+#### **User Management**
+- Creation/modification/deletion of **client accounts**.
+- **Roles and permissions** (e.g., standard client, admin, super-admin).
+
+#### **File Management**
+- Creation/editing of files with **pre-filled templates** (e.g., standard contract template).
+- **Automatic assignment** of files to internal teams (business rules).
+- **Validation workflow** (e.g., *"Pending signature"* → *"Validated"* → *"Archived"*).]]></saiSaePromptEnglish>
+	</data>
+</object>
+<object>
+	<name>SaiApplicationExample</name>
+	<action>upsert</action>
+	<data>
+		<saiSaeTitle>Gestion de Flotte de Véhicules</saiSaeTitle>
+		<saiSaeTitleEnglish>Fleet Management System</saiSaeTitleEnglish>
+		<saiSaePrompt><![CDATA[# **Cahier des Charges – Application de Gestion de Flotte de Véhicules**
+**Objectif** : Développer une **solution SaaS/web/mobile** pour optimiser la gestion des véhicules d’une flotte (entreprises, collectivités, loueurs), en centralisant le suivi technique, logistique, financier et sécuritaire.
+
+---
+## **Contexte & Enjeux**
+- **Problématiques cibles** :
+  - Manque de visibilité en temps réel sur l’état des véhicules (localisation, maintenance, coûts).
+  - Processus manuels (feuilles Excel, emails) entraînant des erreurs et des retards.
+  - Difficulté à respecter les réglementations (contrôles techniques, assurances).
+  - Coûts élevés liés à la surconsommation de carburant, aux pannes ou aux vols.
+- **Bénéfices attendus** :
+  - Réduction des coûts opérationnels (carburant, maintenance, amendes).
+  - Automatisation des alertes et rapports.
+  - Amélioration de la sécurité et de la conformité.
+  - Optimisation des trajets et de l’utilisation des véhicules.
+
+---
+## **Public Cible**
+| Rôle                  | Besoins Principaux                                                                 |
+|------------------------|------------------------------------------------------------------------------------|
+| **Responsables flotte** | Tableau de bord global, analyse des coûts, gestion des contrats (leasing/assurance). |
+| **Chauffeurs**         | Accès mobile aux missions, déclaration d’incidents, suivi des trajets.            |
+| **Mainteneurs**        | Planning des interventions, historique technique, stocks de pièces.               |
+| **Comptables**         | Suivi des dépenses (carburant, péages, réparations), export vers ERP.              |
+| **RH/Sécurité**        | Gestion des permis de conduire, formation des chauffeurs, alertes comportementales. |
+
+---
+## **Fonctionnalités Clés**
+
+### **A. Front-Office**
+#### **1. Tableau de Bord Centralisé**
+- **Vue d’ensemble** :
+  - État de la flotte (véhicules actifs/en maintenance/hors service) avec indicateurs visuels (jaune/rouge/vert).
+  - **Cartographie interactive** (intégration Google Maps/Mapbox) avec géolocalisation **temps réel** des véhicules.
+  - **Alertes prioritaires** (ex : "Véhicule #ABC123 en panne", "Dépassement de vitesse détecté").
+
+#### **2. Gestion des Véhicules**
+- **Fiche véhicule détaillée** :
+  - Informations techniques (marque, modèle, année, VIN, immatriculation).
+  - **Historique complet** : kilométrage, entretien, accidents, coûts associés.
+  - **Documents joints** (carte grise, contrat de leasing, certificat d’assurance, PV de contrôle technique).
+- **Suivi des coûts** :
+  - Décomposition par poste (carburant, péages, réparations, amendes).
+
+#### **3. Planification & Missions**
+- **Calendrier des affectations** :
+  - Réservation de véhicules par les chauffeurs (avec validation automatique selon les droits).
+  - **Optimisation des trajets** (intégration avec Waze/Google Maps pour éviter les bouchons).
+- **Gestion des tournées** :
+  - Création de circuits optimisés (algorithme de type *Vehicle Routing Problem*).
+  - Suivi en direct des livraisons (avec preuve de passage : photo, signature client).
+
+#### **4. Maintenance Prédictive**
+- **Alertes automatiques** :
+  - Rappels pour vidanges, contrôles techniques, renouvellements d’assurance.
+- **Gestion des interventions** :
+  - Création de bons de travail pour les garages partenaires.
+  - Suivi des pièces détachées (stock, coûts, fournisseurs).
+
+---
+### **B. Back-Office **
+#### **1. Gestion des Utilisateurs**
+- **Rôles et permissions** :
+  - *Admin* : Accès complet + configuration des règles métiers.
+  - *Responsable flotte* : Gestion des véhicules et rapports.
+  - *Chauffeur* : Accès limité à ses missions et déclarations.
+  - *Partenaire* (garages, assurances) : Accès restreint aux données pertinentes.
+
+#### **2. Configuration de la Flotte**
+- **Modèles de véhicules** :
+  - Base de données des modèles avec coûts moyens (consommation, entretien).
+- **Règles métiers** :
+  - Plages horaires d’utilisation (ex : "Véhicules de service interdits le week-end").]]></saiSaePrompt>
+		<saiSaePromptEnglish><![CDATA[# **Specifications – Fleet Management Application**
+**Objective**: Develop a **SaaS/web/mobile solution** to optimize the management of vehicle fleets (for businesses, municipalities, and rental companies) by centralizing technical, logistical, financial, and security tracking.
+
+---
+## **Context & Challenges**
+- **Target Issues**:
+  - Lack of **real-time visibility** on vehicle status (location, maintenance, costs).
+  - **Manual processes** (Excel sheets, emails) leading to errors and delays.
+  - Difficulty complying with **regulations** (technical inspections, insurance).
+  - High costs due to **fuel overconsumption, breakdowns, or theft**.
+- **Expected Benefits**:
+  - Reduction in **operational costs** (fuel, maintenance, fines).
+  - **Automation** of alerts and reports.
+  - Improved **safety and compliance**.
+  - Optimization of **routes and vehicle usage**.
+
+---
+## **Target Audience**
+| Role                  | Key Needs                                                                                     |
+|-----------------------|-----------------------------------------------------------------------------------------------|
+| **Fleet Managers**    | Global dashboard, cost analysis, contract management (leasing/insurance).                   |
+| **Drivers**           | Mobile access to missions, incident reporting, route tracking.                                |
+| **Maintenance Teams** | Intervention scheduling, technical history, spare parts inventory.                          |
+| **Accountants**       | Expense tracking (fuel, tolls, repairs), ERP export.                                          |
+| **HR/Safety**         | Driver’s license management, driver training, behavioral alerts (e.g., speeding).            |
+
+---
+## **Key Features**
+
+### **A. Front-Office**
+#### **1. Centralized Dashboard**
+- **Overview**:
+  - Fleet status (active/in maintenance/out of service) with **visual indicators** (yellow/red/green).
+  - **Interactive map** (Google Maps/Mapbox integration) with **real-time vehicle tracking**.
+  - **Priority alerts** (e.g., *"Vehicle #ABC123 broken down"*, *"Speeding detected"*).
+
+#### **2. Vehicle Management**
+- **Detailed Vehicle Profile**:
+  - Technical specs (make, model, year, VIN, license plate).
+  - **Full history**: mileage, maintenance, accidents, associated costs.
+  - **Attached documents** (registration, leasing contract, insurance certificate, inspection reports).
+- **Cost Tracking**:
+  - Breakdown by category (fuel, tolls, repairs, fines).
+
+#### **3. Planning & Missions**
+- **Assignment Calendar**:
+  - Vehicle reservations by drivers (auto-approval based on permissions).
+  - **Route optimization** (Waze/Google Maps integration to avoid traffic).
+- **Tour Management**:
+  - Optimized circuit creation (*Vehicle Routing Problem* algorithm).
+  - Live delivery tracking (with proof of passage: photos, customer signatures).
+
+#### **4. Predictive Maintenance**
+- **Automatic Alerts**:
+  - Reminders for oil changes, technical inspections, insurance renewals.
+- **Intervention Management**:
+  - Work orders for partner garages.
+  - Spare parts tracking (inventory, costs, suppliers).
+
+---
+### **B. Back-Office**
+#### **1. User Management**
+- **Roles & Permissions**:
+  - *Admin*: Full access + business rule configuration.
+  - *Fleet Manager*: Vehicle and report management.
+  - *Driver*: Limited access to missions and declarations.
+  - *Partner* (garages, insurers): Restricted access to relevant data.
+
+#### **2. Fleet Configuration**
+- **Vehicle Models**:
+  - Database of models with average costs (fuel consumption, maintenance).
+- **Business Rules**:
+  - Usage time windows (e.g., *"Service vehicles prohibited on weekends"*).
+
+---]]></saiSaePromptEnglish>
+	</data>
+</object>
+<object>
+	<name>SaiApplicationExample</name>
+	<action>upsert</action>
+	<data>
+		<saiSaeTitle>Gestion de Projets et Facturation</saiSaeTitle>
+		<saiSaeTitleEnglish>Project Management &amp; Billing</saiSaeTitleEnglish>
+		<saiSaePrompt><![CDATA[# **Cahier des Charges – Application de Gestion de Projets et Facturation**
+**Objectif** : Développer une **solution SaaS tout-en-un** pour centraliser la gestion des projets (planification, collaboration, suivi des tâches) et la facturation (devis, paiements, comptabilité), avec une intégration fluide entre les deux modules.
+
+---
+## **Contexte & Enjeux**
+### **Problématiques cibles**- **Suivi financier complexe** : Difficulté à lier le temps passé sur un projet aux factures émises (ex : "Ce client a-t-il payé les heures supplémentaires ?").
+- **Retards de paiement** : Absence d’automatisation des relances et de suivi des échéances.
+- **Manque de transparence** : Les équipes et clients n’ont pas de visibilité en temps réel sur l’avancement et les coûts.
+- **Conformité légale** : Risque d’oubli de mentions obligatoires (RGPD, TVA, conditions de paiement).
+
+### **Bénéfices attendus**
+| Pour les...          | Avantages                                                                                     |
+|-----------------------|-----------------------------------------------------------------------------------------------|
+| **Freelances**        | Gain de temps (30% en moins sur l’admin), suivi des revenus, alertes pour les impôts.          |
+| **PME/Startups**      | Vue unifiée des projets et de la rentabilité, réduction des impayés.                         |
+| **Équipes distantes** | Collaboration centralisée (fichiers, commentaires, validation des tâches).                   |
+| **Clients**           | Accès à un portail pour suivre l’avancement et payer en ligne (transparence → confiance).    |
+
+---
+## **Public Cible**
+| Rôle                  | Besoins Principaux                                                                                     |
+|-----------------------|--------------------------------------------------------------------------------------------------------|
+| **Chefs de projet**   | Planification (Gantt), allocation des ressources, suivi des budgets vs. dépenses réelles.             |
+| **Équipes techniques**| Liste des tâches priorisées, temps passé, intégration avec GitHub/Jira.                                |
+| **Comptables**        | Génération automatique des factures à partir des heures/tâches, export vers Sage/Ciel.                 |
+| **Freelances**        | Suivi des projets en parallèle, devis/factures pré-remplis avec templates.                            |
+| **Clients**           | Accès sécurisé à un espace pour valider les livrables, télécharger les factures, payer en ligne.       |
+
+---
+## **Fonctionnalités Clés**
+
+### **A. Gestion de Projets**
+#### **1. Tableau de Bord Collaboratif**
+- **Vue d’ensemble** :
+  - Liste des projets en cours/terminés/retard avec indicateurs visuels.
+
+- **Modes d’affichage** :
+  - **Kanban** (colonnes personnalisables : "À faire", "En cours", "Validé").
+  - **Diagramme de Gantt** (dépendances entre tâches, chemin critique).
+  - **Liste** (filtres par client, date, priorité).
+
+#### **2. Suivi des Tâches**
+- **Création/Assignation** :
+  - Description, deadline, responsable, étiquettes (ex : "Urgent", "Design").
+  - **Estimation du temps** (vs. temps réel) pour analyser les écarts.
+  - **Validation client** : Bouton "Approuver" pour les livrables.
+- **Automatisations** :
+  - Déclenchement de tâches en cascade (ex : "Si la maquette est validée → lancer le développement").
+  - Rappels automatiques (Slack/email) pour les échéances.
+
+#### **3. Gestion du Temps**
+- **Tracker intégré** :
+  - date pour enregistrer le temps passé.
+  - **Feuilles de temps** hebdomadaires avec validation par le manager.
+  - "Temps facturable vs. non facturable".
+  - Détection des projets à risque (dépassement de budget temps).
+
+---
+### **B. Facturation & Comptabilité**
+#### **1. Devis et Factures**
+- **Création** :
+  - **Modèles personnalisables** (logo, conditions de paiement, mentions légales).
+  - **Options de paiement** :
+- **Suivi** :
+  - Statut des factures (🟢 Payée, 🟡 En attente, 🔴 Retard).
+
+#### **2. Gestion des Clients**
+- **Fiche client** :
+  - Coordonnées, historique des projets/factures, notes internes (ex : "Préfère les paiements par virement").
+  - **CRM léger** : Tags ("Client VIP", "Retardataire"), rappel des anniversaires pour offres commerciales.
+- **Portail client** :
+  - Accès sécurisé pour :
+    - Télécharger les factures/devis.
+    - Valider les livrables.
+    - Payer en ligne (avec reçu automatique).
+
+
+
+---
+### **C. Back-Office & Administration**
+#### **1. Gestion des Utilisateurs**
+- **Rôles et permissions** :
+  | Rôle               | Accès                                                                                     |
+  |--------------------|-------------------------------------------------------------------------------------------|
+  | **Admin**          | Tout + configuration des tarifs, modèles de factures, intégrations.                       |
+  | **Manager**        | Création de projets, validation des feuilles de temps, édition des factures.            |
+  | **Collaborateur**  | Saisie des temps, commentaires sur les tâches, accès à ses projets.                       |
+  | **Client**         | Portail dédié (factures, livrables, paiements).                                          |
+  | **Comptable**      | Accès en lecture seule aux données financières + export.                                  |
+
+#### **2. Paramétrage**
+- **Tarifs** :
+  - Définition des taux horaires (par rôle : "Développeur = 70€/h", "Designer = 50€/h").
+  - **Forfaits** (ex : "Site web = 2000€ HT" avec décomposition des tâches incluses).]]></saiSaePrompt>
+		<saiSaePromptEnglish><![CDATA[# **Specifications – Project Management & Invoicing Application**
+**Objective**: Develop an **all-in-one SaaS solution** to centralize project management (planning, collaboration, task tracking) and invoicing (quotes, payments, accounting), with seamless integration between both modules.
+
+---
+## **Context & Challenges**
+### **Target Issues**
+- **Complex Financial Tracking**: Difficulty linking time spent on projects to issued invoices (e.g., *"Has this client paid for overtime hours?"*).
+- **Payment Delays**: Lack of automated reminders and deadline tracking.
+- **Lack of Transparency**: Teams and clients lack real-time visibility on progress and costs.
+- **Legal Compliance Risks**: Potential omissions of mandatory details (GDPR, VAT, payment terms).
+
+### **Expected Benefits**
+| For...               | Advantages                                                                                     |
+|----------------------|------------------------------------------------------------------------------------------------|
+| **Freelancers**      | Time savings (30% less admin work), revenue tracking, tax alerts.                             |
+| **SMEs/Startups**    | Unified view of projects and profitability, reduced unpaid invoices.                         |
+| **Remote Teams**     | Centralized collaboration (files, comments, task validation).                                |
+| **Clients**          | Secure portal to track progress, download invoices, and pay online (transparency → trust).     |
+
+---
+## **Target Audience**
+| Role                  | Key Needs                                                                                     |
+|-----------------------|-----------------------------------------------------------------------------------------------|
+| **Project Managers**  | Planning (Gantt charts), resource allocation, budget vs. actual spending tracking.             |
+| **Technical Teams**   | Prioritized task lists, time tracking, GitHub/Jira integration.                                |
+| **Accountants**       | Automatic invoice generation from hours/tasks, export to Sage/QuickBooks.                     |
+| **Freelancers**       | Multi-project tracking, pre-filled quote/invoice templates.                                   |
+| **Clients**           | Secure access to validate deliverables, download invoices, and pay online.                    |
+
+---
+## **Key Features**
+
+### **A. Project Management**
+#### **1. Collaborative Dashboard**
+- **Overview**:
+  - List of ongoing/completed/delayed projects with visual indicators (🟢/🟡/🔴).
+
+- **Display Modes**:
+  - **Kanban** (customizable columns: "To Do", "In Progress", "Done").
+  - **Gantt Chart** (task dependencies, critical path).
+  - **List View** (filters by client, date, priority).
+
+#### **2. Task Tracking**
+- **Creation/Assignment**:
+  - Description, deadline, assignee, labels (e.g., "Urgent", "Design").
+  - **Time estimation** (vs. actual time) to analyze deviations.
+  - **Client validation**: "Approve" button for deliverables.
+- **Automations**:
+  - Cascade task triggers (e.g., *"If mockup approved → start development"*).
+  - Automatic reminders (Slack/email) for deadlines.
+
+#### **3. Time Management**
+- **Built-in Tracker**:
+  - Timer to record time spent.
+  - **Timesheets** (weekly validation by managers).
+  - Reports: "Billable vs. Non-billable Time".
+  - Risk detection for time budget overruns.
+
+---
+### **B. Invoicing & Accounting**
+#### **1. Quotes & Invoices**
+- **Creation**:
+  - **Customizable templates** (logo, payment terms, legal disclaimers).
+  - **Automatic generation** from tracked hours/tasks (e.g., *"Project X → 20h at €80/h = €1,600 excl. VAT"*).
+  - **Payment Options**:
+    - Online payment links (Stripe, PayPal, SEPA transfer).
+    - Installment plans (e.g., 30% deposit, balance on delivery).
+- **Tracking**:
+  - Invoice status (🟢 Paid, 🟡 Pending, 🔴 Overdue).
+
+#### **2. Client Management**
+- **Client Profile**:
+  - Contact details, project/invoice history, internal notes (e.g., *"Prefers bank transfers"*).
+  - **Lightweight CRM**: Tags ("VIP Client", "Late Payer"), birthday reminders for promotions.
+- **Client Portal**:
+  - Secure access to:
+    - Download quotes/invoices.
+    - Validate deliverables.
+    - Pay online (with automatic receipt).
+
+---
+### **C. Back-Office & Administration**
+#### **1. User Management**
+- **Roles & Permissions**:
+  | Role               | Access                                                                                     |
+  |--------------------|--------------------------------------------------------------------------------------------|
+  | **Admin**          | Full access + rate configuration, invoice templates, integrations.                       |
+  | **Manager**        | Project creation, timesheet validation, invoice editing.                                  |
+  | **Team Member**    | Time logging, task comments, access to assigned projects.                                 |
+  | **Client**         | Dedicated portal (invoices, deliverables, payments).                                       |
+  | **Accountant**     | Read-only financial data + export.                                                        |
+
+#### **2. Settings**
+- **Rates**:
+  - Hourly rate definitions (by role: *"Developer = €70/h"*, *"Designer = €50/h"*).
+  - **Fixed-price packages** (e.g., *"Website = €2,000 excl. VAT"* with task breakdown).]]></saiSaePromptEnglish>
+	</data>
+</object>
+<object>
+	<name>SaiApplicationExample</name>
+	<action>upsert</action>
+	<data>
+		<saiSaeTitle>Gestion de Stock et Approvisionnement</saiSaeTitle>
+		<saiSaeTitleEnglish>Inventory &amp; Procurement Management</saiSaeTitleEnglish>
+		<saiSaePrompt><![CDATA[# **Cahier des Charges – Application de Gestion de Stock et Approvisionnement**
+**Objectif** : Concevoir une solution pour optimiser la **traçabilité des stocks**, l’**approvisionnement intelligent**, et la **logistique**, avec des outils d’analyse prédictive et des intégrations ERP/CRM. L’application doit réduire les ruptures de stock, les surstocks, et automatiser les processus d’achat.
+
+---
+
+## **Contexte & Enjeux**
+### **Problématiques Cibles**
+- **Manque de visibilité** :
+  - Stocks dispersés (entrepôts, boutiques, 3PL) sans vue unifiée → **surstocks ou ruptures**.
+  - Difficulté à suivre les **dates de péremption**.
+- **Processus manuels** :
+  - Saisie des inventaires sur Excel → **erreurs et retard** dans les commandes.
+  - Absence d’alertes pour les **seuils de réapprovisionnement**.
+- **Coûts logistiques élevés** :
+  - Mauvaise rotation des stocks (coût de stockage inutiles).
+  - **Frais de port urgents** dus aux ruptures de stock imprévues.
+- **Conformité complexe** :
+  - Traçabilité insuffisante pour les **normes ISO 9001, HACCP, ou douanières**.
+  - Risque de **pénalités** pour non-respect des délais de livraison (contrats B2B).
+
+### **Bénéfices Attendus**
+| Pour les...          | Avantages                                                                                     |
+|-----------------------|-----------------------------------------------------------------------------------------------|
+| **Responsables logistique** | Réduction de **30% des ruptures de stock**, optimisation des coûts de stockage.              |
+| **Acheteurs**         | Automatisation des **commandes fournisseurs** (gain de 10h/semaine).                        |
+| **E-commerçants**     | Synchronisation en temps réel avec **Shopify/Magento** → évite les ventes de produits indisponibles. |
+| **Industriels**       | Suivi des **numéros de lot/série** pour la traçabilité (ex : rappel produit).                |
+| **Comptables**        | Intégration avec **Sage/Ciel** pour la valorisation des stocks en temps réel.               |
+
+---
+
+## **Public Cible**
+| Secteur               | Besoins Spécifiques                                                                                     |
+|-----------------------|--------------------------------------------------------------------------------------------------------|
+| **Distribution**       | Gestion multi-entrepôts, cross-docking, suivi des délais de livraison.                                |
+| **E-commerce**        | Synchronisation avec les marketplaces (Amazon, Cdiscount), gestion des retours.                       |
+| **Industrie**         | Traçabilité des composants (numéros de série), gestion des stocks de sécurité.                        |
+| **Agroalimentaire**   | Alertes pour les **DLC/DLUO**, gestion des lots par date de péremption.                                |
+
+---
+
+## **Fonctionnalités Clés**
+
+### **A. Gestion des Stocks**
+#### **1. Tableau de Bord Centralisé**
+- **Vue en temps réel** :
+  - **Niveau de stock** par produit/entrepôt (avec seuils d’alerte : 🟢 OK, 🟡 Seuil atteint, 🔴 Rupture).
+  - **Cartographie des entrepôts**.
+  - **Indicateurs clés** :
+    - Taux de rotation, coût de possession, délai moyen de réapprovisionnement.
+
+#### **2. Traçabilité Avancée**
+- **Fiches produits détaillées** :
+  - Photo, code-barres/EAN, fournisseur, coût d’achat, prix de vente, **numéro de lot/série**.
+  - **Historique complet** : mouvements (entrées/sorties), retours, ajustements manuels.
+- **Gestion des lots** :
+  - **FIFO/LIFO** (pour les produits périssables).
+
+---
+
+### **B. Approvisionnement & Achats**
+#### **1. Réapprovisionnement Automatisé**
+- **Seuils** :
+  - de **stocks minimaux/maximaux**.
+
+#### **2. Gestion des Fournisseurs**
+- **Fiche fournisseur** :
+  - Coordonnées, délais de livraison moyens, **score de performance** (qualité, ponctualité).
+  - **Contrats et tarifs** : commandes, remises négociées.
+
+#### **3. Logistique Entrante**
+- **Réception des marchandises** :
+  - Validation via **scanner code-barres** (avec alerte en cas de non-conformité : quantité, qualité).
+  - **Gestion des litiges** : Photographier les produits endommagés → génération d’un **bon de retour**.
+- **Intégration transporteurs** :
+  - Suivi des colis (DHL, Chronopost) avec **numéros de tracking**.
+
+---
+
+### **C. Expédition & Livraison**
+- **Gestion des transporteurs** :
+  - **Suivi des livraisons** : Notifications automatiques au client (SMS/email).
+- **Gestion des retours** :
+  - Portail client pour initier un retour.
+
+---
+
+### **D. Back-Office & Administration**
+#### **1. Gestion des Utilisateurs**
+- **Rôles et permissions** :
+  | Rôle               | Accès                                                                                     |
+  |--------------------|-------------------------------------------------------------------------------------------|
+  | **Admin**          | Configuration des entrepôts, gestion des intégrations, paramètres avancés.                |
+  | **Responsable stock** | Validation des inventaires, gestion des alertes.                                        |
+  | **Acheteur**       | Création des commandes fournisseurs, négociation des tarifs.                              |
+  | **Préparateur**    | Accès aux picklists et validation des prélèvements.                                      |
+  | **Client**         | Portail pour suivre les commandes (statut, tracking).                                     |]]></saiSaePrompt>
+		<saiSaePromptEnglish><![CDATA[# **Specifications – Inventory Management & Procurement Application**
+**Objective**: Design a **comprehensive solution** to optimize **stock traceability**, **smart procurement**, and **logistics**, featuring predictive analytics tools and ERP/CRM integrations. The application must reduce stockouts, overstocking, and automate purchasing processes.
+
+---
+
+## **Context & Challenges**
+### **Target Issues**
+- **Lack of Visibility**:
+  - **Fragmented inventory** across warehouses, stores, and 3PLs → **no unified view** leading to overstocking or stockouts.
+  - Difficulty tracking **expiration dates** (critical for food/pharma sectors).
+- **Manual Processes**:
+  - Excel-based inventory entries → **errors and delays** in order processing.
+  - No alerts for **replenishment thresholds**.
+- **High Logistics Costs**:
+  - Poor stock rotation → **unnecessary storage costs**.
+  - **Rush shipping fees** due to unplanned stockouts.
+- **Compliance Complexity**:
+  - Insufficient traceability for **ISO 9001, HACCP, or customs standards**.
+  - Risk of **penalties** for missed delivery deadlines (B2B contracts).
+
+### **Expected Benefits**
+| For...               | Advantages                                                                                     |
+|----------------------|-----------------------------------------------------------------------------------------------|
+| **Logistics Managers** | **30% reduction in stockouts**, optimized storage costs.                                    |
+| **Buyers**           | **Automated purchase orders** (saves 10h/week).                                               |
+| **E-commerce**       | **Real-time sync** with Shopify/Magento → prevents overselling.                              |
+| **Manufacturers**    | **Lot/serial number tracking** for recalls (e.g., automotive/pharma).                      |
+| **Accountants**      | **Seamless integration** with Sage/QuickBooks for real-time stock valuation.                 |
+
+---
+
+## **Target Audience**
+| Sector               | Specific Needs                                                                                     |
+|----------------------|--------------------------------------------------------------------------------------------------|
+| **Distribution**     | Multi-warehouse management, cross-docking, delivery lead time tracking.                        |
+| **E-commerce**      | Marketplace sync (Amazon, eBay), returns management.                                            |
+| **Manufacturing**    | Component traceability (serial numbers), safety stock management.                              |
+| **Food & Beverage**  | **Expiry date alerts (DLC/DLUO)**, batch management by expiration.                              |
+
+---
+
+## **Key Features**
+
+### **A. Inventory Management**
+#### **1. Centralized Dashboard**
+- **Real-Time View**:
+  - **Stock levels** per product/warehouse (with alerts: 🟢 OK, 🟡 Threshold, 🔴 Stockout).
+  - **Warehouse mapping** (Google Maps integration for multi-site operations).
+  - **KPIs**:
+    - Turnover rate, carrying cost, average replenishment lead time.
+
+#### **2. Advanced Traceability**
+- **Detailed Product Cards**:
+  - Photo, barcode/EAN, supplier, purchase cost, selling price, **lot/serial number**.
+  - **Full history**: Movements (in/out), returns, manual adjustments.
+- **Batch Management**:
+  - **FIFO/LIFO** support for perishable goods.
+
+---
+
+### **B. Procurement & Purchasing**
+#### **1. Automated Replenishment**
+- **Dynamic Thresholds**:
+  - Calculation of **min/max stock levels** based on historical demand (e.g., *Moving Average*).
+  - **Smart alerts**: "Stock of [Product X] will hit critical level in 5 days."
+
+#### **2. Supplier Management**
+- **Supplier Profile**:
+  - Contact details, average lead times, **performance score** (quality, punctuality).
+  - **Contracts & Pricing**: Order history, negotiated discounts.
+
+#### **3. Inbound Logistics**
+- **Goods Receipt**:
+  - **Barcode scanning** validation (alerts for discrepancies in quantity/quality).
+  - **Dispute Management**: Photograph damaged goods → generate **return slip**.
+- **Carrier Integration**:
+  - Track shipments (DHL, FedEx) with **automatic tracking numbers**.
+
+---
+
+### **C. Outbound Logistics**
+#### **1. Shipping & Delivery**
+- **Carrier Management**:
+  - **Delivery tracking**: Automatic customer notifications (SMS/email).
+- **Returns Management**:
+  - Customer portal to initiate returns → generates **RMA (Return Merchandise Authorization)**.
+
+---
+
+### **D. Back-Office & Administration**
+#### **1. User Management**
+- **Roles & Permissions**:
+  | Role               | Access                                                                                     |
+  |--------------------|--------------------------------------------------------------------------------------------|
+  | **Admin**          | Warehouse configuration, integration settings, advanced parameters.                       |
+  | **Inventory Manager** | Inventory validation, alert management.                                               |
+  | **Buyer**          | Purchase order creation, supplier negotiations.                                         |
+  | **Picker**         | Access to picklists and order fulfillment validation.                                   |
+  | **Customer**       | Portal to track orders (status, tracking).                                              |]]></saiSaePromptEnglish>
+	</data>
+</object>
+<object>
+	<name>SaiApplicationExample</name>
+	<action>upsert</action>
+	<data>
+		<saiSaeTitle>Maintenance Industrielle et Planification</saiSaeTitle>
+		<saiSaeTitleEnglish>Industrial Maintenance &amp; Planning</saiSaeTitleEnglish>
+		<saiSaePrompt><![CDATA[# **Cahier des Charges – Application de Maintenance Industrielle et Planification**
+**Objectif** :
+Développer une **solution** pour optimiser la **gestion des actifs industriels**, la **planification des interventions**, et la **maintenance prédictive**, en intégrant :
+- **GMAO (Gestion de Maintenance Assistée par Ordinateur)**
+- **Planification intelligente** (algorithmes d'ordonnancement)
+- **IoT et capteurs** pour la surveillance en temps réel
+- **Analytique avancée** (IA/ML pour la prédiction des pannes)
+
+**Cible** : Réduire les **temps d'arrêt non planifiés** de 40%, augmenter la **durée de vie des équipements** de 25%, et améliorer la **productivité globale** (OEE) de 15%.
+
+---
+
+## **Contexte & Enjeux**
+### **Problématiques Clés**
+| Catégorie               | Défis Actuels                                                                                     |
+|-------------------------|--------------------------------------------------------------------------------------------------|
+| **Maintenance Réactive** | 60% des interventions sont **non planifiées** → coûts élevés et perturbations de production.     |
+| **Planification**       | **Conflits de ressources** (techniciens, outils, pièces) → retards fréquents.                  |
+| **Suivi des Actifs**    | **Historique fragmenté** (Excel, papiers, systèmes disparates) → manque de traçabilité.         |
+| **Coûts Cachés**        | **Surstock de pièces détachées** (30% inutilisées) et **pénalités** pour non-respect des SLA.   |
+| **Conformité**          | **Risques juridiques** (normes ISO 9001, directives machines, environnement).                     |
+| **Compétences**         | **Dépendance aux experts** → perte de savoir-faire avec les départs à la retraite.               |
+
+### **Bénéfices Attendus**
+| Pour les...            | Avantages                                                                                     |
+|------------------------|-----------------------------------------------------------------------------------------------|
+| **Responsables Maintenance** | Réduction des **coûts de maintenance** de 20-30% via la planification optimisée.          |
+| **Chefs d’Atelier**    | **Visibilité en temps réel** sur l’état des équipements et les interventions en cours.        |
+| **Techniciens**        | **Accès mobile** aux procédures, historiques, et checklists (gain de 30% de temps).            |
+| **Direction Industrielle** | **Tableaux de bord OEE** (Overall Equipment Effectiveness) et ROI des actifs.               |
+| **Acheteurs**          | **Optimisation des stocks de pièces** via l’analyse des pannes récurrentes.                |
+| **RSE/Qualité**        | **Traçabilité complète** pour les audits et la conformité réglementaire.                     |
+
+---
+
+## **Fonctionnalités Clés**
+
+### **A. Gestion des Équipements et Actifs**
+#### **1. Registre des Actifs**
+- **Fiches techniques détaillées** :
+  - Photo, schéma, **numéro de série**, date de mise en service, **coût d’acquisition/amortissement**.
+  - **Arbre des composants** (BOM – Bill of Materials) avec liens vers les pièces détachées.
+  - **Documentation attachée** : manuels, certificats de conformité, procédures de sécurité.
+- **Criticité et Classification** :
+  - Matrice **RPN (Risk Priority Number)** pour prioriser les équipements (méthode AMDEC).
+  - **Tags** : "Critique", "Sécurité", "Environnement", "Obsolète".
+
+#### **2. Suivi en Temps Réel**
+- **Tableau de bord des actifs** :
+  - **État actuel** (🟢 Opérationnel, 🟡 Maintenance requise, 🔴 En panne).
+  - **Indicateurs clés** :
+    - **MTBF** (Mean Time Between Failures), **MTTR** (Mean Time To Repair).
+    - **Coût total de possession (TCO)** et **ROI**.
+- **Intégration IoT** :
+  - **Capteurs** (vibration, température, pression) pour la **surveillance conditionnelle**.
+  - **Alertes automatiques** (ex : "Température du moteur > seuil critique").
+
+---
+
+### **B. Planification et Ordonnancement**
+#### **1. Calendrier Intelligent**
+- **Gestion calendaire**
+	- Disponibilité des techniciens (compétences, certifications).
+    - **Fenêtres de maintenance** (ex : "Ligne 3 disponible uniquement le week-end").
+    - **Pièces détachées** (délais d’approvisionnement).
+
+#### **2. Ordres de Travail (OT)**
+- **Création et Suivi** :
+  - **Modèles prédéfinis** pour les interventions courantes (ex : "Vidange compresseur").
+  - **Checklists dynamiques** (étapes à valider avec photos/vidéos).
+  - **Statuts** : "Planifié", "En cours", "En attente de pièce", "Terminé".
+- **Assignation** :
+  - Des **techniciens** avec les détails (outils requis, EPI, durée estimée).
+  - **localisation** pour les équipes mobiles .
+
+---
+
+### **C. Gestion des Pièces Détachées**
+#### **1. Inventaire Intelligent**
+- **Stock virtuel** :
+  - **Seuils min/max**.
+- **Fournisseurs** :
+  - **Base de données des fournisseurs** avec délais de livraison et tarifs négociés.
+
+#### **2. Chaîne d’Approvisionnement**
+- **Suivi des livraisons** :
+  - **Numéros de tracking** et alertes de retard.
+
+---
+
+### **D. Conformité et Sécurité**
+#### **1. Audit et Traçabilité**
+- **Journal des interventions** :
+  - **Horodatage** et signature électronique pour chaque action.
+- **Gestion des certifications** :
+  - Alertes pour les **recertifications** (ex : "Équipement sous pression à recertifier dans 3 mois").
+
+#### **2. Sécurité**
+- **Checklists EPI** :
+  - Validation obligatoire avant toute intervention (ex : "Port des gants et lunettes").
+- **Zones à risque** :
+  - **Cartographie des dangers** (ex : "Zone A : Risque chimique – équipement spécifique requis").
+
+---
+
+### **E. Back-Office et Administration**
+#### **1. Gestion des Utilisateurs**
+| Rôle                  | Permissions                                                                                     |
+|-----------------------|-----------------------------------------------------------------------------------------------|
+| **Administrateur**    | Configuration globale, gestion des intégrations, accès aux données sensibles.               |
+| **Responsable Maintenance** | Création/modification des OT, validation des rapports.                                      |
+| **Planificateur**     | Ordonnancement des interventions, gestion des ressources.                                    |
+| **Technicien**        | Accès aux OT assignés, saisie des rapports d’intervention.                                  |
+| **Superviseur Sécurité** | Validation des checklists sécurité et audits.                                               |
+| **Acheteur**         | Gestion des stocks de pièces et commandes fournisseurs.                                      |
+| **Auditeur**          | Accès en lecture seule aux historiques et rapports.                                          |]]></saiSaePrompt>
+		<saiSaePromptEnglish><![CDATA[# **Specifications – Industrial Maintenance & Planning Application**
+**Objective**:
+Develop a **comprehensive solution** to optimize **industrial asset management**, **intervention planning**, and **predictive maintenance**, integrating:
+- **CMMS (Computerized Maintenance Management System)**
+- **Smart scheduling** (algorithm-based optimization)
+- **IoT & sensors** for real-time monitoring
+- **Advanced analytics** (AI/ML for failure prediction)
+
+**Target**: Reduce **unplanned downtime** by 40%, increase **equipment lifespan** by 25%, and improve **Overall Equipment Effectiveness (OEE)** by 15%.
+
+---
+
+## **Context & Challenges**
+### **Key Issues**
+| Category               | Current Challenges                                                                                     |
+|------------------------|--------------------------------------------------------------------------------------------------------|
+| **Reactive Maintenance** | 60% of interventions are **unplanned** → high costs and production disruptions.                     |
+| **Planning**           | **Resource conflicts** (technicians, tools, parts) → frequent delays.                                |
+| **Asset Tracking**     | **Fragmented history** (Excel, paper, disparate systems) → lack of traceability.                   |
+| **Hidden Costs**       | **Overstock of spare parts** (30% unused) and **penalties** for SLA non-compliance.                 |
+| **Compliance**         | **Legal risks** (ISO 9001, Machinery Directive, environmental regulations).                         |
+| **Skills Gap**         | **Dependency on experts** → loss of know-how with retirements.                                         |
+
+### **Expected Benefits**
+| For...                 | Advantages                                                                                     |
+|------------------------|-----------------------------------------------------------------------------------------------|
+| **Maintenance Managers** | **20-30% reduction in maintenance costs** through optimized planning.                         |
+| **Workshop Supervisors** | **Real-time visibility** of equipment status and ongoing interventions.                       |
+| **Technicians**        | **Mobile access** to procedures, history, and checklists (**30% time savings**).               |
+| **Industrial Management** | **OEE dashboards** and asset ROI tracking.                                                   |
+| **Procurement**        | **Spare parts inventory optimization** via failure pattern analysis.                         |
+| **QHSE**               | **Complete traceability** for audits and regulatory compliance.                              |
+
+---
+
+## **Key Features**
+
+### **A. Equipment & Asset Management**
+#### **1. Asset Registry**
+- **Detailed technical sheets**:
+  - Photos, schematics, **serial number**, commissioning date, **acquisition/depreciation cost**.
+  - **Bill of Materials (BOM)** with linked spare parts.
+  - **Attached documentation**: Manuals, compliance certificates, safety procedures.
+- **Criticality & Classification**:
+  - **RPN (Risk Priority Number) matrix** for equipment prioritization (FMEA method).
+  - **Tags**: "Critical", "Safety", "Environment", "Obsolete".
+
+#### **2. Real-Time Monitoring**
+- **Asset dashboard**:
+  - **Current status** (🟢 Operational, 🟡 Maintenance Required, 🔴 Failed).
+  - **Key indicators**:
+    - **MTBF** (Mean Time Between Failures), **MTTR** (Mean Time To Repair).
+    - **Total Cost of Ownership (TCO)** and **ROI**.
+- **IoT Integration**:
+  - **Sensors** (vibration, temperature, pressure) for **condition monitoring**.
+  - **Automatic alerts** (e.g., "Engine temperature > critical threshold").
+
+---
+
+### **B. Planning & Scheduling**
+#### **1. Smart Calendar**
+- **Calendar Management**:
+  - Technician availability (skills, certifications).
+  - **Maintenance windows** (e.g., "Line 3 available only on weekends").
+  - **Spare parts** (lead times).
+
+#### **2. Work Orders (WO)**
+- **Creation & Tracking**:
+  - **Predefined templates** for routine tasks (e.g., "Compressor oil change").
+  - **Dynamic checklists** (steps with photo/video validation).
+  - **Statuses**: "Planned", "In Progress", "Awaiting Parts", "Completed".
+- **Assignment**:
+  - To **technicians** with details (required tools, PPE, estimated duration).
+  - **Geolocation** for mobile teams.
+
+---
+
+### **C. Spare Parts Management**
+#### **1. Smart Inventory**
+- **Virtual Stock**:
+  - **Min/max thresholds**.
+- **Suppliers**:
+  - **Supplier database** with lead times and negotiated rates.
+
+#### **2. Supply Chain**
+- **Delivery Tracking**:
+  - **Tracking numbers** and delay alerts.
+
+---
+
+### **D. Compliance & Safety**
+#### **1. Audit & Traceability**
+- **Intervention Log**:
+  - **Timestamp** and electronic signature for each action.
+- **Certification Management**:
+  - Alerts for **recertifications** (e.g., "Pressure vessel recertification due in 3 months").
+
+#### **2. Safety**
+- **PPE Checklists**:
+  - Mandatory validation before any intervention (e.g., "Gloves and goggles required").
+- **Hazard Zones**:
+  - **Risk mapping** (e.g., "Area A: Chemical hazard – special equipment required").
+
+---
+
+### **E. Back-Office & Administration**
+#### **1. User Management**
+| Role                  | Permissions                                                                                     |
+|-----------------------|-----------------------------------------------------------------------------------------------|
+| **Administrator**     | Global configuration, integration management, sensitive data access.                         |
+| **Maintenance Manager** | WO creation/modification, report validation.                                                 |
+| **Planner**           | Intervention scheduling, resource management.                                                |
+| **Technician**        | Access to assigned WOs, intervention reports.                                                |
+| **Safety Supervisor** | Safety checklist validation and audits.                                                      |
+| **Procurement**       | Spare parts inventory and supplier orders.                                                   |
+| **Auditor**           | Read-only access to history and reports.                                                     |]]></saiSaePromptEnglish>
+	</data>
+</object>
+</simplicite>

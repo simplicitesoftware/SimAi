@@ -1,0 +1,44 @@
+// V2 Palette (based on DARKER)
+@simAI-DialogBackground1: #333333;
+@simAI-DialogBackground2: #454545;
+@simAI-TextColor: white;
+@simAI-TextColorLowFade: rgba(255,255,255, 0.8);
+@simAI-BorderColor: #8b8b8b;
+@simAI-BorderColorFade: rgba(139, 139, 139, 0.5);
+@simAI-AccentColorBlue: #5451FF;
+@simAI-AccentColorBlue2: #2D2E97;
+@simAI-AccentColorGreen: #2D8856;
+@simAI-AccentColorGreen2: #1E5A39;
+@simAI-AccentColorYellow: #FFB23E;
+@simAI-AccentColorYellow2: #996B25;
+@simAI-AccentColorYellow3: #FFD18B;
+@simAI-ExampleBackground1: #2E2E2E;
+@simAI-ExampleBackground2: #5C5C5C;
+
+#saiupdatemodulefront {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	gap: 32px;
+	justify-content: center;
+	align-items: center;
+	
+	* {
+		color: @simAI-TextColor;
+	}
+}
+
+#saiupdatemodulefront-page {
+	width: 100%;
+	max-width: 75vw;
+	padding-top: 32px;
+}
+// Responsive shit
+@media only screen and (max-width: 1430px) {
+	#saiupdatemodulefront {
+		padding-right: 64px !important;
+		justify-content: end !important;
+	}
+	
+}
