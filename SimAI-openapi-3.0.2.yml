@@ -135,7 +135,7 @@ components:
         saiSaePromptEnglish:
           description: Sae prompt english
           type: string
-          maxLength: 1500
+          maxLength: 10000
         saiSaeTitle:
           description: Sae title
           type: string
@@ -147,7 +147,7 @@ components:
         saiSaePrompt:
           description: Sae prompt
           type: string
-          maxLength: 1500
+          maxLength: 10000
         row_id:
           description: Unique technical row ID
           type: string

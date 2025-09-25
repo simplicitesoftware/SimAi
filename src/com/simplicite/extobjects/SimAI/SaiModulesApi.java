@@ -45,6 +45,8 @@ public class SaiModulesApi extends com.simplicite.webapp.services.RESTServiceExt
 					return undoRegnerate(uriParts.size()>1?uriParts.get(1):null,uriParts.size()>2?uriParts.get(2):null);
 				case "getTokensHistory":
                     return getTokensHistory(uriParts.size()>1?uriParts.get(1):null);
+				case "cancelUpdateModule":
+					return cancelUpdateModule(uriParts.size()>1?uriParts.get(1):null);
 				default:
 					return badRequest("Invalid action");
 			}
@@ -60,6 +62,14 @@ public class SaiModulesApi extends com.simplicite.webapp.services.RESTServiceExt
 			SaiTool.deleteUndoExternal(extId);
 			SystemTool.resetCache(Grant.getSystemAdmin(),true,true,true,true,0);
 			return success("Undo regenerate");
+	}
+	@RESTServiceOperation(method = "get", path = "/cancelUpdateModule/{extId}", desc = "Cancel update module")
+	public Object cancelUpdateModule(@RESTServiceParam(name = "extId",in="path", type = "string", desc = "External object ID", required = true) String extId) {
+		AppLog.info("cancelUpdateModule: "+extId);
+		getGrant().removeUserSystemParam("update_module",true);
+		if(Tool.isEmpty(extId)) return error(404,"External object not found");
+		SaiTool.deleteUndoExternal(extId);
+		return success("Update module cancelled");
 	}
 	private Object getOpenAPISchema(String name) {
 		if (name.endsWith(".yml") || name.endsWith(".yaml")) {

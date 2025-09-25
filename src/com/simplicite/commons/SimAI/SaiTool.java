@@ -373,8 +373,8 @@ public class SaiTool implements java.io.Serializable {
 		// add External to Domain
 		// translate external object
 		try{
-		createOrUpdateTranslation("ObjectExternal",extId,"FRA","Modifier",appMldId,g);
-		createOrUpdateTranslation("ObjectExternal",extId,"ENU","Update",appMldId,g);
+		createOrUpdateTranslation("ObjectExternal",extId,"FRA","Modifier mon application",appMldId,g);
+		createOrUpdateTranslation("ObjectExternal",extId,"ENU","Update my application",appMldId,g);
 		}catch(Exception e){
 			AppLog.error("Error creating translation for external object: " + extId, e, g);
 		}
@@ -391,7 +391,7 @@ public class SaiTool implements java.io.Serializable {
 		permission.put("row_module_id",appMldId);
 		AITools.createOrUpdateWithJson("Permission",permission,g);
 	}
-	public static void addUndo(String mldName, Grant g){
+	public static String addUndo(String mldName, Grant g){
 		JSONObject moduleInfo = getModuleInfoByModuleName(mldName);
 		String appMldId = DEFAULT_MODULE_ID;
 		String extName = moduleInfo.getString("mPrefix")+"UndoReGenerate";
@@ -423,6 +423,7 @@ public class SaiTool implements java.io.Serializable {
 		permission.put("prm_object","ObjectExternal:"+extId);
 		permission.put("row_module_id",appMldId);
 		AITools.createOrUpdateWithJson("Permission",permission,g);
+		return extId;
 	}
 	public static JSONObject getModuleInfoByModuleName(String moduleName) {
 		String moduleId = ModuleDB.getModuleId(moduleName,false);
@@ -477,12 +478,14 @@ public class SaiTool implements java.io.Serializable {
 		return null;
 	}
 	public static String deleteUndoExternal(String extId){
+		AppLog.info("delete undo external: " + extId);
 		ObjectDB obj = sysAdmin.getTmpObject("ObjectExternal");
 		try{
 			synchronized(obj.getLock()){
 				BusinessObjectTool tool = obj.getTool();
 				tool.getForDelete(extId);
-				obj.delete();
+				AppLog.info("delete undo external: " + extId);
+				AppLog.info(obj.delete());
 			}
 		}catch(Exception e){
 			AppLog.error("Error deleting undo external: " + extId, e, sysAdmin);

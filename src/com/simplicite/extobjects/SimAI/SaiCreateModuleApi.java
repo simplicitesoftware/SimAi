@@ -53,6 +53,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 					return isPostClearCache();
 				case "getModuleObjects":
 					return getModuleObjects(uriParts.size()>1?uriParts.get(1):null);
+				
 				default:
 					return badRequest("Invalid action");
 			}
