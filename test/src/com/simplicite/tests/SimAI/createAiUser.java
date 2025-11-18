@@ -20,6 +20,7 @@ public class createAiUser {
 			String usrPassword = System.getenv("password");
 			String usrFname = System.getenv("firstName");
 			String usrLname = System.getenv("lastName");
+			String usrEmail = System.getenv("email");
 			String lang = System.getenv("lang");
 			Grant g = Grant.getSystemAdmin();
 			boolean[] old = g.changeAccess("User",true,true,true,false);
@@ -29,6 +30,7 @@ public class createAiUser {
 			o.setFieldValue("usr_login",usrName);
 			o.setFieldValue("usr_first_name",usrFname);
 			o.setFieldValue("usr_last_name",usrLname);
+			o.setFieldValue("usr_email",usrEmail);
 			o.setFieldValue("usr_active",GrantCore.USER_ACTIVE);
 			o.setFieldValue("usr_lang_pref",lang);
 			o.setFieldValue("usr_lang",lang);

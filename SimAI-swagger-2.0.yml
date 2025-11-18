@@ -532,11 +532,6 @@ paths:
         type: string
         required: false
       - in: query
-        name: saiCntSended
-        description: Search filter for sended
-        type: boolean
-        required: false
-      - in: query
         name: saiCntDeletion
         description: Search filter for Deletion
         type: string
@@ -622,29 +617,6 @@ definitions:
       Management of commercial contact and module registration.
     type: object
     properties:
-      saiCntSended:
-        description: sended
-        type: boolean
-      saiCntViewhomeId__viw_name:
-        description: Home page Name
-        type: string
-        maxLength: 100
-      saiContactName:
-        description: Name
-        type: string
-        maxLength: 100
-      saiContactEmail:
-        description: Email
-        type: string
-        maxLength: 100
-      saiCntViewhomeId:
-        description: Home page
-        type: string
-        maxLength: 11
-      saiContactComment:
-        description: Comment
-        type: string
-        maxLength: 1000
       saiCntModuleId:
         description: Module
         type: string
@@ -656,11 +628,23 @@ definitions:
         description: Module name
         type: string
         maxLength: 100
+      saiCntViewhomeId__viw_name:
+        description: Home page Name
+        type: string
+        maxLength: 100
       saiCntDeletion:
         description: Deletion
         type: string
         maxLength: 19
         example: yyyy-MM-dd HH:mm:ss
+      saiContactName:
+        description: Name
+        type: string
+        maxLength: 100
+      saiContactEmail:
+        description: Email
+        type: string
+        maxLength: 100
       row_id:
         description: Unique technical row ID
         type: string
@@ -669,11 +653,19 @@ definitions:
         description: Phone
         type: string
         maxLength: 100
+      saiCntViewhomeId:
+        description: Home page
+        type: string
+        maxLength: 11
       saiCntNow:
         description: Now
         type: string
         maxLength: 19
         example: yyyy-MM-dd HH:mm:ss
+      saiContactComment:
+        description: Comment
+        type: string
+        maxLength: 1000
   PlaceMapData:
     description: Places map data
     type: object

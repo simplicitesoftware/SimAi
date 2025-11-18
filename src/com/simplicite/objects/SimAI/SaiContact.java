@@ -32,7 +32,7 @@ public class SaiContact extends ObjectDB {
 			}
 		}
 		List<String> msgs = new ArrayList<>();
-		if(!getField("saiContactEmail").isEmpty()){
+		if(!isNew() &&!getField("saiContactEmail").isEmpty()){
 			String mldName = getFieldValue("mdl_name");
 			String msg;
 			JSONArray save = removeHomeDispAndTheme(getFieldValue("saiCntModuleId"),Grant.getSystemAdmin());
@@ -160,19 +160,7 @@ public class SaiContact extends ObjectDB {
 		}
 		return xml;
 	}
-	@Override
-	public List<String> postValidate() {
-		List<String> msgs = new ArrayList<>();
-		if(!getField("saiContactEmail").isEmpty())setFieldValue("saiCntSended",true);
-		save();
-		//msgs.add(Message.formatInfo("INFO_CODE", "Message", "fieldName"));
-		//msgs.add(Message.formatWarning("WARNING_CODE", "Message", "fieldName"));
-		//msgs.add(Message.formatError("ERROR_CODE", "Message", "fieldName"));
-		
-		
-		
-		return msgs;
-	}
+	
 	public void sendBusinessMail(){
 		SaiMailTool.sendContactEmail(this);
 
