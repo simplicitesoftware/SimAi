@@ -408,7 +408,12 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
 	    subCtn.append(updateActions);
 	
 	    dialog.append(subCtn);
-	    dialog.append(this.SaiTools.createTips($T("SAI_TIP_PROMPT")));
+	    
+	    let dialogBottom = $("<div class='sai-dialog-bottom'></div>");
+	    dialogBottom.append(this.SaiTools.createTips($T("SAI_TIP_PROMPT"), true));
+	    dialogBottom.append(this.SaiTools.createDataWarning($T("SAI_DATA_PRIVACY_TITLE"), $T("SAI_DATA_PRIVACY_TEXT")));
+	    
+	    dialog.append(dialogBottom);
 	
 	    /*dialog.find("#chatContainer").append(
 	        AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE_UPDATE")}`)

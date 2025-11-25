@@ -44,15 +44,26 @@ class  SaiTools {
 		loaderBody.append(customLoader);
 		loaderBody.append(message);
 	}
-	createTips(tipText="") {
-		let tipDiv = $("<div/>").addClass("simai-bottom-tips");
-		
+	createTips(tipText="", inline=false) {
 		let tipSection = $("<div/>").addClass("tip-section");
 		tipSection.append($(tipText)); // passed texts are supposed to be HTML formatted ...
 		
-		tipDiv.append(tipSection);
+		if (inline)
+			return tipSection;
 		
-		return tipDiv;
+		let wrapper = $("<div/>").addClass("tip-section-wrapper");
+	    wrapper.append(tipSection);
+	    
+    	return wrapper;
+	}
+	createDataWarning(title="",text="")
+	{
+		let dataWarn = $("<div/>").addClass("warning-section");
+		
+		dataWarn.append($("<p/>").append($("<i class='fas fa-exclamation warning-icon'></i>")).append($("<strong/>").text( title )));
+		dataWarn.append($("<p/>").text( text ));
+		
+		return dataWarn;
 	}
 	scrollChatToBottom(smooth = true) {
 	    const chatContainer = $("#chatContainer")[0];
@@ -194,17 +205,25 @@ class  SaiTools {
 	    });
 	}
 	
-	applyExamplePrompt(prompt) {
+	applyExamplePrompt(prompt,image) {
 	    return () => { // Return function to be used as event handler
 	        $("#message").val(prompt);
 	        
-	        this.SaiTools.autoResizeTextarea(document.getElementById('message'));
+	        $console.warn("APPLY PROMPT WITH IMAGE : "+image);
+	        if (image!=null)
+	        {
+	        	$("#input-img img").attr("src", image);
+	            $("#input-img").show();
+	            $("#input-img").css("display", "block"); // force visibility
+	        }
+	        
+	        this.autoResizeTextarea(document.getElementById('message'));
 	        
 	        $("#message").focus();
 	    };
 	}
 	
-	openPromptModal(title, prompt) {
+	openPromptModal(title, prompt, image) {
     	$("#simai-promptmodal").remove();
 	    
 	    let modalOverlay = $("<div/>")
@@ -234,7 +253,10 @@ class  SaiTools {
 	    	
 	    modalBody.append( $("<div/>").text("\" "+prompt+" \"") );
 	    
-	    modalFooter.append( $("<button/>").addClass("actionButton-blue").text(`${$T("SAI_USE_PROMPT")}`).on("click", this.applyExamplePrompt(prompt)) );
+	    if (image!=null)
+	    	modalFooter.append( $(`<img class="simai-promptmodal-image" src="${image}"/>`) );
+	    
+	    modalFooter.append( $("<button/>").addClass("actionButton-blue").text(`${$T("SAI_USE_PROMPT")}`).on("click", this.applyExamplePrompt(prompt, image)) );
 	    
 	    modal
 	        .append(modalHeader)

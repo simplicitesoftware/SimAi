@@ -132,6 +132,8 @@ Chat prompt examples
 | `saiSaeTitleEnglish`                                         | char(100)                                | yes*     | yes       |          | -                                                                                |
 | `saiSaePrompt`                                               | text(10000)                              |          | yes       |          | -                                                                                |
 | `saiSaePromptEnglish`                                        | text(10000)                              |          | yes       |          | -                                                                                |
+| `saiSaeHasImage`                                             | boolean                                  |          | yes       |          | -                                                                                |
+| `saiSaeImage`                                                | image                                    |          | yes       |          | -                                                                                |
 
 `SaiCreateModuleApi` external object definition
 -----------------------------------------------

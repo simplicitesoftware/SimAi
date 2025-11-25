@@ -113,13 +113,12 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async setChatInteraction() {
-    await this.SaiTools.callApi({}, "initTokensHistory");
-
+    	await this.SaiTools.callApi({}, "initTokensHistory");
     	
 	    this.currentState = "chatInteraction";
 	    let dialog = $("#sainewmodulefront_dialog").addClass("sai_front_dialog");
 	    dialog.html("");
-	    
+
 	    dialog.append(
 	        $("<div/>")
 	            .attr("id", "sai_helpPin")
@@ -227,7 +226,12 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	    subCtn.append(genButton);
 	
 	    dialog.append(subCtn);
-	    dialog.append(this.SaiTools.createTips($T("SAI_TIP_PROMPT")));
+	    
+	    let dialogBottom = $("<div class='sai-dialog-bottom'></div>");
+	    dialogBottom.append(this.SaiTools.createTips($T("SAI_TIP_PROMPT"),true));
+	    dialogBottom.append(this.SaiTools.createDataWarning($T("SAI_DATA_PRIVACY_TITLE"), $T("SAI_DATA_PRIVACY_TEXT")));
+	    
+	    dialog.append(dialogBottom);
 	
 	    dialog.find("#chatContainer").append(
 	        AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE")}`)
@@ -1308,7 +1312,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	async attachExamples(dialogContainer) {
 		let exampleList = $("<div/>").attr("id", "sainewmodulefront_examples");
 		
-		
 		let exampleBO = $app.getBusinessObject("SaiApplicationExample");
 		
 		let e = await exampleBO.search(list => {
@@ -1337,16 +1340,25 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 						$("<div/>").addClass("example-title").text(title)
 					);
 				
+				let image = "";
+				if (ex.saiSaeImage!=null)
+					image = $app.imageURL("SaiApplicationExample","saiSaeImage",ex.row_id,ex.saiSaeImage,false);
+					
 				let copyBtn = $("<button/>").addClass("example-copy")
 					.append(`<i class="fas fa-eye" title="${$T("SAI_TOOLTIP_COPY")}"></i>`)
-					.on("click", () => { this.SaiTools.openPromptModal(title,prompt) }); /*navigator.clipboard.writeText(prompt);*/
+					.on("click", () => { this.SaiTools.openPromptModal(title,prompt,image) });
 				
 				let actionBar = $("<div/>").addClass("example-actionbar");
 				
 				actionBar
-					.append(copyBtn)
+					.append(copyBtn);
+				
+				if (ex.saiSaeImage!=null)
+					actionBar.append(`<i style="margin-left:-32px; opacity:0.5" class="fas fa-image" title="${$T("SAI_TOOLTIP_EXAMPLE_IMAGE")}"></i>`)
+				
+				actionBar
 					.append(
-						$("<button/>").addClass("actionButton-blue").addClass("simai-safe-navigation").text($T("SAI_USE_EXAMPLE")).on("click", this.SaiTools.applyExamplePrompt(prompt))
+						$("<button/>").addClass("actionButton-blue").addClass("simai-safe-navigation").text($T("SAI_USE_EXAMPLE")).on("click", this.SaiTools.applyExamplePrompt(prompt, image))
 					);
 				
 				let toggledPart = $("<div/>")
