@@ -37,8 +37,16 @@ public class createAiUser {
 			t.validateAndCreate();
 			Grant.addResponsibility(Grant.getUserId(usrName),"SAI_CREATE_MODULE");
 			Grant.addResponsibility(Grant.getUserId(usrName),"SAI_VIEW_MODULE");
+			// create api user
+			t.getForCreate();
+			o.setFieldValue("usr_login","ApiSupervisor");
+			o.setFieldValue("usr_active",GrantCore.USER_WEBSERVICES);
+			t.validateAndCreate();
+			Grant.addResponsibility(Grant.getUserId("ApiSupervisor"),"SAI_ADMIN");
+			
 			g.changePassword(usrName,usrPassword,false,false);
 			g.changePassword("designer","S1mplicite_",false,true);
+			g.changePassword("ApiSupervisor",System.getenv("passwordApiSupervisor"),false,false);
 			g.changeAccess("User",old);
 			
 		} catch (Exception e) {
