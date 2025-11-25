@@ -31,6 +31,15 @@ public class SaiMailTool implements java.io.Serializable {
 		}
 		return mail;
 	}
+	public static void sendCommercialEmail(String body){
+		
+		MailTool mail = prepareMail(MAIL_BUSINESS);
+		mail.setSubject("[IA] nouvelle demande d'instance par IA");
+		mail.setBody(body);
+		if(!issetup){ AppLog.info("serv stmp not setup:\n"+body); return;}
+		mail.send();
+
+	}
 	public static void sendContactEmail(ObjectDB obj){
 		String name = obj.getFieldValue("saiContactName");
 		String email = obj.getFieldValue("saiContactEmail");
@@ -45,7 +54,7 @@ public class SaiMailTool implements java.io.Serializable {
 		mail.setSubject("[AI] new contact");
 		
 		mail.setBody(body);
-		mail.addAttach(obj, obj.getField("saiCntModuleId.mdl_xml"));
+		//mail.addAttach(obj, obj.getField("saiCntModuleId.mdl_xml"));
 		mail.send();
 	}
 	public static void sendAiAlert(String error){

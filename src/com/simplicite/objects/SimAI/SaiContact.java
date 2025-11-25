@@ -34,15 +34,7 @@ public class SaiContact extends ObjectDB {
 		List<String> msgs = new ArrayList<>();
 		if(!isNew() &&!getField("saiContactEmail").isEmpty()){
 			String mldName = getFieldValue("mdl_name");
-			String msg;
-			JSONArray save = removeHomeDispAndTheme(getFieldValue("saiCntModuleId"),Grant.getSystemAdmin());
-			
-			msg = ModuleDB.exportData(Grant.getSystemAdmin(),mldName, "xml", false,null);
-			if(!Tool.isEmpty(msg) && Message.isError(msg))msgs.add(msg);
-			msg = ModuleDB.exportModule(Grant.getSystemAdmin(),mldName, "xml", false,false,false,false,false,null);
-			if(!Tool.isEmpty(msg) && Message.isError(msg))msgs.add(msg);
-
-			recreateHomeDispAndTheme(save,Grant.getSystemAdmin());
+			msgs.addAll(genXMLModule(mldName));
 			
 		}
 		//msgs.add(Message.formatInfo("INFO_CODE", "Message", "fieldName"));
@@ -52,6 +44,36 @@ public class SaiContact extends ObjectDB {
 		
 		
 		return msgs;
+	}
+	public String genXMLModules(){
+		List<String> msgs = new ArrayList<>();
+		resetFilters();
+		for(String[] row : search()){
+			String mldName = row[getFieldIndex("mdl_name")];
+			msgs.addAll(genXMLModule(mldName,row[getFieldIndex("saiCntModuleId")]));
+		}
+		return String.join("\n",msgs);
+	}
+	public String genXMLModule(){
+		String mldName = getFieldValue("mdl_name");
+		return String.join("\n",genXMLModule(mldName));
+	}
+	
+	public List<String> genXMLModule(String mldName){
+		return genXMLModule(mldName,getFieldValue("saiCntModuleId"));
+	}
+	public static List<String> genXMLModule(String mldName,String moduleId){
+		List<String> msgs = new ArrayList<>();
+		String msg;
+		JSONArray save = removeHomeDispAndTheme(moduleId,Grant.getSystemAdmin());
+		
+		msg = ModuleDB.exportData(Grant.getSystemAdmin(),mldName, "xml", false,null);
+		if(!Tool.isEmpty(msg) && Message.isError(msg))msgs.add(msg);
+		msg = ModuleDB.exportModule(Grant.getSystemAdmin(),mldName, "xml", false,false,false,false,false,null);
+		if(!Tool.isEmpty(msg) && Message.isError(msg))msgs.add(msg);
+		recreateHomeDispAndTheme(save,Grant.getSystemAdmin());
+		return msgs;
+
 	}
 	public String saveModule(){
 		String mldName = getFieldValue("mdl_name");
@@ -66,7 +88,7 @@ public class SaiContact extends ObjectDB {
 		SystemTool.resetCache(Grant.getSystemAdmin(),true,true,true,true,0);
 		return javascript("window.location.reload();");
 	}
-	private void recreateHomeDispAndTheme(JSONArray save,Grant g){
+	private static void recreateHomeDispAndTheme(JSONArray save,Grant g){
 		for(int i = 0; i < save.length(); i++){
 			JSONObject item = save.getJSONObject(i);
 			if(item.has("id")){
@@ -83,7 +105,7 @@ public class SaiContact extends ObjectDB {
 			}
 		}
 	}
-	private JSONArray removeHomeDispAndTheme(String moduleId,Grant g){
+	private static JSONArray removeHomeDispAndTheme(String moduleId,Grant g){
 		JSONArray save = new JSONArray();
 		ObjectDB obj = g.getTmpObject("ViewHome");
 		String appMldId = SaiTool.DEFAULT_MODULE_ID;

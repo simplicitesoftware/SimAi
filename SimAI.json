@@ -2742,49 +2742,6 @@
     },
     {
      "object": "Field",
-     "userkey": "saiCntSended",
-     "item": {
-      "fld_name": "saiCntSended",
-      "fld_dbname": "sai_cnt_sended",
-      "fld_visible": "0",
-      "fld_updatable": ["0"],
-      "fld_required": true,
-      "fld_fonctid": false,
-      "fld_research": "1",
-      "fld_researchreq": "0",
-      "fld_sort": "C",
-      "fld_more": false,
-      "fld_listmore": false,
-      "fld_listsum": null,
-      "fld_exportable": true,
-      "fld_tray": null,
-      "fld_type": "8",
-      "fld_type_id__flt_code": null,
-      "fld_list_id__lov_name": null,
-      "fld_copy": true,
-      "fld_size": 1,
-      "fld_minsize": null,
-      "fld_precision": null,
-      "fld_fromdate_id__fld_name": null,
-      "fld_dfault": "0",
-      "fld_indexable": false,
-      "fld_autocomp": "0",
-      "fld_groupby": false,
-      "fld_updall": true,
-      "fld_case": null,
-      "fld_righttoleft": false,
-      "fld_rendering": null,
-      "fld_speech": null,
-      "fld_calc": null,
-      "fld_objlist": null,
-      "fld_comment": null,
-      "fld_classification": null,
-      "row_module_id__mdl_name": "SimAI",
-      "fld_incrementsyntax": null
-     }
-    },
-    {
-     "object": "Field",
      "userkey": "saiCntViewhomeId",
      "item": {
       "fld_name": "saiCntViewhomeId",
@@ -3652,10 +3609,10 @@
       "obo_comment": "Management of commercial contact and module registration.",
       "obo_type": "O",
       "obo_searchspec": null,
-      "obo_exportorder": 0,
+      "obo_exportorder": null,
       "obo_distinct": false,
       "obo_indexable": false,
-      "obo_groupby": false,
+      "obo_groupby": null,
       "obo_dfltref": null,
       "obo_template_id__tpl_name": "SaiContact",
       "obo_tpl_list_id__tpl_name": null,
@@ -3671,13 +3628,13 @@
       "obo_useform": true,
       "obo_title": null,
       "obo_icon": null,
-      "obo_refcount": false,
-      "obo_tree": false,
+      "obo_refcount": null,
+      "obo_tree": null,
       "obo_viewmode": "T",
       "obo_historic": null,
       "obo_printable": true,
       "obo_followlink": true,
-      "obo_mergeable": false,
+      "obo_mergeable": null,
       "obo_social": ["1"],
       "obo_rowid_id__fld_name": null,
       "obo_extend_id__obj_name": null,
@@ -3695,10 +3652,10 @@
       "obo_btn_delall": "0",
       "obo_btn_merge": "0",
       "obo_btn_save": true,
-      "obo_btn_saveclose": false,
-      "obo_btn_savenew": false,
-      "obo_btn_savecopy": false,
-      "obo_btn_close": false,
+      "obo_btn_saveclose": null,
+      "obo_btn_savenew": null,
+      "obo_btn_savecopy": null,
+      "obo_btn_close": null,
       "obo_tray": true,
       "obo_dashboard": [
        "1",
@@ -3711,9 +3668,9 @@
       "obo_sortable": true,
       "obo_list_areas": null,
       "obo_minifiable": "M",
-      "obo_minified": false,
+      "obo_minified": null,
       "obo_permalink": null,
-      "obo_btn_searchform": false
+      "obo_btn_searchform": null
      }
     }
    ]
@@ -4308,11 +4265,56 @@
    ]
   },
   {
+   "object": "Action",
+   "label": "Actions",
+   "icon": "img/system/action_btn",
+   "field": "row_module_id",
+   "list": [{
+    "object": "Action",
+    "userkey": "genXMLModules",
+    "item": {
+     "act_name": "genXMLModules",
+     "act_type": "H",
+     "act_async": "0",
+     "act_job_depth": null,
+     "act_method": "genXMLModules",
+     "act_script": null,
+     "act_url": null,
+     "act_confirm": false,
+     "act_confirm_expr": null,
+     "act_confirm_ui": null,
+     "act_plus": false,
+     "act_comment": null,
+     "row_module_id__mdl_name": "SimAI",
+     "act_exec": "BCK",
+     "act_count": null,
+     "act_order": null,
+     "act_color": null,
+     "act_color_bg": null,
+     "act_image": null,
+     "act_group_id__acg_name": null,
+     "act_queue_id__acq_name": null
+    }
+   }]
+  },
+  {
    "object": "Function",
    "label": "Functions",
    "icon": "img/system/function",
    "field": "row_module_id",
    "list": [
+    {
+     "object": "Function",
+     "userkey": "CNT_GEN_XML_MODULES_A",
+     "item": {
+      "fct_name": "CNT_GEN_XML_MODULES_A",
+      "fct_object_id__obo_name": "SaiContact",
+      "fct_function": "A",
+      "fct_action_id__act_name": "genXMLModules",
+      "fct_view_id__viw_name": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
     {
      "object": "Function",
      "userkey": "SAI_APPLICATION_EXAMPLE_CRUD",
@@ -4425,6 +4427,18 @@
       "grt_function_id__fct_name": "SAI_APPLICATION_EXAMPLE_CRUD",
       "grt_function_id__fct_object_id__obo_name": "SaiApplicationExample",
       "grt_function_id__fct_action_id__act_name": null,
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_ADMIN~CNT_GEN_XML_MODULES_A~SaiContact~genXMLModules",
+     "item": {
+      "grt_group_id__grp_name": "SAI_ADMIN",
+      "grt_function_id__fct_name": "CNT_GEN_XML_MODULES_A",
+      "grt_function_id__fct_object_id__obo_name": "SaiContact",
+      "grt_function_id__fct_action_id__act_name": "genXMLModules",
       "grt_activ": true,
       "row_module_id__mdl_name": "SimAI"
      }
@@ -5010,6 +5024,30 @@
     },
     {
      "object": "Resource",
+     "userkey": "Disposition(default)~ANY~SAI_COMERCE_MAIL",
+     "item": {
+      "res_object": {
+       "item": {"dis_code": "default"},
+       "icon": "img/system/disposition",
+       "label": "Disposition",
+       "userkeylabel": "default",
+       "object": "Disposition"
+      },
+      "res_type": "HTML",
+      "res_lang": "ANY",
+      "res_code": "SAI_COMERCE_MAIL",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/Disposition/default/SAI_COMERCE_MAIL.html",
+       "mime": "text/html",
+       "name": "sai_comerce_mail.html"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
      "userkey": "Disposition(default)~ANY~SAI_DASHBOARD_CLASS",
      "item": {
       "res_object": {
@@ -5525,6 +5563,48 @@
    ]
   },
   {
+   "object": "TranslateAction",
+   "label": "Action translation",
+   "icon": "img/system/translation",
+   "field": "row_module_id",
+   "list": [
+    {
+     "object": "TranslateAction",
+     "userkey": "Action(genXMLModules)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"act_name": "genXMLModules"},
+       "icon": "img/system/action_btn",
+       "label": "Action",
+       "userkeylabel": "genXMLModules",
+       "object": "Action"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Gen XMLmodules",
+      "tsl_simplehelp": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateAction",
+     "userkey": "Action(genXMLModules)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"act_name": "genXMLModules"},
+       "icon": "img/system/action_btn",
+       "label": "Action",
+       "userkeylabel": "genXMLModules",
+       "object": "Action"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Gen XMLmodules",
+      "tsl_simplehelp": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    }
+   ]
+  },
+  {
    "object": "TranslateField",
    "label": "Field translation",
    "icon": "img/system/translation",
@@ -5653,50 +5733,6 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Maintenant",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiCntSended)~ENU",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiCntSended"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiCntSended",
-       "object": "Field"
-      },
-      "tsl_lang": "ENU",
-      "tsl_value": "sended",
-      "tsl_simplehelp": null,
-      "tsl_plural_value": null,
-      "tsl_short_value": null,
-      "tsl_placeholder": null,
-      "tsl_listhelp": null,
-      "tsl_tooltip": null,
-      "row_module_id__mdl_name": "SimAI"
-     }
-    },
-    {
-     "object": "TranslateField",
-     "userkey": "Field(saiCntSended)~FRA",
-     "item": {
-      "tsl_object": {
-       "item": {"fld_name": "saiCntSended"},
-       "icon": "img/system/field",
-       "label": "Field",
-       "userkeylabel": "saiCntSended",
-       "object": "Field"
-      },
-      "tsl_lang": "FRA",
-      "tsl_value": "Cnt sended",
       "tsl_simplehelp": null,
       "tsl_plural_value": null,
       "tsl_short_value": null,

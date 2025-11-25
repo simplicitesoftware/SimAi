@@ -114,6 +114,10 @@ Management of commercial contact and module registration.
 | _Ref. `saiCntViewhomeId.viw_name`_                           | _char(100)_                              |          |           |          | -                                                                                |
 | `saiCntNow`                                                  | datetime                                 |          |           |          | -                                                                                |
 
+### Custom actions
+
+* `genXMLModules`: 
+
 `SaiApplicationExample` business object definition
 --------------------------------------------------
 
