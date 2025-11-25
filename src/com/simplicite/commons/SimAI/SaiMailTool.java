@@ -54,7 +54,6 @@ public class SaiMailTool implements java.io.Serializable {
 		mail.setSubject("[AI] new contact");
 		
 		mail.setBody(body);
-		//mail.addAttach(obj, obj.getField("saiCntModuleId.mdl_xml"));
 		mail.send();
 	}
 	public static void sendAiAlert(String error){

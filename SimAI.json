@@ -976,6 +976,19 @@
     },
     {
      "object": "ListOfValue",
+     "userkey": "TEXT~SAI_MAIL_SEND~ENU",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_MAIL_SEND",
+      "lov_lang": "ENU",
+      "lov_value": "Your email has been sent to the Simplicité teams, and we will contact you shortly.",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
      "userkey": "TEXT~SAI_MODULE_NAME~ENU",
      "item": {
       "lov_name": "TEXT",
@@ -2048,6 +2061,19 @@
       "lov_code": "SAI_LOADER_UNDO_REGNERATE",
       "lov_lang": "FRA",
       "lov_value": "Nous supprimons les modifications, cette opération peut prendre quelque seconde ,  vous allez être déconnecté, merci de patienter",
+      "lov_order_by": 1,
+      "lov_event_id__lev_code": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "ListOfValue",
+     "userkey": "TEXT~SAI_MAIL_SEND~FRA",
+     "item": {
+      "lov_name": "TEXT",
+      "lov_code": "SAI_MAIL_SEND",
+      "lov_lang": "FRA",
+      "lov_value": "Votre email a été envoyé aux équipes de simplicité, nous vous contacterons.",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"
@@ -3317,7 +3343,7 @@
       "ofa_name": "SaiContact-1",
       "ofa_position": 1,
       "ofa_title": false,
-      "ofa_ui": "<div>\n  <div class=\"text\" data-text=\"SAI_CONTACT_INTRO\"><\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactName\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactEmail\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactPhone\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-8\">\n      <div class=\"field\" data-field=\"saiContactComment\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-autoopen=\"false\" data-field=\"saiCntDeletion\"><\/div>\n      <div class=\"field\" data-field=\"saiCntNow\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntSended\"><\/div>\n      <div class=\"field\" data-field=\"saiCntViewhomeId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntViewhomeId__viw_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_xml\"><\/div>\n    <\/div>\n  <\/div>\n<\/div>",
+      "ofa_ui": "<div>\n  <div class=\"text\" data-text=\"SAI_CONTACT_INTRO\"><\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactName\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactEmail\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactPhone\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-8\">\n      <div class=\"field\" data-field=\"saiContactComment\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"action\" data-action=\"SaiContactEmail\"><\/div>\n      <div class=\"field\" data-autoopen=\"false\" data-field=\"saiCntDeletion\"><\/div>\n      <div class=\"field\" data-field=\"saiCntNow\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntSended\"><\/div>\n      <div class=\"field\" data-field=\"saiCntViewhomeId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntViewhomeId__viw_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_xml\"><\/div>\n    <\/div>\n  <\/div>\n<\/div>",
       "ofa_icon": "star",
       "row_module_id__mdl_name": "SimAI"
      }
@@ -3651,11 +3677,11 @@
       "obo_btn_updall": "0",
       "obo_btn_delall": "0",
       "obo_btn_merge": "0",
-      "obo_btn_save": true,
-      "obo_btn_saveclose": null,
-      "obo_btn_savenew": null,
-      "obo_btn_savecopy": null,
-      "obo_btn_close": null,
+      "obo_btn_save": false,
+      "obo_btn_saveclose": false,
+      "obo_btn_savenew": false,
+      "obo_btn_savecopy": false,
+      "obo_btn_close": false,
       "obo_tray": true,
       "obo_dashboard": [
        "1",
@@ -3670,7 +3696,7 @@
       "obo_minifiable": "M",
       "obo_minified": null,
       "obo_permalink": null,
-      "obo_btn_searchform": null
+      "obo_btn_searchform": false
      }
     }
    ]
@@ -4269,33 +4295,62 @@
    "label": "Actions",
    "icon": "img/system/action_btn",
    "field": "row_module_id",
-   "list": [{
-    "object": "Action",
-    "userkey": "genXMLModules",
-    "item": {
-     "act_name": "genXMLModules",
-     "act_type": "H",
-     "act_async": "0",
-     "act_job_depth": null,
-     "act_method": "genXMLModules",
-     "act_script": null,
-     "act_url": null,
-     "act_confirm": false,
-     "act_confirm_expr": null,
-     "act_confirm_ui": null,
-     "act_plus": false,
-     "act_comment": null,
-     "row_module_id__mdl_name": "SimAI",
-     "act_exec": "BCK",
-     "act_count": null,
-     "act_order": null,
-     "act_color": null,
-     "act_color_bg": null,
-     "act_image": null,
-     "act_group_id__acg_name": null,
-     "act_queue_id__acq_name": null
+   "list": [
+    {
+     "object": "Action",
+     "userkey": "genXMLModules",
+     "item": {
+      "act_name": "genXMLModules",
+      "act_type": "H",
+      "act_async": "0",
+      "act_job_depth": null,
+      "act_method": "genXMLModules",
+      "act_script": null,
+      "act_url": null,
+      "act_confirm": false,
+      "act_confirm_expr": null,
+      "act_confirm_ui": null,
+      "act_plus": false,
+      "act_comment": null,
+      "row_module_id__mdl_name": "SimAI",
+      "act_exec": "BCK",
+      "act_count": null,
+      "act_order": null,
+      "act_color": null,
+      "act_color_bg": null,
+      "act_image": null,
+      "act_group_id__acg_name": null,
+      "act_queue_id__acq_name": null
+     }
+    },
+    {
+     "object": "Action",
+     "userkey": "SaiContactEmail",
+     "item": {
+      "act_name": "SaiContactEmail",
+      "act_type": "O",
+      "act_async": "0",
+      "act_job_depth": null,
+      "act_method": "sendContact",
+      "act_script": null,
+      "act_url": null,
+      "act_confirm": false,
+      "act_confirm_expr": null,
+      "act_confirm_ui": null,
+      "act_plus": false,
+      "act_comment": null,
+      "row_module_id__mdl_name": "SimAI",
+      "act_exec": "BCK",
+      "act_count": null,
+      "act_order": 1,
+      "act_color": null,
+      "act_color_bg": null,
+      "act_image": null,
+      "act_group_id__acg_name": null,
+      "act_queue_id__acq_name": null
+     }
     }
-   }]
+   ]
   },
   {
    "object": "Function",
@@ -4371,6 +4426,18 @@
       "fct_object_id__obo_name": "SaiContact",
       "fct_function": "L",
       "fct_action_id__act_name": null,
+      "fct_view_id__viw_name": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Function",
+     "userkey": "SAI_CNT_SAI_CONTACT_EMAIL_A",
+     "item": {
+      "fct_name": "SAI_CNT_SAI_CONTACT_EMAIL_A",
+      "fct_object_id__obo_name": "SaiContact",
+      "fct_function": "A",
+      "fct_action_id__act_name": "SaiContactEmail",
       "fct_view_id__viw_name": null,
       "row_module_id__mdl_name": "SimAI"
      }
@@ -4679,6 +4746,18 @@
       "grt_function_id__fct_name": "SAI_CNT_CRU",
       "grt_function_id__fct_object_id__obo_name": "SaiContact",
       "grt_function_id__fct_action_id__act_name": null,
+      "grt_activ": true,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Grant",
+     "userkey": "SAI_CNT_GROUP~SAI_CNT_SAI_CONTACT_EMAIL_A~SaiContact~SaiContactEmail",
+     "item": {
+      "grt_group_id__grp_name": "SAI_CNT_GROUP",
+      "grt_function_id__fct_name": "SAI_CNT_SAI_CONTACT_EMAIL_A",
+      "grt_function_id__fct_object_id__obo_name": "SaiContact",
+      "grt_function_id__fct_action_id__act_name": "SaiContactEmail",
       "grt_activ": true,
       "row_module_id__mdl_name": "SimAI"
      }
@@ -5598,6 +5677,40 @@
       },
       "tsl_lang": "FRA",
       "tsl_value": "Gen XMLmodules",
+      "tsl_simplehelp": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateAction",
+     "userkey": "Action(SaiContactEmail)~ENU",
+     "item": {
+      "tsl_object": {
+       "item": {"act_name": "SaiContactEmail"},
+       "icon": "img/system/action_btn",
+       "label": "Action",
+       "userkeylabel": "SaiContactEmail",
+       "object": "Action"
+      },
+      "tsl_lang": "ENU",
+      "tsl_value": "Send",
+      "tsl_simplehelp": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "TranslateAction",
+     "userkey": "Action(SaiContactEmail)~FRA",
+     "item": {
+      "tsl_object": {
+       "item": {"act_name": "SaiContactEmail"},
+       "icon": "img/system/action_btn",
+       "label": "Action",
+       "userkeylabel": "SaiContactEmail",
+       "object": "Action"
+      },
+      "tsl_lang": "FRA",
+      "tsl_value": "Envoyer",
       "tsl_simplehelp": null,
       "row_module_id__mdl_name": "SimAI"
      }

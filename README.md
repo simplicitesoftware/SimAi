@@ -117,6 +117,7 @@ Management of commercial contact and module registration.
 ### Custom actions
 
 * `genXMLModules`: 
+* `SaiContactEmail`: 
 
 `SaiApplicationExample` business object definition
 --------------------------------------------------

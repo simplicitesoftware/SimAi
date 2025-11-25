@@ -31,19 +31,19 @@ public class SaiContact extends ObjectDB {
 				}
 			}
 		}
-		List<String> msgs = new ArrayList<>();
-		if(!isNew() &&!getField("saiContactEmail").isEmpty()){
-			String mldName = getFieldValue("mdl_name");
-			msgs.addAll(genXMLModule(mldName));
+		//List<String> msgs = new ArrayList<>();
+		// if(!isNew() &&!getField("saiContactEmail").isEmpty()){
+		// 	String mldName = getFieldValue("mdl_name");
+		// 	msgs.addAll(genXMLModule(mldName));
 			
-		}
+		// }
 		//msgs.add(Message.formatInfo("INFO_CODE", "Message", "fieldName"));
 		//msgs.add(Message.formatWarning("WARNING_CODE", "Message", "fieldName"));
 		//msgs.add(Message.formatError("ERROR_CODE", "Message", "fieldName"));
 		
 		
 		
-		return msgs;
+		return null;
 	}
 	public String genXMLModules(){
 		List<String> msgs = new ArrayList<>();
@@ -182,9 +182,12 @@ public class SaiContact extends ObjectDB {
 		}
 		return xml;
 	}
-	
-	public void sendBusinessMail(){
+	public String sendContact(){
 		SaiMailTool.sendContactEmail(this);
+		return Message.formatSimpleInfo("SAI_MAIL_SEND");
+	}
+	public void sendBusinessMail(){
+		
 
 	}
 	
