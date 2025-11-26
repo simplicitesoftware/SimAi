@@ -622,7 +622,10 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
             $("<img/>")
             .attr("src", "")
             .attr("id", "mermaidImage")
+            .addClass("transparent-image")
         );
+        
+        let viz = false;
         for (let obj of objects) {
         	
         	try {
@@ -630,7 +633,13 @@ Simplicite.UI.ExternalObjects.SaiUpdateModuleFront = class extends Simplicite.UI
 	                action: "genUpdateObj",
 	                objName: obj,
 	            });
+	            
 				if(mermaidObj.name) {
+					if (!viz) {
+		            	$("#mermaidImage").removeClass("transparent-image");
+		            	viz = true;
+		            }
+	            
 					mermaidText += "class " + mermaidObj.name + " {\n";
 		
 					let objectFields = [];
