@@ -751,7 +751,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 				JSONObject contentJson = (JSONObject) content;
 				datas.put("content", "");
 				if("text".equals(contentJson.optString("type"))){
-					datas.put("Request", datas.optString("Request","")+"\n"+contentJson.optString("text"));
+					datas.put("Request", datas.optString("Request","")+"\n"+contentJson.optString("text").replaceAll("\\n", "<br />"));
 				}else if("image_url".equals(contentJson.optString("type"))){
 					datas.put("image_url", contentJson.optJSONObject("image_url").optString("url"));
 				}
@@ -784,9 +784,9 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			
 			prompts.put(content);
 		}
-		datas.put("prompts", prompts);
+		//datas.put("prompts", prompts);
 		String body = MustacheTool.apply(HTMLTool.getResourceHTMLContent(getGrant(), "SAI_COMERCE_MAIL"), datas);
-		SaiMailTool.sendCommercialEmail(body);
+		SaiMailTool.sendCommercialEmail(body,prompts);
 		
 	}
 	private Object genUpdateJson(JSONObject req) {
