@@ -209,12 +209,17 @@ class  SaiTools {
 	    return () => { // Return function to be used as event handler
 	        $("#message").val(prompt);
 	        
-	        $console.warn("APPLY PROMPT WITH IMAGE : "+image);
-	        if (image!=null)
+	        if (image!=null && image!="")
 	        {
 	        	$("#input-img img").attr("src", image);
 	            $("#input-img").show();
 	            $("#input-img").css("display", "block"); // force visibility
+	        }
+	        else
+	        {
+	        	$("#input-img img").removeAttr("src");
+	        	$("#input-img").hide();
+	        	$("#input-img").css("display", "none"); // force back to no-viz
 	        }
 	        
 	        this.autoResizeTextarea(document.getElementById('message'));
@@ -249,14 +254,25 @@ class  SaiTools {
 	    
 	    modalHeader
 	    	.append( $("<div/>").text($T("SAI_PROMPT_TITLE")) )
-	    	.append( $("<h3/>").text(title) );
+	    	.append( $("<div class='simai-promptmodal-title'/>").text(title) );
 	    	
-	    modalBody.append( $("<div/>").text("\" "+prompt+" \"") );
+	    modalBody.append( $("<div class='simai-promptmodal-prompt'/>").html($view.markdownToHTML(prompt)) );
 	    
 	    if (image!=null)
+	    {
+	    	modalFooter.addClass("prompt-spacebetween");
 	    	modalFooter.append( $(`<img class="simai-promptmodal-image" src="${image}"/>`) );
+	    }
 	    
-	    modalFooter.append( $("<button/>").addClass("actionButton-blue").text(`${$T("SAI_USE_PROMPT")}`).on("click", this.applyExamplePrompt(prompt, image)) );
+	    modalFooter
+	    	.append( $("<button/>")
+	    		.addClass("actionButton-blue")
+	    		.text(`${$T("SAI_USE_PROMPT")}`)
+		    	.on("click", () => {
+		    		this.applyExamplePrompt(prompt, image)();
+		    		modalOverlay.remove();
+		    	})
+		    );
 	    
 	    modal
 	        .append(modalHeader)

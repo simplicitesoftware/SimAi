@@ -643,7 +643,7 @@
       "lov_name": "TEXT",
       "lov_code": "SAI_DATA_PRIVACY_TITLE",
       "lov_lang": "ENU",
-      "lov_value": "Warning : Protection de vos données",
+      "lov_value": "Warning : Personal data protection",
       "lov_order_by": 1,
       "lov_event_id__lev_code": null,
       "row_module_id__mdl_name": "SimAI"

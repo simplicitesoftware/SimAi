@@ -215,10 +215,14 @@
 }
 
 #mermaidImage {
-	max-height: 800px;
 	max-widht: 580px;
-	min-width: 500px; // HERE
+	min-width: 300px; // HERE
+	width: 100%;
 	aspect-ratio: 1/1;
+	
+	&.transparent-image {
+		opacity: 0;
+	}
 }
 
 #simai-moduleSummary {
@@ -334,15 +338,30 @@
     	width: 100%;
     	display: flex;
     	padding: 0px 24px;
-    	justify-content: space-between;
+    	justify-content: end;
     	align-items: end;
     	margin: 24px 0px; 
+    	
+    	&.prompt-spacebetween {
+    		justify-content: space-between !important;
+    	}
+    }
+    
+    .simai-promptmodal-title {
+    	font-size: 1.125rem;
+    	font-weight: 600;
+    	text-align: right;
     }
     
     .simai-promptmodal-image {
-    	max-width: 250px;
+    	max-height: 325px;
     	aspect-ratio: 1/1;
     	
+    }
+    
+    .simai-promptmodal-prompt {
+    	max-height: 300px;
+    	overflow-y: scroll;
     }
 }
 

@@ -744,7 +744,9 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             $("<img/>")
             .attr("src", "")
             .attr("id", "mermaidImage")
+            .addClass("transparent-image")
         );
+        let viz = false;
         for (let obj of objects) {
         	
         	try {
@@ -752,6 +754,11 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	                action: "genObj",
 	                objName: obj,
 	            });
+	            
+	            if (!viz) {
+	            	$("#mermaidImage").removeClass("transparent-image");
+	            	viz = true;
+	            }
 	            mermaidText += "class " + mermaidObj.name + " {\n";
 	
 	            let objectFields = [];
@@ -1340,13 +1347,19 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 						$("<div/>").addClass("example-title").text(title)
 					);
 				
-				let image = "";
+				let imageURL = null;
 				if (ex.saiSaeImage!=null)
-					image = $app.imageURL("SaiApplicationExample","saiSaeImage",ex.row_id,ex.saiSaeImage,false);
+				    imageURL = $app.imageURL("SaiApplicationExample","saiSaeImage", ex.row_id, ex.saiSaeImage, false);
 					
 				let copyBtn = $("<button/>").addClass("example-copy")
 					.append(`<i class="fas fa-eye" title="${$T("SAI_TOOLTIP_COPY")}"></i>`)
-					.on("click", () => { this.SaiTools.openPromptModal(title,prompt,image) });
+					.on("click", async () => {
+						let base64Image = null;
+						if (imageURL)
+							base64Image = await this.convertImageToBase64(imageURL);
+						
+						this.SaiTools.openPromptModal(title,prompt,base64Image);
+					});
 				
 				let actionBar = $("<div/>").addClass("example-actionbar");
 				
@@ -1358,7 +1371,17 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 				
 				actionBar
 					.append(
-						$("<button/>").addClass("actionButton-blue").addClass("simai-safe-navigation").text($T("SAI_USE_EXAMPLE")).on("click", this.SaiTools.applyExamplePrompt(prompt, image))
+						$("<button/>")
+							.addClass("actionButton-blue")
+							.addClass("simai-safe-navigation")
+							.text($T("SAI_USE_EXAMPLE"))
+							.on("click", async () => {
+								let base64Image = null;
+								if (imageURL)
+									base64Image = await this.convertImageToBase64(imageURL);
+								
+								this.SaiTools.applyExamplePrompt(prompt,base64Image)();
+							})
 					);
 				
 				let toggledPart = $("<div/>")
@@ -1696,4 +1719,22 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     	}
     }
 	
+	async convertImageToBase64(url) {
+	    return new Promise((resolve, reject) => {
+	        let imgElt = new Image();
+	        imgElt.crossOrigin = "anonymous";
+	        
+	        imgElt.onload = function() {
+	            try {
+	                let b64 = $view.widget.getBase64Image(imgElt, "image/png");
+	                resolve(`data:image/png;base64,${b64}`);
+	            } catch (e) {
+	                reject(e);
+	            }
+	        };
+	        
+	        imgElt.onerror = () => reject(new Error("Failed to load image"));
+	        imgElt.src = url;
+	    });
+	}
 };
