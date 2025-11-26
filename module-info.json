@@ -1,9 +1,9 @@
 {
-    "date": "2025-11-26 09:57:13",
+    "date": "2025-11-26 09:34:14",
     "name": "SimAI",
     "format": "json",
     "files": ["SimAI.json"],
     "repository": {"origin": {"uri": "https://github.com/simplicitesoftware/SimAi.git"}},
     "version": "0.7",
-    "platform": "6.2.19-preview"
+    "platform": "6.2.18"
 }

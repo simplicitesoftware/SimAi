@@ -7,6 +7,7 @@ import com.simplicite.bpm.*;
 import com.simplicite.util.exceptions.*;
 import com.simplicite.util.tools.*;
 import org.json.*;
+import com.simplicite.util.exceptions.HTTPException;
 
 /**
  * Shared code SaiMailTool
@@ -15,29 +16,18 @@ public class SaiMailTool implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final String MAIL_TECHNICAL = "technical";
 	private static final String MAIL_BUSINESS = "business";
-	private static final JSONObject MAIL_CONTACTS = new JSONObject(Grant.getSystemAdmin().getParameter("SAI_MAIL_TO"));
-	private static final boolean issetup = false;
+	private static final String SUPERVISOR_USER = "saiMailUser";
+	private static final String SUPERVISOR_PWD = System.getenv("mailpwd");
+	private static final String INSTANCE_URL = System.getenv("supervisorUrl");
 	
-	private static MailTool prepareMail (String type){
-		MailTool mail = new MailTool();
-		JSONArray mails = MAIL_CONTACTS.getJSONArray(type);
-		List<String> mailsList = new ArrayList<>();
-		for(int i = 0; i < mails.length(); i++){
-			mailsList.add(mails.getString(i));
-		}
-		AppLog.info("Mails: "+String.join(",", mailsList));
-		for(int i = 0; i < mails.length(); i++){
-			mail.addRcpt(mails.getString(i));
-		}
-		return mail;
-	}
+	
+	
 	public static void sendCommercialEmail(String body){
-		
-		MailTool mail = prepareMail(MAIL_BUSINESS);
-		mail.setSubject("[IA] nouvelle demande d'instance par IA");
-		mail.setBody(body);
-		if(!issetup){ AppLog.info("serv stmp not setup:\n"+body); return;}
-		mail.send();
+		JSONObject params = new JSONObject();
+		params.put("type",MAIL_BUSINESS);
+		params.put("body",body);
+		params.put("subject","[IA] nouvelle demande d'instance par IA");
+		send(params);
 
 	}
 	public static void sendContactEmail(ObjectDB obj){
@@ -49,20 +39,32 @@ public class SaiMailTool implements java.io.Serializable {
 		body += "Email: " + email + "\n";
 		body += "Phone: " + phone + "\n";
 		body += "Message: " + message + "\n";
-		if(!issetup){ AppLog.info("serv stmp not setup:\n"+body); return;}
-		MailTool mail = prepareMail(MAIL_BUSINESS);
-		mail.setSubject("[AI] new contact");
-		
-		mail.setBody(body);
-		mail.send();
+		JSONObject params = new JSONObject();
+		params.put("type",MAIL_BUSINESS);
+		params.put("subject","[AI] new contact");
+		params.put("body",body);
+		send(params);
 	}
 	public static void sendAiAlert(String error){
 		String body = "The AI API call from "+Globals.getApplicationURL()+ "has encountered an error: \n"+error;
-		if(!issetup){ AppLog.info("serv stmp not setup:\n"+body); return;}
-		MailTool mail = prepareMail(MAIL_TECHNICAL);
-		mail.setSubject("[AI] Provider API Error");
+		JSONObject params = new JSONObject();
+		params.put("type",MAIL_TECHNICAL);
+		params.put("subject","[AI] Provider API Error");
 	
-		mail.setBody(body);
-		mail.send();
+		params.put("body",body);
+		send(params);
+	}
+	private static void send(JSONObject params){
+		try {
+			APITool api = new APITool(INSTANCE_URL,SUPERVISOR_USER,SUPERVISOR_PWD,"UTF_8",true);
+			api.login(false);
+			String token = api.getAuthToken();
+			String apiurl = INSTANCE_URL + "/api/PorSaiMailGestionaire";
+			RESTTool.post(params,apiurl, token,null);
+			api.logout();
+		} catch (ParamsException | HTTPException e) {
+			AppLog.error(e,Grant.getSystemAdmin());
+		}
+		
 	}
 }
