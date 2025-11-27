@@ -631,7 +631,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			String ping = AITools.pingAI();
 			if(!AITools.PING_SUCCESS.equals(ping)){
 				AppLog.error(ping,null,getGrant());
-				SaiMailTool.sendAiAlert(ping);
+				SaiMailTool.sendAiAlert("Provider api is not available:  error during ping: "+ping);
 				return error(503,"Provider api is not available");
 			}
 			if(Tool.isEmpty(prompt)){
@@ -643,7 +643,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			}
 			JSONObject resJson = AITools.aiCaller(getGrant(), specialisation, historic, providerParams, isJsonPrompt ? jsonPrompt : prompt);
 			if(resJson.has("error")){
-				SaiMailTool.sendAiAlert(resJson.getString("error"));
+				SaiMailTool.sendAiAlert("error during ai api call (chat): \n"+resJson.getString("error"));
 				return error(503,resJson.getString("error"));
 			}
 			SaiTool.addTokensHistory(getGrant(), moduleName, resJson.optJSONObject(AITools.USAGE_KEY));
@@ -690,7 +690,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		}else{
 			JSONObject jsonResponse = AITools.aiCaller(getGrant(), AITools.SPECIALISATION_NEED_JSON, template!=null?new String(template):"", historic,false,true);
 			if(jsonResponse.has("error")){
-				SaiMailTool.sendAiAlert(jsonResponse.getString("error"));
+				SaiMailTool.sendAiAlert("error during ai api call (genJson): \n"+jsonResponse.getString("error"));
 				return error(503,jsonResponse.getString("error"));
 			}
 			
@@ -814,7 +814,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			
 			JSONObject jsonResponse = AITools.aiCaller(getGrant(), AITools.SPECIALISATION_UPDATE_JSON+" "+objs/*getModuleObjects(moduleName).toString()*/, template!=null?new String(template):"", historic,false,true);
 			if(jsonResponse.has("error")){
-				SaiMailTool.sendAiAlert(jsonResponse.getString("error"));
+				SaiMailTool.sendAiAlert("error during ai api call (genUpdateJson): \n"+jsonResponse.getString("error"));
 				return error(503,jsonResponse.getString("error"));
 			}
 			//AppLog.info("jsonResponse: "+jsonResponse.toString(1));
