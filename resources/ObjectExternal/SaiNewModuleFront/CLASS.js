@@ -63,7 +63,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             return false;
         }
     }
-    async setModuleNameForm() {
+   async setModuleNameForm() {
     	this.currentState = "moduleNameForm";
         let ctn = $("#sainewmodulefront");
 
@@ -284,7 +284,31 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
     
     async exampleHint() {
-	    // Shall redo it ...
+	    const examples = $("#sainewmodulefront_examples .simai-example");
+    
+	    if (examples.length === 0) return;
+	    
+	    $("#exampleHint").addClass("simai-disabledButton");
+	    
+	    const delayBetween = 120;
+	    const animationDuration = 600;
+	    
+	    examples.each((index, example) => {
+	        setTimeout(() => {
+	            const $example = $(example);
+	            
+	            $example.addClass("simai-example-glow");
+	            
+	            setTimeout(() => {
+	                $example.removeClass("simai-example-glow");
+	                
+	                if (index === examples.length - 1) {
+	                    $("#exampleHint").removeClass("simai-disabledButton");
+	                }
+	            }, animationDuration);
+	            
+	        }, index * delayBetween);
+	    });
     }
 
     async sendMessage() {
@@ -626,7 +650,16 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        if (this.showJson) {
 	            app.SaiTools.setJsonValidation(() => app.prepareJson(app), res,"#sainewmodulefront_dialog");
 	        } else {
-	            app.prepareJson(app, res[1]);
+	        	let strJson = res[1];
+	        	
+	        	let eval_js;
+				try {
+				    eval_js = eval('(' + strJson + ')'); // 'eval' categorized as harmful ...
+				} catch (err) {
+				    // ignore
+				}
+
+	            app.prepareJson(app, JSON.stringify(eval_js, null, 2)); // pass it as a string ??
 	        }
         } catch (e) {
         	// supposely session's timeout
@@ -646,6 +679,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async prepareJson(app, jsonValue = {}) {
+    	console.warn("prepareJson -\n"+jsonValue);
         let ctn = $("#sainewmodulefront");
         if (this.showJson) {
             const editor = window.ace.edit("jsonEditor");
@@ -671,24 +705,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	                undo: false,
 	                pinable: false
 	            });
-	            // retry quickly
-	            let resBis = await this.SaiTools.callApi({ action: "prepareJson", json: jsonValue });
-	        	if (resBis?.error) {
-	        		// same but don't retry -> back to home ?
-	        		$view.widget.toast({
-		                level: "error",
-		                content: $T("SAI_ERR_404_JSON_BIS"),
-		                position: "top",
-		                align: "right",
-		                duration: 4500,
-		                undo: false,
-		                pinable: false
-		            });
-		            
-		            this.setChatInteraction(); // back to chat without historic (so keep module name)
-		            return;
-	        	}
-	        	res = resBis;
+	            this.setChatInteraction(); // back to chat without historic (so keep module name)
+		        return;
             }
             console.log("Preparing JSON with : " + JSON.stringify(res));
             app.createObjs(app, res.objects);
@@ -1367,7 +1385,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 					.append(copyBtn);
 				
 				if (ex.saiSaeImage!=null)
-					actionBar.append(`<i style="margin-left:-32px; opacity:0.5" class="fas fa-image" title="${$T("SAI_TOOLTIP_EXAMPLE_IMAGE")}"></i>`)
+					actionBar.append(`<i style="margin-left:-32px; opacity:0.5" class="fas fa-image" title="${$T("SAI_TOOLTIP_EXAMPLE_IMAGE")}"></i>`);
 				
 				actionBar
 					.append(

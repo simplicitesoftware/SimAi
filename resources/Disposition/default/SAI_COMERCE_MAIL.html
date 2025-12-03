@@ -1,5 +1,15 @@
 <!-- Model mail commerce template -->
 <h2>Une nouvelle instance IA a été créée</h2>
 <p> Contact: {{FirstName}} {{LastName}} - {{Email}}</p>
-<p> Demande initiale: {{{Request}}}{{#image_url}}Image_1{{/image_url}}</p>
-<p> Echanges complets en pièce jointe</p>
+<p> Demande initiale: {{Request}}{{#image_url}}<img src="{{image_url}}" alt="Image" />{{/image_url}}</p>
+<details>
+    <summary>échanges complets avec l'IA</summary>
+    {{#prompts}}
+    {{#user}}
+    <p>{{FirstName}} {{LastName}}: <br>{{content}}{{#image_url}}<img src="{{image_url}}" alt="Image" />{{/image_url}}</p>
+    {{/user}}
+    {{^user}}
+    <p>Assistant: <br>{{content}}</p>
+    {{/user}}
+    {{/prompts}}
+</details>
