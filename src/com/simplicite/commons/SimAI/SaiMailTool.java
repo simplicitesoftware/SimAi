@@ -21,7 +21,15 @@ public class SaiMailTool implements java.io.Serializable {
 	private static final String INSTANCE_URL = System.getenv("supervisorUrl");
 	
 	
-	
+	public static void sendCommercialEmail(String body, JSONArray prompts){
+		AppLog.info("sendCommercialEmail: \n"+prompts.toString(1));
+		JSONObject params = new JSONObject();
+		params.put("type",MAIL_BUSINESS);
+		params.put("body",body);
+		params.put("subject","[IA] nouvelle demande d'instance par IA");
+		params.put("prompts",prompts);
+		send(params);
+	}
 	public static void sendCommercialEmail(String body){
 		JSONObject params = new JSONObject();
 		params.put("type",MAIL_BUSINESS);
@@ -46,7 +54,7 @@ public class SaiMailTool implements java.io.Serializable {
 		send(params);
 	}
 	public static void sendAiAlert(String error){
-		String body = "The AI API call from "+Globals.getApplicationURL()+ "has encountered an error: \n"+error;
+		String body = "The AI API call on instance "+System.getenv("instName")+" has encountered an error: <br>"+error.replace("\n","<br>");
 		JSONObject params = new JSONObject();
 		params.put("type",MAIL_TECHNICAL);
 		params.put("subject","[AI] Provider API Error");

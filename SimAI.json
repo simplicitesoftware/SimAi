@@ -4,7 +4,7 @@
  "item": {
   "mdl_name": "SimAI",
   "mdl_prefix": "sai",
-  "mdl_version": "0.7",
+  "mdl_version": "1.1",
   "mdl_type": null,
   "mdl_icon": null,
   "mdl_url": "{\n    \"origin\": {\"uri\": \"https://github.com/simplicitesoftware/SimAi.git\"},\n    \"type\": \"git\",\n    \"branch\": \"dev\"\n}",
@@ -3755,7 +3755,7 @@
       "obo_btn_updall": "0",
       "obo_btn_delall": "0",
       "obo_btn_merge": "0",
-      "obo_btn_save": null,
+      "obo_btn_save": false,
       "obo_btn_saveclose": false,
       "obo_btn_savenew": false,
       "obo_btn_savecopy": false,
@@ -5734,6 +5734,30 @@
        "path": "resources/ObjectExternal/SaiUpdateModuleFront/CLASS.js",
        "mime": "text/javascript",
        "name": "CLASS.js"
+      },
+      "res_image": null,
+      "row_module_id__mdl_name": "SimAI"
+     }
+    },
+    {
+     "object": "Resource",
+     "userkey": "ObjectInternal(SaiContact)~ANY~CLASS",
+     "item": {
+      "res_object": {
+       "item": {"obo_name": "SaiContact"},
+       "icon": "fas/cube",
+       "label": "Business object",
+       "userkeylabel": "SaiContact",
+       "object": "ObjectInternal"
+      },
+      "res_type": "JS",
+      "res_lang": "ANY",
+      "res_code": "CLASS",
+      "res_cached": false,
+      "res_file": {
+       "path": "resources/ObjectInternal/SaiContact/CLASS.js",
+       "mime": "text/javascript",
+       "name": "class.js"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
