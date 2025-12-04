@@ -109,11 +109,15 @@ Management of commercial contact and module registration.
 | `saiCntModuleId` link to **`Module`**                        | id                                       | yes*     | yes       |          | -                                                                                |
 | _Ref. `saiCntModuleId.mdl_name`_                             | _regexp(100)_                            |          |           |          | _Module name_                                                                    |
 | _Ref. `saiCntModuleId.mdl_xml`_                              | _document_                               |          |           |          | _Module file_                                                                    |
-| `saiCntSended`                                               | boolean                                  | yes      |           |          | -                                                                                |
 | `saiCntDeletion`                                             | datetime                                 |          |           |          | -                                                                                |
 | `saiCntViewhomeId` link to **`ViewHome`**                    | id                                       |          |           |          | -                                                                                |
 | _Ref. `saiCntViewhomeId.viw_name`_                           | _char(100)_                              |          |           |          | -                                                                                |
 | `saiCntNow`                                                  | datetime                                 |          |           |          | -                                                                                |
+
+### Custom actions
+
+* `genXMLModules`: 
+* `SaiContactEmail`: 
 
 `SaiApplicationExample` business object definition
 --------------------------------------------------
@@ -128,6 +132,8 @@ Chat prompt examples
 | `saiSaeTitleEnglish`                                         | char(100)                                | yes*     | yes       |          | -                                                                                |
 | `saiSaePrompt`                                               | text(10000)                              |          | yes       |          | -                                                                                |
 | `saiSaePromptEnglish`                                        | text(10000)                              |          | yes       |          | -                                                                                |
+| `saiSaeHasImage`                                             | boolean                                  |          | yes       |          | -                                                                                |
+| `saiSaeImage`                                                | image                                    |          | yes       |          | -                                                                                |
 
 `SaiCreateModuleApi` external object definition
 -----------------------------------------------

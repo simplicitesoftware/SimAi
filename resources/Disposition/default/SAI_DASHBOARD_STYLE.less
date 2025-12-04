@@ -15,7 +15,8 @@
 	align-items: start;
 	justify-content: start;
 	gap: 24px;
-	width: 100%;
+	// width: 100%;
+	width: 50%;
 	padding: 1rem;
 	background: #f9f8f7;
 	
@@ -53,8 +54,10 @@
 		gap: 32px;
 			
 		.dashboard-card {
-			width: 400px;
-			height: 250px;
+			// width: 400px;
+			// height: 250px;
+			width: 350px;
+			height: 200px;
 			padding: 12px;
 			font-size: 18px;
 			
@@ -127,3 +130,17 @@
 		}
 	}
 }
+
+/* THIS SECTION OVERRIDES SIMPLICITE NATIVE STYLES */
+.objext { // [class*="HomeContact"]
+	display: flex !important;
+	gap: 16px !important;
+	
+	#contact {
+		width: 50% !important;
+	}
+}
+
+
+
+

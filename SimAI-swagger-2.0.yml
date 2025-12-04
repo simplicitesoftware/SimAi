@@ -64,8 +64,56 @@ paths:
         description: Search filter for Sae prompt english
         type: string
         required: false
+      - in: query
+        name: saiSaeHasImage
+        description: Search filter for Sae has image
+        type: boolean
+        required: false
+      - in: query
+        name: saiSaeImage
+        description: Search filter for Sae image
+        type: string
+        required: false
       tags:
       - SaiApplicationExample
+  /rest/SaiContact/{row_id}/action:genXMLModules:
+    get:
+      summary: Call a custom action for a SaiContact business object record or for
+        all records
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-saicontact-action-genxmlmodules
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ActionResult'
+          description: Success in calling the custom action
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - SaiContact
   /login:
     get:
       summary: Login (obtain bearer token)
@@ -273,6 +321,44 @@ paths:
           description: Unauthorized
       tags:
       - session
+  /rest/SaiContact/{row_id}/action:SaiContactEmail:
+    get:
+      summary: Call a custom action for a SaiContact business object record or for
+        all records
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-saicontact-action-saicontactemail
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ActionResult'
+          description: Success in calling the custom action
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - SaiContact
   /rest/SaiContact/{row_id}:
     post:
       summary: Create a new SaiContact business object record
@@ -532,11 +618,6 @@ paths:
         type: string
         required: false
       - in: query
-        name: saiCntSended
-        description: Search filter for sended
-        type: boolean
-        required: false
-      - in: query
         name: saiCntDeletion
         description: Search filter for Deletion
         type: string
@@ -622,29 +703,6 @@ definitions:
       Management of commercial contact and module registration.
     type: object
     properties:
-      saiCntSended:
-        description: sended
-        type: boolean
-      saiCntViewhomeId__viw_name:
-        description: Home page Name
-        type: string
-        maxLength: 100
-      saiContactName:
-        description: Name
-        type: string
-        maxLength: 100
-      saiContactEmail:
-        description: Email
-        type: string
-        maxLength: 100
-      saiCntViewhomeId:
-        description: Home page
-        type: string
-        maxLength: 11
-      saiContactComment:
-        description: Comment
-        type: string
-        maxLength: 1000
       saiCntModuleId:
         description: Module
         type: string
@@ -656,11 +714,23 @@ definitions:
         description: Module name
         type: string
         maxLength: 100
+      saiCntViewhomeId__viw_name:
+        description: Home page Name
+        type: string
+        maxLength: 100
       saiCntDeletion:
         description: Deletion
         type: string
         maxLength: 19
         example: yyyy-MM-dd HH:mm:ss
+      saiContactName:
+        description: Name
+        type: string
+        maxLength: 100
+      saiContactEmail:
+        description: Email
+        type: string
+        maxLength: 100
       row_id:
         description: Unique technical row ID
         type: string
@@ -669,11 +739,19 @@ definitions:
         description: Phone
         type: string
         maxLength: 100
+      saiCntViewhomeId:
+        description: Home page
+        type: string
+        maxLength: 11
       saiCntNow:
         description: Now
         type: string
         maxLength: 19
         example: yyyy-MM-dd HH:mm:ss
+      saiContactComment:
+        description: Comment
+        type: string
+        maxLength: 1000
   PlaceMapData:
     description: Places map data
     type: object
@@ -713,6 +791,12 @@ definitions:
         description: Unique technical row ID
         type: string
         maxLength: 11
+      saiSaeHasImage:
+        description: Sae has image
+        type: boolean
+      saiSaeImage:
+        description: Sae image
+        type: object
   ActionResult:
     description: Action result
     type: object

@@ -61,29 +61,6 @@ components:
         Management of commercial contact and module registration.
       type: object
       properties:
-        saiCntSended:
-          description: sended
-          type: boolean
-        saiCntViewhomeId__viw_name:
-          description: Home page Name
-          type: string
-          maxLength: 100
-        saiContactName:
-          description: Name
-          type: string
-          maxLength: 100
-        saiContactEmail:
-          description: Email
-          type: string
-          maxLength: 100
-        saiCntViewhomeId:
-          description: Home page
-          type: string
-          maxLength: 11
-        saiContactComment:
-          description: Comment
-          type: string
-          maxLength: 1000
         saiCntModuleId:
           description: Module
           type: string
@@ -95,11 +72,23 @@ components:
           description: Module name
           type: string
           maxLength: 100
+        saiCntViewhomeId__viw_name:
+          description: Home page Name
+          type: string
+          maxLength: 100
         saiCntDeletion:
           description: Deletion
           type: string
           maxLength: 19
           example: yyyy-MM-dd HH:mm:ss
+        saiContactName:
+          description: Name
+          type: string
+          maxLength: 100
+        saiContactEmail:
+          description: Email
+          type: string
+          maxLength: 100
         row_id:
           description: Unique technical row ID
           type: string
@@ -108,11 +97,19 @@ components:
           description: Phone
           type: string
           maxLength: 100
+        saiCntViewhomeId:
+          description: Home page
+          type: string
+          maxLength: 11
         saiCntNow:
           description: Now
           type: string
           maxLength: 19
           example: yyyy-MM-dd HH:mm:ss
+        saiContactComment:
+          description: Comment
+          type: string
+          maxLength: 1000
     PlaceMapData:
       description: Places map data
       type: object
@@ -152,6 +149,12 @@ components:
           description: Unique technical row ID
           type: string
           maxLength: 11
+        saiSaeHasImage:
+          description: Sae has image
+          type: boolean
+        saiSaeImage:
+          description: Sae image
+          type: object
     ActionResult:
       description: Action result
       type: object
@@ -300,8 +303,67 @@ paths:
         name: saiSaePromptEnglish
         description: Search filter for Sae prompt english
         required: false
+      - schema:
+          type: boolean
+        in: query
+        name: saiSaeHasImage
+        description: Search filter for Sae has image
+        required: false
+      - schema:
+          type: string
+        in: query
+        name: saiSaeImage
+        description: Search filter for Sae image
+        required: false
       tags:
       - SaiApplicationExample
+  /rest/SaiContact/{row_id}/action:genXMLModules:
+    get:
+      summary: Call a custom action for a SaiContact business object record or for
+        all records
+      security:
+      - bearerAuth: []
+      operationId: obj-saicontact-action-genxmlmodules
+      responses:
+        '200':
+          description: Success in calling the custom action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - SaiContact
   /login:
     get:
       summary: Login (obtain bearer token)
@@ -547,6 +609,53 @@ paths:
                 $ref: '#/components/schemas/Error401'
       tags:
       - session
+  /rest/SaiContact/{row_id}/action:SaiContactEmail:
+    get:
+      summary: Call a custom action for a SaiContact business object record or for
+        all records
+      security:
+      - bearerAuth: []
+      operationId: obj-saicontact-action-saicontactemail
+      responses:
+        '200':
+          description: Success in calling the custom action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error400'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error401'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error500'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error404'
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        required: true
+      tags:
+      - SaiContact
   /rest/SaiContact/{row_id}:
     post:
       summary: Create a new SaiContact business object record
@@ -854,12 +963,6 @@ paths:
         in: query
         name: saiCntModuleId__mdl_xml
         description: Search filter for Module file
-        required: false
-      - schema:
-          type: boolean
-        in: query
-        name: saiCntSended
-        description: Search filter for sended
         required: false
       - schema:
           type: string

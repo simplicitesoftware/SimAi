@@ -63,7 +63,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             return false;
         }
     }
-    async setModuleNameForm() {
+   async setModuleNameForm() {
     	this.currentState = "moduleNameForm";
         let ctn = $("#sainewmodulefront");
 
@@ -113,13 +113,12 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async setChatInteraction() {
-    await this.SaiTools.callApi({}, "initTokensHistory");
-
+    	await this.SaiTools.callApi({}, "initTokensHistory");
     	
 	    this.currentState = "chatInteraction";
 	    let dialog = $("#sainewmodulefront_dialog").addClass("sai_front_dialog");
 	    dialog.html("");
-	    
+
 	    dialog.append(
 	        $("<div/>")
 	            .attr("id", "sai_helpPin")
@@ -227,7 +226,12 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	    subCtn.append(genButton);
 	
 	    dialog.append(subCtn);
-	    dialog.append(this.SaiTools.createTips($T("SAI_TIP_PROMPT")));
+	    
+	    let dialogBottom = $("<div class='sai-dialog-bottom'></div>");
+	    dialogBottom.append(this.SaiTools.createTips($T("SAI_TIP_PROMPT"),true));
+	    dialogBottom.append(this.SaiTools.createDataWarning($T("SAI_DATA_PRIVACY_TITLE"), $T("SAI_DATA_PRIVACY_TEXT")));
+	    
+	    dialog.append(dialogBottom);
 	
 	    dialog.find("#chatContainer").append(
 	        AiJsTools.getDisplayBotMessage(`${$T("SAI_BOT_MESSAGE")}`)
@@ -280,7 +284,31 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
     
     async exampleHint() {
-	    // Shall redo it ...
+	    const examples = $("#sainewmodulefront_examples .simai-example");
+    
+	    if (examples.length === 0) return;
+	    
+	    $("#exampleHint").addClass("simai-disabledButton");
+	    
+	    const delayBetween = 120;
+	    const animationDuration = 600;
+	    
+	    examples.each((index, example) => {
+	        setTimeout(() => {
+	            const $example = $(example);
+	            
+	            $example.addClass("simai-example-glow");
+	            
+	            setTimeout(() => {
+	                $example.removeClass("simai-example-glow");
+	                
+	                if (index === examples.length - 1) {
+	                    $("#exampleHint").removeClass("simai-disabledButton");
+	                }
+	            }, animationDuration);
+	            
+	        }, index * delayBetween);
+	    });
     }
 
     async sendMessage() {
@@ -622,7 +650,16 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        if (this.showJson) {
 	            app.SaiTools.setJsonValidation(() => app.prepareJson(app), res,"#sainewmodulefront_dialog");
 	        } else {
-	            app.prepareJson(app, res[1]);
+	        	let strJson = res[1];
+	        	
+	        	let eval_js;
+				try {
+				    eval_js = eval('(' + strJson + ')'); // 'eval' categorized as harmful ...
+				} catch (err) {
+				    // ignore
+				}
+
+	            app.prepareJson(app, JSON.stringify(eval_js, null, 2)); // pass it as a string ??
 	        }
         } catch (e) {
         	// supposely session's timeout
@@ -642,6 +679,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     }
 
     async prepareJson(app, jsonValue = {}) {
+    	console.warn("prepareJson -\n"+jsonValue);
         let ctn = $("#sainewmodulefront");
         if (this.showJson) {
             const editor = window.ace.edit("jsonEditor");
@@ -667,24 +705,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	                undo: false,
 	                pinable: false
 	            });
-	            // retry quickly
-	            let resBis = await this.SaiTools.callApi({ action: "prepareJson", json: jsonValue });
-	        	if (resBis?.error) {
-	        		// same but don't retry -> back to home ?
-	        		$view.widget.toast({
-		                level: "error",
-		                content: $T("SAI_ERR_404_JSON_BIS"),
-		                position: "top",
-		                align: "right",
-		                duration: 4500,
-		                undo: false,
-		                pinable: false
-		            });
-		            
-		            this.setChatInteraction(); // back to chat without historic (so keep module name)
-		            return;
-	        	}
-	        	res = resBis;
+	            this.setChatInteraction(); // back to chat without historic (so keep module name)
+		        return;
             }
             console.log("Preparing JSON with : " + JSON.stringify(res));
             app.createObjs(app, res.objects);
@@ -740,7 +762,9 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             $("<img/>")
             .attr("src", "")
             .attr("id", "mermaidImage")
+            .addClass("transparent-image")
         );
+        let viz = false;
         for (let obj of objects) {
         	
         	try {
@@ -748,6 +772,11 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	                action: "genObj",
 	                objName: obj,
 	            });
+	            
+	            if (!viz) {
+	            	$("#mermaidImage").removeClass("transparent-image");
+	            	viz = true;
+	            }
 	            mermaidText += "class " + mermaidObj.name + " {\n";
 	
 	            let objectFields = [];
@@ -1308,7 +1337,6 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	async attachExamples(dialogContainer) {
 		let exampleList = $("<div/>").attr("id", "sainewmodulefront_examples");
 		
-		
 		let exampleBO = $app.getBusinessObject("SaiApplicationExample");
 		
 		let e = await exampleBO.search(list => {
@@ -1337,16 +1365,41 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 						$("<div/>").addClass("example-title").text(title)
 					);
 				
+				let imageURL = null;
+				if (ex.saiSaeImage!=null)
+				    imageURL = $app.imageURL("SaiApplicationExample","saiSaeImage", ex.row_id, ex.saiSaeImage, false);
+					
 				let copyBtn = $("<button/>").addClass("example-copy")
 					.append(`<i class="fas fa-eye" title="${$T("SAI_TOOLTIP_COPY")}"></i>`)
-					.on("click", () => { this.SaiTools.openPromptModal(title,prompt) }); /*navigator.clipboard.writeText(prompt);*/
+					.on("click", async () => {
+						let base64Image = null;
+						if (imageURL)
+							base64Image = await this.convertImageToBase64(imageURL);
+						
+						this.SaiTools.openPromptModal(title,prompt,base64Image);
+					});
 				
 				let actionBar = $("<div/>").addClass("example-actionbar");
 				
 				actionBar
-					.append(copyBtn)
+					.append(copyBtn);
+				
+				if (ex.saiSaeImage!=null)
+					actionBar.append(`<i style="margin-left:-32px; opacity:0.5" class="fas fa-image" title="${$T("SAI_TOOLTIP_EXAMPLE_IMAGE")}"></i>`);
+				
+				actionBar
 					.append(
-						$("<button/>").addClass("actionButton-blue").addClass("simai-safe-navigation").text($T("SAI_USE_EXAMPLE")).on("click", this.SaiTools.applyExamplePrompt(prompt))
+						$("<button/>")
+							.addClass("actionButton-blue")
+							.addClass("simai-safe-navigation")
+							.text($T("SAI_USE_EXAMPLE"))
+							.on("click", async () => {
+								let base64Image = null;
+								if (imageURL)
+									base64Image = await this.convertImageToBase64(imageURL);
+								
+								this.SaiTools.applyExamplePrompt(prompt,base64Image)();
+							})
 					);
 				
 				let toggledPart = $("<div/>")
@@ -1684,4 +1737,22 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
     	}
     }
 	
+	async convertImageToBase64(url) {
+	    return new Promise((resolve, reject) => {
+	        let imgElt = new Image();
+	        imgElt.crossOrigin = "anonymous";
+	        
+	        imgElt.onload = function() {
+	            try {
+	                let b64 = $view.widget.getBase64Image(imgElt, "image/png");
+	                resolve(`data:image/png;base64,${b64}`);
+	            } catch (e) {
+	                reject(e);
+	            }
+	        };
+	        
+	        imgElt.onerror = () => reject(new Error("Failed to load image"));
+	        imgElt.src = url;
+	    });
+	}
 };
