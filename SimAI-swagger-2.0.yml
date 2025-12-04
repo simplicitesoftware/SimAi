@@ -2,7 +2,7 @@
 # / __(_)_ __  _ __| (_)__(_) |_ /_/
 # \__ \ | '  \| '_ \ | / _| |  _/ -_)
 # |___/_|_|_|_| .__/_|_\__|_|\__\___|
-#             |_| Module: SimAI 1.1
+#             |_| Module: SimAI 1.2
 basePath: /api
 paths:
   /rest/SaiApplicationExample:
@@ -836,7 +836,7 @@ info:
     email: contact@simplicitesoftware.com
   description: API for module SimAI
   title: SimAI
-  version: '1.1'
+  version: '1.2'
 tags:
 - name: SaiApplicationExample
   description: Application example

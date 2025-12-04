@@ -4,10 +4,10 @@
  "item": {
   "mdl_name": "SimAI",
   "mdl_prefix": "sai",
-  "mdl_version": "1.1",
+  "mdl_version": "1.2",
   "mdl_type": null,
   "mdl_icon": null,
-  "mdl_url": "{\n    \"origin\": {\"uri\": \"https://github.com/simplicitesoftware/SimAi.git\"},\n    \"type\": \"git\",\n    \"branch\": \"master\"\n}",
+  "mdl_url": "{\n    \"origin\": {\"uri\": \"https://github.com/simplicitesoftware/SimAi.git\"},\n    \"type\": \"git\",\n    \"branch\": \"dev\"\n}",
   "mdl_comment": "**SimAI** is an addon of [AiBySimplicite](https://github.com/simplicitesoftware/module_ai) containing a simplified business process for automatic module generation.\n\n## Installation\n\n### Classic\n1. Make sure you have the `AiBySimplicite` module installed\n2. Add this module in your Simplicite instance\n3. Create a user and configure SAI_CREATE_MODULE rights\n\n### Portainer\nIn docker compose add the environement parameter to: \n* Import [`SimThemes`](https://github.com/simplicitesoftware/module-theming), [`AIBySimplicite`](https://github.com/simplicitesoftware/module_ai.git) and [`SimAi`](https://github.com/CBimont/SimAi.git) with dataset and unit test to import examples and create user.\n* Define the AI parameters:\n```json\n{\n     \"completion_url\": \"\",\n     \"bot_name\": \"\",\n     \"code_max_token\": \"\",\n     \"provider\": \"\",\n     \"api_key\": \"\",\n     \"default_max_token\": \"\",\n     \"showDataDisclaimer\": true,\n     \"data_number\": \"\",\n     \"hist_depth\": \"\",\n     \"model\": \"\",\n     \"stt_url\": \"\",\n     \"ping_url\": \"\"\n}\n```\n* Define user information `usrName` and `password`.\n#### Example:\n```\nenvironment:\n      MODULES_IMPORT_SPEC: |\n        title: \"AI External\"\n        modules:\n          - name: \"SimThemes\"\n            version: \"0.3\"\n            git:\n              uri: \"https://github.com/simplicitesoftware/module-theming\"\n          - name: \"AIBySimplicite\"\n            version: \"0.31\"\n            git:\n              uri: \"https://github.com/simplicitesoftware/module_ai.git\"\n              branch: \"simplifiedProcess\"\n          - name: \"SimAi\"\n            version: \"0.4\"\n            datasets: true \n            unittests: true\n            git:\n              uri: \"https://github.com/CBimont/SimAi.git\"\n\n        \n      SIMPLICITE_SYSPARAM_AI_API_PARAM: |\n        {\n         \"completion_url\": \"https://api.mistral.ai/v1/chat/completions\",\n         \"bot_name\": \"George\",\n         \"code_max_token\": \"2000\",\n         \"provider\": \"Mistral AI\",\n         \"api_key\": \"${mistral_api_key}\",\n         \"default_max_token\": \"5000\",\n         \"showDataDisclaimer\": true,\n         \"data_number\": \"3\",\n         \"hist_depth\": \"3\",\n         \"model\": \"pixtral-12b-2409\",\n         \"stt_url\": \"\",\n         \"ping_url\": \"https://api.mistral.ai/v1/models\"\n        }\n      usrName: \"${user_name}\"\n      password: \"${user_password}\"\n```\n\n`SaiContactWidget` widget definition\n------------------------------------\n\nWidget for home page (contact)\n\n`createAiUser` unit test\n-------------------------\n\nCreate a new user granted to process with `usrName` and `password` environment variable, dedicated for docker compose auto deployment."
  },
  "links": [
@@ -3421,7 +3421,7 @@
       "ofa_name": "SaiContact-1",
       "ofa_position": 1,
       "ofa_title": false,
-      "ofa_ui": "<div>\n  <div class=\"text\" data-text=\"SAI_CONTACT_INTRO\"><\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactName\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactEmail\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactPhone\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-8\">\n      <div class=\"field\" data-field=\"saiContactComment\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-autoopen=\"false\" data-field=\"saiCntDeletion\"><\/div>\n      <div class=\"field\" data-field=\"saiCntNow\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntSended\"><\/div>\n      <div class=\"field\" data-field=\"saiCntViewhomeId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntViewhomeId__viw_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_xml\"><\/div>\n    <\/div>\n  <\/div>\n<\/div>",
+      "ofa_ui": "<div>\n  <div class=\"text\" data-text=\"SAI_CONTACT_INTRO\"><\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactName\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactEmail\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"field\" data-field=\"saiContactPhone\"><\/div>\n    <\/div>\n  <\/div>\n  <div class=\"row\">\n    <div class=\"col-sm-8\">\n      <div class=\"field\" data-field=\"saiContactComment\"><\/div>\n    <\/div>\n    <div class=\"col-sm-4\">\n      <div class=\"action\" data-action=\"SaiContactEmail\"><\/div>\n      <div class=\"field\" data-autoopen=\"false\" data-field=\"saiCntDeletion\"><\/div>\n      <div class=\"field\" data-field=\"saiCntNow\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntSended\"><\/div>\n      <div class=\"field\" data-field=\"saiCntViewhomeId\"><\/div>\n      <div class=\"field\" data-field=\"saiCntViewhomeId__viw_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_name\"><\/div>\n      <div class=\"field\" data-field=\"saiCntModuleId__mdl_xml\"><\/div>\n    <\/div>\n  <\/div>\n<\/div>",
       "ofa_icon": "star",
       "row_module_id__mdl_name": "SimAI"
      }
@@ -5745,7 +5745,7 @@
      "item": {
       "res_object": {
        "item": {"obo_name": "SaiContact"},
-       "icon": "fas/cube",
+       "icon": "img/system/business_object",
        "label": "Business object",
        "userkeylabel": "SaiContact",
        "object": "ObjectInternal"
@@ -5757,7 +5757,7 @@
       "res_file": {
        "path": "resources/ObjectInternal/SaiContact/CLASS.js",
        "mime": "text/javascript",
-       "name": "class.js"
+       "name": "CLASS.js"
       },
       "res_image": null,
       "row_module_id__mdl_name": "SimAI"
