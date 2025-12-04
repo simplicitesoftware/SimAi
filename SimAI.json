@@ -3755,7 +3755,7 @@
       "obo_btn_updall": "0",
       "obo_btn_delall": "0",
       "obo_btn_merge": "0",
-      "obo_btn_save": true,
+      "obo_btn_save": false,
       "obo_btn_saveclose": false,
       "obo_btn_savenew": false,
       "obo_btn_savecopy": false,
