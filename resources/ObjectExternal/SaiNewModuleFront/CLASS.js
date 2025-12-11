@@ -698,7 +698,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             	// only 404 is possible there
             	$view.widget.toast({
 	                level: "warning",
-	                content: $T("SAI_ERR_404_JSON"),
+	                content: $T("SAI_ERR_404_JSON_BIS"),
 	                position: "top",
 	                align: "right",
 	                duration: 4000,
@@ -711,17 +711,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             console.log("Preparing JSON with : " + JSON.stringify(res));
             app.createObjs(app, res.objects);
         } catch (e) {
-            console.log("error", e);
-	        $view.widget.toast({
-	            level: "error",
-	            content: $T("SAI_ERR_404_JSON_BIS"),
-	            position: "top",
-	            align: "right",
-	            duration: 4500,
-	            undo: false,
-	            pinable: false
-	        });
-	        // exit only ?? sending back to chat (no historic) ??
+            console.error("Error :", e);
+	        // sending back to chat (no historic) ??
 	        this.setChatInteraction();
 	        return;
         }
