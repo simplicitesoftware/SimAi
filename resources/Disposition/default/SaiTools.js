@@ -44,6 +44,23 @@ class  SaiTools {
 		loaderBody.append(customLoader);
 		loaderBody.append(message);
 	}
+	attachTinyLoader(ctn) {
+		let tinyLoader = $("<div/>").attr("id","sai-tinyloader").addClass("custom-loader");
+		tinyLoader
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") )
+			.append( $("<div/>").addClass("custom-loader-line") );
+		ctn.append(tinyLoader);
+	}
+	detachTinyLoader() {
+		$("#sai-tinyloader").remove();
+		// is that all ?
+	}
 	createTips(tipText="", inline=false) {
 		let tipSection = $("<div/>").addClass("tip-section");
 		tipSection.append($(tipText)); // passed texts are supposed to be HTML formatted ...

@@ -743,6 +743,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
             .addClass("simai-contextualHelp")
             .text(`${$T("SAI_MODULE_UML")}`)
         );
+        
+        this.SaiTools.attachTinyLoader(dialog); // ensure #sai-tinyloader is properly placed
 
         let mermaidText = "classDiagram\n direction RL\n";
 
@@ -790,6 +792,7 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	                const svg = `data:image/svg+xml;base64,${$app.base64Encode(res.svg)}`;
 	                $("#sainewmodulefront").find("img").attr("src", svg);
 	            });
+	            
         	} catch (e) {
         		// supposely session's timeout
 	    		$view.widget.toast({
@@ -801,6 +804,8 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 		            undo: false,
 		            pinable: false
 		        });
+		        
+		        this.SaiTools.detachTinyLoader();
 		        
 		        // reload page should send back to the CHAT
 		        await this.forcedReloadPage();
@@ -837,8 +842,12 @@ Simplicite.UI.ExternalObjects.SaiNewModuleFront = class extends(
 	        dialog.append(interactiveBox);
 	        
 	        dialog.append(this.SaiTools.createTips($T("SAI_TIP_UML")));
-        
+	        
+        	this.SaiTools.detachTinyLoader();
+        	
 		} catch (e) {
+			this.SaiTools.detachTinyLoader();
+			
 			// supposely session's timeout
     		$view.widget.toast({
 	            level: "error",
