@@ -502,12 +502,17 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		) {
 		String domainId =new JSONObject(getGrant().getUserSystemParam("AI_CURRENT_MODULE_GEN")).getString("domainId");
 		int domainOrder = getInitialDomainOrder(domainId);
+		
 		JSONObject jsonObjects = new JSONObject(json);
-		if(Tool.isEmpty(jsonObjects)) return error(404,"Invalid json");
+		if(!jsonObjects.has("classes") && jsonObjects.has("uml") ){
+			jsonObjects = jsonObjects.getJSONObject("uml");
+		}
+		if(Tool.isEmpty(jsonObjects) || !jsonObjects.has("classes")) return error(404,"Invalid json");
 		List<String> objects = new ArrayList<>();
 		JSONObject jsonToGen = new JSONObject();
 		jsonToGen.put(AIModel.JSON_LINK_KEY, jsonObjects.optJSONArray(AIModel.JSON_LINK_KEY,new JSONArray()));
 		JSONObject classes = new JSONObject();
+		
 		for(Object object : jsonObjects.getJSONArray("classes")){
 
 			JSONObject jsonObj = (JSONObject) object;

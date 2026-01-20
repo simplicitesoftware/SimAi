@@ -430,7 +430,7 @@ En résumé, ce module décrit comment les commandes, les produits et les utilis
 		return """
 Here is the given JSON template with the UML class diagram for the order application extrapolated and completed with the data:
 ```json
-{
+{"uml":{
   "classes": [
     {
       "name": "User",
@@ -689,7 +689,7 @@ Here is the given JSON template with the UML class diagram for the order applica
         "type": "ManyToOne"
     }
   ]
-}
+}}
 ```
 This JSON template represents the UML class diagram for the order application, with the classes, their attributes, relationships, and enumerations defined. The relationships between classes indicate that a user has many orders (OneToMany), and each order contains many products (ManyToMany). The enumeration for the order status has values "Pending" (P), "Shipped" (S), and "Cancelled" (C) with corresponding colors orange, green, and red.
 				""";
