@@ -697,6 +697,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			SaiTool.addTokensHistory(getGrant(), moduleName, jsonResponse.optJSONObject(AITools.USAGE_KEY));
 			result = AITools.parseJsonResponse(jsonResponse);
 		}
+		AppLog.info("result:\n"+result);
 		List<String> listResult = new ArrayList<>();
 		
 		JSONObject jsonres = AITools.getValidJson(result);
