@@ -559,7 +559,7 @@ Here is the given JSON template with the UML class diagram for the order applica
       "en": "Order",
       "fr": "Commande",
       "comment": "Represents the orders placed by users",
-      "attributes": [
+      "ATTRIBUTES": [
         {
           "name": "id",
           "fr": "Identifiant",
@@ -667,7 +667,7 @@ Here is the given JSON template with the UML class diagram for the order applica
       ]
     }
   ],
-  "relationshipS": [
+  "relatIONshipS": [
     {
       "class1": "User",
       "class2": "Order",

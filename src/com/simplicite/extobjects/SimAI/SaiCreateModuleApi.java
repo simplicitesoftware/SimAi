@@ -496,7 +496,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	private Object updateObj(JSONObject jsonObj, String objName,JSONObject json,Grant g) throws GetException, ValidateException, SaveException{
 		return createObj(jsonObj, objName,json,g);
 	}
-	private String hasKeyIgnoreCase(JSONObject jsonObjects, String key) {*
+	private String hasKeyIgnoreCase(JSONObject jsonObjects, String key) {
 		if(Tool.isEmpty(key)) return null;
 		key = key.toLowerCase();
 		Set<String> keys = jsonObjects.keySet();
