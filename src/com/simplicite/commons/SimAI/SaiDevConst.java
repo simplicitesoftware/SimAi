@@ -318,7 +318,7 @@ En résumé, ce module décrit comment les commandes, les produits et les utilis
           "en": "Product",
           "fr": "Produit",
           "comment": "Represents the products available in the application",
-          "attributes": [
+          "ATTRIBUTES": [
             {
               "name": "ProCode",
               "fr": "Code produit",
@@ -394,7 +394,7 @@ En résumé, ce module décrit comment les commandes, les produits et les utilis
           ]
         }
       ],
-        "relationships": [
+        "RELATIONSHIPS": [
           {
             "class1": "User",
             "class2": "Order",
@@ -559,7 +559,7 @@ Here is the given JSON template with the UML class diagram for the order applica
       "en": "Order",
       "fr": "Commande",
       "comment": "Represents the orders placed by users",
-      "ATTRIBUTES": [
+      "attributes": [
         {
           "name": "id",
           "fr": "Identifiant",
@@ -667,7 +667,7 @@ Here is the given JSON template with the UML class diagram for the order applica
       ]
     }
   ],
-  "relatIONshipS": [
+  "relationships": [
     {
       "class1": "User",
       "class2": "Order",

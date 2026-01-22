@@ -501,9 +501,12 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		key = key.toLowerCase();
 		Set<String> keys = jsonObjects.keySet();
 		for(String k : keys){
+			
 			if(key.equals(k.toLowerCase())){
+				AppLog.info("k: "+k.toLowerCase()+"== key: "+key);
 				return k;
 			}
+			AppLog.info("k: "+k.toLowerCase()+"!= key: "+key);
 		}
 		return null;
 	}
@@ -516,13 +519,18 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		
 		JSONObject jsonObjects = new JSONObject(json);
 		String keyClasses = hasKeyIgnoreCase(jsonObjects, "classes");
-		if(!Tool.isEmpty(keyClasses)){
+		if(Tool.isEmpty(keyClasses)){
 			Set<String> keys = jsonObjects.keySet();
 			for(String key: keys){
-				keyClasses =hasKeyIgnoreCase(jsonObjects.getJSONObject(key), "classes");
-				if(!Tool.isEmpty(keyClasses)){
-					jsonObjects = jsonObjects.getJSONObject(key);
-					break;
+				AppLog.info("prepareJson key: "+key);
+				JSONObject jsonValue = jsonObjects.optJSONObject(key);
+				if(!Tool.isEmpty(jsonValue)){
+					AppLog.info("jsonValue: "+jsonValue.toString(1));
+					keyClasses = hasKeyIgnoreCase(jsonValue, "classes");
+					if(!Tool.isEmpty(keyClasses)){
+						jsonObjects = jsonValue;
+						break;
+					}
 				}
 
 			}
@@ -530,7 +538,7 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		}
 		if(Tool.isEmpty(jsonObjects) || Tool.isEmpty(keyClasses)) return error(404,"Invalid json");
 		if(!"classes".equals(keyClasses)){
-			jsonObjects.put("classes", jsonObjects.getJSONObject(keyClasses));
+			jsonObjects.put("classes", jsonObjects.optJSONArray(keyClasses));
 			jsonObjects.remove(keyClasses);
 			keyClasses = "classes";
 		}
