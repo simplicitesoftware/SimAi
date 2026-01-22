@@ -430,8 +430,8 @@ En résumé, ce module décrit comment les commandes, les produits et les utilis
 		return """
 Here is the given JSON template with the UML class diagram for the order application extrapolated and completed with the data:
 ```json
-{"uml":{
-  "classes": [
+{"nothing":{
+  "clasSes": [
     {
       "name": "User",
       "trigram": "USR",
@@ -667,7 +667,7 @@ Here is the given JSON template with the UML class diagram for the order applica
       ]
     }
   ],
-  "relationships": [
+  "relationshipS": [
     {
       "class1": "User",
       "class2": "Order",

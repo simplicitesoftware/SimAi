@@ -496,6 +496,17 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	private Object updateObj(JSONObject jsonObj, String objName,JSONObject json,Grant g) throws GetException, ValidateException, SaveException{
 		return createObj(jsonObj, objName,json,g);
 	}
+	private String hasKeyIgnoreCase(JSONObject jsonObjects, String key) {*
+		if(Tool.isEmpty(key)) return null;
+		key = key.toLowerCase();
+		Set<String> keys = jsonObjects.keySet();
+		for(String k : keys){
+			if(key.equals(k.toLowerCase())){
+				return k;
+			}
+		}
+		return null;
+	}
 	@RESTServiceOperation(method = "post", path = "/prepareJson", desc = "prepare json for create object")
 	public Object prepareJson(
 		@RESTServiceParam(name = "json", type = "string", desc = "JSON string", required = true, in="body") String json
@@ -504,10 +515,25 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		int domainOrder = getInitialDomainOrder(domainId);
 		
 		JSONObject jsonObjects = new JSONObject(json);
-		if(!jsonObjects.has("classes") && jsonObjects.has("uml") ){
-			jsonObjects = jsonObjects.getJSONObject("uml");
+		String keyClasses = hasKeyIgnoreCase(jsonObjects, "classes");
+		if(!Tool.isEmpty(keyClasses)){
+			Set<String> keys = jsonObjects.keySet();
+			for(String key: keys){
+				keyClasses =hasKeyIgnoreCase(jsonObjects.getJSONObject(key), "classes");
+				if(!Tool.isEmpty(keyClasses)){
+					jsonObjects = jsonObjects.getJSONObject(key);
+					break;
+				}
+
+			}
+			
 		}
-		if(Tool.isEmpty(jsonObjects) || !jsonObjects.has("classes")) return error(404,"Invalid json");
+		if(Tool.isEmpty(jsonObjects) || Tool.isEmpty(keyClasses)) return error(404,"Invalid json");
+		if(!"classes".equals(keyClasses)){
+			jsonObjects.put("classes", jsonObjects.getJSONObject(keyClasses));
+			jsonObjects.remove(keyClasses);
+			keyClasses = "classes";
+		}
 		List<String> objects = new ArrayList<>();
 		JSONObject jsonToGen = new JSONObject();
 		jsonToGen.put(AIModel.JSON_LINK_KEY, jsonObjects.optJSONArray(AIModel.JSON_LINK_KEY,new JSONArray()));
