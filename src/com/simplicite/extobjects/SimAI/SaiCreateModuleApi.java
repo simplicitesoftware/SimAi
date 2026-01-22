@@ -744,9 +744,13 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			listResult = AITools.getJSONBlock(result,getGrant());
 			
 			if(Tool.isEmpty(listResult)){
+				AppLog.error("Sorry AI do not return interpretable json:"+result);
+				return error(500,"Sorry AI do not return interpretable json");
+			}else{
 				jsonres = AITools.getValidJson(listResult.get(1));
 				if(Tool.isEmpty(jsonres)){
-					return error(500,"Sorry AI do not return interpretable json:"+result);
+					AppLog.error("Sorry AI do not return interpretable json:"+listResult.get(1));
+					return error(500,"Sorry AI do not return interpretable json");
 				}else{
 					listResult.set(1,jsonres.toString());
 				}
