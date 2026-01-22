@@ -496,21 +496,57 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 	private Object updateObj(JSONObject jsonObj, String objName,JSONObject json,Grant g) throws GetException, ValidateException, SaveException{
 		return createObj(jsonObj, objName,json,g);
 	}
+	private String hasKeyIgnoreCase(JSONObject jsonObjects, String key) {
+		if(Tool.isEmpty(key)) return null;
+		key = key.toLowerCase();
+		Set<String> keys = jsonObjects.keySet();
+		for(String k : keys){
+			
+			if(key.equals(k.toLowerCase())){
+				AppLog.info("k: "+k.toLowerCase()+"== key: "+key);
+				return k;
+			}
+			AppLog.info("k: "+k.toLowerCase()+"!= key: "+key);
+		}
+		return null;
+	}
 	@RESTServiceOperation(method = "post", path = "/prepareJson", desc = "prepare json for create object")
 	public Object prepareJson(
 		@RESTServiceParam(name = "json", type = "string", desc = "JSON string", required = true, in="body") String json
 		) {
 		String domainId =new JSONObject(getGrant().getUserSystemParam("AI_CURRENT_MODULE_GEN")).getString("domainId");
 		int domainOrder = getInitialDomainOrder(domainId);
+		
 		JSONObject jsonObjects = new JSONObject(json);
-		if(!jsonObjects.has("classes") && jsonObjects.has("uml") ){
-			jsonObjects = jsonObjects.getJSONObject("uml");
+		String keyClasses = hasKeyIgnoreCase(jsonObjects, "classes");
+		if(Tool.isEmpty(keyClasses)){
+			Set<String> keys = jsonObjects.keySet();
+			for(String key: keys){
+				AppLog.info("prepareJson key: "+key);
+				JSONObject jsonValue = jsonObjects.optJSONObject(key);
+				if(!Tool.isEmpty(jsonValue)){
+					AppLog.info("jsonValue: "+jsonValue.toString(1));
+					keyClasses = hasKeyIgnoreCase(jsonValue, "classes");
+					if(!Tool.isEmpty(keyClasses)){
+						jsonObjects = jsonValue;
+						break;
+					}
+				}
+
+			}
+			
 		}
-		if(Tool.isEmpty(jsonObjects) || !jsonObjects.has("classes")) return error(404,"Invalid json");
+		if(Tool.isEmpty(jsonObjects) || Tool.isEmpty(keyClasses)) return error(404,"Invalid json");
+		if(!"classes".equals(keyClasses)){
+			jsonObjects.put("classes", jsonObjects.optJSONArray(keyClasses));
+			jsonObjects.remove(keyClasses);
+			keyClasses = "classes";
+		}
 		List<String> objects = new ArrayList<>();
 		JSONObject jsonToGen = new JSONObject();
 		jsonToGen.put(AIModel.JSON_LINK_KEY, jsonObjects.optJSONArray(AIModel.JSON_LINK_KEY,new JSONArray()));
 		JSONObject classes = new JSONObject();
+		
 		for(Object object : jsonObjects.getJSONArray("classes")){
 
 			JSONObject jsonObj = (JSONObject) object;
@@ -708,9 +744,13 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 			listResult = AITools.getJSONBlock(result,getGrant());
 			
 			if(Tool.isEmpty(listResult)){
+				AppLog.error("Sorry AI do not return interpretable json:"+result);
+				return error(500,"Sorry AI do not return interpretable json");
+			}else{
 				jsonres = AITools.getValidJson(listResult.get(1));
 				if(Tool.isEmpty(jsonres)){
-					return error(500,"Sorry AI do not return interpretable json:"+result);
+					AppLog.error("Sorry AI do not return interpretable json:"+listResult.get(1));
+					return error(500,"Sorry AI do not return interpretable json");
 				}else{
 					listResult.set(1,jsonres.toString());
 				}

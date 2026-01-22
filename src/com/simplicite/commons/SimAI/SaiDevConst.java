@@ -318,7 +318,7 @@ En résumé, ce module décrit comment les commandes, les produits et les utilis
           "en": "Product",
           "fr": "Produit",
           "comment": "Represents the products available in the application",
-          "attributes": [
+          "ATTRIBUTES": [
             {
               "name": "ProCode",
               "fr": "Code produit",
@@ -394,7 +394,7 @@ En résumé, ce module décrit comment les commandes, les produits et les utilis
           ]
         }
       ],
-        "relationships": [
+        "RELATIONSHIPS": [
           {
             "class1": "User",
             "class2": "Order",
@@ -428,270 +428,166 @@ En résumé, ce module décrit comment les commandes, les produits et les utilis
   }
 	public static String getFakeResponse() {
 		return """
-Here is the given JSON template with the UML class diagram for the order application extrapolated and completed with the data:
-```json
-{
-  "classes": [
+ertainly! Below is the UML class diagram in JSON format, optimized for automatic integration into Java tools. This JSON structure is strictly valid, accurate, and consistent with the previous exchanges.
+    
+    ```json
     {
-      "name": "User",
-      "trigram": "USR",
-      "bootstrapIcon": "person",
-      "en": "User",
-      "fr": "Utilisateur",
-      "comment": "Represents the application users",
-      "attributes": [
-        {
-          "name": "id",
-          "fr": "Identifiant",
-          "en": "Identifier",
-          "key": true,
-          "required": true,
-          "type": "Integer",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "username",
-          "fr": "Nom d'utilisateur",
-          "en": "Username",
-          "key": false,
-          "required": true,
-          "type": "Short text",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "email",
-          "fr": "Email",
-          "en": "Email",
-          "key": false,
-          "required": true,
-          "type": "Email",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "password",
-          "fr": "Mot de passe",
-          "en": "Password",
-          "key": false,
-          "required": true,
-          "type": "Password",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "address",
-          "fr": "Adresse",
-          "en": "Address",
-          "key": false,
-          "required": false,
-          "type": "Long text",
-          "isStatus": false,
-          "class": ""
-        }
-      ]
-    },
-    {
-      "name": "Product",
-      "trigram": "PRO",
-      "bootstrapIcon": "box",
-      "en": "Product",
-      "fr": "Produit",
-      "comment": "Represents the products available in the application",
-      "attributes": [
-        {
-          "name": "id",
-          "fr": "Identifiant",
-          "en": "Identifier",
-          "key": true,
-          "required": true,
-          "type": "Integer",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "name",
-          "fr": "Nom",
-          "en": "Name",
-          "key": false,
-          "required": true,
-          "type": "Short text",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "description",
-          "fr": "Description",
-          "en": "Description",
-          "key": false,
-          "required": false,
-          "type": "Long text",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "price",
-          "fr": "Prix",
-          "en": "Price",
-          "key": false,
-          "required": true,
-          "type": "Decimal",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "stock_count",
-          "fr": "Stock",
-          "en": "Stock count",
-          "key": false,
-          "required": true,
-          "type": "Integer",
-          "isStatus": false,
-          "class": ""
-        }
-      ]
-    },
-    {
-      "name": "Order",
-      "trigram": "ORD",
-      "bootstrapIcon": "shopping-cart",
-      "en": "Order",
-      "fr": "Commande",
-      "comment": "Represents the orders placed by users",
-      "attributes": [
-        {
-          "name": "id",
-          "fr": "Identifiant",
-          "en": "Identifier",
-          "key": true,
-          "required": true,
-          "type": "Integer",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "user_id",
-          "fr": "Utilisateur",
-          "en": "User",
-          "key": false,
-          "required": true,
-          "type": "Integer",
-          "isStatus": false,
-          "class": "User"
-        },
-        {
-          "name": "order_date",
-          "fr": "Date de commande",
-          "en": "Order date",
-          "key": false,
-          "required": true,
-          "type": "Date and time",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "total_amount",
-          "fr": "Montant total",
-          "en": "Total amount",
-          "key": false,
-          "required": true,
-          "type": "Decimal",
-          "isStatus": false,
-          "class": ""
-        },
-        {
-          "name": "status",
-          "fr": "Statut",
-          "en": "Status",
-          "key": false,
-          "required": true,
-          "type": "Enumeration",
-          "isStatus": false,
-          "Enumeration": {
-            "Values": [
-              {
-                "code": "P",
-                "en": "Pending",
-                "fr": "En attente",
-                "color": "orange"
-              },
-              {
-                "code": "S",
-                "en": "Shipped",
-                "fr": "Expédié",
-                "color": "green"
-              },
-              {
-                "code": "C",
-                "en": "Cancelled",
-                "fr": "Annulé",
-                "color": "red"
-              }
-            ]
-          },
-          "class": ""
-        }
-      ]
-    },
-    {
-      "name": "Favoris",
-      "trigram": "FRV",
-      "bootstrapIcon": "heart",
-      "en": "Favorite",
-      "fr": "Favoris",
-      "comment": "Représente un produit ajouté aux favoris par un utilisateur.",
-      "attributes": [
-          {
-              "name": "FavoriteId",
-              "fr": "Identifiant du favori",
-              "en": "Favorite ID",
-              "key": true,
-              "required": true,
-              "type": "Integer"
-          },
-          {
-              "name": "UserId",
-              "fr": "Identifiant de l'utilisateur",
-              "en": "User ID",
-              "required": true,
-              "type": "Integer"
-          },
-          {
-              "name": "ProductId",
-              "fr": "Identifiant du produit",
-              "en": "Product ID",
-              "required": true,
-              "type": "Integer"
-          }
-      ]
+     "classes": [
+     {
+     "name": "Vehicle",
+     "attributes": [
+     {"name": "id", "type": "Integer"},
+     {"name": "brand", "type": "String"},
+     {"name": "model", "type": "String"},
+     {"name": "year", "type": "Integer"},
+     {"name": "vin", "type": "String"},
+     {"name": "registrationNumber", "type": "String"},
+     {"name": "currentStatus", "type": "Enum", "values": ["active", "maintenance", "out_of_service"]},
+     {"name": "location", "type": "String"},
+     {"name": "mileage", "type": "Integer"},
+     {"name": "lastMaintenanceDate", "type": "Date"},
+     {"name": "cost", "type": "Double"}
+     ],
+     "relationships": [
+     {"name": "Driver", "multiplicity": "1..*"},
+     {"name": "Mission", "multiplicity": "1..*"},
+     {"name": "Maintenance", "multiplicity": "1..*"},
+     {"name": "Expense", "multiplicity": "1..*"},
+     {"name": "Alert", "multiplicity": "1..*"}
+     ]
+     },
+     {
+     "name": "Driver",
+     "attributes": [
+     {"name": "id", "type": "Integer"},
+     {"name": "name", "type": "String"},
+     {"name": "licenseNumber", "type": "String"},
+     {"name": "phoneNumber", "type": "String"},
+     {"name": "email", "type": "String"},
+     {"name": "currentMission", "type": "Mission"}
+     ],
+     "relationships": [
+     {"name": "Mission", "multiplicity": "1..*"}
+     ]
+     },
+     {
+     "name": "Mission",
+     "attributes": [
+     {"name": "id", "type": "Integer"},
+     {"name": "driver", "type": "Driver"},
+     {"name": "vehicle", "type": "Vehicle"},
+     {"name": "startTime", "type": "Date"},
+     {"name": "endTime", "type": "Date"},
+     {"name": "route", "type": "String"},
+     {"name": "status", "type": "Enum", "values": ["scheduled", "in_progress", "completed", "canceled"]}
+     ],
+     "relationships": [
+     {"name": "Driver", "multiplicity": "1"},
+     {"name": "Vehicle", "multiplicity": "1"}
+     ]
+     },
+     {
+     "name": "Maintenance",
+     "attributes": [
+     {"name": "id", "type": "Integer"},
+     {"name": "vehicle", "type": "Vehicle"},
+     {"name": "type", "type": "String"},
+     {"name": "date", "type": "Date"},
+     {"name": "cost", "type": "Double"},
+     {"name": "mechanic", "type": "Mechanic"}
+     ],
+     "relationships": [
+     {"name": "Mechanic", "multiplicity": "1"}
+     ]
+     },
+     {
+     "name": "Mechanic",
+     "attributes": [
+     {"name": "id", "type": "Integer"},
+     {"name": "name", "type": "String"},
+     {"name": "phoneNumber", "type": "String"},
+     {"name": "email", "type": "String"}
+     ]
+     },
+     {
+     "name": "User",
+     "attributes": [
+     {"name": "id", "type": "Integer"},
+     {"name": "username", "type": "String"},
+     {"name": "password", "type": "String"},
+     {"name": "role", "type": "Enum", "values": ["admin", "fleet_manager", "driver", "partner"]}
+     ],
+     "relationships": [
+     {"name": "Partner", "multiplicity": "1"}
+     ]
+     },
+     {
+     "name": "Partner",
+     "attributes": [
+     {"name": "id", "type": "Integer"},
+     {"name": "type", "type": "String"},
+     {"name": "name", "type": "String"},
+     {"name": "contactInfo", "type": "String"},
+     {"name": "user", "type": "User"}
+     ],
+     "relationships": [
+     {"name": "User", "multiplicity": "1"}
+     ]
+     },
+     {
+     "name": "Expense",
+     "attributes": [
+     {"name": "id", "type": "Integer"},
+     {"name": "type", "type": "String"},
+     {"name": "amount", "type": "Double"},
+     {"name": "date", "type": "Date"},
+     {"name": "vehicle", "type": "Vehicle"}
+     ],
+     "relationships": [
+     {"name": "Vehicle", "multiplicity": "1"}
+     ]
+     },
+     {
+     "name": "Alert",
+     "attributes": [
+     {"name": "id", "type": "Integer"},
+     {"name": "type", "type": "String"},
+     {"name": "description", "type": "String"},
+     {"name": "date", "type": "Date"},
+     {"name": "vehicle", "type": "Vehicle"}
+     ],
+     "relationships": [
+     {"name": "Vehicle", "multiplicity": "1"}
+     ]
+     },
+     {
+     "name": "Report",
+     "attributes": [
+     {"name": "id", "type": "Integer"},
+     {"name": "type", "type": "String"},
+     {"name": "period", "type": "DateRange"},
+     {"name": "data", "type": "String"}
+     ],
+     "relationships": [
+     {"name": "User", "multiplicity": "1..*"}
+     ]
+     }
+     ],
+     "relationships": [
+     {"from": "Vehicle", "to": "Driver", "multiplicity": "1..*"},
+     {"from": "Driver", "to": "Mission", "multiplicity": "1..*"},
+     {"from": "Vehicle", "to": "Mission", "multiplicity": "1..*"},
+     {"from": "Vehicle", "to": "Maintenance", "multiplicity": "1..*"},
+     {"from": "Maintenance", "to": "Mechanic", "multiplicity": "1"},
+     {"from": "User", "to": "Partner", "multiplicity": "1"},
+     {"from": "Vehicle", "to": "Expense", "multiplicity": "1..*"},
+     {"from": "Vehicle", "to": "Alert", "multiplicity": "1..*"},
+     {"from": "User", "to": "Report", "multiplicity": "1..*"}
+     ]
     }
-  ],
-  "relationships": [
-    {
-      "class1": "User",
-      "class2": "Order",
-      "type": "OneToMany"
-    },
-    {
-      "class1": "Order",
-      "class2": "Product",
-      "type": "ManyToMany"
-    },
-    {
-        "class1": "User",
-        "class2": "Favoris",
-        "type": "OneToMany"
-    },
-    {
-        "class1": "Favoris",
-        "class2": "Product",
-        "type": "ManyToOne"
-    }
-  ]
-}
-```
-This JSON template represents the UML class diagram for the order application, with the classes, their attributes, relationships, and enumerations defined. The relationships between classes indicate that a user has many orders (OneToMany), and each order contains many products (ManyToMany). The enumeration for the order status has values "Pending" (P), "Shipped" (S), and "Cancelled" (C) with corresponding colors orange, green, and red.
+    ```
+    
+    This JSON structure represents the UML class diagram for the Vehicle Fleet Management Application, including classes, their attributes, and relationships. It is designed to be used by a parser for automatic integration into Java tools.
 				""";
 	}
 }

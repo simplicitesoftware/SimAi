@@ -195,6 +195,12 @@ public class SaiTool implements java.io.Serializable {
 		permission.put("prm_object","ShortCut:"+shcId);
 		permission.put("row_module_id",appMldId);
 		AITools.createOrUpdateWithJson("Permission",permission,g);
+		//add permission to shortcut to nobody to hide it
+		permission = new JSONObject();
+		permission.put("prm_group_id",GroupDB.getGroupId("SAI_NOBODY"));
+		permission.put("prm_object","ShortCut:"+shcId);
+		permission.put("row_module_id",appMldId);
+		AITools.createOrUpdateWithJson("Permission",permission,g);
 
 		// add external object to Domain
 		JSONObject domain = new JSONObject();
@@ -203,6 +209,7 @@ public class SaiTool implements java.io.Serializable {
 		domain.put("map_order",10);
 		domain.put("row_module_id",appMldId);
 		AITools.createOrUpdateWithJson("Map",domain,g);
+
 		// add permisions
 
 		JSONObject permissionFlds = new JSONObject();
