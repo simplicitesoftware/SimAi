@@ -538,9 +538,28 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		}
 		if(Tool.isEmpty(jsonObjects) || Tool.isEmpty(keyClasses)) return error(404,"Invalid json");
 		if(!"classes".equals(keyClasses)){
-			jsonObjects.put("classes", jsonObjects.optJSONArray(keyClasses));
+			jsonObjects.put("classes", jsonObjects.get(keyClasses));
 			jsonObjects.remove(keyClasses);
 			keyClasses = "classes";
+		}
+		// check if keyClasses is a JSONArray
+		Object objclasse = jsonObjects.get(keyClasses);
+		if(objclasse instanceof JSONObject jsonObject){
+			JSONArray array = new JSONArray();
+			Set<String> keys = jsonObject.keySet();
+			for(String key : keys){
+				JSONObject jsonObj = jsonObject.optJSONObject(key);
+				if(!Tool.isEmpty(jsonObj)){
+					if(!jsonObj.has("name")){
+						jsonObj.put("name", key);
+					}
+					array.put(jsonObj);
+				}
+			}
+			if(Tool.isEmpty(array)) return error(404,"Invalid json");
+			jsonObjects.put("classes", array);
+		}else if(!(objclasse instanceof JSONArray)){
+			return error(404,"Invalid json");
 		}
 		List<String> objects = new ArrayList<>();
 		JSONObject jsonToGen = new JSONObject();
