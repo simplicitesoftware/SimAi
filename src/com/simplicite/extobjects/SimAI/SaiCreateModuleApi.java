@@ -538,9 +538,28 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		}
 		if(Tool.isEmpty(jsonObjects) || Tool.isEmpty(keyClasses)) return error(404,"Invalid json");
 		if(!"classes".equals(keyClasses)){
-			jsonObjects.put("classes", jsonObjects.optJSONArray(keyClasses));
+			jsonObjects.put("classes", jsonObjects.get(keyClasses));
 			jsonObjects.remove(keyClasses);
 			keyClasses = "classes";
+		}
+		// check if keyClasses is a JSONArray
+		Object objclasse = jsonObjects.get(keyClasses);
+		if(objclasse instanceof JSONObject jsonObject){
+			JSONArray array = new JSONArray();
+			Set<String> keys = jsonObject.keySet();
+			for(String key : keys){
+				JSONObject jsonObj = jsonObject.optJSONObject(key);
+				if(!Tool.isEmpty(jsonObj)){
+					if(!jsonObj.has("name")){
+						jsonObj.put("name", key);
+					}
+					array.put(jsonObj);
+				}
+			}
+			if(Tool.isEmpty(array)) return error(404,"Invalid json");
+			jsonObjects.put("classes", array);
+		}else if(!(objclasse instanceof JSONArray)){
+			return error(404,"Invalid json");
 		}
 		List<String> objects = new ArrayList<>();
 		JSONObject jsonToGen = new JSONObject();
@@ -727,7 +746,20 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		if(SaiDevConst.isWithoutAiDebug()){
 			result = SaiDevConst.getFakeResponse();
 		}else{
-			JSONObject jsonResponse = AITools.aiCaller(getGrant(), AITools.SPECIALISATION_NEED_JSON, template!=null?new String(template):"", historic,false,true);
+			//JSONObject providerParams = new JSONObject("{\"top_p\":\"\",\"frequency_penalty\":\"0\",\"presence_penalty\":\"1.2\",\"temperature\":\"0.3\"}");
+			JSONObject jsonResponse = AITools.aiCaller(getGrant(), AITools.SPECIALISATION_NEED_JSON, template!=null?new String(template):"", historic,/*providerParams,*/false,true);
+			String objdis = ObjectCore.getDisplay("AppTestReturnJSON","ENU");
+			if(!Tool.isEmpty(objdis) && !"AppTestReturnJSON".equals(objdis)) {
+				ObjectDB obj = getGrant().getTmpObject("AppTestReturnJSON");
+				obj.resetFilters();
+				try {
+					obj.getTool().getForCreate();
+					obj.setFieldValue("appApptestreturnjsonResponse", jsonResponse.toString(1));
+					obj.getTool().validateAndCreate();
+				} catch (GetException| ValidateException| SaveException e) {
+					AppLog.error(e,getGrant());
+				}
+			}
 			if(jsonResponse.has("error")){
 				SaiMailTool.sendAiAlert("error during ai api call (genJson): \n"+jsonResponse.getString("error"));
 				return error(503,jsonResponse.getString("error"));
