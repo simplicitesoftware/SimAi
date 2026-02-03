@@ -746,7 +746,8 @@ public class SaiCreateModuleApi extends com.simplicite.webapp.services.RESTServi
 		if(SaiDevConst.isWithoutAiDebug()){
 			result = SaiDevConst.getFakeResponse();
 		}else{
-			JSONObject jsonResponse = AITools.aiCaller(getGrant(), AITools.SPECIALISATION_NEED_JSON, template!=null?new String(template):"", historic,false,true);
+			JSONObject providerParams = new JSONObject("{\"top_p\":\"\",\"frequency_penalty\":\"0\",\"presence_penalty\":\"1.2\",\"temperature\":\"0.3\"}");
+			JSONObject jsonResponse = AITools.aiCaller(getGrant(), AITools.SPECIALISATION_NEED_JSON, template!=null?new String(template):"", historic,providerParams,false,true);
 			if(jsonResponse.has("error")){
 				SaiMailTool.sendAiAlert("error during ai api call (genJson): \n"+jsonResponse.getString("error"));
 				return error(503,jsonResponse.getString("error"));

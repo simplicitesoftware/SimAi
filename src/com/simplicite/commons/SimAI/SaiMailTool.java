@@ -64,7 +64,6 @@ public class SaiMailTool implements java.io.Serializable {
 	}
 	private static void send(JSONObject params){
 		try {
-			
 			APITool api = new APITool(INSTANCE_URL,SUPERVISOR_USER,SUPERVISOR_PWD,"UTF_8",true);
 			api.login(false);
 			String token = api.getAuthToken();

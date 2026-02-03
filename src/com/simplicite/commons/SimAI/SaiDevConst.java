@@ -428,528 +428,166 @@ En résumé, ce module décrit comment les commandes, les produits et les utilis
   }
 	public static String getFakeResponse() {
 		return """
- Voici la représentation **strictement valide en JSON** du modèle UML décrit précédemment, optimisée pour une intégration automatique dans des outils Java (comme **PlantUML**, **Eclipse UML**, ou des générateurs de code comme **JAXB** ou **MapStruct**).
-    Le JSON suit une structure **normalisée** avec des **enums**, **classes**, **relations**, et **attributs** clairement définis pour une génération de code ou une visualisation UML.
+ertainly! Below is the UML class diagram in JSON format, optimized for automatic integration into Java tools. This JSON structure is strictly valid, accurate, and consistent with the previous exchanges.
     
-    ---
-    
-    ### **`uml_model.json`**
     ```json
     {
-     "metadata": {
-     "description": "Modèle UML pour une application de gestion des emplacements vacants dans les centres commerciaux, intégrant la fréquentation piétonne et le CA des magasins.",
-     "author": "Assistant UML",
-     "version": "1.0",
-     "tools_compatible": ["PlantUML", "Eclipse UML", "JAXB", "MapStruct"]
-     },
-     "enums": {
-     "TypeEmplacement": {
-     "values": ["BOUTIQUE", "RESTAURATION", "SERVICE", "VACANT", "ESPACE_COMMERCIAL"]
-     },
-     "Visibilite": {
-     "values": ["FAIBLE", "MOYENNE", "ELEVEE"]
-     },
-     "TypeProprietaire": {
-     "values": ["PARTICULIER", "ENTREPRISE", "FRANCHISE"]
-     },
-     "StatutDemande": {
-     "values": ["EN_ATTENTE", "ACCEPTEE", "REFUSEE", "EN_NEGOCIATION"]
-     },
-     "TypePromotion": {
-     "values": ["SOLDE", "EVENT", "PARTENARIAT", "SAISONNIERE"]
-     },
-     "TypeStatutMagasin": {
-     "values": ["OUVERT", "FERME", "EN_RESTRUCTURATION"]
-     }
-     },
-     "classes": {
-     "CentreCommercial": {
+     "classes": [
+     {
+     "name": "Vehicle",
      "attributes": [
-     {"name": "nom", "type": "String", "visibility": "private"},
-     {"name": "adresse", "type": "String", "visibility": "private"},
-     {"name": "superficieTotale", "type": "float", "visibility": "private"},
-     {"name": "dateOuverture", "type": "Date", "visibility": "private"},
-     {"name": "nombreEtages", "type": "int", "visibility": "private"},
-     {"name": "emplacementsDisponibles", "type": "int", "visibility": "private"},
-     {"name": "frequentationMoyenne", "type": "int", "visibility": "private", "description": "Fréquentation piétonne moyenne mensuelle (estimée)."}
+     {"name": "id", "type": "Integer"},
+     {"name": "brand", "type": "String"},
+     {"name": "model", "type": "String"},
+     {"name": "year", "type": "Integer"},
+     {"name": "vin", "type": "String"},
+     {"name": "registrationNumber", "type": "String"},
+     {"name": "currentStatus", "type": "Enum", "values": ["active", "maintenance", "out_of_service"]},
+     {"name": "location", "type": "String"},
+     {"name": "mileage", "type": "Integer"},
+     {"name": "lastMaintenanceDate", "type": "Date"},
+     {"name": "cost", "type": "Double"}
      ],
-     "relations": [
-     {
-     "target": "Magasin",
-     "type": "ONE_TO_MANY",
-     "description": "Un centre commercial contient plusieurs magasins.",
-     "cardinality": {
-     "source": "1",
-     "target": "N"
-     }
-     },
-     {
-     "target": "GestionCentre",
-     "type": "ONE_TO_ONE",
-     "description": "Un centre a une entité de gestion dédiée.",
-     "cardinality": {
-     "source": "1",
-     "target": "1"
-     }
-     },
-     {
-     "target": "Etage",
-     "type": "ONE_TO_MANY",
-     "description": "Un centre a plusieurs étages.",
-     "cardinality": {
-     "source": "1",
-     "target": "N"
-     }
-     },
-     {
-     "target": "StatistiquesCentre",
-     "type": "ONE_TO_ONE",
-     "description": "Statistiques globales du centre (fréquentation, CA moyen, etc.).",
-     "cardinality": {
-     "source": "1",
-     "target": "1"
-     }
-     }
+     "relationships": [
+     {"name": "Driver", "multiplicity": "1..*"},
+     {"name": "Mission", "multiplicity": "1..*"},
+     {"name": "Maintenance", "multiplicity": "1..*"},
+     {"name": "Expense", "multiplicity": "1..*"},
+     {"name": "Alert", "multiplicity": "1..*"}
      ]
      },
-     "Etage": {
+     {
+     "name": "Driver",
      "attributes": [
-     {"name": "numero", "type": "int", "visibility": "private", "description": "Numéro de l'étage (ex: -1 pour sous-sol, 0 pour RDC)."},
-     {"name": "superficie", "type": "float", "visibility": "private"},
-     {"name": "emplacementsOccupes", "type": "int", "visibility": "private"},
-     {"name": "emplacementsVacants", "type": "int", "visibility": "private"},
-     {"name": "frequentationEstimee", "type": "int", "visibility": "private", "description": "Fréquentation piétonne estimée par jour."}
+     {"name": "id", "type": "Integer"},
+     {"name": "name", "type": "String"},
+     {"name": "licenseNumber", "type": "String"},
+     {"name": "phoneNumber", "type": "String"},
+     {"name": "email", "type": "String"},
+     {"name": "currentMission", "type": "Mission"}
      ],
-     "relations": [
-     {
-     "target": "CentreCommercial",
-     "type": "MANY_TO_ONE",
-     "description": "Un étage appartient à un centre commercial.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     },
-     {
-     "target": "Emplacement",
-     "type": "ONE_TO_MANY",
-     "description": "Un étage contient plusieurs emplacements.",
-     "cardinality": {
-     "source": "1",
-     "target": "N"
-     }
-     },
-     {
-     "target": "Magasin",
-     "type": "ONE_TO_MANY",
-     "description": "Un étage peut héberger plusieurs magasins.",
-     "cardinality": {
-     "source": "1",
-     "target": "N"
-     }
-     }
+     "relationships": [
+     {"name": "Mission", "multiplicity": "1..*"}
      ]
      },
-     "Emplacement": {
+     {
+     "name": "Mission",
      "attributes": [
-     {"name": "id", "type": "String", "visibility": "private", "description": "Identifiant unique (ex: 'E-01-05')."},
-     {"name": "numero", "type": "int", "visibility": "private"},
-     {"name": "superficie", "type": "float", "visibility": "private"},
-     {"name": "type", "type": "TypeEmplacement", "visibility": "private"},
-     {"name": "prixLoyerMensuel", "type": "float", "visibility": "private"},
-     {"name": "disponible", "type": "boolean", "visibility": "private"},
-     {"name": "frequentationEstimee", "type": "int", "visibility": "private", "description": "Fréquentation piétonne estimée devant l'emplacement."},
-     {"name": "visibilite", "type": "Visibilite", "visibility": "private"}
+     {"name": "id", "type": "Integer"},
+     {"name": "driver", "type": "Driver"},
+     {"name": "vehicle", "type": "Vehicle"},
+     {"name": "startTime", "type": "Date"},
+     {"name": "endTime", "type": "Date"},
+     {"name": "route", "type": "String"},
+     {"name": "status", "type": "Enum", "values": ["scheduled", "in_progress", "completed", "canceled"]}
      ],
-     "relations": [
-     {
-     "target": "Etage",
-     "type": "MANY_TO_ONE",
-     "description": "Un emplacement appartient à un étage.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     },
-     {
-     "target": "Magasin",
-     "type": "ONE_TO_ONE",
-     "description": "Un emplacement peut être occupé par un magasin ou être vacant.",
-     "cardinality": {
-     "source": "1",
-     "target": "0..1"
-     }
-     },
-     {
-     "target": "HistoriquePrix",
-     "type": "ONE_TO_ONE",
-     "description": "Historique des prix de loyer de l'emplacement.",
-     "cardinality": {
-     "source": "1",
-     "target": "1"
-     }
-     }
+     "relationships": [
+     {"name": "Driver", "multiplicity": "1"},
+     {"name": "Vehicle", "multiplicity": "1"}
      ]
      },
-     "Magasin": {
+     {
+     "name": "Maintenance",
      "attributes": [
-     {"name": "nom", "type": "String", "visibility": "private"},
-     {"name": "secteurActivite", "type": "String", "visibility": "private"},
-     {"name": "surfaceOccupee", "type": "float", "visibility": "private"},
-     {"name": "dateOuverture", "type": "Date", "visibility": "private"},
-     {"name": "caMensuelMoyen", "type": "float", "visibility": "private", "description": "Chiffre d'affaires mensuel moyen (en €)."},
-     {"name": "caAnnuelPrevu", "type": "float", "visibility": "private", "description": "CA annuel prévu (pour projection)."},
-     {"name": "frequentationInterne", "type": "int", "visibility": "private", "description": "Fréquentation moyenne de clients par jour."},
-     {"name": "noteClient", "type": "float", "visibility": "private", "description": "Note moyenne des clients (sur 5)."},
-     {"name": "contratExpiration", "type": "Date", "visibility": "private"},
-     {"name": "statut", "type": "TypeStatutMagasin", "visibility": "private"}
+     {"name": "id", "type": "Integer"},
+     {"name": "vehicle", "type": "Vehicle"},
+     {"name": "type", "type": "String"},
+     {"name": "date", "type": "Date"},
+     {"name": "cost", "type": "Double"},
+     {"name": "mechanic", "type": "Mechanic"}
      ],
-     "relations": [
-     {
-     "target": "CentreCommercial",
-     "type": "MANY_TO_ONE",
-     "description": "Un magasin est situé dans un centre commercial.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     },
-     {
-     "target": "Emplacement",
-     "type": "ONE_TO_ONE",
-     "description": "Un magasin occupe un emplacement spécifique.",
-     "cardinality": {
-     "source": "1",
-     "target": "1"
-     }
-     },
-     {
-     "target": "StatistiqueCA",
-     "type": "ONE_TO_MANY",
-     "description": "Historique des performances financières du magasin.",
-     "cardinality": {
-     "source": "1",
-     "target": "N"
-     }
-     },
-     {
-     "target": "Proprietaire",
-     "type": "ONE_TO_MANY",
-     "description": "Un propriétaire peut gérer plusieurs magasins.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     },
-     {
-     "target": "Promotion",
-     "type": "ONE_TO_MANY",
-     "description": "Promotions organisées par le magasin.",
-     "cardinality": {
-     "source": "1",
-     "target": "N"
-     }
-     }
+     "relationships": [
+     {"name": "Mechanic", "multiplicity": "1"}
      ]
      },
-     "StatistiqueCA": {
+     {
+     "name": "Mechanic",
      "attributes": [
-     {"name": "mois", "type": "String", "visibility": "private", "description": "Mois de référence (ex: 'Janvier 2023')."},
-     {"name": "caReel", "type": "float", "visibility": "private", "description": "CA réel enregistré (en €)."},
-     {"name": "objectifCA", "type": "float", "visibility": "private", "description": "Objectif CA fixé pour le mois."},
-     {"name": "ecart", "type": "float", "visibility": "private", "description": "Écart entre CA réel et objectif (en €)."},
-     {"name": "frequentationReelle", "type": "int", "visibility": "private", "description": "Fréquentation réelle mesurée."}
-     ],
-     "relations": [
-     {
-     "target": "Magasin",
-     "type": "MANY_TO_ONE",
-     "description": "Statistiques liées à un magasin spécifique.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     }
+     {"name": "id", "type": "Integer"},
+     {"name": "name", "type": "String"},
+     {"name": "phoneNumber", "type": "String"},
+     {"name": "email", "type": "String"}
      ]
      },
-     "Proprietaire": {
+     {
+     "name": "User",
      "attributes": [
-     {"name": "nom", "type": "String", "visibility": "private"},
-     {"name": "type", "type": "TypeProprietaire", "visibility": "private"},
-     {"name": "contact", "type": "String", "visibility": "private"},
-     {"name": "budgetMax", "type": "float", "visibility": "private", "description": "Budget maximal pour le loyer (en €/mois)."},
-     {"name": "preferences", "type": "String", "visibility": "private", "description": "Critères de choix (ex: 'Proximité entrée')."}
+     {"name": "id", "type": "Integer"},
+     {"name": "username", "type": "String"},
+     {"name": "password", "type": "String"},
+     {"name": "role", "type": "Enum", "values": ["admin", "fleet_manager", "driver", "partner"]}
      ],
-     "relations": [
-     {
-     "target": "Magasin",
-     "type": "ONE_TO_MANY",
-     "description": "Un propriétaire peut gérer plusieurs magasins.",
-     "cardinality": {
-     "source": "1",
-     "target": "N"
-     }
-     },
-     {
-     "target": "DemandeEmplacement",
-     "type": "ONE_TO_MANY",
-     "description": "Demandes d'emplacements formulées par le propriétaire.",
-     "cardinality": {
-     "source": "1",
-     "target": "N"
-     }
-     }
+     "relationships": [
+     {"name": "Partner", "multiplicity": "1"}
      ]
      },
-     "DemandeEmplacement": {
+     {
+     "name": "Partner",
      "attributes": [
-     {"name": "id", "type": "String", "visibility": "private", "description": "Identifiant unique de la demande."},
-     {"name": "dateCreation", "type": "Date", "visibility": "private"},
-     {"name": "statut", "type": "StatutDemande", "visibility": "private"},
-     {"name": "budgetPropose", "type": "float", "visibility": "private", "description": "Budget maximal proposé pour le loyer."},
-     {"name": "criteres", "type": "String", "visibility": "private", "description": "Critères spécifiques (ex: 'Visibilité élevée')."},
-     {"name": "priorite", "type": "int", "visibility": "private", "description": "Priorité (1 à 5)."}
+     {"name": "id", "type": "Integer"},
+     {"name": "type", "type": "String"},
+     {"name": "name", "type": "String"},
+     {"name": "contactInfo", "type": "String"},
+     {"name": "user", "type": "User"}
      ],
-     "relations": [
-     {
-     "target": "Proprietaire",
-     "type": "MANY_TO_ONE",
-     "description": "La demande émane d'un propriétaire.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     },
-     {
-     "target": "Emplacement",
-     "type": "ONE_TO_ONE",
-     "description": "Lien vers l'emplacement proposé (si attribué).",
-     "cardinality": {
-     "source": "1",
-     "target": "0..1"
-     }
-     },
-     {
-     "target": "CentreCommercial",
-     "type": "MANY_TO_ONE",
-     "description": "La demande est adressée à un centre commercial spécifique.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     }
+     "relationships": [
+     {"name": "User", "multiplicity": "1"}
      ]
      },
-     "FrequentationPietonne": {
+     {
+     "name": "Expense",
      "attributes": [
-     {"name": "date", "type": "Date", "visibility": "private"},
-     {"name": "heureDebut", "type": "Time", "visibility": "private"},
-     {"name": "heureFin", "type": "Time", "visibility": "private"},
-     {"name": "nombreVisiteurs", "type": "int", "visibility": "private", "description": "Nombre de visiteurs estimés."},
-     {"name": "sourceDonnees", "type": "String", "visibility": "private", "description": "Source (ex: 'Capteurs', 'Estimation')."}
+     {"name": "id", "type": "Integer"},
+     {"name": "type", "type": "String"},
+     {"name": "amount", "type": "Double"},
+     {"name": "date", "type": "Date"},
+     {"name": "vehicle", "type": "Vehicle"}
      ],
-     "relations": [
-     {
-     "target": "CentreCommercial",
-     "type": "MANY_TO_ONE",
-     "description": "Fréquentation globale du centre.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     },
-     {
-     "target": "Etage",
-     "type": "MANY_TO_ONE",
-     "description": "Fréquentation par étage.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     },
-     {
-     "target": "Emplacement",
-     "type": "MANY_TO_ONE",
-     "description": "Fréquentation devant un emplacement spécifique.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     },
-     {
-     "target": "Magasin",
-     "type": "MANY_TO_ONE",
-     "description": "Fréquentation devant un magasin.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     },
-     {
-     "target": "AnalyseTendances",
-     "type": "ONE_TO_MANY",
-     "description": "Analyse basée sur les données de fréquentation.",
-     "cardinality": {
-     "source": "1",
-     "target": "N"
-     }
-     }
+     "relationships": [
+     {"name": "Vehicle", "multiplicity": "1"}
      ]
      },
-     "AnalyseTendances": {
+     {
+     "name": "Alert",
      "attributes": [
-     {"name": "periode", "type": "String", "visibility": "private", "description": "Période analysée (ex: 'Trimestre 1 2023')."},
-     {"name": "tendanceFrequentation", "type": "String", "visibility": "private", "description": "Description de la tendance (ex: 'Hausse de 10%')."},
-     {"name": "impactCA", "type": "String", "visibility": "private", "description": "Impact estimé sur le CA des magasins."},
-     {"name": "recommandations", "type": "String", "visibility": "private", "description": "Recommandations pour optimiser les emplacements."}
+     {"name": "id", "type": "Integer"},
+     {"name": "type", "type": "String"},
+     {"name": "description", "type": "String"},
+     {"name": "date", "type": "Date"},
+     {"name": "vehicle", "type": "Vehicle"}
      ],
-     "relations": [
-     {
-     "target": "FrequentationPietonne",
-     "type": "MANY_TO_ONE",
-     "description": "Analyse basée sur des données de fréquentation.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     },
-     {
-     "target": "CentreCommercial",
-     "type": "MANY_TO_ONE",
-     "description": "Analyse spécifique à un centre.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     }
+     "relationships": [
+     {"name": "Vehicle", "multiplicity": "1"}
      ]
      },
-     "GestionCentre": {
+     {
+     "name": "Report",
      "attributes": [
-     {"name": "responsable", "type": "String", "visibility": "private"},
-     {"name": "contact", "type": "String", "visibility": "private"},
-     {"name": "tauxOccupationCible", "type": "float", "visibility": "private", "description": "Taux d'occupation cible (ex: 90%)."},
-     {"name": "strategieMarketing", "type": "String", "visibility": "private", "description": "Stratégie pour attirer des locataires."}
+     {"name": "id", "type": "Integer"},
+     {"name": "type", "type": "String"},
+     {"name": "period", "type": "DateRange"},
+     {"name": "data", "type": "String"}
      ],
-     "relations": [
-     {
-     "target": "CentreCommercial",
-     "type": "ONE_TO_ONE",
-     "description": "Gestion dédiée à un centre.",
-     "cardinality": {
-     "source": "1",
-     "target": "1"
-     }
-     },
-     {
-     "target": "Promotion",
-     "type": "ONE_TO_MANY",
-     "description": "Promotions organisées par le centre.",
-     "cardinality": {
-     "source": "1",
-     "target": "N"
-     }
-     }
+     "relationships": [
+     {"name": "User", "multiplicity": "1..*"}
      ]
-     },
-     "Promotion": {
-     "attributes": [
-     {"name": "nom", "type": "String", "visibility": "private"},
-     {"name": "dateDebut", "type": "Date", "visibility": "private"},
-     {"name": "dateFin", "type": "Date", "visibility": "private"},
-     {"name": "type", "type": "TypePromotion", "visibility": "private"},
-     {"name": "impactFrequentation", "type": "int", "visibility": "private", "description": "Estimation de l'impact sur la fréquentation."}
+     }
      ],
-     "relations": [
-     {
-     "target": "CentreCommercial",
-     "type": "MANY_TO_ONE",
-     "description": "Promotion organisée par le centre.",
-     "cardinality": {
-     "source": "N",
-     "target": "1"
-     }
-     },
-     {
-     "target": "Magasin",
-     "type": "MANY_TO_MANY",
-     "description": "Promotion liée à un ou plusieurs magasins.",
-     "cardinality": {
-     "source": "N",
-     "target": "N"
-     }
-     }
+     "relationships": [
+     {"from": "Vehicle", "to": "Driver", "multiplicity": "1..*"},
+     {"from": "Driver", "to": "Mission", "multiplicity": "1..*"},
+     {"from": "Vehicle", "to": "Mission", "multiplicity": "1..*"},
+     {"from": "Vehicle", "to": "Maintenance", "multiplicity": "1..*"},
+     {"from": "Maintenance", "to": "Mechanic", "multiplicity": "1"},
+     {"from": "User", "to": "Partner", "multiplicity": "1"},
+     {"from": "Vehicle", "to": "Expense", "multiplicity": "1..*"},
+     {"from": "Vehicle", "to": "Alert", "multiplicity": "1..*"},
+     {"from": "User", "to": "Report", "multiplicity": "1..*"}
      ]
-     },
-     "HistoriquePrix": {
-     "attributes": [
-     {"name": "dateMiseAJour", "type": "Date", "visibility": "private"},
-     {"name": "prixAncien", "type": "float", "visibility": "private", "description": "Prix précédent (en €/mois)."},
-     {"name": "prixNouveau", "type": "float", "visibility": "private", "description": "Nouveau prix proposé."},
-     {"name": "motif", "type": "String", "visibility": "private", "description": "Motif de la modification (ex: 'Inflation')."}
-     ],
-     "relations": [
-     {
-     "target": "Emplacement",
-     "type": "ONE_TO_ONE",
-     "description": "Historique des prix d'un emplacement.",
-     "cardinality": {
-     "source": "1",
-     "target": "1"
-     }
-     }
-     ]
-     },
-     "StatistiquesCentre": {
-     "attributes": [
-     {"name": "frequentationMoyenneAnnuelle", "type": "int", "visibility": "private", "description": "Fréquentation moyenne annuelle."},
-     {"name": "caMoyenParMagasin", "type": "float", "visibility": "private", "description": "CA moyen par magasin (en €)."},
-     {"name": "tauxOccupationActuel", "type": "float", "visibility": "private", "description": "Taux d'occupation actuel (%)."}
-     ],
-     "relations": [
-     {
-     "target": "CentreCommercial",
-     "type": "ONE_TO_ONE",
-     "description": "Statistiques globales du centre.",
-     "cardinality": {
-     "source": "1",
-     "target": "1"
-     }
-     }
-     ]
-     }
-     },
-     "diagrams": {
-     "class_diagram": {
-     "title": "Gestion des Emplacements Vacants dans les Centres Commerciaux",
-     "description": "Modèle UML complet avec fréquentation piétonne et CA des magasins.",
-     "packages": [
-     {
-     "name": "com.centrecommercial.core",
-     "classes": ["CentreCommercial", "Etage", "Emplacement", "Magasin", "StatistiqueCA"]
-     },
-     {
-     "name": "com.centrecommercial.management",
-     "classes": ["GestionCentre", "Proprietaire", "DemandeEmplacement", "Promotion"]
-     },
-     {
-     "name": "com.centrecommercial.analytics",
-     "classes": ["FrequentationPietonne", "AnalyseTendances", "StatistiquesCentre"]
-     }
-     ]
-     }
-     }
     }
     ```
     
-    ---
-    
-    ### **Caractéristiques du JSON**
-    1. **Structure Normalisée** :
-     - **Enums** définis pour les types répétitifs (ex: `TypeEmplacement`, `StatutDemande`).
-     - **Classes** avec attributs (`name`, `type`, `visibility`, `description`).
-     - **Relations** précises avec cardinalités (ex: `ONE_TO_MANY`, `MANY_TO_ONE`).
-    
+    This JSON structure represents the UML class diagram for the Vehicle Fleet Management Application, including classes, their attributes, and relationships. It is designed to be used by a parser for automatic integration into Java tools.
 				""";
 	}
 }
